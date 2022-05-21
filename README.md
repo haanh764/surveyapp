@@ -20,4 +20,3 @@ Guidlines:
 
    Access API by: `localhost:8000`
    Access Web app by: `localhost:8001`
-   
