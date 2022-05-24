@@ -130,7 +130,7 @@ dmypy.json
 .pyre/
 
 # MySQL Database
-db/
+db/data/
 
 # VsCode
 .vscode
