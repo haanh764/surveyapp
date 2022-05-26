@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// Utilities
 import { sync } from "vuex-pathify";
 
 export default {

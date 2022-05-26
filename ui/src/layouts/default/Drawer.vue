@@ -46,7 +46,6 @@ export default {
   computed: {
     ...get("user", [
       "items",
-      "dark"
     ]),
     ...get("app", [
       "version"

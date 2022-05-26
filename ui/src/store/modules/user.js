@@ -12,7 +12,7 @@ const userMenuItems = [
     title: "Settings",
     icon: "mdi-clipboard-outline",
     to: "/user/settings/"
-  } ];
+  }];
 
 const adminMenuItems = [
   {
@@ -37,17 +37,15 @@ const generalMenuItems = [
     title: "Logout",
     icon: "mdi-format-font",
     to: "/logout/"
-  } ];
+  }];
 
 const state = {
-  dark: true,
   userData: {
     accountType: 0,
     email: ""
   },
   token: "lapar",
   drawer: {
-    gradient: 0,
     mini: false
   },
   items: generalMenuItems
@@ -96,11 +94,14 @@ const actions = {
 };
 
 const getters = {
-  dark: (state) => {
-    return state.dark;
-  },
   hasLoggedIn: (state) => {
     return !!state.token;
+  },
+  hasAcceptedPrivacyPolicy: (state) => {
+    return !!state.userData.hasAcceptedPrivacyPolicy;
+  },
+  hasAcceptedTnC: (state) => {
+    return !!state.userData.hasAcceptedTnC;
   },
   userData: (state) => {
     return state.userData || {};

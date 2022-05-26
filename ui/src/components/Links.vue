@@ -27,13 +27,13 @@
     data: () => ({
       links: [
         {
+          href: "/privacy-policy",
+          text: "Privacy Policy"
+        },
+        {
           href: "/terms-and-conditions",
           text: "Terms and Conditions"
         },
-        {
-          href: "/privacy-policy",
-          text: "Privacy Policy"
-        }
       ]
     })
   };

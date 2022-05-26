@@ -5,7 +5,10 @@
     absolute
     app
   >
-    survey app meong
+    <v-img :src="logo" max-height="48" max-width="48" />
+    <span>
+      (c) {{ new Date().getFullYear() }} SurveyApp Team
+    </span>
     <links />
   </v-footer>
 </template>
@@ -20,6 +23,9 @@ export default {
   computed: {
     variables() {
       return require("@styles/variables.js");
+    },
+    logo() {
+      return require("@assets/svg/logo.svg");
     }
   }
 };

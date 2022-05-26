@@ -10,6 +10,7 @@
     flat
   >
     <v-app-bar-nav-icon
+      v-if="isDrawerShown"
       class="hidden-md-and-up"
       @click="drawer = !drawer"
     />
@@ -27,6 +28,7 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
+import { mapGetters } from 'vuex';
 
 export default {
   name: "DefaultBar",
@@ -37,9 +39,15 @@ export default {
       "drawer",
       "mini"
     ]),
+    ...mapGetters('user', [
+      'hasLoggedIn',
+    ]),
     name: get("route/name"),
     variables() {
       return require("@styles/variables.js");
+    },
+    isDrawerShown() {
+      return this.hasLoggedIn;
     }
   }
 };
