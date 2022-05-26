@@ -3,31 +3,25 @@
     id="default-app-bar"
     app
     class="v-bar--underline"
-    color="purple"
+    :color="variables.default.primaryColor"
     :fixed="true"
     :clipped-left="true"
-    :floating="true"
-    :elevate-on-scroll="true"
     height="70"
     flat
   >
-
-
-  <v-btn
-    class="ml-2"
-    min-width="0"
-    text
-    to="/"
-    exact
-  >
-  SurveyApp
-  </v-btn>
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
       @click="drawer = !drawer"
     />
-
-
+    <v-btn
+      class="ml-2"
+      min-width="0"
+      text
+      to="/"
+      exact
+    >
+      SurveyApp
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -36,16 +30,18 @@ import { get, sync } from "vuex-pathify";
 
 export default {
   name: "DefaultBar",
-
-  components: {
+  mounted() {
+    console.log(this.variables);
   },
-
   computed: {
     ...sync("app", [
       "drawer",
       "mini"
     ]),
-    name: get("route/name")
+    name: get("route/name"),
+    variables() {
+      return require("@styles/variables.js");
+    }
   }
 };
 </script>

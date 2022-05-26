@@ -22,8 +22,9 @@
           >
             <v-icon
               :large="!iconSmall"
-              v-text="icon"
-            />
+            >
+              {{ icon }}
+            </v-icon>
           </div>
 
           <slot name="heading" />
@@ -75,13 +76,26 @@ export default {
   name: "MaterialCard",
 
   props: {
-    color: String,
-    fullHeader: Boolean,
-    heading: String,
-    icon: String,
-    iconSmall: Boolean,
-    subtitle: String,
-    title: String
+    color: {
+      type: String,
+      default: "white"
+    },
+    fullHeader: {
+      type: Boolean,
+      default: true
+    },
+    heading: {
+      type: String,
+      default: ""
+    },
+    icon: {
+      type: String, default: ""
+    },
+    iconSmall: {type: Boolean, default: false},
+    subtitle: {type: String, default: ""},
+    title: {
+      type: String, default: ""
+    }
   },
 
   computed: {

@@ -12,12 +12,7 @@ const userMenuItems = [
     title: "Settings",
     icon: "mdi-clipboard-outline",
     to: "/user/settings/"
-  },
-  {
-    title: "Logout",
-    icon: "mdi-format-font",
-    to: "/logout/"
-  }];
+  } ];
 
 const adminMenuItems = [
   {
@@ -34,13 +29,15 @@ const adminMenuItems = [
     title: "Settings",
     icon: "mdi-clipboard-outline",
     to: "/admin/settings/"
-  },
+  }
+];
+
+const generalMenuItems = [
   {
     title: "Logout",
     icon: "mdi-format-font",
     to: "/logout/"
-  },
-];
+  } ];
 
 const state = {
   dark: true,
@@ -53,7 +50,7 @@ const state = {
     gradient: 0,
     mini: false
   },
-  items: [],
+  items: generalMenuItems
 };
 
 const mutations = {
@@ -89,9 +86,9 @@ const actions = {
     // 0 = user
     // 1 = admin
     if (state.userData.accountType == 0) {
-      dispatch('setItems', userMenuItems)
+      dispatch("setItems", userMenuItems.concat(generalMenuItems));
     } else if (state.userData.accountType == 1) {
-      dispatch('setItems', adminMenuItems)
+      dispatch("setItems", adminMenuItems.concat(generalMenuItems));
     }
 
 
@@ -99,10 +96,8 @@ const actions = {
 };
 
 const getters = {
-  dark: (state, getters) => {
-    return (
-      state.dark
-    );
+  dark: (state) => {
+    return state.dark;
   },
   hasLoggedIn: (state) => {
     return !!state.token;

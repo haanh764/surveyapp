@@ -1,8 +1,6 @@
 <template>
-  <div class="about">
-    <h1>This is an page</h1>
-    <p>{{ message }}</p>
-    survey membuktikan
+  <div id="user-surveys">
+    user surveys
   </div>
 </template>
 

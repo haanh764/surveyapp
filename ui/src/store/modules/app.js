@@ -1,4 +1,3 @@
-// Pathify
 import { make } from "vuex-pathify";
 
 const state = {
@@ -10,7 +9,7 @@ const state = {
 const mutations = make.mutations(state);
 
 const actions = {
-  ...make.actions(state),
+  ...make.actions(state)
 };
 
 const getters = {};

@@ -4,7 +4,7 @@
     class="fill-height text-center"
     tag="section"
   >
-  <!-- to do: check if survey has been filled, if yes show the thank you page, else show the survey page -->
+    <!-- to do: check if survey has been filled, if yes show the thank you page, else show the survey page -->
     <v-row justify="center">
       <v-col cols="auto">
         survey view

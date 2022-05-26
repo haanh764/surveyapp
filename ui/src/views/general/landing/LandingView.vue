@@ -1,8 +1,12 @@
 <template>
-  <v-container id="landing-view" class="fill-height text-center" tag="section">
+  <v-container
+    id="landing-view"
+    class="fill-height text-center"
+    tag="section"
+  >
     <v-row justify="center">
       <v-col cols="auto">
-       landing view
+        landing view
       </v-col>
     </v-row>
   </v-container>

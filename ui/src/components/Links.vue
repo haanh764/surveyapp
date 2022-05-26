@@ -16,29 +16,27 @@
           v-text="link.text"
         />
       </v-col>
-
-  
     </v-row>
   </v-container>
 </template>
 
 <script>
   export default {
-    name: 'Links',
+    name: "Links",
 
     data: () => ({
       links: [
         {
-          href: '/terms-and-conditions',
-          text: 'Terms and Conditions',
+          href: "/terms-and-conditions",
+          text: "Terms and Conditions"
         },
         {
-          href: '/privacy-policy',
-          text: 'Privacy Policy',
-        },
-      ],
-    }),
-  }
+          href: "/privacy-policy",
+          text: "Privacy Policy"
+        }
+      ]
+    })
+  };
 </script>
 
 <style lang="sass" scoped>

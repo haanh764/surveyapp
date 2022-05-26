@@ -1,12 +1,12 @@
 <template>
   <v-footer
     id="default-footer"
-    color="purple"
+    :color="variables.default.primaryColor"
     absolute
     app
   >
-  survey app meong
-  <links />
+    survey app meong
+    <links />
   </v-footer>
 </template>
 
@@ -16,7 +16,11 @@ import Links from "@/components/Links";
 
 export default {
   name: "DefaultFooter",
-
-  components: { Links }
+  components: { Links },
+  computed: {
+    variables() {
+      return require("@styles/variables.js");
+    }
+  }
 };
 </script>

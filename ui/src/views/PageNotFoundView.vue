@@ -1,10 +1,18 @@
 <template>
-  <v-container id="error-view" class="fill-height text-center" tag="section">
+  <v-container
+    id="error-view"
+    class="fill-height text-center"
+    tag="section"
+  >
     <v-row justify="center">
       <v-col cols="auto">
         page not found
         <!-- to do: check the log in state, redirect based on the user type -->
-        <v-btn depressed large to="/">
+        <v-btn
+          depressed
+          large
+          to="/"
+        >
           back to home
         </v-btn>
       </v-col>

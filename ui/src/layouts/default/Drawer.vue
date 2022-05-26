@@ -2,13 +2,13 @@
   <v-navigation-drawer
     id="default-drawer"
     v-model="drawer"
+    elevated
     :clipped="true"
     :mini-variant.sync="mini"
     mini-variant-width="80"
     app
     width="260"
   >
-
     <div class="px-2">
       <default-drawer-header />
 
@@ -18,7 +18,6 @@
       <v-divider class="mx-3 mb-2" />
       <default-drawer-toggle />
     </div>
-
   </v-navigation-drawer>
 </template>
 
@@ -47,7 +46,7 @@ export default {
   computed: {
     ...get("user", [
       "items",
-      "dark",
+      "dark"
     ]),
     ...get("app", [
       "version"

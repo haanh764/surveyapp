@@ -6,7 +6,7 @@
   >
     <v-row justify="center">
       <v-col cols="auto">
-       admin surveys view
+        admin surveys view
       </v-col>
     </v-row>
   </v-container>

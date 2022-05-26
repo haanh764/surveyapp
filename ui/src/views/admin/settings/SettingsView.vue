@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="user-settings-view"
+    id="admin-setting-view"
     fluid
     tag="section"
   >
@@ -64,7 +64,7 @@
 
 <script>
 export default { 
-  name: "UserSettingsView", 
+  name: "AdminSettingsView", 
   data() {
     return {
       formData: {

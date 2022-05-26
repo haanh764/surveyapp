@@ -14,15 +14,15 @@ const userRoutes = [
     { path: "/user/surveys", name: "user-surveys", component: () => import(/* webpackChunkName: "user-surveys" */ "@views/user/surveys/SurveysView.vue") },
     { path: "/user/surveys/:id/edit", name: "user-survey-edit", component: () => import(/* webpackChunkName: "user-survey-edit" */ "@views/user/survey-edit/SurveyEditView.vue") },
     { path: "/user/surveys/:id/", name: "user-survey-detail", component: () => import(/* webpackChunkName: "user-survey-detail" */ "@views/user/survey-detail/SurveyDetailView.vue") },
-    { path: "/user/settings", name: "user-settings", component: () => import(/* webpackChunkName: "user-settings" */ "@views/user/settings/SettingsView.vue") },
-  ]),
+    { path: "/user/settings", name: "user-settings", component: () => import(/* webpackChunkName: "user-settings" */ "@views/user/settings/SettingsView.vue") }
+  ])
 ];
 
 const adminRoutes = [
   layout("Default", [
-    { path: "/admin/surveys", name: "admin-surveys", component: () => import(/* webpackChunkName: "admin-surveys" */ "@views/user/surveys/SurveysView.vue") },
-    { path: "/admin/users", name: "admin-users", component: () => import(/* webpackChunkName: "admin-users" */ "@views/user/surveys/SurveysView.vue") },
-    { path: "/admin/settings", name: "admin-settings", component: () => import(/* webpackChunkName: "admin-settings" */ "@views/user/settings/SettingsView.vue") },
+    { path: "/admin/surveys", name: "admin-surveys", component: () => import(/* webpackChunkName: "admin-surveys" */ "@views/admin/surveys/SurveysView.vue") },
+    { path: "/admin/users", name: "admin-users", component: () => import(/* webpackChunkName: "admin-users" */ "@views/admin/users/UsersView.vue") },
+    { path: "/admin/settings", name: "admin-settings", component: () => import(/* webpackChunkName: "admin-settings" */ "@views/admin/settings/SettingsView.vue") }
   ])
 ];
 
@@ -34,15 +34,15 @@ const generalRoutes = [
     { path: "/user/login", name: "general-user-login", component: () => import(/* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue") },
     { path: "/user/signup", name: "general-user-signup", component: () => import(/* webpackChunkName: "general-user-signup" */ "@views/user/signup/SignupView.vue") },
     { path: "/admin/login", name: "general-admin-login", component: () => import(/* webpackChunkName: "general-admin-login" */ "@views/admin/login/LoginView.vue") },
-    { path: "/logout", name: "general-logout" },
+    { path: "/logout", name: "general-logout" }
 
-  ]),
+  ])
 ];
 
 const respondentRoutes = [
   layout("DefaultWithoutSidebar", [
-    { path: "/respondent/survey/:id", name: "respondent-survey-fill", component: () => import(/* webpackChunkName: "respondent-survey-fill" */ "@views/respondent/survey/SurveyView.vue") },
-  ]),
+    { path: "/respondent/survey/:id", name: "respondent-survey-fill", component: () => import(/* webpackChunkName: "respondent-survey-fill" */ "@views/respondent/survey/SurveyView.vue") }
+  ])
 ];
 
 const router = new Router({
@@ -61,15 +61,15 @@ const router = new Router({
     ...respondentRoutes,
     layout("DefaultWithoutSidebar", [
       { path: "/404", name: "general-404", component: PageNotFoundView },
-      { path: "*", redirect: "404" }]),
+      { path: "*", redirect: "404" } ])
   ]
 });
 
 
 router.beforeEach((to, from, next) => {
 
-  const hasLoggedIn = store.getters['user/hasLoggedIn'];
-  const accountType = store.getters['user/accountType'];
+  const hasLoggedIn = store.getters["user/hasLoggedIn"];
+  const accountType = store.getters["user/accountType"];
 
   const userMainPage = { name: "user-surveys" };
   const adminMainPage = { name: "admin-surveys" };
@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
     } else if (accountType == 1 && !to.name.startsWith("user")) {
       return next();
     } else {
-      return next({ name: "general-404" })
+      return next({ name: "general-404" });
     }
   } else {
     if (!to.name.startsWith("general")) {

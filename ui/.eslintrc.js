@@ -37,7 +37,8 @@ module.exports = {
       "error",
       "always"
     ],
-    "vue/multi-word-component-names": "warn"
+    "vue/multi-word-component-names": "warn",
+    "vue/no-v-text-v-html-on-component": "warn"
   },
   overrides: [
     {

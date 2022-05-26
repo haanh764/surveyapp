@@ -10,8 +10,8 @@ import "@/styles/overrides.scss";
 export default {
   name: "App",
   metaInfo: {
-    title: "App",
-    titleTemplate: "%s | SurveyApp",
+    title: "SurveyApp",
+    titleTemplate: "%s | Your Survey Website",
     htmlAttrs: { lang: "en" },
     meta: [
       { charset: "utf-8" },

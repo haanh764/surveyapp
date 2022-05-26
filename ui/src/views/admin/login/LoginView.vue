@@ -6,7 +6,7 @@
   >
     <v-row justify="center">
       <v-col cols="auto">
-       admin login view
+        admin login view
       </v-col>
     </v-row>
   </v-container>

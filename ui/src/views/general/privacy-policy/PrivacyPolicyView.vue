@@ -1,8 +1,12 @@
 <template>
-  <v-container id="privacy-policy-view" class="fill-height text-center" tag="section">
+  <v-container
+    id="privacy-policy-view"
+    class="fill-height text-center"
+    tag="section"
+  >
     <v-row justify="center">
       <v-col cols="auto">
-       privacy policy view
+        privacy policy view
       </v-col>
     </v-row>
   </v-container>

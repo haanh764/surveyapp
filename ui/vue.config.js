@@ -24,7 +24,7 @@ module.exports = defineConfig({
         "@styles": path.resolve(__dirname, `${vueSrc}/styles/`),
         "@tests": path.resolve(__dirname, `${vueSrc}/tests/`)
       },
-      extensions: [".js", ".vue", ".json", ".scss"]
+      extensions: [ ".js", ".vue", ".json", ".scss" ]
     },
     plugins: [
       new VuetifyLoaderPlugin(),
