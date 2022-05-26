@@ -46,12 +46,10 @@ export default {
 
   computed: {
     ...get("user", [
+      "items",
       "dark",
-      "gradient",
-      "image"
     ]),
     ...get("app", [
-      "items",
       "version"
     ]),
     ...sync("app", [

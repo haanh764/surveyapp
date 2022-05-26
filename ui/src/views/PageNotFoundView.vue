@@ -2,16 +2,10 @@
   <v-container id="error-view" class="fill-height text-center" tag="section">
     <v-row justify="center">
       <v-col cols="auto">
-        <h1 class="text-h1 mb-16 font-weight-bold">
-          404
-        </h1>
-
-        <div class="text-h4 pt-8 pb-10">
-          Page not found :(
-        </div>
-
+        page not found
+        <!-- to do: check the log in state, redirect based on the user type -->
         <v-btn depressed large to="/">
-          Get me out of here!
+          back to home
         </v-btn>
       </v-col>
     </v-row>

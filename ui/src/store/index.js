@@ -21,7 +21,9 @@ store.subscribe(mutation => {
   store.dispatch("user/update", mutation);
 });
 
-store.dispatch("app/init");
+// init app
+// request api & redirect user to their supposed home pages
+store.dispatch("user/init");
 
 export default store;
 

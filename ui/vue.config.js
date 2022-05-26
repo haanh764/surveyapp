@@ -13,6 +13,7 @@ module.exports = defineConfig({
       alias: {
         "@": path.resolve(__dirname, vueSrc),
         "@components": path.resolve(__dirname, `${vueSrc}/components/`),
+        "@layouts": path.resolve(__dirname, `${vueSrc}/layouts/`),
         "@api": path.resolve(__dirname, `${vueSrc}/api/`),
         "@assets": path.resolve(__dirname, `${vueSrc}/assets/`),
         "@views": path.resolve(__dirname, `${vueSrc}/views/`),

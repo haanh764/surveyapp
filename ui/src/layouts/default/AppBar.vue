@@ -12,7 +12,16 @@
     flat
   >
 
+
+  <v-btn
+    class="ml-2"
+    min-width="0"
+    text
+    to="/"
+    exact
+  >
   SurveyApp
+  </v-btn>
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
       @click="drawer = !drawer"

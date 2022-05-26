@@ -1,61 +1,117 @@
-// Utilities
 import { make } from "vuex-pathify";
-
-// Globals
 import { IN_BROWSER } from "@/util/globals";
+
+
+const userMenuItems = [
+  {
+    title: "My Surveys",
+    icon: "mdi-account",
+    to: "/user/surveys"
+  },
+  {
+    title: "Settings",
+    icon: "mdi-clipboard-outline",
+    to: "/user/settings/"
+  },
+  {
+    title: "Logout",
+    icon: "mdi-format-font",
+    to: "/logout/"
+  }];
+
+const adminMenuItems = [
+  {
+    title: "Surveys",
+    icon: "mdi-account",
+    to: "/admin/surveys"
+  },
+  {
+    title: "Users",
+    icon: "mdi-account",
+    to: "/admin/users"
+  },
+  {
+    title: "Settings",
+    icon: "mdi-clipboard-outline",
+    to: "/admin/settings/"
+  },
+  {
+    title: "Logout",
+    icon: "mdi-format-font",
+    to: "/logout/"
+  },
+];
 
 const state = {
   dark: true,
+  userData: {
+    accountType: 0,
+    email: ""
+  },
+  token: "lapar",
   drawer: {
-    image: 0,
     gradient: 0,
     mini: false
   },
-  gradients: [
-    "rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)",
-    "rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)",
-    "rgba(244, 67, 54, .8), rgba(244, 67, 54, .8)"
-  ],
-  images: [
-  ],
-  notifications: [],
-  rtl: false
+  items: [],
 };
 
-const mutations = make.mutations(state);
+const mutations = {
+  ...make.mutations(state),
+  setUserData(state, data) {
+    state.userData = { ...state.userData, ...data };
+  }
+};
 
 const actions = {
+  ...make.actions(state),
   fetch: ({ commit }) => {
-    const local = localStorage.getItem("vuetify@user") || "{}";
+    const local = localStorage.getItem("user") || "{}";
     const user = JSON.parse(local);
 
     for (const key in user) {
       commit(key, user[key]);
     }
-
-    if (user.dark === undefined) {
-      commit("dark", window.matchMedia("(prefers-color-scheme: dark)"));
-    }
   },
   update: ({ state }) => {
     if (!IN_BROWSER) return;
 
-    localStorage.setItem("vuetify@user", JSON.stringify(state));
+    localStorage.setItem("user", JSON.stringify(state));
+  },
+  init: async ({ dispatch }) => {
+    // access api 
+    // put below code in then block
+
+    // set user data in state
+    // dispatch('setUserData', userData);
+
+    // set account type, token, has logged in
+    // 0 = user
+    // 1 = admin
+    if (state.userData.accountType == 0) {
+      dispatch('setItems', userMenuItems)
+    } else if (state.userData.accountType == 1) {
+      dispatch('setItems', adminMenuItems)
+    }
+
+
   }
 };
 
 const getters = {
   dark: (state, getters) => {
     return (
-      state.dark ||
-      getters.gradient.indexOf("255, 255, 255") === -1
+      state.dark
     );
   },
-  gradient: state => {
-    return state.gradients[state.drawer.gradient];
+  hasLoggedIn: (state) => {
+    return !!state.token;
   },
-  image: state => {
-    return state.drawer.image === "" ? state.drawer.image : state.images[state.drawer.image];
+  userData: (state) => {
+    return state.userData || {};
+  },
+  accountType: (state) => {
+    return state.userData.accountType || 0;
   }
 };
 

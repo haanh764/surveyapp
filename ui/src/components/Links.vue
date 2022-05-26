@@ -29,11 +29,11 @@
     data: () => ({
       links: [
         {
-          href: '#',
+          href: '/terms-and-conditions',
           text: 'Terms and Conditions',
         },
         {
-          href: '#',
+          href: '/privacy-policy',
           text: 'Privacy Policy',
         },
       ],
