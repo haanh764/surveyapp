@@ -2,6 +2,8 @@ const { defineConfig } = require("@vue/cli-service");
 const path = require("path");
 const webpack = require("webpack");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
+
+
 const vueSrc = "./src";
 
 module.exports = defineConfig({
@@ -20,10 +22,11 @@ module.exports = defineConfig({
         "@plugins": path.resolve(__dirname, `${vueSrc}/plugins/`),
         "@store": path.resolve(__dirname, `${vueSrc}/store/`),
         "@router": path.resolve(__dirname, `${vueSrc}/router/`),
+        "@util": path.resolve(__dirname, `${vueSrc}/util/`),
         "@styles": path.resolve(__dirname, `${vueSrc}/styles/`),
         "@tests": path.resolve(__dirname, `${vueSrc}/tests/`)
       },
-      extensions: [ ".js", ".vue", ".json", ".scss" ]
+      extensions: [".js", ".vue", ".json", ".scss", ".sass"]
     },
     plugins: [
       new VuetifyLoaderPlugin(),

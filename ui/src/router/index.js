@@ -34,7 +34,7 @@ const generalRoutes = [
     { path: "/user/login", name: "general-user-login", component: () => import(/* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue") },
     { path: "/user/signup", name: "general-user-signup", component: () => import(/* webpackChunkName: "general-user-signup" */ "@views/user/signup/SignupView.vue") },
     { path: "/admin/login", name: "general-admin-login", component: () => import(/* webpackChunkName: "general-admin-login" */ "@views/admin/login/LoginView.vue") },
-    { path: "/survey/:id", name: "general-survey-fill", component: () => import(/* webpackChunkName: "general-survey-fill" */ "@views/respondent/survey/SurveyView.vue") },
+    { path: "/survey/:id", name: "general-survey-fill", component: () => import(/* webpackChunkName: "general-survey-fill" */ "@views/general/survey/SurveyView.vue") },
     { path: "/logout", name: "general-logout" }
 
   ])
