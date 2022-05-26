@@ -2,11 +2,10 @@
   <v-navigation-drawer
     id="default-drawer"
     v-model="drawer"
-    elevated
-    :clipped="true"
+    clipped
+    app
     :mini-variant.sync="mini"
     mini-variant-width="80"
-    app
     width="260"
   >
     <div class="px-2">

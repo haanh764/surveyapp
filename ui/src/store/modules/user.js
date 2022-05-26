@@ -70,7 +70,6 @@ const actions = {
   },
   update: ({ state }) => {
     if (!IN_BROWSER) return;
-
     localStorage.setItem("user", JSON.stringify(state));
   },
   init: async ({ dispatch }) => {

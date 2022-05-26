@@ -2,8 +2,6 @@
   <v-footer
     id="default-footer"
     :color="variables.default.primary"
-    absolute
-    app
   >
     <v-img :src="logo" max-height="48" max-width="48" />
     <span>
@@ -30,3 +28,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#default-footer {
+  z-index: 4;
+}
+</style>

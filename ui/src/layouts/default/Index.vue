@@ -2,9 +2,11 @@
   <v-app>
     <default-bar />
 
+  <div style="display: flex; height: 100%; ">
     <default-drawer />
 
     <default-view />
+  </div>
 
     <default-footer />
   </v-app>
