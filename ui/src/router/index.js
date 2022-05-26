@@ -34,16 +34,12 @@ const generalRoutes = [
     { path: "/user/login", name: "general-user-login", component: () => import(/* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue") },
     { path: "/user/signup", name: "general-user-signup", component: () => import(/* webpackChunkName: "general-user-signup" */ "@views/user/signup/SignupView.vue") },
     { path: "/admin/login", name: "general-admin-login", component: () => import(/* webpackChunkName: "general-admin-login" */ "@views/admin/login/LoginView.vue") },
+    { path: "/survey/:id", name: "general-survey-fill", component: () => import(/* webpackChunkName: "general-survey-fill" */ "@views/respondent/survey/SurveyView.vue") },
     { path: "/logout", name: "general-logout" }
 
   ])
 ];
 
-const respondentRoutes = [
-  layout("DefaultWithoutSidebar", [
-    { path: "/respondent/survey/:id", name: "respondent-survey-fill", component: () => import(/* webpackChunkName: "respondent-survey-fill" */ "@views/respondent/survey/SurveyView.vue") }
-  ])
-];
 
 const router = new Router({
   mode: "history",
@@ -58,10 +54,9 @@ const router = new Router({
     ...generalRoutes,
     ...userRoutes,
     ...adminRoutes,
-    ...respondentRoutes,
     layout("DefaultWithoutSidebar", [
       { path: "/404", name: "general-404", component: PageNotFoundView },
-      { path: "*", redirect: "404" } ])
+      { path: "*", redirect: "404" }])
   ]
 });
 

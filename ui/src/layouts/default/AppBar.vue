@@ -3,7 +3,7 @@
     id="default-app-bar"
     app
     class="v-bar--underline"
-    :color="variables.default.primaryColor"
+    :color="variables.default.primary"
     :fixed="true"
     :clipped-left="true"
     height="70"

@@ -1,7 +1,7 @@
 <template>
   <v-footer
     id="default-footer"
-    :color="variables.default.primaryColor"
+    :color="variables.default.primary"
     absolute
     app
   >
