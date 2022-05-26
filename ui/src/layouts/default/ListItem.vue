@@ -35,22 +35,22 @@
 </template>
 
 <script>
-  export default {
-    name: "DefaultListItem",
+export default {
+  name: "DefaultListItem",
 
-    props: {
-      item: {
-        type: Object,
-        default: () => ({})
-      }
-    },
-
-    computed: {
-      title () {
-        const matches = this.item.title.match(/\b(\w)/g);
-
-        return matches.join("");
-      }
+  props: {
+    item: {
+      type: Object,
+      default: () => ({})
     }
-  };
+  },
+
+  computed: {
+    title () {
+      const matches = this.item.title.match(/\b(\w)/g);
+
+      return matches.join("");
+    }
+  }
+};
 </script>

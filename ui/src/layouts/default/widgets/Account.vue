@@ -7,7 +7,7 @@
     origin="top right"
     transition="scale-transition"
   >
-    <template v-slot:activator="{ attrs, on }">
+    <template #activator="{ attrs, on }">
       <v-btn
         class="ml-2"
         min-width="0"
@@ -44,16 +44,16 @@
 </template>
 
 <script>
-  export default {
-    name: "DefaultAccount",
+export default {
+  name: "DefaultAccount",
 
-    data: () => ({
-      profile: [
-        { title: "Profile" },
-        { title: "Settings" },
-        { divider: true },
-        { title: "Log out" }
-      ]
-    })
-  };
+  data: () => ({
+    profile: [
+      { title: "Profile" },
+      { title: "Settings" },
+      { divider: true },
+      { title: "Log out" }
+    ]
+  })
+};
 </script>

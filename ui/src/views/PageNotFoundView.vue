@@ -1,9 +1,5 @@
 <template>
-  <v-container
-    id="error-view"
-    class="fill-height text-center"
-    tag="section"
-  >
+  <v-container id="error-view" class="fill-height text-center" tag="section">
     <v-row justify="center">
       <v-col cols="auto">
         <h1 class="text-h1 mb-16 font-weight-bold">
@@ -14,11 +10,7 @@
           Page not found :(
         </div>
 
-        <v-btn
-          depressed
-          large
-          to="/"
-        >
+        <v-btn depressed large to="/">
           Get me out of here!
         </v-btn>
       </v-col>
@@ -27,10 +19,11 @@
 </template>
 
 <script>
-export default { name: "ErrorView" };
+  export default { name: "ErrorView" };
 </script>
 
-<style lang="sass">
-  #error-view h1.text-h1
+<style lang="scss">
+  #error-view h1.text-h1 {
     font-size: 14rem !important
+  }
 </style>

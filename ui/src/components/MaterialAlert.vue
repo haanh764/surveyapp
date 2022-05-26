@@ -7,7 +7,7 @@
   >
     <template
       v-if="$attrs.icon"
-      v-slot:prepend
+      #prepend
     >
       <v-avatar
         class="align-self-start mt-n9 elevation-6 mr-4"
@@ -27,7 +27,7 @@
 
     <template
       v-if="$attrs.dismissible"
-      v-slot:close="{ toggle }"
+      #close="{ toggle }"
     >
       <v-btn
         :aria-label="$vuetify.lang.t('$vuetify.close')"
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  export default { name: "MaterialAlert" };
+export default { name: "MaterialAlert" };
 </script>
 
 <style lang="sass">

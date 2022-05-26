@@ -9,14 +9,14 @@
 </template>
 
 <script>
-  export default {
-    name: "AppBtn",
+export default {
+  name: "AppBtn",
 
-    props: {
-      color: {
-        type: String,
-        default: "primary"
-      }
+  props: {
+    color: {
+      type: String,
+      default: "primary"
     }
-  };
+  }
+};
 </script>

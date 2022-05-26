@@ -8,40 +8,20 @@ const state = {
   mini: false,
   items: [
     {
-      title: "Dashboard",
-      icon: "mdi-view-dashboard",
-      to: "/"
-    },
-    {
-      title: "User Profile",
+      title: "My Surveys",
       icon: "mdi-account",
-      to: "/components/profile/"
+      to: "/user/surveys"
     },
     {
-      title: "Regular Tables",
+      title: "Settings",
       icon: "mdi-clipboard-outline",
-      to: "/tables/regular/"
+      to: "/user/settings/"
     },
     {
-      title: "Typography",
+      title: "Logout",
       icon: "mdi-format-font",
-      to: "/components/typography/"
+      to: "/user/logout/"
     },
-    {
-      title: "Icons",
-      icon: "mdi-chart-bubble",
-      to: "/components/icons/"
-    },
-    {
-      title: "Google Maps",
-      icon: "mdi-map-marker",
-      to: "/maps/google/"
-    },
-    {
-      title: "Notifications",
-      icon: "mdi-bell",
-      to: "/components/notifications/"
-    }
   ]
 };
 

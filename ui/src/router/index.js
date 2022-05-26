@@ -3,11 +3,25 @@ import Vue from "vue";
 import Router from "vue-router";
 import { trailingSlash } from "@/util/helpers";
 import {
-  layout,
-  route
+  layout
 } from "@/util/routes";
+import PageNotFoundView from "@views/PageNotFoundView.vue";
 
 Vue.use(Router);
+
+const userRoutes = [
+  layout("Default", [
+    { path: "/user/surveys", name: "user-surveys", component: () => import(/* webpackChunkName: "user-surveys" */ "@views/user/surveys/SurveysView.vue") },
+    { path: "/user/settings", name: "user-settings", component: () => import(/* webpackChunkName: "user-surveys" */ "@views/user/settings/SettingsView.vue") },
+    { path: "/user/logout", name: "user-logout", redirect: '/' },
+  ])
+];
+
+const adminRoutes = [];
+
+const generalRoutes = [];
+
+const respondentRoutes = [];
 
 const router = new Router({
   mode: "history",
@@ -19,23 +33,12 @@ const router = new Router({
     return { x: 0, y: 0 };
   },
   routes: [
-    layout("Default", [
-      route("Dashboard"),
-
-      // Pages
-      route("UserProfile", null, "components/profile"),
-
-      // Components
-      route("Notifications", null, "components/notifications"),
-      route("Icons", null, "components/icons"),
-      route("Typography", null, "components/typography"),
-
-      // Tables
-      route("Regular Tables", null, "tables/regular"),
-
-      // Maps
-      route("Google Maps", null, "maps/google")
-    ])
+    ...generalRoutes,
+    ...userRoutes,
+    ...adminRoutes,
+    ...respondentRoutes,
+    { path: "/404", name: "general-page-not-found", component: PageNotFoundView },
+    { path: "*", redirect: "404" }
   ]
 });
 

@@ -22,19 +22,19 @@
 </template>
 
 <script>
-  export default {
-    name: "DefaultList",
+export default {
+  name: "DefaultList",
 
-    components: {
-      DefaultListGroup: () => import("./ListGroup"),
-      DefaultListItem: () => import("./ListItem")
-    },
+  components: {
+    DefaultListGroup: () => import("./ListGroup"),
+    DefaultListItem: () => import("./ListItem")
+  },
 
-    props: {
-      items: {
-        type: Array,
-        default: () => ([])
-      }
+  props: {
+    items: {
+      type: Array,
+      default: () => ([])
     }
-  };
+  }
+};
 </script>

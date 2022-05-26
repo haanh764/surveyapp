@@ -1,12 +1,13 @@
 const { defineConfig } = require("@vue/cli-service");
 const path = require("path");
 const webpack = require("webpack");
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 
 
 const vueSrc = "./src";
 module.exports = defineConfig({
   transpileDependencies: true,
+  lintOnSave: false,
   configureWebpack: {
     resolve: {
       alias: {
@@ -39,8 +40,7 @@ module.exports = defineConfig({
     loaderOptions: {
       scss: {
         additionalData: `
-          @import "@/styles/variables/index.scss";
-          @import "@/styles/mixins/index.scss";
+          @import "@/styles/variables.scss";
         `
       }
     }

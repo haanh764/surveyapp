@@ -8,5 +8,5 @@
 </template>
 
 <script>
-  export default { name: "AppCard" };
+export default { name: "AppCard" };
 </script>

@@ -6,7 +6,7 @@
     origin="top right"
     transition="scale-transition"
   >
-    <template v-slot:activator="{ attrs, on }">
+    <template #activator="{ attrs, on }">
       <v-btn
         class="ml-2"
         min-width="0"
@@ -19,7 +19,7 @@
           color="red"
           overlap
         >
-          <template v-slot:badge>
+          <template #badge>
             <span>5</span>
           </template>
 
@@ -46,17 +46,17 @@
 </template>
 
 <script>
-  export default {
-    name: "DefaultNotifications",
+export default {
+  name: "DefaultNotifications",
 
-    data: () => ({
-      notifications: [
-        "Mike John Responded to your email",
-        "You have 5 new tasks",
-        "You're now friends with Andrew",
-        "Another Notification",
-        "Another one"
-      ]
-    })
-  };
+  data: () => ({
+    notifications: [
+      "Mike John Responded to your email",
+      "You have 5 new tasks",
+      "You're now friends with Andrew",
+      "Another Notification",
+      "Another one"
+    ]
+  })
+};
 </script>

@@ -6,7 +6,7 @@
     eager
     v-bind="$attrs"
   >
-    <template v-slot:activator>
+    <template #activator>
       <v-list-item-icon
         v-if="!item.icon && !item.avatar"
         class="text-caption text-uppercase text-center my-2 align-self-center"
@@ -41,49 +41,49 @@
 </template>
 
 <script>
-  // Utilities
-  import { get } from "vuex-pathify";
+// Utilities
+import { get } from "vuex-pathify";
 
-  export default {
-    name: "DefaultListGroup",
+export default {
+  name: "DefaultListGroup",
 
-    components: {
-      DefaultListItem: () => import("./ListItem")
-    },
+  components: {
+    DefaultListItem: () => import("./ListItem")
+  },
 
-    props: {
-      item: {
-        type: Object,
-        default: () => ({})
-      }
-    },
-
-    computed: {
-      gradient: get("user/drawer@gradient"),
-      group () {
-        return this.genGroup(this.item.items);
-      },
-      title () {
-        const matches = this.item.title.match(/\b(\w)/g);
-
-        return matches.join("");
-      }
-    },
-
-    methods: {
-      genGroup (items) {
-        return items.reduce((acc, cur) => {
-          if (!cur.to) return acc;
-
-          acc.push(
-            cur.items
-              ? this.genGroup(cur.items)
-              : cur.to.slice(1, -1)
-          );
-
-          return acc;
-        }, []).join("|");
-      }
+  props: {
+    item: {
+      type: Object,
+      default: () => ({})
     }
-  };
+  },
+
+  computed: {
+    gradient: get("user/drawer@gradient"),
+    group () {
+      return this.genGroup(this.item.items);
+    },
+    title () {
+      const matches = this.item.title.match(/\b(\w)/g);
+
+      return matches.join("");
+    }
+  },
+
+  methods: {
+    genGroup (items) {
+      return items.reduce((acc, cur) => {
+        if (!cur.to) return acc;
+
+        acc.push(
+          cur.items
+            ? this.genGroup(cur.items)
+            : cur.to.slice(1, -1)
+        );
+
+        return acc;
+      }, []).join("|");
+    }
+  }
+};
 </script>

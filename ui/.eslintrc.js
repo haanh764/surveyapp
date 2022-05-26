@@ -4,11 +4,14 @@ module.exports = {
     node: true
   },
   "extends": [
-    "plugin:vue/essential",
+    "plugin:vue/recommended",
     "eslint:recommended"
   ],
   parserOptions: {
-    parser: "@babel/eslint-parser"
+    parser: "@babel/eslint-parser",
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 2019
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
@@ -34,7 +37,6 @@ module.exports = {
       "error",
       "always"
     ],
-    "indent": "off",
     "vue/multi-word-component-names": "warn"
   },
   overrides: [

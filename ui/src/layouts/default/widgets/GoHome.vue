@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  export default {
-    name: "DefaultGoHome"
-  };
+export default {
+  name: "DefaultGoHome"
+};
 </script>

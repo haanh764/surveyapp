@@ -13,15 +13,15 @@
 </template>
 
 <script>
-  // Utilities
-  import { sync } from "vuex-pathify";
+// Utilities
+import { sync } from "vuex-pathify";
 
-  export default {
-    name: "DefaultDrawerToggle",
+export default {
+  name: "DefaultDrawerToggle",
 
-    computed: {
+  computed: {
 
-      mini: sync("app/mini")
-    }
-  };
+    mini: sync("app/mini")
+  }
+};
 </script>

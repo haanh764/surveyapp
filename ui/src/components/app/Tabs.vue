@@ -13,18 +13,18 @@
 </template>
 
 <script>
-  export default {
-    name: "AppTabs",
+export default {
+  name: "AppTabs",
 
-    inject: [ "theme" ],
+  inject: [ "theme" ],
 
-    props: {
-      color: {
-        type: String,
-        default: "primary"
-      }
+  props: {
+    color: {
+      type: String,
+      default: "primary"
     }
-  };
+  }
+};
 </script>
 
 <style lang="sass">

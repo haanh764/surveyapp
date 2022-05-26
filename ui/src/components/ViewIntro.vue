@@ -26,12 +26,12 @@
 </template>
 
 <script>
-  export default {
-    name: "ViewIntro",
+export default {
+  name: "ViewIntro",
 
-    props: {
-      heading: String,
-      link: String
-    }
-  };
+  props: {
+    heading: String,
+    link: String
+  }
+};
 </script>

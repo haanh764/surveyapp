@@ -13,11 +13,6 @@ $btn-font-sizes: (
 
 $btn-font-weight: 400;
 $btn-letter-spacing: normal;
-$material-light: (
-  'background': #EEEEEE,
-  'text': ('primary': #333333,
-    'secondary': #999999)
-);
 
 $btn-icon-font-size: 1.0625rem !important;
 
@@ -31,20 +26,6 @@ $card-elevation: 1;
 
 $data-table-regular-header-font-size: 1.0625rem;
 
-$shadow-key-umbra: (
-  1: (0 1px 4px 0 rgba(0, 0, 0, .14)),
-  12: (0 16px 38px -12px rgba(0, 0, 0, .56))
-);
-
-$shadow-key-penumbra: (
-  1: (0 0 0 0 rgba(0, 0, 0, 0)),
-  12: (0 4px 25px 0 rgba(0, 0, 0, .12))
-);
-
-$shadow-key-ambient: (
-  1: (0 0 0 0 rgba(0, 0, 0, 0)),
-  12: (0 8px 10px -5px rgba(0, 0, 0, .2))
-);
 
 $headings: (
   'h1': ('size': 3.3125rem,
@@ -84,6 +65,28 @@ $tab-font-size: .775rem;
 $tab-font-weight: 500;
 $tabs-item-letter-spacing: normal;
 
+$shadow-key-umbra: (
+  1: (0 1px 4px 0 rgba(0, 0, 0, .14)),
+  12: (0 16px 38px -12px rgba(0, 0, 0, .56))
+);
+
+$shadow-key-penumbra: (
+  1: (0 0 0 0 rgba(0, 0, 0, 0)),
+  12: (0 4px 25px 0 rgba(0, 0, 0, .12))
+);
+
+$shadow-key-ambient: (
+  1: (0 0 0 0 rgba(0, 0, 0, 0)),
+  12: (0 8px 10px -5px rgba(0, 0, 0, .2))
+);
+
+// Colors
+$material-light: (
+  'background': #EEEEEE,
+  'text': ('primary': #333333,
+    'secondary': #999999)
+);
+
 $theme-colors: (
   'primary': #6200EE,
-  )
+);

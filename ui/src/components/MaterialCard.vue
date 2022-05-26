@@ -71,37 +71,37 @@
 </template>
 
 <script>
-  export default {
-    name: "MaterialCard",
+export default {
+  name: "MaterialCard",
 
-    props: {
-      color: String,
-      fullHeader: Boolean,
-      heading: String,
-      icon: String,
-      iconSmall: Boolean,
-      subtitle: String,
-      title: String
-    },
+  props: {
+    color: String,
+    fullHeader: Boolean,
+    heading: String,
+    icon: String,
+    iconSmall: Boolean,
+    subtitle: String,
+    title: String
+  },
 
-    computed: {
-      hasHeading () {
-        return !!(
-          this.icon ||
+  computed: {
+    hasHeading () {
+      return !!(
+        this.icon ||
           this.heading ||
           this.$slots.heading
-        );
-      },
-      hasTitle () {
-        return !!(
-          this.title ||
+      );
+    },
+    hasTitle () {
+      return !!(
+        this.title ||
           this.subtitle ||
           this.$slots.title ||
           this.$slots.subtitle
-        );
-      }
+      );
     }
-  };
+  }
+};
 </script>
 
 <style lang="sass">
