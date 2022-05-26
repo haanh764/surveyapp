@@ -5,19 +5,19 @@ import { IN_BROWSER } from "@/util/globals";
 const userMenuItems = [
   {
     title: "My Surveys",
-    icon: "mdi-account",
+    icon: "mdi-clipboard-outline",
     to: "/user/surveys"
   },
   {
     title: "Settings",
-    icon: "mdi-clipboard-outline",
+    icon: "mdi-cog",
     to: "/user/settings/"
   }];
 
 const adminMenuItems = [
   {
     title: "Surveys",
-    icon: "mdi-account",
+    icon: "mdi-clipboard-outline",
     to: "/admin/surveys"
   },
   {
@@ -27,7 +27,7 @@ const adminMenuItems = [
   },
   {
     title: "Settings",
-    icon: "mdi-clipboard-outline",
+    icon: "mdi-cog",
     to: "/admin/settings/"
   }
 ];
@@ -35,13 +35,13 @@ const adminMenuItems = [
 const generalMenuItems = [
   {
     title: "Logout",
-    icon: "mdi-format-font",
+    icon: "mdi-logout",
     to: "/logout/"
   }];
 
 const state = {
   userData: {
-    accountType: 0,
+    accountType: 1,
     email: ""
   },
   token: "lapar",

@@ -7,7 +7,7 @@
     @click="mini = !mini"
   >
     <v-icon>
-      {{ mini ? 'mdi-format-list-bulleted' : 'mdi-dots-vertical' }}
+      {{ mini ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
     </v-icon>
   </v-btn>
 </template>
