@@ -42,48 +42,48 @@
 
 <script>
   // Utilities
-  import { get } from 'vuex-pathify'
+  import { get } from "vuex-pathify";
 
   export default {
-    name: 'DefaultListGroup',
+    name: "DefaultListGroup",
 
     components: {
-      DefaultListItem: () => import('./ListItem'),
+      DefaultListItem: () => import("./ListItem")
     },
 
     props: {
       item: {
         type: Object,
-        default: () => ({}),
-      },
+        default: () => ({})
+      }
     },
 
     computed: {
-      gradient: get('user/drawer@gradient'),
+      gradient: get("user/drawer@gradient"),
       group () {
-        return this.genGroup(this.item.items)
+        return this.genGroup(this.item.items);
       },
       title () {
-        const matches = this.item.title.match(/\b(\w)/g)
+        const matches = this.item.title.match(/\b(\w)/g);
 
-        return matches.join('')
-      },
+        return matches.join("");
+      }
     },
 
     methods: {
       genGroup (items) {
         return items.reduce((acc, cur) => {
-          if (!cur.to) return acc
+          if (!cur.to) return acc;
 
           acc.push(
             cur.items
               ? this.genGroup(cur.items)
-              : cur.to.slice(1, -1),
-          )
+              : cur.to.slice(1, -1)
+          );
 
-          return acc
-        }, []).join('|')
-      },
-    },
-  }
+          return acc;
+        }, []).join("|");
+      }
+    }
+  };
 </script>

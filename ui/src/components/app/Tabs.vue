@@ -14,17 +14,17 @@
 
 <script>
   export default {
-    name: 'AppTabs',
+    name: "AppTabs",
 
-    inject: ['theme'],
+    inject: [ "theme" ],
 
     props: {
       color: {
         type: String,
-        default: 'primary',
-      },
-    },
-  }
+        default: "primary"
+      }
+    }
+  };
 </script>
 
 <style lang="sass">

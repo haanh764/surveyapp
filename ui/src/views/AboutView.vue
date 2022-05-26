@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'AboutView',
+  name: "AboutView",
   data: () => ({
     message: String
   }),
@@ -15,11 +15,11 @@ export default {
     fetch("http://localhost:8000")
       .then (response => response.json())
       .then (data => {
-        this.message = data.message
+        this.message = data.message;
       })
       .catch(error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 };
 </script>

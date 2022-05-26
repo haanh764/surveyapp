@@ -10,13 +10,13 @@
 
 <script>
   export default {
-    name: 'AppBtn',
+    name: "AppBtn",
 
     props: {
       color: {
         type: String,
-        default: 'primary',
-      },
-    },
-  }
+        default: "primary"
+      }
+    }
+  };
 </script>

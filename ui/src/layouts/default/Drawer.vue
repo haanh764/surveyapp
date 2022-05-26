@@ -62,39 +62,39 @@
 
 <script>
   // Utilities
-  import { get, sync } from 'vuex-pathify'
+  import { get, sync } from "vuex-pathify";
 
   export default {
-    name: 'DefaultDrawer',
+    name: "DefaultDrawer",
 
     components: {
       DefaultDrawerHeader: () => import(
         /* webpackChunkName: "default-drawer-header" */
-        './widgets/DrawerHeader'
+        "./widgets/DrawerHeader"
       ),
       DefaultList: () => import(
         /* webpackChunkName: "default-list" */
-        './List'
-      ),
+        "./List"
+      )
     },
 
     computed: {
-      ...get('user', [
-        'dark',
-        'gradient',
-        'image',
+      ...get("user", [
+        "dark",
+        "gradient",
+        "image"
       ]),
-      ...get('app', [
-        'items',
-        'version',
+      ...get("app", [
+        "items",
+        "version"
       ]),
-      ...sync('app', [
-        'drawer',
-        'drawerImage',
-        'mini',
-      ]),
-    },
-  }
+      ...sync("app", [
+        "drawer",
+        "drawerImage",
+        "mini"
+      ])
+    }
+  };
 </script>
 
 <style lang="sass">

@@ -19,11 +19,11 @@
 
 <script>
   // Utilities
-  import { get } from 'vuex-pathify'
+  import { get } from "vuex-pathify";
 
   export default {
-    name: 'DefaultDrawerHeader',
+    name: "DefaultDrawerHeader",
 
-    computed: { version: get('app/version') },
-  }
+    computed: { version: get("app/version") }
+  };
 </script>

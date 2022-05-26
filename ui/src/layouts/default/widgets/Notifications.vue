@@ -47,16 +47,16 @@
 
 <script>
   export default {
-    name: 'DefaultNotifications',
+    name: "DefaultNotifications",
 
     data: () => ({
       notifications: [
-        'Mike John Responded to your email',
-        'You have 5 new tasks',
-        'You\'re now friends with Andrew',
-        'Another Notification',
-        'Another one',
-      ],
-    }),
-  }
+        "Mike John Responded to your email",
+        "You have 5 new tasks",
+        "You're now friends with Andrew",
+        "Another Notification",
+        "Another one"
+      ]
+    })
+  };
 </script>

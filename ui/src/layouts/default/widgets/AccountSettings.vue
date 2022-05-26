@@ -7,33 +7,33 @@
 
 <script>
   export default {
-    name: 'DefaultAccountSettings',
+    name: "DefaultAccountSettings",
 
     components: {
       DefaultList: () => import(
         /* webpackChunkName: "default-list" */
-        '../List'
-      ),
+        "../List"
+      )
     },
 
     data: () => ({
       items: [
         {
-          title: 'John Leider',
-          icon: 'mdi-vuetify',
+          title: "John Leider",
+          icon: "mdi-vuetify",
           items: [
             {
-              title: 'My Profile',
+              title: "My Profile"
             },
             {
-              title: 'Edit Profile',
+              title: "Edit Profile"
             },
             {
-              title: 'Settings',
-            },
-          ],
-        },
-      ],
-    }),
-  }
+              title: "Settings"
+            }
+          ]
+        }
+      ]
+    })
+  };
 </script>

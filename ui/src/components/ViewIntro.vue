@@ -27,11 +27,11 @@
 
 <script>
   export default {
-    name: 'ViewIntro',
+    name: "ViewIntro",
 
     props: {
       heading: String,
-      link: String,
-    },
-  }
+      link: String
+    }
+  };
 </script>

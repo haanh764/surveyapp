@@ -22,39 +22,39 @@
 
 <script>
   export default {
-    name: 'MaterialSnackbar',
+    name: "MaterialSnackbar",
 
     props: {
       dismissible: {
         type: Boolean,
-        default: true,
+        default: true
       },
       type: {
         type: String,
-        default: '',
+        default: ""
       },
-      value: Boolean,
+      value: Boolean
     },
 
     data () {
       return {
-        internalValue: this.value,
-      }
+        internalValue: this.value
+      };
     },
 
     watch: {
       internalValue (val, oldVal) {
-        if (val === oldVal) return
+        if (val === oldVal) return;
 
-        this.$emit('input', val)
+        this.$emit("input", val);
       },
       value (val, oldVal) {
-        if (val === oldVal) return
+        if (val === oldVal) return;
 
-        this.internalValue = val
-      },
-    },
-  }
+        this.internalValue = val;
+      }
+    }
+  };
 </script>
 
 <style lang="sass">

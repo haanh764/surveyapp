@@ -21,10 +21,10 @@
 
 <script>
   export default {
-    name: 'MaterialStatCard',
+    name: "MaterialStatCard",
 
-    props: { value: String },
-  }
+    props: { value: String }
+  };
 </script>
 
 <style lang="sass">

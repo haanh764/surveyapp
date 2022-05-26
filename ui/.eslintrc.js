@@ -1,37 +1,53 @@
 module.exports = {
   root: true,
-
   env: {
-    node: true,
+    node: true
   },
-
-  plugins: ['vuetify'],
-
-  extends: 'vuetify',
-
+  "extends": [
+    "plugin:vue/essential",
+    "eslint:recommended"
+  ],
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: "@babel/eslint-parser"
   },
-
   rules: {
-    'no-console': 'off',
-    'no-debugger': 'off',
-    // https://github.com/babel/babel-eslint/issues/681#issuecomment-420663038
-    'template-curly-spacing': 'off',
-    indent: 'off',
-    //
-    'no-unused-vars': 'warn',
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "comma-dangle": "error",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "indent": "off",
+    "vue/multi-word-component-names": "warn"
   },
-
   overrides: [
     {
       files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
       ],
       env: {
-        jest: true,
-      },
-    },
-  ],
-}
+        jest: true
+      }
+    }
+  ]
+};
+
+

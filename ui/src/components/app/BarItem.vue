@@ -1,8 +1,8 @@
 <script>
-  import { VHover, VListItem } from 'vuetify/lib'
+  import { VHover, VListItem } from "vuetify/lib";
 
   export default {
-    name: 'AppBarItem',
+    name: "AppBarItem",
 
     render (h) {
       return h(VHover, {
@@ -11,19 +11,19 @@
             return h(VListItem, {
               attrs: this.$attrs,
               class: {
-                'black--text': !hover,
-                'white--text secondary elevation-12': hover,
+                "black--text": !hover,
+                "white--text secondary elevation-12": hover
               },
               props: {
-                activeClass: '',
+                activeClass: "",
                 dark: hover,
                 link: true,
-                ...this.$attrs,
-              },
-            }, this.$slots.default)
-          },
-        },
-      })
-    },
-  }
+                ...this.$attrs
+              }
+            }, this.$slots.default);
+          }
+        }
+      });
+    }
+  };
 </script>

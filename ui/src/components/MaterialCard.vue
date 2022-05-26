@@ -72,7 +72,7 @@
 
 <script>
   export default {
-    name: 'MaterialCard',
+    name: "MaterialCard",
 
     props: {
       color: String,
@@ -81,7 +81,7 @@
       icon: String,
       iconSmall: Boolean,
       subtitle: String,
-      title: String,
+      title: String
     },
 
     computed: {
@@ -90,7 +90,7 @@
           this.icon ||
           this.heading ||
           this.$slots.heading
-        )
+        );
       },
       hasTitle () {
         return !!(
@@ -98,10 +98,10 @@
           this.subtitle ||
           this.$slots.title ||
           this.$slots.subtitle
-        )
-      },
-    },
-  }
+        );
+      }
+    }
+  };
 </script>
 
 <style lang="sass">

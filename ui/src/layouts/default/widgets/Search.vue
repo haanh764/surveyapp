@@ -26,6 +26,6 @@
 
 <script>
   export default {
-    name: 'DefaultSearch',
-  }
+    name: "DefaultSearch"
+  };
 </script>

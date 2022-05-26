@@ -23,18 +23,18 @@
 
 <script>
   export default {
-    name: 'DefaultList',
+    name: "DefaultList",
 
     components: {
-      DefaultListGroup: () => import('./ListGroup'),
-      DefaultListItem: () => import('./ListItem'),
+      DefaultListGroup: () => import("./ListGroup"),
+      DefaultListItem: () => import("./ListItem")
     },
 
     props: {
       items: {
         type: Array,
-        default: () => ([]),
-      },
-    },
-  }
+        default: () => ([])
+      }
+    }
+  };
 </script>

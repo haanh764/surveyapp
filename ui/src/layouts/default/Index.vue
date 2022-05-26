@@ -14,29 +14,29 @@
 
 <script>
   export default {
-    name: 'DefaultLayout',
+    name: "DefaultLayout",
 
     components: {
       DefaultBar: () => import(
         /* webpackChunkName: "default-app-bar" */
-        './AppBar'
+        "./AppBar"
       ),
       DefaultDrawer: () => import(
         /* webpackChunkName: "default-drawer" */
-        './Drawer'
+        "./Drawer"
       ),
       DefaultFooter: () => import(
         /* webpackChunkName: "default-footer" */
-        './Footer'
+        "./Footer"
       ),
       DefaultSettings: () => import(
         /* webpackChunkName: "default-settings" */
-        './Settings'
+        "./Settings"
       ),
       DefaultView: () => import(
         /* webpackChunkName: "default-view" */
-        './View'
-      ),
-    },
-  }
+        "./View"
+      )
+    }
+  };
 </script>

@@ -362,41 +362,41 @@
 
 <script>
   export default {
-    name: 'NotificationsView',
+    name: "NotificationsView",
 
     data: () => ({
-      color: 'info',
+      color: "info",
       colors: [
-        'info',
-        'success',
-        'warning',
-        'error',
+        "info",
+        "success",
+        "warning",
+        "error"
       ],
       dialog: false,
       dialog2: false,
       dialog3: false,
-      direction: 'top center',
+      direction: "top center",
       directions: [
-        'top left',
-        'top center',
-        'top right',
-        'bottom left',
-        'bottom center',
-        'bottom right',
+        "top left",
+        "top center",
+        "top right",
+        "bottom left",
+        "bottom center",
+        "bottom right"
       ],
-      snackbar: false,
+      snackbar: false
     }),
 
     computed: {
       parsedDirection () {
-        return this.direction.split(' ')
-      },
+        return this.direction.split(" ");
+      }
     },
 
     methods: {
       randomColor () {
-        this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
-      },
-    },
-  }
+        this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+      }
+    }
+  };
 </script>

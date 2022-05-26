@@ -45,15 +45,15 @@
 
 <script>
   export default {
-    name: 'DefaultAccount',
+    name: "DefaultAccount",
 
     data: () => ({
       profile: [
-        { title: 'Profile' },
-        { title: 'Settings' },
+        { title: "Profile" },
+        { title: "Settings" },
         { divider: true },
-        { title: 'Log out' },
-      ],
-    }),
-  }
+        { title: "Log out" }
+      ]
+    })
+  };
 </script>

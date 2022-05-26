@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  export default { name: 'ErrorView' }
+  export default { name: "ErrorView" };
 </script>
 
 <style lang="sass">

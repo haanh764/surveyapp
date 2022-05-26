@@ -37,29 +37,29 @@
 
 <script>
   export default {
-    name: 'Links',
+    name: "Links",
 
     data: () => ({
       links: [
         {
-          href: 'https://vuetifyjs.com/',
-          text: 'Vuetify Docs',
+          href: "https://vuetifyjs.com/",
+          text: "Vuetify Docs"
         },
         {
-          href: '#',
-          text: 'About Us',
+          href: "#",
+          text: "About Us"
         },
         {
-          href: '#',
-          text: 'Blog',
+          href: "#",
+          text: "Blog"
         },
         {
-          href: '#',
-          text: 'Licenses',
-        },
-      ],
-    }),
-  }
+          href: "#",
+          text: "Licenses"
+        }
+      ]
+    })
+  };
 </script>
 
 <style lang="sass" scoped>

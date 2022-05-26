@@ -36,21 +36,21 @@
 
 <script>
   export default {
-    name: 'DefaultListItem',
+    name: "DefaultListItem",
 
     props: {
       item: {
         type: Object,
-        default: () => ({}),
-      },
+        default: () => ({})
+      }
     },
 
     computed: {
       title () {
-        const matches = this.item.title.match(/\b(\w)/g)
+        const matches = this.item.title.match(/\b(\w)/g);
 
-        return matches.join('')
-      },
-    },
-  }
+        return matches.join("");
+      }
+    }
+  };
 </script>

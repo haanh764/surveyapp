@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  export default { name: 'MaterialAlert' }
+  export default { name: "MaterialAlert" };
 </script>
 
 <style lang="sass">

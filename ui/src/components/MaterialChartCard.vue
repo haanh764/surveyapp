@@ -6,7 +6,7 @@
   >
     <template #heading>
       <div class="pa-4">
-        <chartist
+        <!--<chartist
           :data="data"
           :event-handlers="eventHandlers"
           :options="options"
@@ -14,7 +14,7 @@
           :responsive-options="responsiveOptions"
           :type="type"
           style="max-height: 150px;"
-        />
+        />-->
       </div>
     </template>
 
@@ -32,35 +32,35 @@
 
 <script>
   export default {
-    name: 'MaterialChartCard',
+    name: "MaterialChartCard",
 
     inheritAttrs: false,
 
     props: {
       data: {
         type: Object,
-        default: () => ({}),
+        default: () => ({})
       },
       eventHandlers: {
         type: Array,
-        default: () => ([]),
+        default: () => ([])
       },
       options: {
         type: Object,
-        default: () => ({}),
+        default: () => ({})
       },
       ratio: String,
       responsiveOptions: {
         type: Array,
-        default: () => ([]),
+        default: () => ([])
       },
       type: {
         type: String,
         required: true,
-        validator: v => ['Bar', 'Line', 'Pie'].includes(v),
-      },
-    },
-  }
+        validator: v => [ "Bar", "Line", "Pie" ].includes(v)
+      }
+    }
+  };
 </script>
 
 <style lang="sass">

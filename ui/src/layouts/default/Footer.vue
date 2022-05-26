@@ -12,11 +12,11 @@
 
 <script>
   // Components
-  import Links from '@/components/Links'
+  import Links from "@/components/Links";
 
   export default {
-    name: 'DefaultFooter',
+    name: "DefaultFooter",
 
-    components: { Links },
-  }
+    components: { Links }
+  };
 </script>
