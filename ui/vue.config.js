@@ -31,6 +31,7 @@ module.exports = defineConfig({
     plugins: [
       new VuetifyLoaderPlugin(),
       new webpack.DefinePlugin({
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         VUE_APP_API_BASE_URL: JSON.stringify(process.env.VUE_APP_API_BASE_URL)
       }),
       new webpack.ProvidePlugin({
