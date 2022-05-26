@@ -31,7 +31,6 @@ import { get, sync } from "vuex-pathify";
 export default {
   name: "DefaultBar",
   mounted() {
-    console.log(this.variables);
   },
   computed: {
     ...sync("app", [

@@ -2,12 +2,11 @@ const { defineConfig } = require("@vue/cli-service");
 const path = require("path");
 const webpack = require("webpack");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
-
-
 const vueSrc = "./src";
+
 module.exports = defineConfig({
   transpileDependencies: true,
-  lintOnSave: false,
+  lintOnSave: true,
   configureWebpack: {
     resolve: {
       alias: {

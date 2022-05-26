@@ -27,8 +27,8 @@ const adminRoutes = [
 ];
 
 const generalRoutes = [
-  { path: "/", name: "general-landing", component: () => import(/* webpackChunkName: "general-landing" */ "@views/general/landing/LandingView.vue") },
   layout("DefaultWithoutSidebar", [
+    { path: "/", name: "general-landing", component: () => import(/* webpackChunkName: "general-landing" */ "@views/general/landing/LandingView.vue") },
     { path: "/privacy-policy", name: "general-privacy-policy", component: () => import(/* webpackChunkName: "general-privacy-policy" */ "@views/general/privacy-policy/PrivacyPolicyView.vue") },
     { path: "/terms-and-conditions", name: "general-terms-and-conditions", component: () => import(/* webpackChunkName: "general-terms-and-conditions" */ "@views/general/terms-and-conditions/TermsAndConditionsView.vue") },
     { path: "/user/login", name: "general-user-login", component: () => import(/* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue") },
