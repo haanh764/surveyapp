@@ -21,7 +21,7 @@ store.subscribe(mutation => {
   store.dispatch("user/update", mutation);
 });
 
-// store.dispatch("app/init");
+store.dispatch("app/init");
 
 export default store;
 

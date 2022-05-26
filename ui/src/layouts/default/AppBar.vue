@@ -11,6 +11,8 @@
     height="70"
     flat
   >
+
+  SurveyApp
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
       @click="drawer = !drawer"
@@ -21,33 +23,12 @@
 </template>
 
 <script>
-// Utilities
 import { get, sync } from "vuex-pathify";
 
 export default {
   name: "DefaultBar",
 
   components: {
-    DefaultAccount: () => import(
-      /* webpackChunkName: "default-account" */
-      "./widgets/Account"
-    ),
-    DefaultDrawerToggle: () => import(
-      /* webpackChunkName: "default-drawer-toggle" */
-      "./widgets/DrawerToggle"
-    ),
-    DefaultGoHome: () => import(
-      /* webpackChunkName: "default-go-home" */
-      "./widgets/GoHome"
-    ),
-    DefaultNotifications: () => import(
-      /* webpackChunkName: "default-notifications" */
-      "./widgets/Notifications"
-    ),
-    DefaultSearch: () => import(
-      /* webpackChunkName: "default-search" */
-      "./widgets/Search"
-    )
   },
 
   computed: {

@@ -19,7 +19,6 @@
       <default-drawer-toggle />
     </div>
 
-    <div class="pt-12" />
   </v-navigation-drawer>
 </template>
 
@@ -57,7 +56,6 @@ export default {
     ]),
     ...sync("app", [
       "drawer",
-      "drawerImage",
       "mini"
     ])
   }

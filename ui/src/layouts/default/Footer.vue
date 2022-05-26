@@ -6,6 +6,7 @@
     app
   >
   survey app meong
+  <links />
   </v-footer>
 </template>
 

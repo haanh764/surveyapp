@@ -1,37 +1,66 @@
 // Pathify
 import { make } from "vuex-pathify";
 
-// Data
+const userMenuItems = [
+  {
+    title: "My Surveys",
+    icon: "mdi-account",
+    to: "/user/surveys"
+  },
+  {
+    title: "Settings",
+    icon: "mdi-clipboard-outline",
+    to: "/user/settings/"
+  },
+  {
+    title: "Logout",
+    icon: "mdi-format-font",
+    to: "/user/logout/"
+  }];
+
+const adminMenuItems = [
+  {
+    title: "Surveys",
+    icon: "mdi-account",
+    to: "/admin/surveys"
+  },
+  {
+    title: "Users",
+    icon: "mdi-account",
+    to: "/admin/users"
+  },
+  {
+    title: "Settings",
+    icon: "mdi-clipboard-outline",
+    to: "/admin/settings/"
+  },
+  {
+    title: "Logout",
+    icon: "mdi-format-font",
+    to: "/admin/logout/"
+  },
+];
+
 const state = {
   drawer: null,
-  drawerImage: true,
   mini: false,
-  items: [
-    {
-      title: "My Surveys",
-      icon: "mdi-account",
-      to: "/user/surveys"
-    },
-    {
-      title: "Settings",
-      icon: "mdi-clipboard-outline",
-      to: "/user/settings/"
-    },
-    {
-      title: "Logout",
-      icon: "mdi-format-font",
-      to: "/user/logout/"
-    },
-  ]
+  userType: 2,
+  items: []
 };
 
 const mutations = make.mutations(state);
 
 const actions = {
-  ...make.actions(state)
-  // init: async ({ dispatch }) => {
-  //   //
-  // }
+  ...make.actions(state),
+  init: async ({ dispatch }) => {
+    dispatch('setItems', userMenuItems)
+    console.log(state);
+    if (state.userType == 1) {
+      dispatch('setItems', userMenuItems)
+    } else if (state.userType == 2) {
+      dispatch('setItems', adminMenuItems)
+    }
+  }
 };
 
 const getters = {};
