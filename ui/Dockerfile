@@ -4,7 +4,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN yarn
 COPY . .
+RUN yarn run lint --fix
 RUN yarn run build
+
 
 # production stage
 FROM nginx:1.21.6 as production-stage

@@ -16,25 +16,25 @@ module.exports = {
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "comma-dangle": "error",
+    "comma-dangle": "warn",
     "quotes": [
-      "error",
+      "warn",
       "double"
     ],
     "linebreak-style": [
-      "error",
+      "warn",
       "unix"
     ],
     "array-bracket-spacing": [
-      "error",
+      "warn",
       "always"
     ],
     "semi": [
-      "error",
+      "warn",
       "always"
     ],
     "eol-last": [
-      "error",
+      "warn",
       "always"
     ],
     "vue/multi-word-component-names": "warn",

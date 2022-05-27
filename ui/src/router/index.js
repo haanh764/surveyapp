@@ -56,7 +56,7 @@ const router = new Router({
     ...adminRoutes,
     layout("DefaultWithoutSidebar", [
       { path: "/404", name: "general-404", component: PageNotFoundView },
-      { path: "*", redirect: "404" }])
+      { path: "*", redirect: "404" } ])
   ]
 });
 

@@ -8,7 +8,7 @@ const vueSrc = "./src";
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  lintOnSave: true,
+  lintOnSave: 'warning',
   configureWebpack: {
     resolve: {
       alias: {
@@ -44,7 +44,7 @@ module.exports = defineConfig({
     loaderOptions: {
       scss: {
         additionalData: `
-          @import "@/styles/variables.scss";
+          @import "@/styles/variables/index.scss";
         `
       }
     }

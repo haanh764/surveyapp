@@ -2,6 +2,7 @@
   <v-navigation-drawer
     id="default-drawer"
     v-model="drawer"
+    class="elevated-6"
     clipped
     app
     :mini-variant.sync="mini"
@@ -44,7 +45,7 @@ export default {
 
   computed: {
     ...get("user", [
-      "items",
+      "items"
     ]),
     ...get("app", [
       "version"

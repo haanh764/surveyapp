@@ -28,7 +28,7 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   name: "DefaultBar",
@@ -39,8 +39,8 @@ export default {
       "drawer",
       "mini"
     ]),
-    ...mapGetters('user', [
-      'hasLoggedIn',
+    ...mapGetters("user", [
+      "hasLoggedIn"
     ]),
     name: get("route/name"),
     variables() {

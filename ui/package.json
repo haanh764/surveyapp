@@ -38,6 +38,7 @@
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.1",
     "eslint": "^8.16.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
