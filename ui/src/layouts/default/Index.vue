@@ -1,12 +1,10 @@
 <template>
-  <v-app>
+  <v-app class="layout-default">
     <default-bar />
-
-  <div style="display: flex; height: 100%; ">
-    <default-drawer />
-
-    <default-view />
-  </div>
+    <div style="content-wrapper">
+      <default-drawer />
+      <default-view />
+    </div>
 
     <default-footer />
   </v-app>
@@ -36,3 +34,11 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.layout-default {
+  .content-wrapper {
+    display: flex; 
+    height: 100%; 
+  }
+}
+</style>

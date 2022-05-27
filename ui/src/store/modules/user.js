@@ -12,7 +12,7 @@ const userMenuItems = [
     title: "Settings",
     icon: "mdi-cog",
     to: "/user/settings/"
-  }];
+  } ];
 
 const adminMenuItems = [
   {
@@ -37,14 +37,14 @@ const generalMenuItems = [
     title: "Logout",
     icon: "mdi-logout",
     to: "/logout/"
-  }];
+  } ];
 
 const state = {
   userData: {
-    accountType: 1,
+    accountType: 0,
     email: ""
   },
-  token: "lapar",
+  token: "",
   drawer: {
     mini: false
   },

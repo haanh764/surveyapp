@@ -3,7 +3,11 @@
     id="default-footer"
     :color="variables.default.primary"
   >
-    <v-img :src="logo" max-height="48" max-width="48" />
+    <v-img
+      :src="logo"
+      max-height="48"
+      max-width="48"
+    />
     <span>
       (c) {{ new Date().getFullYear() }} SurveyApp Team
     </span>

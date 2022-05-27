@@ -1,0 +1,16 @@
+@import "_colors.scss";
+@import "_typography.scss";
+@import "_box-shadows.scss";
+@import "_buttons.scss";
+@import "_tabs.scss";
+@import "_cards.scss";
+
+// breakpoints
+$breakpoints: (
+  xl: 1200px,
+  lg: 992px,
+  md: 768px,
+  sm: 576px,
+  xs: 480px,
+  xxs: 360px
+);

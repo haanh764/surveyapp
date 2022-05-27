@@ -33,7 +33,7 @@
         {
           href: "/terms-and-conditions",
           text: "Terms and Conditions"
-        },
+        }
       ]
     })
   };

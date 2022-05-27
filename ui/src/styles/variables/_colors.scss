@@ -1,0 +1,32 @@
+// Colors
+$material-light: (
+  'background': #EEEEEE,
+  'text': ('primary': #333333,
+    'secondary': #999999)
+);
+
+$primary-color: #6200ee !default;
+$accent-color: #EE7200 !default;
+$disabled-color: #D8D8D8;
+$purple: #5200C7;
+$white: #fff;
+$grayish-white: #FAFAFA;
+$dark-purple: #4A01B2;
+$light-gray: #DFE0EB;
+$gray: #D8D8D8;
+
+$dark-primary: #000;
+$dark-secondary: #6c757d;
+
+$theme-colors: (
+  "primary": $primary-color,
+  "success": #28a745,
+  "info": #17a2b8,
+  "warning": #ffc107,
+);
+
+$overlays: (
+  "primary": linear-gradient(0deg, rgba(187, 134, 252, 0.12), rgba(187, 134, 252, 0.12)),
+  "success": #E1FCEF,
+  "info": #F0F1FA,
+);
