@@ -11,7 +11,7 @@ const userMenuItems = [
     title: "Settings",
     icon: "mdi-cog",
     to: "/user/settings/"
-  }];
+  } ];
 
 const adminMenuItems = [
   {
@@ -36,7 +36,7 @@ const generalMenuItems = [
     title: "Logout",
     icon: "mdi-logout",
     to: "/logout/"
-  }];
+  } ];
 
 const state = {
   userData: {

@@ -6,7 +6,7 @@
   >
     <v-row justify="center">
       <v-col cols="auto">
-       thank you view
+        thank you view
       </v-col>
     </v-row>
   </v-container>
