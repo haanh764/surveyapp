@@ -1,0 +1,22 @@
+@each $btn-font-size,
+$value in $btn-font-sizes {
+  .v-btn {
+    font-family: $font-family-sans-serif;
+
+    &.v-size--#{$btn-font-size} {
+      font-size: $value;
+    }
+  }
+}
+
+@each $theme-color,
+$value in $theme-colors {
+  .v-btn {
+    &.v-btn--#{$theme-color} {
+      background-color: $value  !important;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+  }
+}

@@ -30,5 +30,18 @@ $headings: (
   'overline': ('letter-spacing': normal,
     'line-height': 0.625rem,
     'size': 0.625rem,
-    'weight': 500)
+    'weight': 500),
+);
+
+$font-family-sans-serif: 'Roboto', Arial, sans-serif;
+$default-font-size: (
+  'px': 16px,
+  'rem': 1rem
+);
+$default-line-height: (
+  'px': 16px,
+  'rem': 1rem
+);
+$default-spacing: (
+  'px': 8
 );

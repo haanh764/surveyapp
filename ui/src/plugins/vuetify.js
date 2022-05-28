@@ -2,7 +2,8 @@ import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
 import ripple from "vuetify/lib/directives/ripple";
 import "@mdi/font/css/materialdesignicons.css";
-import theme from "@styles/variables.js";
+import { style } from "@styles/variables.js";
+
 
 Vue.use(Vuetify, { directives: { ripple } });
 
@@ -12,12 +13,11 @@ export default new Vuetify({
   icons: {
     iconfont: "mdi",
     values: { expand: "mdi-menu-down" }
-
   },
   theme: {
     themes: {
-      dark: theme,
-      light: theme
+      dark: style.color,
+      light: style.color
     }
   }
 });

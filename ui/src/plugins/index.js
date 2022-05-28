@@ -3,4 +3,7 @@
 import "./app";
 // import "./chartist";
 import "./webfontloader";
+import "./vue-window-size";
 import "./vue-meta";
+import "./vuex-persist";
+

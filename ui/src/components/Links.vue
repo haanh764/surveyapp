@@ -1,23 +1,22 @@
 <template>
-  <v-container>
+  <div>
     <v-row align="center">
       <v-col
         v-for="(link, i) in links"
         :key="i"
-        class="text-center"
-        cols="6"
+        class="text-left"
+        :cols="isMobile? 6: 4"
         md="auto"
       >
-        <a
-          :href="link.href"
-          class="text-decoration-none text-uppercase text-caption font-weight-regular"
-          rel="noopener"
-          target="_blank"
-          v-text="link.text"
-        />
+        <router-link
+          :to="link.href"
+          class="text-decoration-none text-caption font-weight-regular"
+        >
+          {{ link.text }}
+        </router-link>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

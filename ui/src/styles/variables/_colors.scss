@@ -7,22 +7,22 @@ $material-light: (
 
 $primary-color: #6200ee !default;
 $accent-color: #EE7200 !default;
+$dark-primary-color: #5200C7;
+$dark-primary-color-2: #4A01B2;
 $disabled-color: #D8D8D8;
-$purple: #5200C7;
+
 $white: #fff;
 $grayish-white: #FAFAFA;
-$dark-purple: #4A01B2;
 $light-gray: #DFE0EB;
 $gray: #D8D8D8;
-
-$dark-primary: #000;
-$dark-secondary: #6c757d;
+$black: #000;
+$dark-gray: #6c757d;
 
 $theme-colors: (
   "primary": $primary-color,
-  "success": #28a745,
-  "info": #17a2b8,
-  "warning": #ffc107,
+  "primary-dark": $dark-primary-color,
+  "primary-dark-2": $dark-primary-color-2,
+  "accent": $accent-color,
 );
 
 $overlays: (
