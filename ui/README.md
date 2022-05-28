@@ -17,35 +17,22 @@ https://devtools.vuejs.org/guide/installation.html
 
 ### VSCode
 It's recommended (but not necessary) to use VSCode for better quality code: https://code.visualstudio.com/download
-Configure settings.json and make sure the formatOnSave mode is enabled, then adjust your settings.json: 
+
+Configure VSCode's settings.json and make sure the formatOnSave mode is enabled, then adjust your settings.json: 
 https://github.com/vuejs/eslint-plugin-vue/blob/master/.vscode/settings.json 
 
 ## Project setup
-If you are using npm: 
-```
-npm install 
-```
-
 If you are using yarn: 
 ```
 yarn
 ```
 ### Compiles and hot-reloads for development
-If you are using npm: 
-```
-npm run serve
-```
-
 If you are using yarn: 
 ```
 yarn serve
 ```
 
 ### Compiles and minifies for production
-```
-npm run build
-```
-
 If you are using yarn: 
 ```
 yarn build
@@ -53,10 +40,6 @@ yarn build
 
 
 ### Lints and fixes files
-```
-npm run lint
-```
-
 If you are using yarn: 
 ```
 yarn lint

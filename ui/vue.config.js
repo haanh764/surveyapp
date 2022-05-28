@@ -8,7 +8,7 @@ const vueSrc = "./src";
 
 module.exports = defineConfig({
   transpileDependencies: true,
-
+  lintOnSave: 'warning',
   configureWebpack: {
     resolve: {
       alias: {
