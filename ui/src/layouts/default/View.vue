@@ -3,7 +3,7 @@
     class="default-main"
     :class="{'--is-mobile' : isMobile, '--is-purple': hasPurpleBackground }"
   >
-    <v-container fluid>
+    <v-container fluid class="default-main__container">
       <router-view :key="$route.path" />
     </v-container>
   </v-main>
@@ -12,9 +12,12 @@
 <script>
 export default {
   name: "DefaultView", 
+  mounted() {
+    console.log(this.isMobile);
+  },
   computed: {
     hasPurpleBackground() {
-      const routeNames = [ "general-landing", "general-signup", "general-login" ];
+      const routeNames = [ "general-landing", "general-user-signup", "general-user-login", "general-admin-login" ];
       return routeNames.includes(this.$route.name);
     }
   }
@@ -25,11 +28,15 @@ export default {
 .default-main{
   &.--is-mobile {
     background-color: $grayish-white;
-    
+    min-height: 100vh;
   }
 
   &.--is-purple {
     background-color: map-get($theme-colors, 'primary');
+  }
+
+  &__container {
+    min-height: 100vh;
   }
 }
 </style>

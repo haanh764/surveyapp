@@ -14,7 +14,7 @@ export const styleMixin = {
   computed: {
     isMobile() {
       const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const isMobileScreen = this.width < 768;
+      const isMobileScreen = this.windowWidth < 768;
       return isMobileScreen || isMobileBrowser;
     }
   }

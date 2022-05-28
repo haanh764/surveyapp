@@ -32,11 +32,14 @@ const generalRoutes = [
     { path: "/privacy-policy", name: "general-privacy-policy", component: () => import(/* webpackChunkName: "general-privacy-policy" */ "@views/general/privacy-policy/PrivacyPolicyView.vue") },
     { path: "/terms-and-conditions", name: "general-terms-and-conditions", component: () => import(/* webpackChunkName: "general-terms-and-conditions" */ "@views/general/terms-and-conditions/TermsAndConditionsView.vue") },
     { path: "/user/login", name: "general-user-login", component: () => import(/* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue") },
+    { path: "/user/login/confirm", name: "general-user-login-confirm", component: () => import(/* webpackChunkName: "general-user-login-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue") },
     { path: "/user/signup", name: "general-user-signup", component: () => import(/* webpackChunkName: "general-user-signup" */ "@views/user/signup/SignupView.vue") },
     { path: "/admin/login", name: "general-admin-login", component: () => import(/* webpackChunkName: "general-admin-login" */ "@views/admin/login/LoginView.vue") },
-    { path: "/survey/:id", name: "general-survey-fill", component: () => import(/* webpackChunkName: "general-survey-fill" */ "@views/general/survey/SurveyView.vue") },
+    { path: "/survey/:id", name: "general-survey-fill", component: () => import(/* webpackChunkName: "general-survey-fill" */ "@views/general/survey-fill/SurveyFillView.vue") },
+    { path: "/survey/:id/submitted", name: "general-survey-submitted", component: () => import(/* webpackChunkName: "general-survey-submitted" */ "@views/general/survey-submitted/SurveySubmittedView.vue") },
+    { path: "/user/signup/thankyou", name: "general-user-signup-thankyou", component: () => import(/* webpackChunkName: "general-user-signup-thankyou" */ "@views/user/signup-thankyou/SignupThankyouView.vue") },
+    { path: "/user/thankyou", name: "general-user-thankyou", component: () => import(/* webpackChunkName: "general-user-thankyou" */ "@views/user/thankyou/ThankyouView.vue") },
     { path: "/logout", name: "general-logout" }
-
   ])
 ];
 
@@ -56,7 +59,7 @@ const router = new Router({
     ...adminRoutes,
     layout("DefaultWithoutSidebar", [
       { path: "/404", name: "general-404", component: PageNotFoundView },
-      { path: "*", redirect: "404" } ])
+      { path: "*", redirect: "404" }])
   ]
 });
 

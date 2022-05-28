@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="links">
     <v-row align="center">
       <v-col
         v-for="(link, i) in links"
@@ -41,4 +41,5 @@
 <style lang="sass" scoped>
   a
     color: inherit !important
+    
 </style>

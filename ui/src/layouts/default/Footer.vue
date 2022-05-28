@@ -40,7 +40,7 @@ export default {
 
   &__copyright {
     display: block;
-    color: $white;
+    color: transparentize($white, .2);
     background-color: map-get($theme-colors, "primary-dark");
     display: flex;
     width: 100%;
@@ -50,7 +50,7 @@ export default {
 
   &__links {
     background-color: map-get($theme-colors, "primary-dark-2");
-    color: $white;
+    color: transparentize($white, .4);
     padding: 10px 20px 50px;
     margin: 0;
     width: 100%; 
