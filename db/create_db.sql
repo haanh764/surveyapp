@@ -4,10 +4,14 @@ DROP TABLE IF EXISTS open_answers;
 DROP TABLE IF EXISTS open_answer_questions;
 DROP TABLE IF EXISTS scale_answers;
 DROP TABLE IF EXISTS scale_questions;
+DROP TABLE IF EXISTS answer_options_choice_answer;
+DROP TABLE IF EXISTS answer_options;
 DROP TABLE IF EXISTS choice_answers;
 DROP TABLE IF EXISTS multiple_choice_questions;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS responses;
+DROP TABLE IF EXISTS question_analyses;
+DROP TABLE IF EXISTS analyses;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS surveys;
 DROP TABLE IF EXISTS users;
@@ -117,4 +121,45 @@ CREATE TABLE choice_answers(
     multiple_choice_questions_questionId int NOT NULL,
     FOREIGN KEY (answerId) REFERENCES answers(id),
     FOREIGN KEY (multiple_choice_questions_questionId) REFERENCES multiple_choice_questions(questionId)
+);
+
+CREATE TABLE analyses(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    creationDate date,
+    surveyId int NOT NULL,
+    FOREIGN KEY (surveyId) REFERENCES surveys(id)
+);
+
+CREATE TABLE question_analyses(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    data_type varchar(255),
+    answer_count int,
+    unique_answer_count int,
+    modus int,
+    median int,
+    average float,
+    most_frequent_answer varchar(255),
+    least_frequent_answer varchar(255),
+    most_frequent_answer_count int,
+    least_frequent_answer_count int,
+    analysisId int NOT NULL,
+    questionId int NOT NULL,
+    FOREIGN KEY (analysisId) REFERENCES analyses(id),
+    FOREIGN KEY (questionId) REFERENCES questions(id)
+);
+
+CREATE TABLE answer_options(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    multiple_choice_questions_questionId int NOT NULL,
+    image MEDIUMBLOB,
+    text varchar(255),
+    FOREIGN KEY (multiple_choice_questions_questionId) REFERENCES multiple_choice_questions(questionId)
+);
+
+CREATE TABLE answer_options_choice_answer(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    choice_answer_answerId int NOT NULL,
+    answer_optionId int NOT NULL,
+    FOREIGN KEY (choice_answer_answerId) REFERENCES choice_answers(answerId),
+    FOREIGN KEY (answer_optionId) REFERENCES answer_options(id)
 );
