@@ -31,7 +31,7 @@
   export default { name: "ErrorView",
   data: function() {
     return {
-      imageWidth: "35%"
+      imageWidth: "35vw"
     }
   },
   computed: {
