@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="thankyou-view"
+    id="delete-thankyou-view"
     class="fill-height text-center"
     tag="section"
   >
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-export default { name: "ThankyouView" };
+export default { name: "DeleteThankyouView" };
 </script>
 
 <style lang="scss">
