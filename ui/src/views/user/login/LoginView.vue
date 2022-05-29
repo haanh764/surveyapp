@@ -140,8 +140,12 @@ export default {
   }
 
   &__card {
-    padding: 60px 50px;
+    padding: calculate-space(6);
     border-radius: 10px;
+
+    @media only screen and (max-width: map-get($breakpoints, "md")) {
+      padding: calculate-space(6) calculate-space(1.5) calculate-space(6);
+    }
   }
 
   &__title {
