@@ -1,0 +1,1 @@
+DB_URL = 'mysql+pymysql://user:password123@db/surveydb'
