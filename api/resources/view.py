@@ -1,3 +1,4 @@
+# Example for create resource for API
 from flask_restful import Resource
 from common.db_connector import DbConnector
 
