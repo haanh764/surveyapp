@@ -15,7 +15,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "register-service-worker": "^1.7.2",
-    "vee-validate": "^3.0.0",
+    "vee-validate": "3",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuetify": "^2.6.6",

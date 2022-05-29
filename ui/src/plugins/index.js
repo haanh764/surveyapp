@@ -6,4 +6,5 @@ import "./webfontloader";
 import "./vue-window-size";
 import "./vue-meta";
 import "./vuex-persist";
+import "./vee-validate";
 

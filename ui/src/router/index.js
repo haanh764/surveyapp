@@ -59,7 +59,7 @@ const router = new Router({
     ...adminRoutes,
     layout("DefaultWithoutSidebar", [
       { path: "/404", name: "general-404", component: PageNotFoundView },
-      { path: "*", redirect: "404" }])
+      { path: "*", redirect: "404" } ])
   ]
 });
 
@@ -72,10 +72,10 @@ router.beforeEach((to, from, next) => {
   const userMainPage = { name: "user-surveys" };
   const adminMainPage = { name: "admin-surveys" };
 
-  const preventedWords = ["landing", "login", "signup", "delete"];
+  const preventedWords = [ "landing", "login", "signup", "delete" ];
   const shouldBePrevented = (routeName) => {
     return preventedWords.some((preventedWord) => routeName.includes(preventedWord));
-  }
+  };
 
   if (hasLoggedIn) {
     if (to.name == "general-logout") {

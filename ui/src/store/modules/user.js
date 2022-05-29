@@ -11,7 +11,7 @@ const userMenuItems = [
     title: "Settings",
     icon: "mdi-cog",
     to: "/user/settings/"
-  }];
+  } ];
 
 const adminMenuItems = [
   {
@@ -36,7 +36,7 @@ const generalMenuItems = [
     title: "Logout",
     icon: "mdi-logout",
     to: "/logout/"
-  }];
+  } ];
 
 const state = {
   userData: {
@@ -69,15 +69,17 @@ const actions = {
     // set account type, token, has logged in
     // 0 = user
     // 1 = admin
+    dispatch("checkAccountTypeAndSetMenuItems");
+  },
+  checkAccountTypeAndSetMenuItems: ({ dispatch }) => {
     if (state.userData.accountType == 0) {
       dispatch("setItems", userMenuItems.concat(generalMenuItems));
     } else if (state.userData.accountType == 1) {
       dispatch("setItems", adminMenuItems.concat(generalMenuItems));
     }
-
-
   }
 };
+
 
 const getters = {
   hasLoggedIn: (state) => {
