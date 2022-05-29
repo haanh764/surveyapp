@@ -1,5 +1,4 @@
 import { make } from "vuex-pathify";
-import { IN_BROWSER } from "@/util/globals";
 
 
 const userMenuItems = [
@@ -12,7 +11,7 @@ const userMenuItems = [
     title: "Settings",
     icon: "mdi-cog",
     to: "/user/settings/"
-  } ];
+  }];
 
 const adminMenuItems = [
   {
@@ -37,14 +36,14 @@ const generalMenuItems = [
     title: "Logout",
     icon: "mdi-logout",
     to: "/logout/"
-  } ];
+  }];
 
 const state = {
   userData: {
     accountType: 0,
     email: ""
   },
-  token: "",
+  token: "test",
   drawer: {
     mini: false
   },
@@ -60,18 +59,6 @@ const mutations = {
 
 const actions = {
   ...make.actions(state),
-  fetch: ({ commit }) => {
-    const local = localStorage.getItem("user") || "{}";
-    const user = JSON.parse(local);
-
-    for (const key in user) {
-      commit(key, user[key]);
-    }
-  },
-  update: ({ state }) => {
-    if (!IN_BROWSER) return;
-    localStorage.setItem("user", JSON.stringify(state));
-  },
   init: async ({ dispatch }) => {
     // access api 
     // put below code in then block

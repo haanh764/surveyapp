@@ -3,12 +3,11 @@ const path = require("path");
 const webpack = require("webpack");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 
-
 const vueSrc = "./src";
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  lintOnSave: 'warning',
+  lintOnSave: "warning",
   configureWebpack: {
     resolve: {
       alias: {
@@ -16,6 +15,7 @@ module.exports = defineConfig({
         "@components": path.resolve(__dirname, `${vueSrc}/components/`),
         "@layouts": path.resolve(__dirname, `${vueSrc}/layouts/`),
         "@api": path.resolve(__dirname, `${vueSrc}/api/`),
+        "@mixins": path.resolve(__dirname, `${vueSrc}/mixins/`),
         "@assets": path.resolve(__dirname, `${vueSrc}/assets/`),
         "@views": path.resolve(__dirname, `${vueSrc}/views/`),
         "@helpers": path.resolve(__dirname, `${vueSrc}/helpers/`),
@@ -45,6 +45,9 @@ module.exports = defineConfig({
       scss: {
         additionalData: `
           @import "@/styles/variables/index.scss";
+          @import "@/styles/mixins/index.scss";
+          @import "@/styles/components/index.scss";
+
         `
       }
     }

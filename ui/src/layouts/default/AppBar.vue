@@ -3,7 +3,7 @@
     id="default-app-bar"
     app
     class="v-bar--underline"
-    :color="variables.default.primary"
+    :color="style.color.primary"
     :fixed="true"
     :clipped-left="true"
     height="70"
@@ -15,11 +15,10 @@
       @click="drawer = !drawer"
     />
     <v-btn
-      class="ml-2"
-      min-width="0"
+      class="logo test"
       text
+      plain
       to="/"
-      exact
     >
       SurveyApp
     </v-btn>
@@ -32,8 +31,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "DefaultBar",
-  mounted() {
-  },
   computed: {
     ...sync("app", [
       "drawer",
@@ -43,12 +40,19 @@ export default {
       "hasLoggedIn"
     ]),
     name: get("route/name"),
-    variables() {
-      return require("@styles/variables.js");
-    },
     isDrawerShown() {
       return this.hasLoggedIn;
     }
   }
 };
 </script>
+<style lang="scss">
+#default-app-bar {
+  .logo {
+    background-color: transparent; 
+    color: $white;
+    text-transform: none;
+  }
+}
+
+</style>
