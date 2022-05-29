@@ -2,28 +2,32 @@
   <v-card
     v-bind="$attrs"
     v-on="$listeners"
-    class="content-card"
+    class="content-card text-center"
     :class="{'--is-mobile': isMobile, 'elevated-2': !isMobile}"
   >
-    >
     <v-container>
-      <v-row>
-        <v-col cols="10">
-          <v-card-title>
+      <v-row justify="center">
+        <v-col :cols="isMobile? 12: 8">
+          <v-card-title class="content-card__title text-center">
             {{ title }}
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="content-card__description">
             {{ description }}
           </v-card-text>
           <v-img
+            class="mx-auto"
             v-if="image"
             :src="image"
+            :max-width="maxImageWidth"
             :max-height="maxImageHeight"
           />
           <v-btn
             flat
             v-if="showBackToHomeButton"
-            class="v-btn--primary"
+            class="v-btn--primary content-card__home-button"
+            to="/"
+            height="53"
+            block
           >
             BACK TO HOME
           </v-btn>
@@ -49,15 +53,19 @@ export default {
       default: "",
     },
     image: {
-      type: Object,
+      type: String,
       default: null,
     },
+    maxImageWidth: {
+      type: Number,
+      default: 100,
+    },
     maxImageHeight: {
-      type: int,
+      type: Number,
       default: 100,
     },
     showBackToHomeButton: {
-      type: boolean,
+      type: Boolean,
       default: true,
     },
   },
@@ -67,9 +75,33 @@ export default {
 <style lang="scss">
 .content-card {
   border: 1px solid $light-gray;
+  padding: calculate-space(5) 0;
+
+  @media only screen and (max-width: map-get($breakpoints, "md")) {
+    padding: 0;
+  }
 
   &.--is-mobile {
     border: none;
+    box-shadow: none !important;
+  }
+
+  &__title {
+    justify-content: center;
+    @include font-size(2);
+
+    @media only screen and (max-width: map-get($breakpoints, "md")) {
+      @include font-size(1.25);
+    }
+  }
+
+  &__description {
+    color: $secondary-text-color;
+    @include font-size(1);
+  }
+
+  &__home-button {
+    margin-top: 30px;
   }
 }
 </style>
