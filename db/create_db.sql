@@ -105,6 +105,7 @@ CREATE TABLE scale_answers(
     answerId int NOT NULL,
     scale_question_questionsId int NOT NULL,
     value int,
+    FOREIGN KEY (answerId) REFERENCES answers(id),
     FOREIGN KEY (scale_question_questionsId) REFERENCES scale_questions(questionId)
 );
 
