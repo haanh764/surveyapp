@@ -1,6 +1,6 @@
 # Example for create resource for API
 from flask_restful import Resource
-from common.db_connector import DbConnector
+from database.db_connector import DbConnector
 
 class Home(Resource):
   def __init__(self):
