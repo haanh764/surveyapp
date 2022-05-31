@@ -20,26 +20,25 @@
 </template>
 
 <script>
-  export default {
-    name: "Links",
+export default {
+  name: "Links",
 
-    data: () => ({
-      links: [
-        {
-          href: "/privacy-policy",
-          text: "Privacy Policy"
-        },
-        {
-          href: "/terms-and-conditions",
-          text: "Terms and Conditions"
-        }
-      ]
-    })
-  };
+  data: () => ({
+    links: [
+      {
+        href: "/privacy-policy",
+        text: "Privacy Policy",
+      },
+      {
+        href: "/terms-and-conditions",
+        text: "Terms and Conditions",
+      },
+    ],
+  }),
+};
 </script>
 
 <style lang="sass" scoped>
-  a
-    color: inherit !important
-    
+a
+  color: inherit !important
 </style>

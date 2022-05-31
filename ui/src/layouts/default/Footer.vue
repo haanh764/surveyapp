@@ -1,7 +1,7 @@
 <template>
   <v-footer
     id="default-footer"
-    class="default-footer" 
+    class="default-footer"
     :color="style.color.primary"
   >
     <div class="default-footer__copyright">
@@ -28,8 +28,8 @@ export default {
   computed: {
     logo() {
       return require("@assets/svg/logo.svg");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -40,7 +40,7 @@ export default {
 
   &__copyright {
     display: block;
-    color: transparentize($white, .2);
+    color: transparentize($white, 0.2);
     background-color: map-get($theme-colors, "primary-dark");
     display: flex;
     width: 100%;
@@ -50,11 +50,10 @@ export default {
 
   &__links {
     background-color: map-get($theme-colors, "primary-dark-2");
-    color: transparentize($white, .4);
+    color: transparentize($white, 0.4);
     padding: 10px 20px 50px;
     margin: 0;
-    width: 100%; 
+    width: 100%;
   }
-
 }
 </style>

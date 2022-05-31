@@ -20,9 +20,7 @@
             v-if="icon"
             :class="iconSmall ? 'pa-7' : 'pa-8'"
           >
-            <v-icon
-              :large="!iconSmall"
-            >
+            <v-icon :large="!iconSmall">
               {{ icon }}
             </v-icon>
           </div>
@@ -71,54 +69,57 @@
 <script>
 export default {
   name: "MaterialCard",
-
   props: {
     color: {
       type: String,
-      default: "white"
+      default: "white",
     },
     fullHeader: {
       type: Boolean,
-      default: true
+      default: true,
     },
     heading: {
       type: String,
-      default: ""
+      default: "",
     },
     icon: {
-      type: String, default: ""
+      type: String,
+      default: "",
     },
-    iconSmall: {type: Boolean, default: false},
-    subtitle: {type: String, default: ""},
+    iconSmall: {
+      type: Boolean,
+      default: false,
+    },
+    subtitle: {
+      type: String,
+      default: "",
+    },
     title: {
-      type: String, default: ""
-    }
+      type: String,
+      default: "",
+    },
   },
 
   computed: {
-    hasHeading () {
-      return !!(
-        this.icon ||
-          this.heading ||
-          this.$slots.heading
-      );
+    hasHeading() {
+      return !!(this.icon || this.heading || this.$slots.heading);
     },
-    hasTitle () {
+    hasTitle() {
       return !!(
         this.title ||
-          this.subtitle ||
-          this.$slots.title ||
-          this.$slots.subtitle
+        this.subtitle ||
+        this.$slots.title ||
+        this.$slots.subtitle
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="sass">
-  .v-card.v-card--material
-    > .v-card__title
-      > .v-card--material__title
-        flex: 1 1 auto
-        word-break: break-word
+.v-card.v-card--material
+  > .v-card__title
+    > .v-card--material__title
+      flex: 1 1 auto
+      word-break: break-word
 </style>

@@ -1,0 +1,7 @@
+@mixin default-container-padding {
+  padding: calculate-space(10) calculate-space(0);
+
+  @media only screen and (max-width: map-get($breakpoints, "md")) {
+    padding: calculate-space(10) calculate-space(0);
+  }
+}

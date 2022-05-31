@@ -7,7 +7,7 @@
   >
     <v-row justify="center">
       <v-col
-        :cols="isMobile? 10: 7"
+        :cols="isMobile? 10: 6"
         class="txt-col"
       >
         <v-img
@@ -52,84 +52,79 @@
 </template>
 
 <script>
-  export default { name: "LandingView",
+export default {
+  name: "LandingView",
   computed: {
     mainPicture() {
       return require("@assets/svg/home.svg");
-    }
-  } };
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-  #landing-view  {
+#landing-view {
+  .txt-col {
+    padding-right: calculate-space(10, "px");
 
-    .txt-col {
-      padding-right: calculate-space(10, 'px');
-
-      &__img {
-        display: block;
-      }
-    }
-
-
-    .tagline--wrapper {
-      margin-top: calculate-space(12, 'px'); 
-
-      @media only screen and (max-width: map-get($breakpoints, 'md')) {
-        margin-top: calculate-space(6, 'px'); 
-      }
-
-    }
-    
-
-    .tagline {
+    &__img {
       display: block;
-      font-weight: 500;
-      letter-spacing: 0.4px;
-      color: $white;
-      margin-bottom: calculate-space(1, 'px');
-      @include font-size(1.75);
-
-      @media only screen and (max-width: map-get($breakpoints, 'md')) {
-        @include font-size(1.5);
-      }
-
-    }
-
-    .slogan {
-      display: block;
-      font-weight: 900;
-      letter-spacing: 0.4px;
-      color: $white;
-      margin-bottom: calculate-space(4, 'px');
-      @include font-size(3);
-      
-      @media only screen and (max-width: map-get($breakpoints, 'md')) {
-        @include font-size(2.5);
-      }
-    }
-
-    .tagline-login {
-      display: block;
-      margin-top: calculate-space(2, 'px');
-      @include font-size(1);
-      text-align: center;
-      color: $grayish-white;
-
-      .link {
-        color: $grayish-white;
-      }
-
-    }
-
-    &.--is-mobile {
-      padding: 100px 0; 
-
-      .txt-col {
-        padding-right: 0;
-        padding-top: calculate-space(2, 'px');
-      }
-
     }
   }
+
+  .tagline--wrapper {
+    margin-top: calculate-space(12, "px");
+
+    @media only screen and (max-width: map-get($breakpoints, "md")) {
+      margin-top: calculate-space(6, "px");
+    }
+  }
+
+  .tagline {
+    display: block;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: $white;
+    margin-bottom: calculate-space(1, "px");
+    @include font-size(1.75);
+
+    @media only screen and (max-width: map-get($breakpoints, "md")) {
+      @include font-size(1.5);
+    }
+  }
+
+  .slogan {
+    display: block;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    color: $white;
+    margin-bottom: calculate-space(4, "px");
+    @include font-size(3);
+
+    @media only screen and (max-width: map-get($breakpoints, "md")) {
+      @include font-size(2.5);
+    }
+  }
+
+  .tagline-login {
+    display: block;
+    margin-top: calculate-space(2, "px");
+    @include font-size(1);
+    text-align: center;
+    color: $grayish-white;
+
+    .link {
+      color: $grayish-white;
+    }
+  }
+
+  &.--is-mobile {
+    padding: 100px 0;
+
+    .txt-col {
+      padding-right: 0;
+      padding-top: calculate-space(2, "px");
+    }
+  }
+}
 </style>
