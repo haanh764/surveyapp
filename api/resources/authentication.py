@@ -8,6 +8,9 @@ import datetime
 class SignUp(Resource):
     def post(self):
         data = request.get_json()
+        existing_user = User.find_by_email(data['email'])
+        if existing_user:
+            return {'message': 'User {} already exists. Please Login or Signup with another email!'.format(data['email'])}
         user = User(**data)
         user.generate_password()
         user.add_user()
