@@ -1,10 +1,12 @@
 from flask import request, Response
-from flask_restful import Resource
+from flask_login import login_required
+from flask_restful import Resource, url_for
 from flask_jwt_extended import create_access_token
 
 from models.user import User
 import datetime
 from email_validator import validate_email, EmailNotValidError
+from common.authentication_helper import generate_confirmation_token, confirm_token, send_email
 
 class SignUp(Resource):
     def post(self):
@@ -17,10 +19,26 @@ class SignUp(Resource):
             user = User(**data)
             user.generate_password()
             user.add_user()
+            token = generate_confirmation_token(data['email'])
+            confirm_url = url_for('activateaccount', token=token, _external=True)
+            send_email(data['email'], 'Please Confirm Your Email', confirm_url)
             id = user.id
             return {'message': 'User {} was created'.format(id)}, 200
         except EmailNotValidError as errorMsg:
             return {'message': 'Invalid email address. {}'.format(errorMsg)}, 400
+
+class ActivateAccount(Resource):
+    def get(self, token):
+        email = confirm_token(token)
+        if email:
+            user = User.find_by_email(email)
+            if user.isConfirmed:
+                return {'message': 'User {} is already confirmed.'.format(email)}, 200
+            user.isConfirmed = True
+            user.add_user()
+            return {'message': 'User {} was confirmed'.format(user.id)}, 200
+        else:
+            return {'message': 'The confirmation link is invalid or has expired.'}, 400
 
 class Login(Resource):
     def post(self):
