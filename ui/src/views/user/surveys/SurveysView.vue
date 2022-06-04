@@ -1,52 +1,581 @@
 <template>
-  <div id="user-surveys">
-    user surveys
-  </div>
+  <v-container
+    id="user-surveys-view"
+    class="user-surveys-view"
+    :class="{'--no-padding': isMobile && (isPrivacyPolicyModalShown || isTnCModalShown)}"
+    tag="section"
+  >
+    <v-row justify="center">
+      <v-col :cols="isMobile? 12: 10">
+        <v-card
+          class="user-surveys-card text-center"
+          elevation="2"
+          :class="{'--is-mobile': isMobile, '--is-desktop': !isMobile}"
+        >
+          <v-row justify="center">
+            <v-col cols="12">
+              <template v-if="isMobile && (isPrivacyPolicyModalShown || isTnCModalShown)">
+                <template v-if="isPrivacyPolicyModalShown">
+                  <conditions-interaction
+                    title="Privacy Policy"
+                    link="http://www.google.com"
+                    :is-close-button-shown="true"
+                    :content="privacyPolicyContent"
+                    @confirm="onConfirmPrivacyPolicy"
+                  />
+                </template>
+                <template v-else-if="isTnCModalShown">
+                  <conditions-interaction
+                    title="Terms and Conditions"
+                    link="http://www.google.com"
+                    :is-close-button-shown="true"
+                    :content="tnCContent"
+                    @confirm="onConfirmTnC"
+                  />
+                </template>
+              </template>
+              <template v-else>
+                <template v-if="!hasAcceptedConditions">
+                  <center>
+                    <v-img
+                      :src="require('@assets/svg/man-filling-form.svg')"
+                      :max-height="isMobile? 220: 420"
+                      :max-width="isMobile? 320: 600"
+                    />
+                  </center>
+                  <h1 class="mb-2">
+                    This feature is currently disabled
+                  </h1>
+                  <p class="text-secondary">
+                    You cannot use our services until you have accepted our Terms and Conditions and Privacy Policy.
+                  </p>
+                  <v-btn
+                    v-show="!hasAcceptedTnC"
+                    block
+                    class="text-capitalize v-btn--default mb-5"
+                    height="53"
+                    @click="isTnCModalShown = true"
+                  >
+                    Review Terms and Conditions
+                  </v-btn>
+                  <v-btn
+                    v-show="!hasAcceptedPrivacyPolicy"
+                    block
+                    class="v-btn--default mb-5"
+                    height="53"
+                    @click="isPrivacyPolicyModalShown = true"
+                  >
+                    Review Privacy Policy
+                  </v-btn>
+                </template>
+                <template v-else-if="hasAcceptedConditions && !surveys.length">
+                  <v-img
+                    :src="require('@assets/svg/man-filling-form.svg')"
+                    :max-height="isMobile? 220: 420"
+                    :max-width="isMobile? 320: 600"
+                  />
+                  <h1 class="mb-2">
+                    Reach your respondents
+                  </h1>
+                  <p class="text-secondary">
+                    Save a draft survey and it will show up in here
+                  </p>
+                  <v-btn
+                    block
+                    height="53"
+                    :disabled="surveys.length >= 20"
+                    class="v-btn--accent"
+                    @click="createSurvey"
+                  >
+                    <v-icon class="pr-1">
+                      mdi-plus
+                    </v-icon>
+                    CREATE SURVEY
+                  </v-btn>
+                </template>
+                <template v-else>
+                  <template v-if="isMobile">
+                    <v-row justify="center">
+                      <v-col
+                        cols="12"
+                        class="mb-2"
+                      >
+                        <v-btn
+                          block
+                          height="53"
+                          :disabled="surveys.length >= 20"
+                          class="v-btn--accent"
+                          @click="createSurvey"
+                        >
+                          <v-icon class="pr-1">
+                            mdi-plus
+                          </v-icon>
+                          CREATE SURVEY
+                        </v-btn>
+                      </v-col>
+                      <v-col cols="10">
+                        <v-text-field
+                          v-model.trim="keyword"
+                          solo
+                          dense
+                          height="48"
+                          class="user-surveys-search"
+                          label="Search survey by name"
+                          append-icon="mdi-magnify"
+                        />
+                        <p class="text-left text-secondary">
+                          {{ surveys.length }} surveys
+                        </p>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-btn
+                          text
+                          icon
+                          elevation="2"
+                          height="48"
+                          width="48"
+                          class="v-btn--default"
+                          @click="isSortedAscending = !isSortedAscending"
+                        >
+                          <v-icon>
+                            {{ isSortedAscending ? 'mdi-sort-alphabetical-ascending' : 'mdi-sort-alphabetical-descending' }}
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-list>
+                      <v-list-item
+                        v-for="survey in filteredSurveys"
+                        :key="survey.id"
+                        cols="12"
+                        @click="onClickSurveyListItem(survey)"
+                      >
+                        <v-list-item-content class="pa-2 pb-4">
+                          <v-row justify="space-between">
+                            <v-col
+                              cols="auto"
+                              align-self="start"
+                            >
+                              <h2 class="mb-1">
+                                {{ survey.title }}
+                              </h2>
+                              <span class="text-secondary">
+                                {{ survey.responses }} responses received
+                              </span>
+                            </v-col>
+                            <v-col cols="auto">
+                              <span class="text-xs-right">
+                                {{ survey.lastUpdatedDate | standardDate }}
+                              </span>
+                            </v-col>
+                          </v-row>
+                          <v-divider />
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </template>
+                  <template v-else>
+                    <v-row
+                      justify="start"
+                      class="mb-2"
+                    >
+                      <v-col
+                        cols="7"
+                        class="text-left"
+                      >
+                        <h1>
+                          My Surveys
+                        </h1>
+                        <p>
+                          {{ surveys.length == 20 ? `Maximum ${surveys.length} surveys reached` : `${surveys.length} surveys` }}
+                        </p>
+                      </v-col>
+                      <v-col cols="5">
+                        <v-btn
+                          block
+                          height="53"
+                          :disabled="surveys.length >= 20"
+                          class="v-btn--accent"
+                          @click="createSurvey"
+                        >
+                          <v-icon class="pr-1">
+                            mdi-plus
+                          </v-icon>
+                          CREATE SURVEY
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-data-table
+                      :headers="tableHeaders"
+                      :items="filteredSurveys"
+                      item-key="name"
+                      class="elevation-1 user-surveys-table"
+                      :search="keyword"
+                      @dblclick:row="onClickTableRowItem"
+                    >
+                      <template #top>
+                        <v-row
+                          justify="start"
+                          class="user-surveys-table__top"
+                        >
+                          <!-- not defined in requirements but shown in design -->
+                          <!-- <v-col cols="1">
+                            <v-btn
+                              text
+                              icon
+                              class="v-btn--default"
+                            >
+                              <v-icon>
+                                mdi-filter
+                              </v-icon>
+                            </v-btn>
+                          </v-col> -->
+                          <v-col cols="auto">
+                            <v-text-field
+                              v-model="keyword"
+                              solo
+                              dense
+                              class="user-surveys-search --is-desktop"
+                              prepend-inner-icon="mdi-magnify"
+                              label="Search survey by name"
+                            />
+                          </v-col>
+                        </v-row>
+                      </template>
+                      <template #item.index="{item, index}">
+                        {{ index + 1 }}
+                      </template>
+                      <template #item.lastUpdatedDate="{ item }">
+                        {{ item.lastUpdatedDate | standardDate }}
+                      </template>
+                      <template #item.status="{ item }">
+                        <v-chip
+                          small
+                          :color="getItemStatus(item.status).color"
+                          :text-color="getItemStatus(item.status).textColor"
+                        >
+                          {{ getItemStatus(item.status).text }}
+                        </v-chip>
+                      </template>
+                      <template #item.id="{item}">
+                        <v-row justify="space-between">
+                          <v-col cols="12">
+                            <v-btn
+                              text
+                              icon
+                              elevation="1"
+                              small
+                              class="v-btn--default mr-2"
+                              @click="onClickItemEdit(item)"
+                            >
+                              <v-icon small>
+                                mdi-pencil
+                              </v-icon>
+                            </v-btn>
+
+                            <v-btn
+                              text
+                              icon
+                              elevation="1"
+                              small
+                              class="v-btn--default"
+                              @click="onClickItemDelete(item)"
+                            >
+                              <v-icon small>
+                                mdi-delete
+                              </v-icon>
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </template>
+                    </v-data-table>
+                  </template>
+                </template>
+              </template>
+            </v-col>
+          </v-row>
+        </v-card>
+
+        <template v-if="!isMobile">
+          <modal
+            v-model="isPrivacyPolicyModalShown"
+            :is-close-button-shown="false"
+            name="privacy-policy-modal"
+          >
+            <conditions-interaction
+              title="Privacy Policy"
+              link="http://www.google.com"
+              :content="privacyPolicyContent"
+              @confirm="onConfirmPrivacyPolicy"
+            />
+          </modal>
+          <modal
+            v-if="!isMobile"
+            v-model="isTnCModalShown"
+            :is-close-button-shown="false"
+            name="tnc-modal"
+          >
+            <conditions-interaction
+              title="Terms and Conditions"
+              link="http://www.google.com"
+              :content="tnCContent"
+              @confirm="onConfirmTnC"
+            />
+          </modal>
+          <modal
+            v-model="isDeleteItemModalShown"
+            name="delete-modal"
+            title="Delete"
+            content="Are you sure you want to delete this item? This action cannot be undone."
+            primary-action-button-text="OK"
+            @click:primary-action="onDeleteConfirmation"
+          />
+        </template>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import {getSurveys} from "@api";
+import { get, sync } from "vuex-pathify";
+import { mapGetters } from "vuex";
+import { getSurveys } from "@api";
+import loremIpsum from "@assets/json/lorem-ipsum.json";
 
 export default {
-  name: "AboutView",
-  data: () => ({
-    message: String
-  }),
+  name: "UserSurveysView",
+  components: {
+    ConditionsInteraction: () =>
+      import(
+        /* webpackChunkName: "conditions-interaction" */
+        "./ConditionsInteraction"
+      ),
+  },
+  data() {
+    return {
+      keyword: "",
+      isSortedAscending: true,
+      isPrivacyPolicyModalShown: false,
+      isTnCModalShown: false,
+      isDeleteItemModalShown: false,
+      selectedSurvey: {},
+      privacyPolicyContent: loremIpsum.long,
+      tnCContent: loremIpsum.long,
+      surveys: [
+        {
+          id: 1,
+          title: "Earnings 2022",
+          responses: 10,
+          status: 1,
+          lastUpdatedDate: "01/02/2022 08:00:00",
+        },
+        {
+          id: 2,
+          title: "Chicken 2022",
+          responses: 11,
+          status: 2,
+          lastUpdatedDate: "09/08/2022 08:00:00",
+        },
+      ],
+    };
+  },
+  computed: {
+    ...get("user", ["userData"]),
+    ...sync("app", ["mini"]),
+    ...mapGetters("user", ["hasAcceptedPrivacyPolicy", "hasAcceptedTnC"]),
+    hasAcceptedConditions() {
+      return (
+        this.userData.hasAcceptedPrivacyPolicy && this.userData.hasAcceptedTnC
+      );
+    },
+    filteredSurveys() {
+      let surveys = this.keyword
+        ? this.surveys.filter((survey) => {
+            return survey.title.toLowerCase().includes(this.keyword);
+          })
+        : this.surveys;
+      return surveys.sort((a, b) => {
+        return this.isSortedAscending
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      });
+    },
+    tableHeaders() {
+      return [
+        { text: "#", value: "index" },
+        { text: "Last updated at", value: "lastUpdatedDate" },
+        { text: "Survey name", value: "title" },
+        { text: "Status", value: "status" },
+        { text: "Responses", value: "responses" },
+        { text: "Actions", value: "id" },
+      ];
+    },
+  },
   created() {
-    // example of fetching api directly with fetch 
-    fetch("http://localhost:8000")
-      .then (response => response.json())
-      .then (data => {
-        this.message = data.message;
-      })
-      .catch(error => {
-        console.log(error);
+    // get survey api
+    // add certain columns to survey data
+    this.processSurveyData();
+  },
+  mounted() {},
+  methods: {
+    onDeleteConfirmation() {
+      // call delete api
+      // delete
+      // refresh table
+      // hide modal
+      this.isDeleteItemModalShown = false;
+    },
+    onClickItemDelete(item) {
+      this.selectedSurvey = { ...item };
+      this.isDeleteItemModalShown = true;
+    },
+    onClickItemEdit(item) {
+      this.$router.push(`/user/surveys/${item.id}/edit`);
+    },
+    processSurveyData() {
+      this.surveys = this.surveys.map((survey, index) => {
+        return {
+          ...survey,
+          ...{
+            index,
+          },
+        };
       });
+    },
+    onClickTableRowItem(event, { item }) {
+      this.$router.push(`/user/surveys/${item.id}`);
+    },
+    getItemStatus(itemStatus) {
+      let item = {};
+      switch (itemStatus) {
+        case 1:
+          item = { color: "#bb86fc1f", text: "Draft", textColor: "primary" };
+          break;
+        case 2:
+          item = { color: "#e1fcef", text: "Published", textColor: "success" };
+          break;
+        default:
+          item = { color: "default", text: "Unknown" };
+          break;
+      }
+      return item;
+    },
+    createSurvey() {
+      // fetch api to create survey
+      // get new survey id
+      // go to the edit page
+      this.$router.push("/user/surveys/1/edit");
+    },
+    onClickSurveyListItem(survey) {
+      this.$router.push(`/user/surveys/${survey.id}`);
+    },
+    onConfirmPrivacyPolicy(isPrivacyPolicyConfirmed) {
+      // call api to confirm privacy policy
+      // set vuex
+      this.$store.dispatch(
+        "user/setUserDataPrivacyPolicy",
+        isPrivacyPolicyConfirmed
+      );
+      this.isPrivacyPolicyModalShown = false;
+    },
+    onConfirmTnC(isTncConfirmed) {
+      // call api to confirm privacy policy
+      // set vuex
+      this.$store.dispatch("user/setUserDataTnC", isTncConfirmed);
+      this.isTnCModalShown = false;
+    },
+    getSurveyApi() {
+      // example of fetching api directly with fetch
+      fetch("http://localhost:8000")
+        .then((response) => response.json())
+        .then((data) => {
+          this.message = data.message;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-     // example 1 with axios
-    this.$axios.get("https://api.coindesk.com/v1/bpi/currentprice.json")
-      .then((response)=> {
-        if(response.status == 200) {
-          // do something
-        } else {
-          // error
-          // do something
-        }
-      }).catch((error)=> {
-        // do something on error
-        console.error(error);
-      });
+      // example 1 with axios
+      this.$axios
+        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+        .then((response) => {
+          if (response.status == 200) {
+            // do something
+          } else {
+            // error
+            // do something
+          }
+        })
+        .catch((error) => {
+          // do something on error
+          console.error(error);
+        });
 
-    // example 2
-    // recommended because this way the api is centered in one place/file
-    // dont forget to handle errors
-    getSurveys().then((response)=> {
-      console.log(response);
-    }).catch((error)=> {
-      console.log(error);
-    });
-
-
-  }
+      // example 2
+      // recommended because this way the api is centered in one place/file
+      // dont forget to handle errors
+      getSurveys()
+        .then((response) => {
+          console.log(response);
+          // do something with the response
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
+<style lang="scss">
+.user-surveys-view {
+  margin: 20px 0;
+
+  &.--no-padding {
+    *[class~="col"] {
+      padding: 0;
+    }
+  }
+}
+
+.user-surveys-card {
+  padding: 20px 0 40px;
+
+  &.--is-mobile {
+    box-shadow: none !important;
+  }
+
+  &.--is-desktop {
+    box-shadow: none !important;
+    background: none !important;
+  }
+}
+
+.user-surveys-table {
+  &__top {
+    background-color: $light-blue;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .v-data-table-header {
+    background-color: $light-blue;
+
+    th[role="columnheader"] {
+      text-transform: uppercase;
+
+      > span {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.user-surveys-search {
+  &.--is-desktop {
+    .v-input__slot {
+      box-shadow: none !important;
+      border: 1px solid $light-gray;
+    }
+  }
+}
+</style>

@@ -57,8 +57,8 @@ export default {
   computed: {
     mainPicture() {
       return require("@assets/svg/home.svg");
-    },
-  },
+    }
+  }
 };
 </script>
 

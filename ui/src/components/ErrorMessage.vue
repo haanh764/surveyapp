@@ -14,9 +14,9 @@ export default {
   props: {
     text: {
       type: String,
-      default: "This field has errors",
-    },
-  },
+      default: "This field has errors"
+    }
+  }
 };
 </script>
 <style lang="scss">

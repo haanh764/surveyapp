@@ -72,32 +72,32 @@ export default {
   props: {
     color: {
       type: String,
-      default: "white",
+      default: "white"
     },
     fullHeader: {
       type: Boolean,
-      default: true,
+      default: true
     },
     heading: {
       type: String,
-      default: "",
+      default: ""
     },
     icon: {
       type: String,
-      default: "",
+      default: ""
     },
     iconSmall: {
       type: Boolean,
-      default: false,
+      default: false
     },
     subtitle: {
       type: String,
-      default: "",
+      default: ""
     },
     title: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
 
   computed: {
@@ -111,8 +111,8 @@ export default {
         this.$slots.title ||
         this.$slots.subtitle
       );
-    },
-  },
+    }
+  }
 };
 </script>
 

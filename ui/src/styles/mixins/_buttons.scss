@@ -1,5 +1,4 @@
-@each $btn-font-size,
-$value in $btn-font-sizes {
+@each $btn-font-size, $value in $btn-font-sizes {
   .v-btn {
     font-family: $font-family-sans-serif;
 
@@ -9,14 +8,12 @@ $value in $btn-font-sizes {
   }
 }
 
-@each $theme-color,
-$value in $theme-colors {
+@each $theme-color, $value in $theme-colors {
   .v-btn {
     &.v-btn--#{$theme-color} {
-      background-color: $value  !important;
+      background-color: $value !important;
       color: $white;
       text-transform: uppercase;
     }
-
   }
 }

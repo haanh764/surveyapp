@@ -37,11 +37,11 @@ export default {
       import(
         /* webpackChunkName: "default-view" */
         "./View"
-      ),
+      )
   },
   computed: {
-    ...sync("app", ["drawer", "mini"]),
-  },
+    ...sync("app", [ "drawer", "mini" ])
+  }
 };
 </script>
 <style lang="scss">

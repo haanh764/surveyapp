@@ -15,7 +15,14 @@
       <default-list-item
         v-else
         :key="`item-${i}`"
+        class="default-list-item"
+        :class="{'--is-last-before-separation': item.isLastBeforeSeparation}"
         :item="item"
+      />
+      <v-divider
+        v-if="item.isLastBeforeSeparation"
+        :key="`divider-${i}`"
+        class="mx-3 mb-2"
       />
     </template>
   </v-list>
@@ -38,3 +45,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+
+.default-list-item {
+  &.--is-last-before-separation {
+    margin-bottom: 80px !important;
+  }
+}
+</style>

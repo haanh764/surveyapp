@@ -8,11 +8,11 @@ import axiosConfig from "./api/config.js";
 import { sync } from "vuex-router-sync";
 import "./plugins";
 import "./mixins";
+import "./filters";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios.create(axiosConfig);
-
 
 sync(store, router);
 
@@ -20,5 +20,5 @@ new Vue({
   router,
   vuetify,
   store,
-  render: h => h(App)
+  render: (h) => h(App)
 }).$mount("#app");

@@ -10,10 +10,12 @@
           title="Thanks for registering!" 
           description="Please check your inbox or spams  to confirm your registration" 
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
-          >
-          <template v-slot:actions>
+        >
+          <template #actions>
             Haven't received your email? 
-            <v-btn text>Click here</v-btn>
+            <v-btn text>
+              Click here
+            </v-btn>
           </template>
         </content-card>
       </v-col>

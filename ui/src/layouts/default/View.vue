@@ -19,18 +19,19 @@ export default {
   name: "DefaultView",
   computed: {
     hasPurpleBackground() {
-      const allRouteNames = ["general-landing", "general-admin-login"];
+      const allRouteNames = [ "general-landing" ];
       const desktopOnlyRouteNames = [
         "general-user-signup",
         "general-user-login",
+        "general-admin-login"
       ];
       return this.isMobile
         ? allRouteNames.includes(this.$route.name)
         : allRouteNames
             .concat(desktopOnlyRouteNames)
             .includes(this.$route.name);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

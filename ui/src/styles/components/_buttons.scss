@@ -4,8 +4,11 @@
   }
 
   &.v-btn--default {
-    background-color: $white;
-    color: transparentize($black, .6);
+    background-color: $white !important;
+    color: transparentize($black, 0.6);
+    font-weight: 400;
+    text-transform: unset;
+    border: 1px solid $light-gray;
+    border-radius: 0;
   }
-
 }

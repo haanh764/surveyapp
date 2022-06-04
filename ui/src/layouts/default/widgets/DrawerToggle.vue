@@ -1,15 +1,20 @@
 <template>
-  <v-btn
-    class="ml-3 mr-4"
-    elevation="1"
-    fab
-    small
-    @click="mini = !mini"
+  <div
+    class="drawer-toggle"
+    :class="{'--is-mini': mini}"
   >
-    <v-icon>
-      {{ mini ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
-    </v-icon>
-  </v-btn>
+    <v-btn
+      text
+      fab
+      small
+      class="drawer-toggle__button"
+      @click="mini = !mini"
+    >
+      <v-icon>
+        {{ mini ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
+      </v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -19,8 +24,22 @@ export default {
   name: "DefaultDrawerToggle",
 
   computed: {
-
     mini: sync("app/mini")
   }
 };
 </script>
+<style lang="scss">
+.drawer-toggle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 0 calculate-space(2);
+
+  &.--is-mini {
+    justify-content: center;
+  }
+
+  &__button {
+  }
+}
+</style>
