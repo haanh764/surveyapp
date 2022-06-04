@@ -8,13 +8,13 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(100), nullable=False)
     password = Column(String(100), nullable=False)
-    isConfirmed = Column(Boolean, nullable=False, default=False)
+    isActivated = Column(Boolean, nullable=False, default=False)
     isBlocked = Column(Boolean, nullable=False, default=False)
 
     def __init__(self, email, password):
         self.email = email
         self.password = password
-        self.isConfirmed = False
+        self.isActivated = False
         self.isBlocked = False
 
     def __repr__(self):
@@ -25,7 +25,7 @@ class User(Base):
             'id': self.id,
             'email': self.email,
             'password': self.password,
-            'isConfirmed': self.isConfirmed,
+            'isActivated': self.isActivated,
             'isBlocked': self.isBlocked
         }
     

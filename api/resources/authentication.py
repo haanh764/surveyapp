@@ -33,9 +33,9 @@ class ActivateAccount(Resource):
         email = confirm_token(token)
         if email:
             user = User.find_by_email(email)
-            if user.isConfirmed:
+            if user.isActivated:
                 return {'message': 'User {} is already confirmed.'.format(email)}, 200
-            user.isConfirmed = True
+            user.isActivated = True
             user.add_user()
             return {'message': 'User {} was confirmed'.format(user.email)}, 200
         else:
