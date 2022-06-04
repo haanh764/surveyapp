@@ -125,7 +125,10 @@
                           {{ surveys.length }} surveys
                         </p>
                       </v-col>
-                      <v-col cols="3" class="text-right">
+                      <v-col
+                        cols="3"
+                        class="text-right"
+                      >
                         <v-btn
                           text
                           icon

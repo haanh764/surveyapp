@@ -142,7 +142,7 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: ""
+        password: "",
       },
       isDeleteItemModalShown: false,
       isSucessSnackbarShown: false,
@@ -173,7 +173,9 @@ export default {
       this.$store.dispatch("user/setItems", []);
       this.$cookies.remove("user");
 
-      this.$router.push({ name: "general-user-delete-thankyou" }).catch(() => {});
+      this.$router
+        .push({ name: "general-user-delete-thankyou" })
+        .catch(() => {});
     },
   },
 };

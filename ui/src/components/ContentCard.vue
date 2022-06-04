@@ -1,9 +1,9 @@
 <template>
   <v-card
     v-bind="$attrs"
-    v-on="$listeners"
     class="content-card text-center"
     :class="{'--is-mobile': isMobile, 'elevated-2': !isMobile}"
+    v-on="$listeners"
   >
     <v-container>
       <v-row justify="center">
@@ -15,15 +15,16 @@
             {{ description }}
           </v-card-text>
           <v-img
-            class="mx-auto"
             v-if="image"
+            class="mx-auto"
             :src="image"
             :max-width="maxImageWidth"
             :max-height="maxImageHeight"
           />
           <v-btn
-            text
             v-if="showBackToHomeButton"
+            text
+            flat
             class="v-btn--primary content-card__home-button"
             to="/"
             height="53"

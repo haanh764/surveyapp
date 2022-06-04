@@ -35,7 +35,10 @@
         <v-card-text v-if="isContentShown">
           {{ content }}
         </v-card-text>
-        <v-card-actions v-if="isFooterShown" :class="isMobile? 'pa-0' : ''">
+        <v-card-actions
+          v-if="isFooterShown"
+          :class="isMobile? 'pa-0' : ''"
+        >
           <v-row justify="end">
             <v-col
               cols="auto"
@@ -70,32 +73,32 @@ export default {
     value: Boolean,
     title: {
       type: String,
-      default: ""
+      default: "",
     },
     content: {
       type: String,
-      default: ""
+      default: "",
     },
     primaryActionButtonText: {
       type: String,
-      default: ""
+      default: "",
     },
     isTitleShown: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isContentShown: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isFooterShown: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isCloseButtonShown: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     show: {
@@ -104,14 +107,14 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      }
-    }
+      },
+    },
   },
   methods: {
     onPrimaryActionButtonClick() {
       this.$emit("click:primary-action", true);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
