@@ -19,7 +19,6 @@
                   <conditions-interaction
                     title="Privacy Policy"
                     link="http://www.google.com"
-                    :is-close-button-shown="true"
                     :content="privacyPolicyContent"
                     @confirm="onConfirmPrivacyPolicy"
                   />
@@ -28,7 +27,6 @@
                   <conditions-interaction
                     title="Terms and Conditions"
                     link="http://www.google.com"
-                    :is-close-button-shown="true"
                     :content="tnCContent"
                     @confirm="onConfirmTnC"
                   />
@@ -113,7 +111,7 @@
                           CREATE SURVEY
                         </v-btn>
                       </v-col>
-                      <v-col cols="10">
+                      <v-col cols="9">
                         <v-text-field
                           v-model.trim="keyword"
                           solo
@@ -127,7 +125,7 @@
                           {{ surveys.length }} surveys
                         </p>
                       </v-col>
-                      <v-col cols="2">
+                      <v-col cols="3" class="text-right">
                         <v-btn
                           text
                           icon
@@ -148,6 +146,7 @@
                         v-for="survey in filteredSurveys"
                         :key="survey.id"
                         cols="12"
+                        class="pa-0"
                         @click="onClickSurveyListItem(survey)"
                       >
                         <v-list-item-content class="pa-2 pb-4">
@@ -348,7 +347,7 @@ export default {
     ConditionsInteraction: () =>
       import(
         /* webpackChunkName: "conditions-interaction" */
-        "./ConditionsInteraction"
+        "./components/ConditionsInteraction"
       ),
   },
   data() {

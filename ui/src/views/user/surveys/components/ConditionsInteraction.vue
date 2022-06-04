@@ -25,13 +25,13 @@
         <p class="pa-4 text-left">
           By accepting the terms and using this software, you are agreeing to be bound by the
           <a :href="link">
-            {{ title }}
-          </a>.
+            {{ title }}.
+          </a>
         </p>
       </v-col>
     </v-row>
     <v-row justify="space-between">
-      <v-col cols="5">
+      <v-col cols="6" class="pa-4">
         <v-btn
           block
           height="53"
@@ -41,7 +41,7 @@
           DECLINE
         </v-btn>
       </v-col>
-      <v-col cols="5">
+      <v-col cols="6" class="pa-4">
         <v-btn
           block
           height="53"
