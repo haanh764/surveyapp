@@ -1,3 +1,4 @@
+import email
 from flask import request, Response
 from flask_login import login_required
 from flask_restful import Resource, url_for
@@ -22,8 +23,8 @@ class SignUp(Resource):
             token = generate_confirmation_token(data['email'])
             confirm_url = url_for('activateaccount', token=token, _external=True)
             send_email(data['email'], 'Please Confirm Your Email', confirm_url)
-            id = user.id
-            return {'message': 'User {} was created'.format(id)}, 200
+            # id = user.id
+            return {'message': 'User {} was created. Please check your email for activation link!'.format(user.email)}, 200
         except EmailNotValidError as errorMsg:
             return {'message': 'Invalid email address. {}'.format(errorMsg)}, 400
 
@@ -36,7 +37,7 @@ class ActivateAccount(Resource):
                 return {'message': 'User {} is already confirmed.'.format(email)}, 200
             user.isConfirmed = True
             user.add_user()
-            return {'message': 'User {} was confirmed'.format(user.id)}, 200
+            return {'message': 'User {} was confirmed'.format(user.email)}, 200
         else:
             return {'message': 'The confirmation link is invalid or has expired.'}, 400
 
