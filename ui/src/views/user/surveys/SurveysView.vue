@@ -232,7 +232,7 @@
                           </v-col> -->
                           <v-col cols="auto">
                             <v-text-field
-                              v-model="keyword"
+                              v-model.trim="keyword"
                               solo
                               dense
                               class="user-surveys-search --is-desktop"
