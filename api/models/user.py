@@ -38,6 +38,9 @@ class User(Base):
     def find_by_email(email):
         return session.query(User).filter_by(email=email).first()
 
+    def find_by_id(id):
+        return session.query(User).filter_by(id=id).first()
+
     def add_user(self):
         session.add(self)
         session.commit()

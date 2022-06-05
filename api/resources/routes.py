@@ -1,5 +1,5 @@
-from .authentication import Login, SignUp, Logout, ActivateAccount
-from .view import Home
+from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated
+from resources.view import Home
 
 def initialize_routes(api):
     api.add_resource(Home, '/api/home')
@@ -8,3 +8,4 @@ def initialize_routes(api):
     api.add_resource(SignUp, '/api/authentication/signup')
     api.add_resource(Logout, '/api/authentication/logout')
     api.add_resource(ActivateAccount, '/api/authentication/activate/<string:token>')
+    api.add_resource(NotActivated, '/api/authentication/notactivated')
