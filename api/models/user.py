@@ -1,4 +1,3 @@
-from xmlrpc.client import Boolean
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Boolean
 from database.db_config import Base, session
