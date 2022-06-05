@@ -9,7 +9,7 @@
         <content-card 
           title="Page not found" 
           description="The page either doesn't exist or you don't have access to this page" 
-          :image="require('@assets/svg/404.svg')"
+          :image="require('@assets/svg/404.png')"
         />
       </v-col>
     </v-row>
