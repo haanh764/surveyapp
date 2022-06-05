@@ -13,7 +13,7 @@
         >
           <template #actions>
             Haven't received your email? 
-            <v-btn text>
+            <v-btn text class="text-none pa-0">
               Click here
             </v-btn>
           </template>
