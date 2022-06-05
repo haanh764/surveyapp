@@ -44,3 +44,7 @@ class User(Base):
     def add_user(self):
         session.add(self)
         session.commit()
+
+    def delete_user(self):
+        session.delete(self)
+        session.commit()
