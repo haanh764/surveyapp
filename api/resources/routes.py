@@ -1,4 +1,4 @@
-from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated
+from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated, ResendActivation
 from resources.view import Home
 
 def initialize_routes(api):
@@ -9,3 +9,4 @@ def initialize_routes(api):
     api.add_resource(Logout, '/api/authentication/logout')
     api.add_resource(ActivateAccount, '/api/authentication/activate/<string:token>')
     api.add_resource(NotActivated, '/api/authentication/notactivated')
+    api.add_resource(ResendActivation, '/api/authentication/resend')

@@ -46,6 +46,16 @@ class NotActivated(Resource):
         if current_user.isActivated == False:
             return {'message': 'User {} is not activated'.format(current_user.email)}, 200
 
+class ResendActivation(Resource):
+    @jwt_required()
+    def post(self):
+        current_user_id = get_jwt_identity()
+        current_user = User.find_by_id(current_user_id)
+        token = generate_confirmation_token(current_user.email)
+        confirm_url = url_for('activateaccount', token=token, _external=True)
+        send_email(current_user.email, 'Please Confirm Your Email', confirm_url)
+        return {'message': 'Activation link was sent to {}'.format(current_user.email)}, 200
+
 class Login(Resource):
     def post(self):
         data = request.get_json()
