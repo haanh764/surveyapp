@@ -26,7 +26,9 @@ CREATE TABLE administrators(
 CREATE TABLE users (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     email varchar(255),
-    password varchar(255)
+    password varchar(255),
+    isActivated boolean,
+    isBlocked boolean
 );
 
 CREATE TABLE respondents(
