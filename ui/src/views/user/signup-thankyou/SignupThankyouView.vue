@@ -8,12 +8,12 @@
       <v-col cols="auto">
         <content-card 
           title="Thanks for registering!" 
-          description="Please check your inbox or spams  to confirm your registration" 
+          description="Please check your inbox or spams to confirm your registration" 
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
         >
           <template #actions>
             Haven't received your email? 
-            <v-btn text>
+            <v-btn text class="text-none pa-0">
               Click here
             </v-btn>
           </template>
