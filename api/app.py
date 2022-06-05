@@ -19,4 +19,3 @@ CORS(app)
 api = Api(app)
 jwt = JWTManager(app)
 mail = Mail(app)
-

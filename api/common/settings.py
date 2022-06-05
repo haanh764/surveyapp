@@ -7,3 +7,4 @@ MAIL_PASSWORD = 'jijummhpverqwtjk'
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
+ADMIN_PSWD = 'admin123'
