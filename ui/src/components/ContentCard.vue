@@ -104,7 +104,7 @@ export default {
     @include font-size(1);
 
     @media only screen and (max-width: map-get($breakpoints, "xxs")) {
-      @include font-size(0.8);
+      font-size: 0.8rem !important;
     }
   }
 
