@@ -93,11 +93,19 @@ export default {
     @media only screen and (max-width: map-get($breakpoints, "md")) {
       @include font-size(1.25);
     }
+
+    @media only screen and (max-width: map-get($breakpoints, "xxs")) {
+      font-size: 1rem !important;
+    }
   }
 
   &__description {
     color: $secondary-text-color;
     @include font-size(1);
+
+    @media only screen and (max-width: map-get($breakpoints, "xxs")) {
+      @include font-size(0.8);
+    }
   }
 
   &__home-button {

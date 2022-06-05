@@ -28,12 +28,4 @@ export default { name: "SignupThankyouView" };
 </script>
 
 <style lang="scss">
-  @media only screen and (max-width: map-get($breakpoints, "xxs")) {
-    .v-card__title {
-      font-size: 1.0rem !important;
-    }
-    .content-card__description {
-      font-size: 0.8rem !important;
-    }
-  }
 </style>

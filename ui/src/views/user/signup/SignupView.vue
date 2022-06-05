@@ -33,8 +33,7 @@
                       rules="required|email"
                     >
                       <v-text-field
-                        v-model="formData.email"
-                        :rules="[() => !!formData.email || 'This field is required']"
+                        v-model.trim="formData.email"
                         placeholder="email@email.com"
                         outlined
                         required
@@ -48,10 +47,10 @@
                     <ValidationProvider
                       v-slot="{ errors }"
                       name="Password"
-                      rules="required|alpha|min:8"
+                      rules="required|min:8"
                     >
                       <v-text-field
-                        v-model="formData.password"
+                        v-model.trim="formData.password"
                         outlined
                         hint="Minimum 8 characters"
                         persistent-hint
