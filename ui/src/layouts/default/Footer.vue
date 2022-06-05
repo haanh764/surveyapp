@@ -28,8 +28,8 @@ export default {
   computed: {
     logo() {
       return require("@assets/svg/logo.svg");
-    },
-  },
+    }
+  }
 };
 </script>
 

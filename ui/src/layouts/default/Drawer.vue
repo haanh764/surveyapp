@@ -2,18 +2,17 @@
   <v-navigation-drawer
     id="default-drawer"
     v-model="drawer"
-    class="elevated-6"
+    class="default-drawer elevated-6"
     clipped
-    :floating="isMobile"
+    :permanent="!isMobile"
     :mini-variant.sync="mini"
-    mini-variant-width="80"
-    :width="width"
+    :mini-variant-width="isMobile && !drawer? 0 : 80"
+    :width="isMobile && !drawer ? 0 : width"
   >
-    <div class="px-2">
+    <div class="default-drawer__wrapper">
       <default-drawer-header />
       <v-divider class="mx-3 mb-2" />
       <default-list :items="items" />
-      <v-divider class="mx-3 mb-2" />
       <default-drawer-toggle />
     </div>
   </v-navigation-drawer>
@@ -39,27 +38,46 @@ export default {
       import(
         /* webpackChunkName: "default-drawer-toggle" */
         "./widgets/DrawerToggle"
-      ),
+      )
   },
   computed: {
-    ...get("user", ["items"]),
-    ...sync("app", ["drawer", "mini"]),
+    ...get("user", [ "items" ]),
+    ...sync("app", [ "drawer", "mini" ]),
     width() {
       return this.isMobile ? (this.drawer ? 260 : 0) : 260;
-    },
+    }
   },
   watch: {
     isMobile(val) {
       this.drawer = !val;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-#default-drawer {
+.default-drawer {
+  padding: calculate-space(10) 0;
+  box-shadow: $sidebar-box-shadow;
+
+  .v-list {
+    padding: 0;
+
+    &--nav {
+      .v-list-item {
+        border-radius: 0;
+      }
+    }
+  }
+
   .v-list-item {
     margin-bottom: 8px;
+    border-radius: 0;
+
+    &--active {
+      color: map-get($theme-colors, "primary") !important;
+      background-color: map-get($overlays, "primary") !important;
+    }
   }
 
   .v-list-item::before,
@@ -74,10 +92,8 @@ export default {
     margin-left: 4px;
   }
 
-  &.v-navigation-drawer--mini-variant {
-    .v-list-item {
-      justify-content: flex-start !important;
-    }
+  .v-navigation-drawer__border {
+    background-color: none;
   }
 }
 </style>

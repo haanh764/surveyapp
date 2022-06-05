@@ -1,13 +1,12 @@
 <template>
   <v-container
     id="user-settings-view"
-    fluid
     tag="section"
   >
     <v-row justify="center">
       <v-col
-        cols="8"
-        md="8"
+        cols="10"
+        md="10"
       >
         <material-card
           color="primary"

@@ -22,19 +22,20 @@
               v-model="isFormValid"
               class="login-form"
               @keyup.native.enter="handleSubmit(onFormSubmit)"
-              @submit.prevent="handleSubmit(onFormSubmit)"
             >
               <v-container>
-                <v-row>
-                  <v-col cols="12">
+                <v-row class="login-view__row">
+                  <v-col
+                    cols="12"
+                    class="pb-0"
+                  >
                     <ValidationProvider
                       v-slot="{ errors }"
                       name="E-mail"
                       rules="required|email"
                     >
                       <v-text-field
-                        v-model="formData.email"
-                        :rules="[() => !!formData.email || 'This field is required']"
+                        v-model.trim="formData.email"
                         placeholder="email@email.com"
                         outlined
                         required
@@ -48,10 +49,10 @@
                     <ValidationProvider
                       v-slot="{ errors }"
                       name="Password"
-                      rules="required|alpha|min:8"
+                      rules="required|min:8"
                     >
                       <v-text-field
-                        v-model="formData.password"
+                        v-model.trim="formData.password"
                         outlined
                         hint="Minimum 8 characters"
                         persistent-hint
@@ -107,8 +108,8 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
@@ -119,15 +120,17 @@ export default {
       // save to vuex
       const userData = {
         accountType: 0,
-        email: "",
+        email: "user@email.com",
+        hasAcceptedPrivacyPolicy: false,
+        hasAcceptedTnC: false
       };
       this.$store.dispatch("user/setToken", "test");
       this.$store.dispatch("user/setUserData", userData);
       this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
 
       this.$router.push({ name: "user-surveys" });
-    },
-  },
+    }
+  }
 };
 </script>
 

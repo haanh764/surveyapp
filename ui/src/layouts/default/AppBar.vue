@@ -10,12 +10,12 @@
     flat
   >
     <v-app-bar-nav-icon
-      v-if="isDrawerShown"
-      class="hidden-md-and-up"
+      v-if="isDrawerShown && isMobile"
       @click="drawer = !drawer"
     />
+
     <v-btn
-      class="logo test"
+      class="logo"
       text
       plain
       to="/"
@@ -32,13 +32,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "DefaultBar",
   computed: {
-    ...sync("app", [
-      "drawer",
-      "mini"
-    ]),
-    ...mapGetters("user", [
-      "hasLoggedIn"
-    ]),
+    ...sync("app", [ "drawer", "mini" ]),
+    ...mapGetters("user", [ "hasLoggedIn" ]),
     name: get("route/name"),
     isDrawerShown() {
       return this.hasLoggedIn;
@@ -49,10 +44,18 @@ export default {
 <style lang="scss">
 #default-app-bar {
   .logo {
-    background-color: transparent; 
+    background-color: transparent;
     color: $white;
     text-transform: none;
+    padding: 0;
+
+    > .v-btn__content {
+      opacity: 1;
+    }
+  }
+
+  .v-icon {
+    color: $white;
   }
 }
-
 </style>

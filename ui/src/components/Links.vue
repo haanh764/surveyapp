@@ -27,14 +27,14 @@ export default {
     links: [
       {
         href: "/privacy-policy",
-        text: "Privacy Policy",
+        text: "Privacy Policy"
       },
       {
         href: "/terms-and-conditions",
-        text: "Terms and Conditions",
-      },
-    ],
-  }),
+        text: "Terms and Conditions"
+      }
+    ]
+  })
 };
 </script>
 
