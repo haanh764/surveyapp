@@ -13,12 +13,22 @@ import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios.create(axiosConfig);
+Vue.prototype.$t = () => {
+  return "text";
+};
 
+Vue.prototype.$message = () => {
+  return {
+    success: () => {},
+    error: () => {},
+  };
+};
+Vue.prototype.$alert = () => {};
 sync(store, router);
 
 new Vue({
   router,
   vuetify,
   store,
-  render: (h) => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

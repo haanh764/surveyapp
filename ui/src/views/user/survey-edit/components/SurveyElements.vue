@@ -3,23 +3,30 @@
     fluid
     tag="section"
   >
-    <v-list cols="2">
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-      >
-        <v-list-item-content>
+    <draggable
+      tag="div"
+      :list="items"
+      v-bind="{group:{ name:'options'}, ghostClass: 'ghost',handle: '.drag-item'}"
+      handle=".drag-item"
+    >
+      <v-list cols="2">
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+        >
+          <v-list-item-content>
 
-          <v-img
-            :src="item.asset"
-            max-width="20"
-            max-height="20"
-          />
+            <v-img
+              :src="item.asset"
+              max-width="20"
+              max-height="20"
+            />
 
-          {{ item.title | capitalize }}
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+            {{ item.title | capitalize }}
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </draggable>
   </v-container>
 </template>
 

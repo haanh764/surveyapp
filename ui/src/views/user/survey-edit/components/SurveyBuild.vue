@@ -19,24 +19,19 @@
       </v-col>
       <v-divider />
       <v-col cols="12">
-        <draggable v-model="elements">
-          <transition-group>
-            <div
-              v-for="element in elements"
-              :key="element.id"
-            >
-              {{element.name}}
-            </div>
-          </transition-group>
-        </draggable>
+        <container />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import Container from "@/form-builder/components/Container.vue";
 export default {
   name: "SurveyBuild",
+  components: {
+    Container,
+  },
   data() {
     return {
       formData: {
