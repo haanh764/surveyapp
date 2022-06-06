@@ -1,16 +1,21 @@
+from xmlrpc.client import Boolean
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from database.db_config import Base, session
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'user_test'
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(100), nullable=False)
     password = Column(String(100), nullable=False)
+    isActivated = Column(Boolean, nullable=False, default=False)
+    isBlocked = Column(Boolean, nullable=False, default=False)
 
     def __init__(self, email, password):
         self.email = email
         self.password = password
+        self.isActivated = False
+        self.isBlocked = False
 
     def __repr__(self):
         return '<User %r>' % self.email
@@ -20,6 +25,8 @@ class User(Base):
             'id': self.id,
             'email': self.email,
             'password': self.password,
+            'isActivated': self.isActivated,
+            'isBlocked': self.isBlocked
         }
     
     def generate_password(self):
@@ -31,6 +38,13 @@ class User(Base):
     def find_by_email(email):
         return session.query(User).filter_by(email=email).first()
 
+    def find_by_id(id):
+        return session.query(User).filter_by(id=id).first()
+
     def add_user(self):
         session.add(self)
+        session.commit()
+
+    def delete_user(self):
+        session.delete(self)
         session.commit()

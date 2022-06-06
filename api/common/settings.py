@@ -1,2 +1,9 @@
 DB_URL = 'mysql+pymysql://user:password123@db/surveydb'
 JWT_SECRET_KEY = 'flflGgXwUkT75bBPjxc7qQ'
+SECURITY_PASSWORD_SALT = 'surveyapp1234567890'
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_USERNAME = 'surveyapp.manager@gmail.com'
+MAIL_PASSWORD = 'jijummhpverqwtjk'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
