@@ -1,8 +1,11 @@
-from flask import request, Response
+from flask import request
 from flask_restful import Resource, url_for
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 
+from app import jwt
 from models.user import User
+from models.revoked_token import RevokedToken
+
 import datetime
 from email_validator import validate_email, EmailNotValidError
 from common.authentication_helper import generate_confirmation_token, confirm_token, send_email
@@ -66,7 +69,19 @@ class Login(Resource):
             return {'access_token': access_token}, 200
         return {'message': 'Invalid username or password'}, 401
 
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
+    jti = jwt_payload["jti"]
+    return RevokedToken.is_jti_blacklisted(jti)
+
 class Logout(Resource):
     @jwt_required()
     def post(self):
-        return {'message': 'User logged out'}, 200
+        jti = get_jwt()['jti']
+        try:
+            revoked_token = RevokedToken(jti=jti)
+            revoked_token.add()
+            return {'message': 'Access token has been revoked'}, 200
+        except:
+            return {'message': 'Something went wrong'}, 500
+
