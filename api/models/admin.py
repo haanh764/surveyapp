@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String, Boolean
-from database.db_config import Base, session
+from sqlalchemy import Column, Integer, String, event
+from database.db_config import Base, session, engine
 from werkzeug.security import check_password_hash, generate_password_hash
+from common.settings import ADMIN_PSWD, MAIL_USERNAME
+
 
 class Admin(Base):
     __tablename__ = 'administrators'
@@ -41,3 +43,10 @@ class Admin(Base):
     def delete_admin(self):
         session.delete(self)
         session.commit()
+
+    def init_admin_default():
+        Base.metadata.create_all(bind=engine)
+        if not Admin.find_by_email(MAIL_USERNAME):
+            admin = Admin(MAIL_USERNAME, ADMIN_PSWD)
+            admin.generate_password()
+            admin.add_admin()

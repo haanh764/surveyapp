@@ -1,4 +1,4 @@
-DB_URL = 'mysql+pymysql://user:password123@db/surveydb'
+DB_URL = "mysql+pymysql://user:password123@db/surveydb"
 JWT_SECRET_KEY = 'flflGgXwUkT75bBPjxc7qQ'
 SECURITY_PASSWORD_SALT = 'surveyapp1234567890'
 MAIL_SERVER = 'smtp.gmail.com'
