@@ -1,7 +1,4 @@
 import datetime
-
-from matplotlib.pyplot import cla
-from common.authentication_helper import generate_confirmation_token, confirm_token
 from flask import request, jsonify
 from flask_restful import Resource
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt, set_access_cookies, unset_jwt_cookies
@@ -135,3 +132,18 @@ class AdminDeleteUser(Resource):
             user.delete_user()
             return {'message': 'User has been deleted'}, 200
         return {'message': 'User not found'}, 404
+
+class AdminListUsers(Resource):
+    @jwt_required()
+    @admin_required()
+    def get(self):
+        users = User.get_all_users()
+        users_data = dict()
+        for user in users:
+            users_data[user.id] = {'user_email': user.email, 'user_activated': user.isActivated, 'user_blocked': user.isBlocked}
+        response = jsonify({
+            'message': 'Users list has been returned',
+            'users': users_data
+        })
+        response.status_code = 200
+        return response

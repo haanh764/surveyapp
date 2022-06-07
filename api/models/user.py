@@ -47,3 +47,6 @@ class User(Base):
     def delete_user(self):
         session.delete(self)
         session.commit()
+
+    def get_all_users():
+        return session.query(User).all()
