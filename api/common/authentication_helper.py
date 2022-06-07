@@ -26,23 +26,16 @@ def send_email(to, subject, confirm_url):
     msg.body = 'Your confirmation link is here: {}'.format(confirm_url)
     mail.send(msg)
 
-# def validate_admin_email(email):
-#     def decorator(fn):
-#         @wraps(fn)
-#         def wrapper(*args, **kwargs):
-#             if email == MAIL_USERNAME:
-#                 return fn(*args, **kwargs)
-#             else:
-#                 return {'message': 'You are not authorized to perform this action!'}, 403
-
 def admin_required():
     def decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
             verify_jwt_in_request()
-            if get_jwt()['email'] == MAIL_USERNAME:
+            claims = get_jwt()
+            print(claims)
+            if claims['is_admin']:
                 return fn(*args, **kwargs)
             else:
-                return {'message': 'You are not authorized to perform this action!'}, 403
+                return {'message': 'Admin only! You are not authorized to perform this action!'}, 403
         return wrapper
     return decorator
