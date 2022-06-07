@@ -41,10 +41,10 @@ CREATE TABLE surveys(
     surveyOwner int NOT NULL,
     title varchar(255),
     description varchar(255),
-    startDate date,
-    endDate date,
-    creationDate date,
-    modificationDate date,
+    startDate DATE_TIME,
+    endDate DATE_TIME,
+    creationDate DATE_TIME,
+    modificationDate DATE_TIME,
     FOREIGN KEY (surveyOwner) REFERENCES users(id)
 );
 
@@ -128,7 +128,7 @@ CREATE TABLE choice_answers(
 
 CREATE TABLE analyses(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    creationDate date,
+    creationDate DATE_TIME,
     surveyId int NOT NULL,
     FOREIGN KEY (surveyId) REFERENCES surveys(id)
 );
