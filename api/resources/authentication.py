@@ -1,8 +1,12 @@
-from flask import request, Response
+from urllib import response
+from flask import jsonify, request
 from flask_restful import Resource, url_for
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt, set_access_cookies, unset_jwt_cookies
 
+from app import jwt, app
 from models.user import User
+from models.revoked_token import RevokedToken
+
 import datetime
 from email_validator import validate_email, EmailNotValidError
 from common.authentication_helper import generate_confirmation_token, confirm_token, send_email
@@ -56,6 +60,19 @@ class ResendActivation(Resource):
         send_email(current_user.email, 'Please Confirm Your Email', confirm_url)
         return {'message': 'Activation link was sent to {}'.format(current_user.email)}, 200
 
+@app.after_request
+def refresh_expiring_access_tokens(response):
+    try:
+        expire_timestamp = get_jwt()["exp"]
+        now = datetime.datetime.utcnow()
+        target_timestamp = datetime.datetime.timestamp(now + datetime.timedelta(minutes=30))
+        if target_timestamp > expire_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            set_access_cookies(response, access_token)
+        return response
+    except (RuntimeError, KeyError):
+        return response
+
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -63,10 +80,28 @@ class Login(Resource):
         if user and user.check_password(data['password']):
             expires = datetime.timedelta(days=1)
             access_token = create_access_token(identity=user.id, expires_delta=expires)
-            return {'access_token': access_token}, 200
+            response = jsonify({'message': 'Logged in as {}. Access token is {}'.format(user.email, access_token)})
+            set_access_cookies(response, access_token)
+            response.status_code = 200
+            return response
         return {'message': 'Invalid username or password'}, 401
+
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
+    jti = jwt_payload["jti"]
+    return RevokedToken.is_jti_blacklisted(jti)
 
 class Logout(Resource):
     @jwt_required()
     def post(self):
-        return {'message': 'User logged out'}, 200
+        jti = get_jwt()['jti']
+        ttype = get_jwt()['type']
+        print(ttype)
+        try:
+            response = jsonify({'message': 'Logged out'})
+            unset_jwt_cookies(response)
+            revoked_token = RevokedToken(jti=jti, type=ttype)
+            revoked_token.add()
+            return {'message': 'Access token has been revoked'}, 200
+        except:
+            return {'message': 'Something went wrong'}, 500

@@ -1,10 +1,9 @@
-from xmlrpc.client import Boolean
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Boolean
 from database.db_config import Base, session
 
 class User(Base):
-    __tablename__ = 'user_test'
+    __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(100), nullable=False)
     password = Column(String(100), nullable=False)
