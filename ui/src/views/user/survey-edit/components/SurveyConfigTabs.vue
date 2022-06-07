@@ -4,7 +4,7 @@
       v-model="tab"
       align-with-title
     >
-      <v-tabs-slider color="yellow"></v-tabs-slider>
+      <v-tabs-slider color="yellow" />
       <v-tab
         v-for="item in items"
         :key="item.title"
@@ -31,7 +31,7 @@ export default {
   name: "SurveyConfigTabs",
   components: {
     SurveyElements,
-    SurveySettings,
+    SurveySettings
   },
   data() {
     return {
@@ -39,14 +39,14 @@ export default {
       items: [
         {
           title: "Elements",
-          component: SurveyElements,
+          component: SurveyElements
         },
         {
           title: "Settings",
-          component: SurveySettings,
-        },
-      ],
+          component: SurveySettings
+        }
+      ]
     };
-  },
+  }
 };
 </script>

@@ -9,3 +9,4 @@ import "./vuex-persist";
 import "./vee-validate";
 import "./js-cookie";
 import "./vuedraggable";
+import "./vuetify-notify";

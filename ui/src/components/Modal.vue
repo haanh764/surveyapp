@@ -11,7 +11,6 @@
           row
           d-flex
           nowrap
-          align="right"
           justify="end"
           class="pa-4"
         >
@@ -26,8 +25,11 @@
           </v-btn>
         </v-row>
       </v-card-actions>
+
       <!-- use slot if default slot is given, else use default template -->
       <slot v-if="!!$slots.default" />
+      <!-- end of slot-->
+      <!--start of template. only shown when there is no slot. dirty, should be refactored-->
       <template v-else>
         <v-card-title v-if="isTitleShown">
           {{ title || "Title" | capitalize }}
@@ -62,6 +64,7 @@
           </v-row>
         </v-card-actions>
       </template>
+      <!--end of template-->
     </v-card>
   </v-dialog>
 </template>

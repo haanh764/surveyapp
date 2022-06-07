@@ -1,18 +1,19 @@
-'use strict';
+"use strict";
+
 // https://github.com/sindresorhus/copy-text-to-clipboard/blob/master/index.js
-/* tslint:disable */
+
 export default function copyText(input) {
-  const el = document.createElement('textarea');
+  const el = document.createElement("textarea");
 
   el.value = input;
 
   // Prevent keyboard from showing on mobile
-  el.setAttribute('readonly', '');
+  el.setAttribute("readonly", "");
 
-  el.style['contain'] = 'strict';
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
-  el.style.fontSize = '12pt'; // Prevent zooming on iOS
+  el.style["contain"] = "strict";
+  el.style.position = "absolute";
+  el.style.left = "-9999px";
+  el.style.fontSize = "12pt"; // Prevent zooming on iOS
 
   const selection = getSelection();
   let originalRange = false;
@@ -29,8 +30,10 @@ export default function copyText(input) {
 
   let success = false;
   try {
-    success = document.execCommand('copy');
-  } catch (err) {}
+    success = document.execCommand("copy");
+  } catch (err) {
+    console.error(err);
+  }
 
   document.body.removeChild(el);
 

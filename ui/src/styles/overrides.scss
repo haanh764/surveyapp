@@ -1,47 +1,48 @@
+@import "./form-builder/cover.scss";
+@import "./form-builder/index.scss";
+
 body {
   font-family: $font-family-sans-serif;
   @include font-size(1);
   line-height: 1.25;
 
-  @media only screen and (max-width: map-get($breakpoints, 'md')) {
-    @include font-size(.875);
+  @media only screen and (max-width: map-get($breakpoints, "md")) {
+    @include font-size(0.875);
     line-height: 1;
   }
 }
 
-
 .text-mono {
-  font-family: monospace
+  font-family: monospace;
 }
 
 .flex-1-1-auto {
-  flex: 1 1 auto !important
+  flex: 1 1 auto !important;
 }
 
 .flex-1-0-auto {
-  flex: 1 0 auto !important
+  flex: 1 0 auto !important;
 }
 
 .flex-0-1-auto {
-  flex: 0 1 auto !important
+  flex: 0 1 auto !important;
 }
 
 .flex-0-0-auto {
-  flex: 0 0 auto !important
+  flex: 0 0 auto !important;
 }
 
 .position-relative {
-  position: relative !important
+  position: relative !important;
 }
 
 .overflow-y-scroll {
-  overflow-y: scroll
+  overflow-y: scroll;
 }
 
 table {
-
-  >thead>tr>th,
-  >tbody>tr>td {
-    font-weight: 300 !important
+  > thead > tr > th,
+  > tbody > tr > td {
+    font-weight: 300 !important;
   }
 }

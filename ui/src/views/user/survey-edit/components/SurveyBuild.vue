@@ -7,45 +7,45 @@
     <v-row justify="start">
       <v-col cols="12">
         <v-text-field
+          v-model.trim="formData.title"
           name="title"
           placeholder="Survey name..."
-          v-model.trim="formData.title"
         />
         <v-text-field
+          v-model.trim="formData.description"
           name="description"
           placeholder="Survey description"
-          v-model.trim="formData.description"
         />
       </v-col>
       <v-divider />
       <v-col cols="12">
-        <container />
+        <form-builder />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Container from "@/form-builder/components/Container.vue";
+import FormBuilder from "@/form-builder/components/FormBuilder.vue";
 export default {
   name: "SurveyBuild",
   components: {
-    Container,
+    FormBuilder
   },
   data() {
     return {
       formData: {
         title: "",
-        description: "",
+        description: ""
       },
       elements: [
         {
           id: "1",
-          name: "test",
-        },
-      ],
+          name: "test"
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 

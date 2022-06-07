@@ -23,14 +23,16 @@
           class="text-right"
         >
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 class="v-btn--accent text-left"
                 v-bind="attrs"
-                v-on="on"
                 width="150"
+                v-on="on"
               >
-                <v-icon class="mr-1">mdi-chevron-down</v-icon>
+                <v-icon class="mr-1">
+                  mdi-chevron-down
+                </v-icon>
                 Save
               </v-btn>
             </template>
@@ -77,20 +79,20 @@ export default {
       import(
         /* webpackChunkName: "survey-config-tabs" */
         "./components/SurveyConfigTabs"
-      ),
+      )
   },
   data() {
     return {
       saveOptions: [
         {
           title: "Save as draft",
-          callback: "onSaveAsDraftOptionClick",
+          callback: "onSaveAsDraftOptionClick"
         },
         {
           title: "Save and publish",
-          callback: "onSaveAndPublishOptionClick",
-        },
-      ],
+          callback: "onSaveAndPublishOptionClick"
+        }
+      ]
     };
   },
   methods: {
@@ -108,8 +110,8 @@ export default {
       // call api
       // save
       // go to detail page
-    },
-  },
+    }
+  }
 };
 </script>
 

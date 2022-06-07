@@ -1,4 +1,4 @@
 import Vue from "vue";
 import draggable from "vuedraggable";
 
-Vue.component("draggable", draggable);
+Vue.component("Draggable", draggable);

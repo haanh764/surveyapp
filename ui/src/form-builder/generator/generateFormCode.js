@@ -22,42 +22,17 @@ export default function genFormCode(data, value) {
 
   let templateCode = `<template>
     <div>
-      <el-form
+      <div
         ref="generateForm"
-        label-suffix=":"
-        size="${data.config.size}"
         :model="${FORM_MODEL}"
         :rules="rules"
-        label-position="${data.config.labelPosition}"
-        label-width="${data.config.labelWidth + "px"} "
       >`;
 
   for (let widget of data.list) {
-    if (widget.type === "grid") {
-      const item = widget;
-      templateCode += `<el-row
-      key="${item.key}"
-      type="flex"
-      :gutter="${item.options.gutter ? item.options.gutter : 0}"
-      justify="${item.options.justify}"
-      align="${item.options.align}"
-    >`;
-      item.columns.forEach((col, colIndex) => {
-        templateCode += ` <el-col key="${colIndex}" :span="${col.span}">
-        ${col.list.reduce(
-          (template, citem) => template + genFormItemTemp(citem),
-          ""
-        )}
-    </el-col>`;
-      });
-
-      templateCode += `</el-row>`;
-    } else {
-      templateCode += genFormItemTemp(widget);
-    }
+    templateCode += genFormItemTemp(widget);
   }
 
-  templateCode += `</el-form>
+  templateCode += `</div>
     </div>
   </template>`;
 
@@ -83,13 +58,9 @@ export default function genFormCode(data, value) {
   return result;
 }
 
-/**
- * 解决JSON.stringify 对字符串转义、不支持转换正则的问题
- * @param {*} str
- */
 function strToRegExp(str) {
   const reg1 = /("pattern":)(.*?)((",)|(" ,))/g;
-  const reg2 = /"([^"]*)"/g; // 替换双引号
+  const reg2 = /"([^"]*)"/g;
   let result = str,
     regArr1,
     regArr2;
@@ -114,43 +85,31 @@ function generateModel(genList, value) {
       if (value && Object.keys(value).indexOf(genList[i].model) >= 0) {
         models[genList[i].model] = value[genList[i].model];
       } else {
-        if (genList[i].type === "blank") {
-          $set(
-            models,
-            genList[i].model,
-            genList[i].options.defaultType === "String"
-              ? ""
-              : genList[i].options.defaultType === "Object"
-              ? {}
-              : []
-          );
-        } else {
-          models[genList[i].model] = genList[i].options.defaultValue;
-        }
+        models[genList[i].model] = genList[i].options.defaultValue;
       }
-      // 每个 widget 的 model
+
       dataModel[genList[i].model] = models[genList[i].model];
 
       if (rules[genList[i].model]) {
         rules[genList[i].model] = [
           ...rules[genList[i].model],
-          ...genList[i].rules.map((item) => {
+          ...(genList[i].rules || []).map((item) => {
             if (item.pattern) {
               return { ...item, pattern: encodeURI(item.pattern) };
             } else {
               return { ...item };
             }
-          }),
+          })
         ];
       } else {
         rules[genList[i].model] = [
-          ...genList[i].rules.map((item) => {
+          ...(genList[i].rules || []).map((item) => {
             if (item.pattern) {
               return { ...item, pattern: encodeURI(item.pattern) };
             } else {
               return { ...item };
             }
-          }),
+          })
         ];
       }
     }
