@@ -66,7 +66,7 @@ def refresh_expiring_access_tokens(response):
         now = datetime.datetime.utcnow()
         target_timestamp = datetime.datetime.timestamp(now + datetime.timedelta(minutes=30))
         if target_timestamp > expire_timestamp:
-            access_token = create_access_token(identity=get_jwt_identity())
+            access_token = create_access_token(identity=get_jwt_identity(), additional_claims={'is_admin': False})
             set_access_cookies(response, access_token)
         return response
     except (RuntimeError, KeyError):

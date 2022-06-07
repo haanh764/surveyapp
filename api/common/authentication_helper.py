@@ -4,6 +4,8 @@ from flask_mail import Message
 from app import app, mail, jwt
 from common.settings import MAIL_USERNAME
 from flask_jwt_extended import get_jwt, verify_jwt_in_request
+import random
+import string
 
 def generate_confirmation_token(email):
     serializer = URLSafeTimedSerializer(app.config['JWT_SECRET_KEY'])
@@ -39,3 +41,12 @@ def admin_required():
                 return {'message': 'Admin only! You are not authorized to perform this action!'}, 403
         return wrapper
     return decorator
+
+def generate_password(length):
+    lower = string.ascii_lowercase
+    upper = string.ascii_uppercase
+    num = string.digits
+    combine = lower + upper + num
+    password = "".join(random.sample(combine, length))
+    return password
+    

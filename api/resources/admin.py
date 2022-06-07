@@ -1,13 +1,14 @@
 import datetime
 from common.authentication_helper import generate_confirmation_token, confirm_token
-from common.settings import MAIL_USERNAME
 from flask import request, jsonify
 from flask_restful import Resource
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt, set_access_cookies, unset_jwt_cookies
 from models.admin import Admin
 from models.revoked_token import RevokedToken
-from common.authentication_helper import admin_required
-from app import jwt, app
+from models.user import User
+from common.authentication_helper import admin_required, generate_password
+from app import jwt, app, mail
+from flask_mail import Message
 
 @app.after_request
 def refresh_expiring_access_tokens(response):
@@ -16,7 +17,7 @@ def refresh_expiring_access_tokens(response):
         now = datetime.datetime.utcnow()
         target_timestamp = datetime.datetime.timestamp(now + datetime.timedelta(minutes=30))
         if target_timestamp > expire_timestamp:
-            access_token = create_access_token(identity=get_jwt_identity())
+            access_token = create_access_token(identity=get_jwt_identity(), additional_claims={'is_admin': True})
             set_access_cookies(response, access_token)
         return response
     except (RuntimeError, KeyError):
@@ -55,3 +56,23 @@ class AdminLogout(Resource):
             return {'message': 'Access token has been revoked'}, 200
         except:
             return {'message': 'Something went wrong'}, 500
+
+class ResetUserPassword(Resource):
+    @jwt_required()
+    @admin_required()
+    def post(self):
+        user_email = request.get_json()['email']
+        selected_user = User.find_by_email(user_email)
+        if selected_user:
+            new_password = generate_password(8)
+            selected_user.password = new_password
+            selected_user.generate_password()
+            selected_user.add_user()
+            msg = Message()
+            msg.subject = 'Password reset'
+            msg.sender = app.config['MAIL_USERNAME']
+            msg.recipients = [selected_user.email]
+            msg.body = 'Your new password is: {}'.format(new_password)
+            mail.send(msg)
+            return {'message': 'Password has been reset. New password has been sent to your email!'}, 200
+        return {'message': 'User not found'}, 404
