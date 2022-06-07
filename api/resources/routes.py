@@ -1,7 +1,7 @@
 from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated, ResendActivation
 from resources.view import Home
 from resources.user import ChangePassword, DeleteUser
-from resources.admin import AdminLogin, AdminLogout, ResetUserPassword
+from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser
 
 def initialize_routes(api):
     api.add_resource(Home, '/api/home')
@@ -19,4 +19,5 @@ def initialize_routes(api):
     api.add_resource(AdminLogin, '/api/admin/login')
     api.add_resource(AdminLogout, '/api/admin/logout')
     api.add_resource(ResetUserPassword, '/api/admin/resetuserpassword')
+    api.add_resource(SearchUser, '/api/admin/searchuser')
     

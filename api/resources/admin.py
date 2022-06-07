@@ -76,3 +76,13 @@ class ResetUserPassword(Resource):
             mail.send(msg)
             return {'message': 'Password has been reset. New password has been sent to your email!'}, 200
         return {'message': 'User not found'}, 404
+
+class SearchUser(Resource):
+    @jwt_required()
+    @admin_required()
+    def post(self):
+        data = request.get_json()
+        user = User.find_by_email(data['email'])
+        if user:
+            return {'message': 'User found', 'user_email': user.email, 'user_activated': user.isActivated, 'user_blocked': user.isBlocked}, 200
+        return {'message': 'User not found'}, 404
