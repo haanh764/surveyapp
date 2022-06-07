@@ -1,4 +1,6 @@
 import datetime
+
+from matplotlib.pyplot import cla
 from common.authentication_helper import generate_confirmation_token, confirm_token
 from flask import request, jsonify
 from flask_restful import Resource
@@ -97,4 +99,28 @@ class ActivateUser(Resource):
             user.isActivated = True
             user.add_user()
             return {'message': 'User has been activated'}, 200
+        return {'message': 'User not found'}, 404
+
+class BlockUser(Resource):
+    @jwt_required()
+    @admin_required()
+    def post(self):
+        data = request.get_json()
+        user = User.find_by_email(data['email'])
+        if user and not user.isBlocked:
+            user.isBlocked = True
+            user.add_user()
+            return {'message': 'User has been blocked'}, 200
+        return {'message': 'User not found'}, 404
+
+class UnblockedUser(Resource):
+    @jwt_required()
+    @admin_required()
+    def post(self):
+        data = request.get_json()
+        user = User.find_by_email(data['email'])
+        if user and user.isBlocked:
+            user.isBlocked = False
+            user.add_user()
+            return {'message': 'User has been unblocked'}, 200
         return {'message': 'User not found'}, 404
