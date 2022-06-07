@@ -17,48 +17,6 @@ $primary-background-color: #ecf5ff;
   vertical-align: middle;
 }
 
-.fm2-container {
-  background: #fff;
-  height: 100%;
-  border: 1px solid #e0e0e0;
-
-  .v-container {
-    height: 100% !important;
-  }
-
-  & > .v-container {
-    background: #fff;
-  }
-  .fm2-main {
-    position: relative;
-
-    & > .v-container {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-  }
-  main {
-    padding: 0;
-  }
-
-  footer {
-    height: 30px;
-    line-height: 30px;
-    border-top: 1px solid #e0e0e0;
-    font-size: 12px;
-    text-align: right;
-    color: $primary-color;
-    background: #fafafa;
-
-    a {
-      color: $primary-color;
-    }
-  }
-}
-
 .center-container {
   border-left: 1px solid #e0e0e0;
   border-right: 1px solid #e0e0e0;
@@ -142,7 +100,6 @@ $primary-background-color: #ecf5ff;
     background: #fff;
     border: 1px dashed #999;
     min-height: 600px;
-    margin: 10px;
 
     .widget-col-list {
       min-height: 50px;

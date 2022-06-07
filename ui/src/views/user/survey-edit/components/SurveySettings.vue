@@ -1,11 +1,14 @@
 <template>
   <v-container fluid>
     <v-row justify="start">
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="text-left"
+      >
         <h3>
           Submission date
         </h3>
-        <p class="text-secondary">
+        <p class="text-secondary ">
           You can set start and end date of submission
         </p>
       </v-col>
@@ -67,7 +70,7 @@
               v-model="formData.endDate"
               outlined
               label="End Date"
-              :min="todayDate"
+              :min="formData.startDate"
               v-bind="attrs"
               v-on="on"
             />
@@ -104,10 +107,16 @@
         <h3>
           Public
         </h3>
-        <p class="text-secondary">
-          Share your survey to public.
-        </p>
-        <v-switch v-model="formData.isPublic" />
+        <v-row>
+          <v-col cols="8">
+            <p class="text-secondary">
+              Share your survey to public.
+            </p>
+          </v-col>
+          <v-col cols="4">
+            <v-switch v-model="formData.isPublic" />
+          </v-col>
+        </v-row>
         <div @click="copyLinkToClipboard">
           <a :href="survey.link">
             {{ survey.link || 'An error occured' }}
@@ -124,19 +133,31 @@
         <h3>
           Invite-only
         </h3>
-        <p class="text-secondary">
-          Share your survey only to selected participants by their email address. By default all surveys are public
-        </p>
-        <v-switch v-model="formData.isPublic" />
+        <v-row>
+          <v-col cols="8">
+            <p class="text-secondary">
+              Share your survey only to selected participants by their email address. By default all surveys are public
+            </p>
+          </v-col>
+          <v-col cols="4">
+            <v-switch v-model="formData.isPublic" />
+          </v-col>
+        </v-row>
       </v-col>
       <v-col
         cols="12"
         class="text-left"
       >
-        <p>
-          Automatically send surveys to invited participants on start date
-        </p>
-        <v-switch v-model="formData.isSurveySentAutomatically" />
+        <v-row>
+          <v-col cols="8">
+            <p>
+              Automatically send surveys to invited participants on start date
+            </p>
+          </v-col>
+          <v-col cols="4">
+            <v-switch v-model="formData.isSurveySentAutomatically" />
+          </v-col>
+        </v-row>
       </v-col>
       <v-col
         cols="12"
@@ -145,6 +166,7 @@
         <v-text-field
           v-model.trim="formData.newEmail"
           outlined
+          :disabled="formData.emails.length >= 20"
           label="E-mail"
           @keydown.enter="addNewEmail"
         />

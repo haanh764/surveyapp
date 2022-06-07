@@ -18,13 +18,28 @@ import GenerateFormItem from "./GenerateFormItem";
 export default {
   name: "GenerateForm",
   components: {
-    GenerateFormItem,
+    GenerateFormItem
   },
-  props: ["data", "value"],
+  props: {
+    data: {
+      type: Object,
+      default() {
+        return {
+          list: []
+        };
+      }
+    },
+    value: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
   data() {
     return {
       models: {},
-      rules: {},
+      rules: {}
     };
   },
   watch: {
@@ -32,21 +47,18 @@ export default {
       deep: true,
       handler(val) {
         this.generateModel(val.list);
-      },
+      }
     },
     value: {
       deep: true,
       handler(val) {
-        console.log(JSON.stringify(val));
         this.models = { ...this.models, ...val };
-      },
-    },
+      }
+    }
   },
   created() {
     this.generateModel(this.data.list);
-    console.log("=====this.widgetForm======");
-    console.log(this.data);
-    console.log(this.value);
+    this.models = { ...this.value };
   },
   methods: {
     generateModel(genList) {
@@ -59,49 +71,11 @@ export default {
         } else {
           this.models[genList[i].model] = genList[i].options.defaultValue;
         }
-
-        if (this.rules[genList[i].model]) {
-          this.rules[genList[i].model] = [
-            ...this.rules[genList[i].model],
-            ...genList[i].rules.map((item) => {
-              if (item.pattern) {
-                return { ...item, pattern: eval(item.pattern) };
-              } else {
-                return { ...item };
-              }
-            }),
-          ];
-        } else {
-          this.rules[genList[i].model] = [
-            ...genList[i].rules.map((item) => {
-              if (item.pattern) {
-                return { ...item, pattern: eval(item.pattern) };
-              } else {
-                return { ...item };
-              }
-            }),
-          ];
-        }
       }
-    },
-    getData() {
-      return new Promise((resolve, reject) => {
-        this.$refs.generateForm.validate((valid) => {
-          if (valid) {
-            resolve(this.models);
-          } else {
-            reject(new Error("error").message);
-          }
-        });
-      });
-    },
-    reset() {
-      this.$refs.generateForm.resetFields();
     },
     onInputChange(value, field) {
       this.$emit("on-change", field, value, this.models);
-    },
-    refresh() {},
-  },
+    }
+  }
 };
 </script>

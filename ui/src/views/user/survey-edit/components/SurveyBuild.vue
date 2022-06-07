@@ -5,7 +5,10 @@
     class="survey-build"
   >
     <v-row justify="start">
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="pa-10"
+      >
         <v-text-field
           v-model.trim="formData.title"
           name="title"
@@ -18,7 +21,10 @@
         />
       </v-col>
       <v-divider />
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="pa-10"
+      >
         <form-builder />
       </v-col>
     </v-row>

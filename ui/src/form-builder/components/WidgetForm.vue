@@ -4,10 +4,12 @@
     class="widget-form-container"
   >
     <v-row justify="center">
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="pa-0"
+      >
         <draggable
-          v-model="data.list"
-          class
+          :list="filteredList"
           v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
           @end="onWidgetMove"
           @add="onWidgetAdd"
@@ -17,7 +19,7 @@
             tag="div"
             class="widget-form-list"
           >
-            <template v-for="(element, index) in data.list">
+            <template v-for="(element, index) in filteredList">
               <widget-form-item
                 v-if="element && element.key"
                 :key="element.key"
@@ -63,8 +65,19 @@ export default {
   },
   data() {
     return {
-      selectedWidget: this.select
+      selectedWidget: this.select,
+      widgets: []
     };
+  },
+  computed: {
+    filteredList: {
+      get() {
+        return this.data.list.filter((widget) => !!widget.key);
+      },
+      set(val) {
+        this.data.list = val;
+      }
+    }
   },
   watch: {
     select(val) {
@@ -87,6 +100,9 @@ export default {
     };
   },
   methods: {
+    filterWidget(widgets) {
+      return widgets.filter((widget) => !!widget.key);
+    },
     onWidgetItemDeleteClick(index) {
       this.$emit("click:delete", index);
     },
@@ -95,7 +111,6 @@ export default {
     },
     onWidgetMove({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
-      // do something
     },
     onWidgetAdd(event) {
       const to = event.to;
@@ -110,9 +125,10 @@ export default {
       this.$emit("update:addWidget", {
         widget: {
           ...basicComponents[event.oldIndex],
-          key
+          key,
+          order: event.oldIndex
         },
-        oldIndex: event.oldIndex
+        index: event.newIndex
       });
 
       this.selectedWidget = this.data.list[newIndex];

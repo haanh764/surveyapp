@@ -126,10 +126,10 @@
 import { genUniqKey } from "@/util/form-builder";
 
 export default {
-  props: [ "element", "select", "index", "data" ],
+  props: ["element", "select", "index", "data"],
   data() {
     return {
-      selectedWidget: this.select
+      selectedWidget: this.select,
     };
   },
   computed: {
@@ -140,7 +140,7 @@ export default {
     },
     hasElement() {
       return !!this.element;
-    }
+    },
   },
   watch: {
     select(val) {
@@ -150,8 +150,8 @@ export default {
       deep: true,
       handler(val) {
         this.$emit("update:select", val);
-      }
-    }
+      },
+    },
   },
   methods: {
     onWidgetItemClick(index) {
@@ -168,7 +168,8 @@ export default {
       let cloneData = {
         ...this.data.list[index],
         options: { ...this.data.list[index].options },
-        key: genUniqKey()
+        key: genUniqKey(),
+        order: index + 1,
       };
 
       this.data.list.splice(index, 0, cloneData);
@@ -176,8 +177,8 @@ export default {
       this.$nextTick(() => {
         this.selectedWidget = this.data.list[index + 1];
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,6 @@
 import { DATA_MODEL, FORM_MODEL } from "./constant";
 
 export function genFormItemTemp(widget) {
-  console.log(widget);
   let template = `
         <div>
           <h1>
@@ -64,6 +63,7 @@ function genWidgetTemp(widget, isForm = false) {
         optStr += `
         <v-checkbox
             label="${item.text}"
+            v-model="${model}"
             value="${item.value}"
             key="${item.value}">
           </v-checkbox>
@@ -83,7 +83,9 @@ function genWidgetTemp(widget, isForm = false) {
         :step="${widget.options.step}"
       />`;
   } else if (widget.type === "text") {
-    widgetTemp += `<span>{{${model}}}</span>`;
+    widgetTemp += `<${widget.options.tag || "span"}>{{${model}}}</${
+      widget.options.tag || "span"
+    }>`;
   }
   return widgetTemp;
 }

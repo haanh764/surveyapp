@@ -1,25 +1,33 @@
 <template>
-  <v-container class="form-builder">
+  <v-container
+    fluid
+    tag="section"
+    class="form-builder"
+  >
     <v-row justify="center">
       <v-col
-        class="fm2-main"
         cols="12"
+        class="pa-0"
       >
         <v-container>
           <v-row justify="center">
-            <v-col cols="12">
+            <v-col
+              cols="12"
+              class="pb-10 text-right"
+            >
               <v-btn
                 text
+                small
                 @click="onClearButtonClick"
               >
                 <v-icon>mdi-delete</v-icon>
                 clear
               </v-btn>
-              <v-btn @click="onCopyButtonClick(true)">
-                <v-icon>mdi-copy</v-icon>
-                copy
-              </v-btn>
-              <v-btn @click="onCopyJsonButtonClick">
+              <v-btn
+                text
+                small
+                @click="onCopyJsonButtonClick"
+              >
                 <v-icon>mdi-ticket</v-icon>
                 get json
               </v-btn>
@@ -27,7 +35,8 @@
 
             <v-col
               cols="12"
-              :class="{'widget-empty': widgetForm.list.length == 0}"
+              class="pa-0 widget-form-col"
+              :class="{'--is-empty': widgetForm.list.length == 0}"
             >
               <widget-form
                 ref="widgetForm"
@@ -42,17 +51,24 @@
         </v-container>
       </v-col>
     </v-row>
+
     <modal
+      ref="widgetSettingModal"
       v-model="isWidgetSettingModalShown"
       :is-close-button-shown="true"
     >
       <v-card elevation="0">
-        <widget-config
-          :selected-widget.sync="selectedWidget"
-          @update:selectedWidget="updateSelectedWidgetInList"
-          @update:removeOptions="onRemoveOptionsFromSelectedWidget"
-          @update:addOption="onAddOptionToSelectedWidget"
-        />
+        <v-card-title>
+          Survey item configuration
+        </v-card-title>
+        <v-card-text>
+          <widget-config
+            :selected-widget.sync="selectedWidget"
+            @update:selectedWidget="updateSelectedWidgetInList"
+            @update:removeOptions="onRemoveOptionsFromSelectedWidget"
+            @update:addOption="onAddOptionToSelectedWidget"
+          />
+        </v-card-text>
       </v-card>
     </modal>
   </v-container>
@@ -62,7 +78,6 @@
 import WidgetConfig from "./WidgetConfig";
 import WidgetForm from "./WidgetForm";
 import GenerateForm from "./GenerateForm";
-import { basicComponents } from "./components.js";
 import genFormCode from "@/form-builder/generator/generateFormCode";
 import copyText from "@/util/copy";
 
@@ -71,25 +86,28 @@ export default {
   components: {
     WidgetConfig,
     WidgetForm,
-    GenerateForm
+    GenerateForm,
+  },
+  props: {
+    survey: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
       isWidgetSettingModalShown: false,
-      basicComponents,
       widgetForm: {
-        list: []
+        list: [],
       },
       copiedHtml: "",
-      configTab: "widget",
       selectedWidget: null,
       widgetModels: {},
       jsonTemplate: "",
-      jsonCopyValue: ""
+      jsonCopyValue: "",
     };
-  },
-  mounted() {
-    this._loadComponents();
   },
   methods: {
     onWidgetItemDeleteClick(index) {
@@ -103,14 +121,18 @@ export default {
         this.isWidgetSettingModalShown = true;
       });
     },
-    onAddNewWidget({ widget, oldIndex }) {
-      widget.order = oldIndex;
-      this.widgetForm.list.splice(oldIndex, 0, widget);
+    onAddNewWidget({ widget, index }) {
+      // still buggy
+      // somehow each widget is added twice
+      this.widgetForm.list.splice(index, 0, widget);
+
+      // this.widgetForm.list.push(widget);
+      // this.widgetForm.list = _.sortBy(this.widgetForm.list, ["order"]);
     },
     onAddOptionToSelectedWidget() {
       this.selectedWidget.options.options.push({
         value: "option",
-        text: "option"
+        text: "option",
       });
       this.$nextTick(() => {
         this.updateSelectedWidgetInList(this.selectedWidget);
@@ -122,76 +144,31 @@ export default {
         this.updateSelectedWidgetInList(this.selectedWidget);
       });
     },
-    _loadComponents() {
-      this.basicComponents = this.basicComponents.map((item) => {
-        return {
-          ...item,
-          name: item.type
-        };
-      });
-    },
-    handleMoveEnd(evt) {
-      console.log("end", evt);
-    },
-    handleMoveStart({ oldIndex }) {
-      console.log("start", oldIndex, this.basicComponents);
-    },
-    handleMove() {
-      return true;
-    },
-    handlePreview() {
-      try {
-        new RegExp(this.data.options.pattern);
-      } catch (e) {
-        console.error("preview error");
-      }
-    },
-    handleTest() {
-      this.$refs.generateForm
-        .getData()
-        .then((data) => {
-          console.log(data);
-          this.$refs.widgetPreview.end();
-        })
-        .catch((e) => {
-          console.error(e);
-          this.$refs.widgetPreview.end();
-        });
-    },
-    handleReset() {
-      this.$refs.generateForm.reset();
-    },
     onCopyJsonButtonClick() {
       this.jsonTemplate = this.widgetForm;
-      const widgets = this.widgetForm.list.map(
-        // eslint-disable-next-line no-unused-vars
-        ({ asset, ...widget }) => widget
-      );
+      const widgets = this.widgetForm.list
+        .map(
+          // eslint-disable-next-line no-unused-vars
+          ({ asset, ...widget }) => widget
+        )
+        .filter((widget) => !!widget.key)
+        .map((widget, index) => {
+          return {
+            ...widget,
+            order: index,
+            model: widget.model ? widget.model : `${widget.type}_${widget.key}`,
+          };
+        });
+      copyText(JSON.stringify(widgets));
       console.log("form builder json", JSON.stringify(widgets));
 
       return widgets;
     },
-    copyJsonDataHandler() {
-      const cpSuccess = copyText(this.jsonCopyValue);
-      if (cpSuccess) {
-        console.log("copy successful");
-      }
-    },
     onClearButtonClick() {
       this.widgetForm = {
-        list: []
+        list: [],
       };
       this.selectedWidget = null;
-    },
-    getJSON() {
-      return this.widgetForm;
-    },
-    setJSON(json) {
-      this.widgetForm = json;
-
-      if (json.list.length > 0) {
-        this.selectedWidget = json.list[0];
-      }
     },
     updateSelectedWidgetInList(val) {
       if (val) {
@@ -202,23 +179,20 @@ export default {
         this.widgetForm.list[widgetIndex] = { ...val };
       }
     },
-    onCopyButtonClick(flag) {
-      let code = "";
-      if (flag) {
-        code = genFormCode(this.widgetForm, this.widgetModels);
-      } else {
-        code = decodeURIComponent(this.$refs.codeRunRef.code);
-      }
-      const cpSuccess = copyText(code);
+    onCopyButtonClick() {
+      let code = genFormCode(this.widgetForm, this.widgetModels);
       this.copiedHtml = code;
 
+      const cpSuccess = copyText(code);
       if (cpSuccess) {
-        console.log("copy successful");
+        console.log("copy successful", code);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
+.form-builder {
+}
 </style>

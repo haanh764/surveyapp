@@ -1,15 +1,29 @@
 <template>
   <div :prop="widget.model">
+    <div
+      v-if="widget.type != 'text'"
+      class="text-left"
+    >
+      <h1> {{ widget.question || 'No question given' }} </h1>
+      <p class="text-secondary">
+        {{ widget.description }}
+      </p>
+    </div>
+
     <template v-if="widget.type == 'input'">
       <v-text-field
+        :ref="`${widget.type}_${widget.key}`"
         v-model="dataModel"
-        :type="widget.options.dataType"
+        outlined
         :placeholder="widget.options.placeholder"
       />
     </template>
 
     <template v-if="widget.type == 'radio'">
-      <v-radio-group v-model="dataModel">
+      <v-radio-group
+        :ref="`${widget.type}_${widget.key}`"
+        v-model="dataModel"
+      >
         <v-radio
           v-for="(item, index) in widget.options.options"
           :key="index"
@@ -20,10 +34,11 @@
     </template>
 
     <template v-if="widget.type == 'checkbox'">
-      <v-item-group v-model="dataModel">
+      <v-item-group :ref="`${widget.type}_${widget.key}`">
         <v-checkbox
           v-for="(item, index) in widget.options.options"
           :key="index"
+          v-model="dataModel"
           multiple
           :label="item.text"
           :value="item.value"
@@ -34,16 +49,30 @@
     </template>
 
     <template v-if="widget.type=='slider'">
+      {{ widget.options.min }}
       <v-slider
+        :ref="`${widget.type}_${widget.key}`"
         v-model="dataModel"
         :min="widget.options.min"
         :max="widget.options.max"
         :step="widget.options.step"
       />
+      {{ widget.options.max }}
     </template>
 
     <template v-if="widget.type == 'text'">
-      <span>{{ dataModel }}</span>
+      <h1
+        v-if="widget.options.tag == 'h1'"
+        :ref="`${widget.type}_${widget.key}`"
+      >
+        {{ dataModel }}
+      </h1>
+      <p
+        v-if="widget.options.tag == 'p'"
+        :ref="`${widget.type}_${widget.key}`"
+      >
+        {{ dataModel }}
+      </p>
     </template>
   </div>
 </template>
@@ -51,7 +80,26 @@
 <script>
 export default {
   name: "GenerateFormItem",
-  props: ["widget", "models", "rules", "remote"],
+  props: {
+    widget: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    models: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    rules: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
   data() {
     return {
       dataModel: this.models[this.widget.model],
@@ -75,13 +123,6 @@ export default {
         this.dataModel = val[this.widget.model];
       },
     },
-  },
-  created() {
-    console.log("=======GenerateFormItem========");
-    console.log("widget=", this.widget);
-    console.log("models=", this.models);
-    console.log("remote=", this.remote);
-    console.log("dataModel=", this.dataModel);
   },
 };
 </script>

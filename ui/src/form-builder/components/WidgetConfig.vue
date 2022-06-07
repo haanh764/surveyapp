@@ -1,155 +1,206 @@
 <template>
-  <div>
-    <div v-if="hasSelectedWidget">
-      <template v-if="isWidgetQuestionShown">
-        <v-text-field
-          v-model="question"
-          dense
-          outlined
-          label="Question"
-          placeholder="Survey question"
-        />
-        <v-text-field
-          v-model="description"
-          dense
-          outlined
-          label="Description"
-          placeholder="Survey description"
-        />
-      </template>
-
-      <template v-if="isTextInputWidget && hasNestedProperty(selectedWidget, 'options.placeholder')">
-        <v-text-field
-          v-model="placeholder"
-          dense
-          outlined
-          label="placeholder"
-        />
-      </template>
-
-      <template v-if="isSliderWidget">
-        <div v-if="hasNestedProperty(selectedWidget, 'options.min')">
-          <v-text-field
-            v-model.number="min"
-            dense
-            outlined
-            label="min"
-            placeholder="min"
-          />
-        </div>
-        <div v-if="hasNestedProperty(selectedWidget, 'options.max')">
-          <v-text-field
-            v-model.number="max"
-            dense
-            outlined
-            label="max"
-          />
-        </div>
-        <div v-if="hasNestedProperty(selectedWidget, 'options.step')">
-          <v-text-field
-            v-model.number="step"
-            dense
-            outlined
-            label="step"
-          />
-        </div>
-      </template>
-
-      <template v-if="isOptionWidget">
-        <template v-if="selectedWidget.type=='radio' ">
-          <v-radio-group v-model="options.defaultValue">
-            <li
-              v-for="(item, index) in selectedWidget.options.options"
-              :key="index"
-            >
-              {{ index + 1 }}
-
-              <v-text-field
-                v-model="item.value"
-                dense
-                outlined
-                label="value"
-              />
-              <v-text-field
-                v-model="item.text"
-                dense
-                outlined
-                label="label"
-              />
-              <v-btn
-                small
-                fab
-                text
-                @click="handleOptionsRemove(index)"
-              >
-                <v-icon>
-                  mdi-minus
-                </v-icon>
-              </v-btn>
-            </li>
-          </v-radio-group>
-        </template>
-
-        <template v-if="selectedWidget.type=='checkbox'">
-          <v-item-group v-model="options.defaultValue">
-            <li
-              v-for="(item, index) in selectedWidget.options.options"
-              :key="index"
-            >
-              {{ index + 1 }}
-
-              <v-text-field
-                v-model="item.value"
-                dense
-                outlined
-                label="value"
-              />
-              <v-text-field
-                v-model="item.text"
-                dense
-                outlined
-                label="label"
-              />
-              <v-btn
-                circle
-                plain
-                type="danger"
-                size="mini"
-                style="padding: 4px;margin-left: 5px;"
-                @click="handleOptionsRemove(index)"
-              >
-                <v-icon>
-                  mdi-minus
-                </v-icon>
-              </v-btn>
-            </li>
-          </v-item-group>
-        </template>
-
-        <div>
-          <v-btn
-            text
-            small
-            @click="handleAddOption"
+  <v-container
+    fluid
+    tag="section"
+    class="widget-config"
+  >
+    <v-row
+      justify="start"
+      class="pb-10"
+    >
+      <v-col cols="12">
+        <v-row v-if="hasSelectedWidget">
+          <v-col
+            v-if="isWidgetQuestionShown"
+            cols="12"
           >
-            add option
-          </v-btn>
-        </div>
-      </template>
+            <v-text-field
+              v-model="question"
+              dense
+              outlined
+              label="Question"
+              placeholder="Survey question"
+            />
+            <v-text-field
+              v-model="description"
+              dense
+              outlined
+              label="Description"
+              placeholder="Survey description"
+            />
+          </v-col>
+          <v-col
+            v-if="isTextInputWidget && hasNestedProperty(selectedWidget, 'options.placeholder')"
+            cols="12"
+          >
+            <v-text-field
+              v-model="placeholder"
+              dense
+              outlined
+              label="placeholder"
+            />
+          </v-col>
+          <template v-if="isSliderWidget">
+            <v-divider />
+            <v-col
+              v-if="hasNestedProperty(selectedWidget, 'options.min')"
+              cols="4"
+            >
+              <v-text-field
+                v-model.number="min"
+                dense
+                outlined
+                label="min"
+                placeholder="min"
+              />
+            </v-col>
+            <v-col
+              v-if="hasNestedProperty(selectedWidget, 'options.max')"
+              cols="4"
+            >
+              <v-text-field
+                v-model.number="max"
+                dense
+                outlined
+                label="max"
+              />
+            </v-col>
+            <v-col
+              v-if="hasNestedProperty(selectedWidget, 'options.step')"
+              cols="4"
+            >
+              <v-text-field
+                v-model.number="step"
+                dense
+                outlined
+                label="step"
+              />
+            </v-col>
+          </template>
 
-      <template v-if="hasTextDefaultValue">
-        <v-text-field
-          v-model="defaultValue"
-          dense
-          outlined
-          label="Default value"
-        />
-      </template>
-    </div>
-    <div v-else>
-      No widget selected
-    </div>
-  </div>
+          <template v-if="isOptionWidget">
+            <v-col
+              v-if="selectedWidget.type=='radio' "
+              cols="12"
+            >
+              <v-radio-group
+                v-model="options.defaultValue"
+                class="ma-0"
+              >
+                <template v-for="(item, index) in selectedWidget.options.options">
+                  <v-row
+                    :key="`radio-group_${index}`"
+                    justify="start"
+                  >
+                    <v-col cols="1">
+                      <span>
+                        {{ index + 1 }}
+
+                      </span>
+                    </v-col>
+                    <v-col cols="4">
+                      <v-text-field
+                        v-model="item.value"
+                        dense
+                        outlined
+                        label="value"
+                      />
+                    </v-col>
+                    <v-col cols="5">
+                      <v-text-field
+                        v-model="item.text"
+                        dense
+                        outlined
+                        label="label"
+                      />
+                    </v-col>
+                    <v-col
+                      class="text-center"
+                      cols="1"
+                    >
+                      <v-btn
+                        small
+                        text
+                        @click="handleOptionsRemove(index)"
+                      >
+                        <v-icon>
+                          mdi-minus
+                        </v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </template>
+              </v-radio-group>
+            </v-col>
+
+            <template v-if="selectedWidget.type=='checkbox'">
+              <v-item-group v-model="options.defaultValue">
+                <div
+                  v-for="(item, index) in selectedWidget.options.options"
+                  :key="index"
+                >
+                  {{ index + 1 }}
+
+                  <v-text-field
+                    v-model="item.value"
+                    dense
+                    outlined
+                    label="value"
+                  />
+                  <v-text-field
+                    v-model="item.text"
+                    dense
+                    outlined
+                    label="label"
+                  />
+                  <v-btn
+                    circle
+                    plain
+                    type="danger"
+                    size="mini"
+                    style="padding: 4px;margin-left: 5px;"
+                    @click="handleOptionsRemove(index)"
+                  >
+                    <v-icon>
+                      mdi-minus
+                    </v-icon>
+                  </v-btn>
+                </div>
+              </v-item-group>
+            </template>
+
+            <v-col
+              cols="12"
+              class="text-right pa-0"
+            >
+              <v-btn
+                text
+                small
+                @click="handleAddOption"
+              >
+                add option
+              </v-btn>
+            </v-col>
+          </template>
+
+          <template v-if="hasTextDefaultValue">
+            <v-text-field
+              v-model="defaultValue"
+              dense
+              outlined
+              label="Default value"
+            />
+          </template>
+        </v-row>
+
+        <div v-else>
+          <p class="text-secondary">
+            No widget is selected
+          </p>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -296,3 +347,9 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.widget-config {
+  max-height: 300px;
+  overflow-y: auto;
+}
+</style>
