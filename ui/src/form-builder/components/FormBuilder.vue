@@ -40,6 +40,7 @@
             >
               <widget-form
                 ref="widgetForm"
+                :key="widgetFormComponentKey"
                 :data="widgetForm"
                 :select.sync="selectedWidget"
                 @update:addWidget="onAddNewWidget"
@@ -105,6 +106,7 @@ export default {
       copiedHtml: "",
       selectedWidget: null,
       widgetModels: {},
+      widgetFormComponentKey: 1,
       jsonTemplate: "",
       jsonCopyValue: "",
     };
@@ -123,11 +125,8 @@ export default {
     },
     onAddNewWidget({ widget, index }) {
       // still buggy
-      // somehow each widget is added twice
+      // somehow some widgets are added twice
       this.widgetForm.list.splice(index, 0, widget);
-
-      // this.widgetForm.list.push(widget);
-      // this.widgetForm.list = _.sortBy(this.widgetForm.list, ["order"]);
     },
     onAddOptionToSelectedWidget() {
       this.selectedWidget.options.options.push({
@@ -161,7 +160,6 @@ export default {
         });
       copyText(JSON.stringify(widgets));
       console.log("form builder json", JSON.stringify(widgets));
-
       return widgets;
     },
     onClearButtonClick() {
@@ -177,6 +175,10 @@ export default {
           (widget) => widget.key == val.key
         );
         this.widgetForm.list[widgetIndex] = { ...val };
+
+        this.$nextTick(() => {
+          this.widgetFormComponentKey += 1;
+        });
       }
     },
     onCopyButtonClick() {

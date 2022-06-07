@@ -12,6 +12,16 @@
           :value="widgetForm.value"
         />
       </v-col>
+      <v-col cols="12">
+        <v-btn
+          height="53"
+          class="v-btn--primary"
+          block
+          @click="getData"
+        >
+          SUBMIT
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -34,26 +44,20 @@ export default {
     };
   },
   created() {
-    let modelObject = {};
-    this.widgetForm.list.forEach((widget) => {
-      modelObject[widget.model] = widget.options.defaultValue
-        ? widget.options.defaultValue
-        : "0";
-    });
-    this.widgetForm.value = modelObject;
+    this.setModels();
   },
   methods: {
-    setModels() {},
-    getData() {
-      return new Promise((resolve, reject) => {
-        this.$refs.generateForm.validate((valid) => {
-          if (valid) {
-            resolve(this.models);
-          } else {
-            reject(new Error("error").message);
-          }
-        });
+    setModels() {
+      let modelObject = {};
+      this.widgetForm.list.forEach((widget) => {
+        modelObject[widget.model] = widget.options.defaultValue
+          ? widget.options.defaultValue
+          : "";
       });
+      this.widgetForm.value = modelObject;
+    },
+    getData() {
+      console.log(JSON.stringify(this.widgetForm));
     },
     reset() {
       this.$refs.generateForm.resetFields();
