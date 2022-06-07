@@ -27,16 +27,7 @@
         v-model="element.options.defaultValue"
         :placeholder="element.options.placeholder"
         disabled
-      />
-    </template>
-
-    <template v-if="element.type == 'textarea'">
-      <v-text-field
-        v-model="element.options.defaultValue"
-        type="textarea"
-        :rows="5"
-        disabled
-        :placeholder="element.options.placeholder"
+        outlined
       />
     </template>
 

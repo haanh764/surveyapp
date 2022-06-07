@@ -196,10 +196,10 @@ export default {
       type: Object,
       default() {
         return {
-          link: "http://www.google.com",
+          link: "http://www.google.com"
         };
-      },
-    },
+      }
+    }
   },
   data() {
     return {
@@ -213,8 +213,8 @@ export default {
         isPublic: false,
         newEmail: "",
         emails: [],
-        isSurveySentAutomatically: false,
-      },
+        isSurveySentAutomatically: false
+      }
     };
   },
   methods: {
@@ -234,8 +234,8 @@ export default {
     },
     removeEmail(index) {
       this.formData.emails.splice(index, 1);
-    },
-  },
+    }
+  }
 };
 </script>
 

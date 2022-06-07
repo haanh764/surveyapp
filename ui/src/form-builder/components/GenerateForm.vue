@@ -18,39 +18,38 @@ import GenerateFormItem from "./GenerateFormItem";
 export default {
   name: "GenerateForm",
   components: {
-    GenerateFormItem
+    GenerateFormItem,
   },
-  props: [ "data", "remote", "value", "insite" ],
+  props: ["data", "value"],
   data() {
     return {
       models: {},
-      rules: {}
+      rules: {},
     };
   },
   watch: {
     data: {
       deep: true,
       handler(val) {
-        this.generateModle(val.list);
-      }
+        this.generateModel(val.list);
+      },
     },
     value: {
       deep: true,
       handler(val) {
         console.log(JSON.stringify(val));
         this.models = { ...this.models, ...val };
-      }
-    }
+      },
+    },
   },
   created() {
-    this.generateModle(this.data.list);
+    this.generateModel(this.data.list);
     console.log("=====this.widgetForm======");
     console.log(this.data);
     console.log(this.value);
   },
-  mounted() {},
   methods: {
-    generateModle(genList) {
+    generateModel(genList) {
       for (let i = 0; i < genList.length; i++) {
         if (
           this.value &&
@@ -70,7 +69,7 @@ export default {
               } else {
                 return { ...item };
               }
-            })
+            }),
           ];
         } else {
           this.rules[genList[i].model] = [
@@ -80,7 +79,7 @@ export default {
               } else {
                 return { ...item };
               }
-            })
+            }),
           ];
         }
       }
@@ -102,7 +101,7 @@ export default {
     onInputChange(value, field) {
       this.$emit("on-change", field, value, this.models);
     },
-    refresh() {}
-  }
+    refresh() {},
+  },
 };
 </script>

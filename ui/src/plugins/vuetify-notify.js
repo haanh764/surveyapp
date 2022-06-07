@@ -8,7 +8,10 @@ Vue.use(VuetifyNotify, {
     toast: {
       x: "right",
       y: "bottom",
-      color: "black"
+      color: "black",
+      closeButton: {
+        show: false
+      }
     },
     dialog: {
       width: 200

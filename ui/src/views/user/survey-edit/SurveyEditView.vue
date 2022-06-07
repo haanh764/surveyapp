@@ -116,4 +116,7 @@ export default {
 </script>
 
 <style lang="scss">
+.survey-edit-view {
+  padding: calculate-space(5) 0;
+}
 </style>

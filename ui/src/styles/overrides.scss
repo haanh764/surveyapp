@@ -1,4 +1,3 @@
-@import "./form-builder/cover.scss";
 @import "./form-builder/index.scss";
 
 body {
@@ -45,4 +44,21 @@ table {
   > tbody > tr > td {
     font-weight: 300 !important;
   }
+}
+
+// form builder
+
+.v-radio + .v-radio {
+  margin-left: 0 !important;
+}
+
+.v-radio {
+  margin-right: 30px;
+}
+
+.v-checkbox + .v-checkbox {
+  margin-left: 0 !important;
+}
+.v-checkbox {
+  margin-right: 30px;
 }

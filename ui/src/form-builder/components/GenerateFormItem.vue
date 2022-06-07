@@ -25,9 +25,10 @@
           v-for="(item, index) in widget.options.options"
           :key="index"
           multiple
-          :label="item.value"
+          :label="item.text"
+          :value="item.value"
         >
-          {{ item.label }}
+          {{ item.text }}
         </v-checkbox>
       </v-item-group>
     </template>
@@ -50,10 +51,10 @@
 <script>
 export default {
   name: "GenerateFormItem",
-  props: [ "widget", "models", "rules", "remote" ],
+  props: ["widget", "models", "rules", "remote"],
   data() {
     return {
-      dataModel: this.models[this.widget.model]
+      dataModel: this.models[this.widget.model],
     };
   },
   watch: {
@@ -63,17 +64,17 @@ export default {
         this.models[this.widget.model] = val;
         this.$emit("update:models", {
           ...this.models,
-          [this.widget.model]: val
+          [this.widget.model]: val,
         });
         this.$emit("input-change", val, this.widget.model);
-      }
+      },
     },
     models: {
       deep: true,
       handler(val) {
         this.dataModel = val[this.widget.model];
-      }
-    }
+      },
+    },
   },
   created() {
     console.log("=======GenerateFormItem========");
@@ -81,6 +82,6 @@ export default {
     console.log("models=", this.models);
     console.log("remote=", this.remote);
     console.log("dataModel=", this.dataModel);
-  }
+  },
 };
 </script>

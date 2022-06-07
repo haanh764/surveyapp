@@ -6,17 +6,19 @@ export const basicComponents = [
     description: "",
     options: {
       defaultValue: "",
-      placeholder: ""
+      placeholder: "",
+      type: "text"
     }
   },
   {
-    type: "textarea",
+    type: "input",
     label: "Long open answer",
     question: "",
     description: "",
     options: {
       defaultValue: "",
-      placeholder: ""
+      placeholder: "",
+      type: "textarea"
     }
   },
   {
