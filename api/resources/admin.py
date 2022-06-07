@@ -124,3 +124,14 @@ class UnblockedUser(Resource):
             user.add_user()
             return {'message': 'User has been unblocked'}, 200
         return {'message': 'User not found'}, 404
+
+class AdminDeleteUser(Resource):
+    @jwt_required()
+    @admin_required()
+    def post(self):
+        data = request.get_json()
+        user = User.find_by_email(data['email'])
+        if user:
+            user.delete_user()
+            return {'message': 'User has been deleted'}, 200
+        return {'message': 'User not found'}, 404
