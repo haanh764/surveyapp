@@ -76,6 +76,8 @@ CREATE TABLE questions(
     title varchar(255),
     description varchar(255),
     image MEDIUMBLOB,
+    order_number int,
+    tag varchar(8),
     FOREIGN KEY (surveyId) REFERENCES surveys(id)
 );
 
