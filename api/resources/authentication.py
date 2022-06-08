@@ -10,6 +10,7 @@ import datetime
 from email_validator import validate_email, EmailNotValidError
 from common.authentication_helper import generate_confirmation_token, confirm_token, send_email
 
+
 class SignUp(Resource):
     def post(self):
         data = request.get_json()
@@ -28,6 +29,7 @@ class SignUp(Resource):
         except EmailNotValidError as errorMsg:
             return {'message': 'Invalid email address. {}'.format(errorMsg)}, 400
 
+
 class ActivateAccount(Resource):
     def get(self, token):
         email = confirm_token(token)
@@ -41,6 +43,7 @@ class ActivateAccount(Resource):
         else:
             return {'message': 'The confirmation link is invalid or has expired.'}, 400
 
+
 class NotActivated(Resource):
     @jwt_required()
     def get(self):
@@ -48,6 +51,7 @@ class NotActivated(Resource):
         current_user = User.find_by_id(current_user_id)
         if current_user.isActivated == False:
             return {'message': 'User {} is not activated'.format(current_user.email)}, 200
+
 
 class ResendActivation(Resource):
     @jwt_required()
@@ -58,6 +62,7 @@ class ResendActivation(Resource):
         confirm_url = url_for('activateaccount', token=token, _external=True)
         send_email(current_user.email, 'Please Confirm Your Email', confirm_url)
         return {'message': 'Activation link was sent to {}'.format(current_user.email)}, 200
+
 
 @app.after_request
 def refresh_expiring_access_tokens(response):
@@ -72,6 +77,7 @@ def refresh_expiring_access_tokens(response):
     except (RuntimeError, KeyError):
         return response
 
+
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -85,10 +91,12 @@ class Login(Resource):
             return response
         return {'message': 'Invalid username or password'}, 401
 
+
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
     jti = jwt_payload["jti"]
     return RevokedToken.is_jti_blacklisted(jti)
+
 
 class Logout(Resource):
     @jwt_required()
