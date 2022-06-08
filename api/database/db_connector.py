@@ -67,17 +67,66 @@ class DbConnector():
             session.expire_on_commit = True
             session.delete(model)
 
+
     def get_model_by_id(self, model_class, model_id):
+        '''
+        Args:
+            model_class: model class on which we want to base our search 
+            model_id: id with which we want to search
+
+        Returns: object of type model_class or None if no objects found
+
+        Raises:
+            
+        Example:
+            class User(Base):
+                __tablename__ = 'users'
+                id = Column(Integer, primary_key=True, index=True)
+
+            user = get_model_by_id(User, 1)
+        '''
         with self.SessionLocal.begin() as session:
             session.expire_on_commit = False
             return session.get(model_class, model_id)
 
     def get_all_models(self, model_class) -> List[Any]:
+        '''
+        Args:
+            model_class: model class on which we want to base our search 
+
+        Returns: list of objects of type model_class
+
+        Raises:
+            
+        Example:
+            class User(Base):
+                __tablename__ = 'users'
+                id = Column(Integer, primary_key=True, index=True)
+
+            all_users_list = get_all_models(User)
+        '''
         with self.SessionLocal.begin() as session:
             session.expire_on_commit = False
             return session.query(model_class).all()
 
     def find_model_by_email(self, model_class, model_email: Literal) -> Any:
+        '''
+        Args:
+            model_class: model class on which we want to base our search 
+            model_email: literal with which we want to search
+
+        Returns: object of type model_class or None if no objects found
+
+        Raises:
+            Will throw errors if selected class does no have 'email' field
+        Example:
+            class User(Base):
+                __tablename__ = 'users'
+                id = Column(Integer, primary_key=True, index=True)
+                email = Column(String(100), nullable=False)
+
+            user = find_model_by_email(User, "some_email@email.com")
+        '''
         with self.SessionLocal.begin() as session:
             session.expire_on_commit = False
             return session.query(model_class).filter_by(email=model_email).first()
