@@ -10,17 +10,25 @@ import datetime
 from email_validator import validate_email, EmailNotValidError
 from common.authentication_helper import generate_confirmation_token, confirm_token, send_email
 
+from database.db_connector import db_connector
+
 class SignUp(Resource):
     def post(self):
         data = request.get_json()
         try:
             validate_email(data['email'])
-            existing_user = User.find_by_email(data['email'])
+            existing_user = db_connector.find_model_by_email(User, data['email'])
             if existing_user:
                 return {'message': 'User {} already exists. Please Login or Signup with another email!'.format(data['email'])}
             user = User(**data)
+            user_id = user.id
             user.generate_password()
-            user.add_user()
+            
+            db_connector.add_model_to_db(user)
+            # after adding something to db database is changed, so we need to reacquire user from database, as previous reference is no longer valid, 
+            # you will get DetachedInstanceError if you don't reacquire references after add_to_db or delete_from_db 
+            user = db_connector.get_model_by_id(User, user_id)
+
             token = generate_confirmation_token(data['email'])
             confirm_url = url_for('activateaccount', token=token, _external=True)
             send_email(data['email'], 'Please Confirm Your Email', confirm_url)
@@ -32,11 +40,11 @@ class ActivateAccount(Resource):
     def get(self, token):
         email = confirm_token(token)
         if email:
-            user = User.find_by_email(email)
+            user = db_connector.find_model_by_email(User, email)
             if user.isActivated:
                 return {'message': 'User {} is already confirmed.'.format(email)}, 200
             user.isActivated = True
-            user.add_user()
+            db_connector.add_model_to_db(user)
             return {'message': 'User {} was confirmed'.format(user.email)}, 200
         else:
             return {'message': 'The confirmation link is invalid or has expired.'}, 400
@@ -45,7 +53,7 @@ class NotActivated(Resource):
     @jwt_required()
     def get(self):
         current_user_id = get_jwt_identity()
-        current_user = User.find_by_id(current_user_id)
+        current_user = db_connector.get_model_by_id(User, current_user_id)
         if current_user.isActivated == False:
             return {'message': 'User {} is not activated'.format(current_user.email)}, 200
 
@@ -53,7 +61,7 @@ class ResendActivation(Resource):
     @jwt_required()
     def post(self):
         current_user_id = get_jwt_identity()
-        current_user = User.find_by_id(current_user_id)
+        current_user = db_connector.get_model_by_id(User, current_user_id)
         token = generate_confirmation_token(current_user.email)
         confirm_url = url_for('activateaccount', token=token, _external=True)
         send_email(current_user.email, 'Please Confirm Your Email', confirm_url)
@@ -75,7 +83,7 @@ def refresh_expiring_access_tokens(response):
 class Login(Resource):
     def post(self):
         data = request.get_json()
-        user = User.find_by_email(data['email'])
+        user = db_connector.find_model_by_email(User, data['email'])
         if user and user.check_password(data['password']):
             expires = datetime.timedelta(days=1)
             access_token = create_access_token(identity=user.id, expires_delta=expires, additional_claims={'is_admin': False})
@@ -88,7 +96,7 @@ class Login(Resource):
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
     jti = jwt_payload["jti"]
-    return RevokedToken.is_jti_blacklisted(jti)
+    return db_connector.is_revoked_token_jti_blacklisted(jti)
 
 class Logout(Resource):
     @jwt_required()
@@ -100,7 +108,7 @@ class Logout(Resource):
             response = jsonify({'message': 'Logged out'})
             unset_jwt_cookies(response)
             revoked_token = RevokedToken(jti=jti, type=ttype)
-            revoked_token.add()
+            db_connector.add_model_to_db(revoked_token)
             return {'message': 'Access token has been revoked'}, 200
         except:
             return {'message': 'Something went wrong'}, 500

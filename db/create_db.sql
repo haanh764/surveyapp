@@ -168,3 +168,9 @@ CREATE TABLE answer_options_choice_answer(
     FOREIGN KEY (choice_answer_answerId) REFERENCES choice_answers(answerId),
     FOREIGN KEY (answer_optionId) REFERENCES answer_options(id)
 );
+
+CREATE TABLE revoked_tokens(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    jti varchar(120),
+    type = varchar(120)
+);

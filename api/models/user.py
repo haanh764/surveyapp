@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Boolean
-from database.db_config import Base, session
+from database.db_config import Base
 
 class User(Base):
     __tablename__ = 'users'
@@ -33,20 +33,3 @@ class User(Base):
     
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
-    def find_by_email(email):
-        return session.query(User).filter_by(email=email).first()
-
-    def find_by_id(id):
-        return session.query(User).filter_by(id=id).first()
-
-    def add_user(self):
-        session.add(self)
-        session.commit()
-
-    def delete_user(self):
-        session.delete(self)
-        session.commit()
-
-    def get_all_users():
-        return session.query(User).all()

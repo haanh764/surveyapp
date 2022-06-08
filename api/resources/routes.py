@@ -1,10 +1,13 @@
 from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated, ResendActivation
 from resources.view import Home
+from resources.db_testing import DbTesting
 from resources.user import ChangePassword, DeleteUser
 from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers
 
 def initialize_routes(api):
     api.add_resource(Home, '/api/home')
+
+    api.add_resource(DbTesting, '/api/db_test')
 
     api.add_resource(Login, '/api/authentication/login')
     api.add_resource(SignUp, '/api/authentication/signup')
