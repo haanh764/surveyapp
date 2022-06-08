@@ -23,14 +23,15 @@
                 <v-icon>mdi-delete</v-icon>
                 clear
               </v-btn>
-              <v-btn
+
+              <!-- <v-btn
                 text
                 small
                 @click="onCopyJsonButtonClick"
               >
                 <v-icon>mdi-ticket</v-icon>
                 get json
-              </v-btn>
+              </v-btn> -->
             </v-col>
 
             <v-col

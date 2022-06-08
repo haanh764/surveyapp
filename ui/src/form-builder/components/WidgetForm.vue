@@ -10,8 +10,9 @@
       >
         <draggable
           :list="filteredList"
-          v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
-          @end="onWidgetMove"
+          v-bind="{group:{ name:'people',},sort:true, ghostClass: 'ghost', animation: 200, handle: '.drag-widget'}"
+          :move="onWidgetMove"
+          @end="onWidgetMoveEnd"
           @add="onWidgetAdd"
         >
           <transition-group
@@ -116,6 +117,9 @@ export default {
       this.$emit("click:settings", index);
     },
     onWidgetMove({ newIndex, oldIndex }) {
+      console.log("index", newIndex, oldIndex);
+    },
+    onWidgetMoveEnd({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
     },
     onWidgetItemCloneClick({ widget, index }) {
