@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from common.settings import DB_URL
 
 from datetime import date, datetime
@@ -8,6 +8,8 @@ class DbConnector():
     def __init__(self):
         self.engine = create_engine(DB_URL)
         self.connection = self.engine.connect()
+        print("CREATING METADATA")
+        self.meta_data = MetaData(bind=self.connection)
     
     def get_connection(self):
         return self.connection
