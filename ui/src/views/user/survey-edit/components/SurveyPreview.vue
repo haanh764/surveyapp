@@ -33,7 +33,6 @@
 
 <script>
 import GenerateForm from "@/form-builder/components/GenerateForm.vue";
-import formBuilderListSample from "@assets/json/form-builder-list-sample.json";
 
 export default {
   name: "SurveyPreview",
@@ -64,6 +63,7 @@ export default {
     value: {
       deep: true,
       handler() {
+        this.setModels();
         this.generateFormKey += 1;
       },
     },
@@ -75,7 +75,6 @@ export default {
   methods: {
     setFormData() {
       this.formData = { ...this.value };
-      console.log(this.value);
     },
     setModels() {
       let modelObject = {};

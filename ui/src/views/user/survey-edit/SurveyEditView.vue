@@ -113,12 +113,10 @@ export default {
       this[functionName]();
     },
     onSaveAsDraftOptionClick() {
-      console.log("save as draft");
-      const data = this.$refs.surveyEditTabs.getData();
-      console.log(data);
-      // call api
-      // save
-      // go to detail page
+      const surveyData = this.$refs.surveyEditTabs.getData();
+      const settingData = this.$refs.surveyConfigTabs.getData();
+
+      console.log({ data: surveyData, config: settingData });
     },
     onSaveAndPublishOptionClick() {
       console.log("save and publish");

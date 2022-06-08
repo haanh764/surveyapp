@@ -1,17 +1,28 @@
 <template>
-  <div>
-    <h1> {{ data.title || 'Survey name' }}</h1>
-    <p> {{ data.description || 'Survey description' }}</p>
-    <template v-for="item in data.list">
-      <generate-form-item
-        :key="item.key"
-        :models.sync="models"
-        :rules="rules"
-        :widget="item"
-        @input-change="onInputChange"
-      />
-    </template>
-  </div>
+  <v-container
+    fluid
+    tag="section"
+  >
+    <v-row justify="start">
+      <v-col cols="12">
+        <h1> {{ data.title || 'Survey name' }}</h1>
+      </v-col>
+      <v-col cols="12">
+        <p> {{ data.description || 'Survey description' }}</p>
+      </v-col>
+      <v-col cols="12">
+        <template v-for="item in data.list">
+          <generate-form-item
+            :key="item.key"
+            :models.sync="models"
+            :rules="rules"
+            :widget="item"
+            @input-change="onInputChange"
+          />
+        </template>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

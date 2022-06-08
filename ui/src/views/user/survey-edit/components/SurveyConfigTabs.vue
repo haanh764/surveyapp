@@ -14,7 +14,10 @@
         v-for="item in items"
         :key="item.title"
       >
-        <component :is="item.component" />
+        <component
+          :is="item.component"
+          v-model="formData"
+        />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -32,7 +35,8 @@ export default {
   },
   data() {
     return {
-      tab: "",
+      tab: "Elements",
+      formData: {},
       items: [
         {
           title: "Elements",
@@ -44,6 +48,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    getData() {
+      return this.formData;
+    },
   },
 };
 </script>

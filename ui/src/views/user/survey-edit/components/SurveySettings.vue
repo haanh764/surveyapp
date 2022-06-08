@@ -108,12 +108,12 @@
           Public
         </h3>
         <v-row>
-          <v-col cols="8">
+          <v-col cols="10">
             <p class="text-secondary">
               Share your survey to public.
             </p>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="2">
             <v-switch v-model="formData.isPublic" />
           </v-col>
         </v-row>
@@ -133,13 +133,16 @@
         <h3>
           Invite-only
         </h3>
-        <v-row>
-          <v-col cols="8">
+        <v-row justify="space-between">
+          <v-col cols="10">
             <p class="text-secondary">
               Share your survey only to selected participants by their email address. By default all surveys are public
             </p>
           </v-col>
-          <v-col cols="4">
+          <v-col
+            cols="2"
+            class="text-right"
+          >
             <v-switch v-model="formData.isPublic" />
           </v-col>
         </v-row>
@@ -148,13 +151,16 @@
         cols="12"
         class="text-left"
       >
-        <v-row>
-          <v-col cols="8">
+        <v-row justify="space-between">
+          <v-col cols="10">
             <p>
               Automatically send surveys to invited participants on start date
             </p>
           </v-col>
-          <v-col cols="4">
+          <v-col
+            cols="2"
+            class="text-right"
+          >
             <v-switch v-model="formData.isSurveySentAutomatically" />
           </v-col>
         </v-row>
@@ -164,7 +170,7 @@
         class="text-left"
       >
         <v-text-field
-          v-model.trim="formData.newEmail"
+          v-model.trim="newEmail"
           outlined
           :disabled="formData.emails.length >= 20"
           label="E-mail"
@@ -218,10 +224,10 @@ export default {
       type: Object,
       default() {
         return {
-          link: "http://www.google.com"
+          link: "http://www.google.com",
         };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -229,35 +235,40 @@ export default {
       isEndDateMenuShown: false,
       // eslint-disable-next-line no-undef
       todayDate: moment().format("YYYY-MM-DD"),
+      newEmail: "",
+
       formData: {
         startDate: "",
         endDate: "",
         isPublic: false,
-        newEmail: "",
         emails: [],
-        isSurveySentAutomatically: false
-      }
+        isSurveySentAutomatically: false,
+      },
     };
+  },
+  watch: {
+    formData: {
+      deep: true,
+      handler() {
+        this.$emit("input", this.formData);
+      },
+    },
   },
   methods: {
     copyLinkToClipboard() {
       let isCopySuccessful = copyText(this.survey.link);
       if (isCopySuccessful) {
-        // do something
-        // alert
-        console.log("copy successful");
-        console.log(this.$notify);
         this.$notify.toast("Link has been copied to clipboard");
       }
     },
     addNewEmail() {
-      this.formData.emails.push(this.formData.newEmail);
-      this.formData.newEmail = "";
+      this.formData.emails.push(this.newEmail);
+      this.newEmail = "";
     },
     removeEmail(index) {
       this.formData.emails.splice(index, 1);
-    }
-  }
+    },
+  },
 };
 </script>
 
