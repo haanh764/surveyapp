@@ -1,0 +1,536 @@
+{
+	"info": {
+		"_postman_id": "77bce1be-4c02-4616-a5eb-3d1066cec3a1",
+		"name": "api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11483009"
+	},
+	"item": [
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDU2MzA0MiwianRpIjoiMDkyODg2NGYtOGJjOC00YjEyLTljMDQtMWEzNDg3OGM4MTE5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjYsIm5iZiI6MTY1NDU2MzA0MiwiZXhwIjoxNjU0NjQ5NDQyfQ.oEN2s4eBV64HXrFhv1JZyuVZJOaV4lxG9ZzRPmmQVI8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8000/api/authentication/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"hayoung764@gmail.com\",\n    \"password\": \"TEJxaZ2q\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/authentication/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/authentication/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change_password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MDUxNSwianRpIjoiMWVlZGExMGQtZTQyYi00MzI1LThlNWUtOTAyYmViZjI3Mjc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjMsIm5iZiI6MTY1NDQ0MDUxNSwiZXhwIjoxNjU0NTI2OTE1fQ.F0kwMS5jIdo_NIBGGndQaV5LY7jZ7SF9Jsm0xMl9XzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"new_password\": \"haanh764\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/changepassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"changepassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NotActivateView",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MTQzMywianRpIjoiM2MyZjYyZTUtY2U3OS00NGUwLTljZDAtY2M3YWRhMWQ4MGIwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjUsIm5iZiI6MTY1NDQ0MTQzMywiZXhwIjoxNjU0NTI3ODMzfQ.miOUp_BkmfhpjWoIpHVosA-vIWpNDR3viaIku58DJOM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/authentication/notactivated",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"notactivated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ResendActivateLink",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MTQzMywianRpIjoiM2MyZjYyZTUtY2U3OS00NGUwLTljZDAtY2M3YWRhMWQ4MGIwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjUsIm5iZiI6MTY1NDQ0MTQzMywiZXhwIjoxNjU0NTI3ODMzfQ.miOUp_BkmfhpjWoIpHVosA-vIWpNDR3viaIku58DJOM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/authentication/resend",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"resend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAcc",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MjAyOSwianRpIjoiMzk2NTAzNzYtYTMzYS00YmRjLWI2ZTEtMDdmYWM1M2FlZjljIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjMsIm5iZiI6MTY1NDQ0MjAyOSwiZXhwIjoxNjU0NTI4NDI5fQ.J0GDwFm7mfgu4if-XXdrPVGqWe6OtnB1F1aYO3L7-gY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/user/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "private_view_example",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDU5MzA0MiwianRpIjoiNWE4OTU1OWUtZWE0MC00NjBjLWE2YzQtM2Y4NmE1ZDAyYTI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NiwibmJmIjoxNjU0NTkzMDQyLCJleHAiOjE2NTQ2Nzk0NDIsImlzX2FkbWluIjpmYWxzZX0.S_Fv8WiAAdMaohvatvnhzL3EaybgpZ0ojtAn3W2B9o8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/home",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin_logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDU5MzEyNiwianRpIjoiNmVkMWVlNjYtZjk2ZC00ODJlLWJiMWYtM2UxYWM4ZTA3ZmI0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzEsIm5iZiI6MTY1NDU5MzEyNiwiZXhwIjoxNjU0Njc5NTI2LCJpc19hZG1pbiI6dHJ1ZX0.wCCgHPwLNUFdc6BDegGkjGWVQM3ekox-O5zX0XSMMkc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/admin/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin_login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin_reset_user_password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDYwMjQyMSwianRpIjoiNjNlMjZkNjYtOTlhYS00MjZjLTk2MjktYTcxMTZjZmRjNzBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzEsIm5iZiI6MTY1NDYwMjQyMSwiZXhwIjoxNjU0Njg4ODIxLCJpc19hZG1pbiI6dHJ1ZX0.dvFFS5LH62cRe17jOMlBDV8-Nkta5ZU9R-voGXdgF6o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"hayoung764@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/resetuserpassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"resetuserpassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin_SearchUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDYwMjkyNSwianRpIjoiYmNiYTdiNjUtM2VmNi00ZjBkLTlkYmQtMTM3Mzg4MGM3OGY5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzEsIm5iZiI6MTY1NDYwMjkyNSwiZXhwIjoxNjU0Njg5MzI1LCJpc19hZG1pbiI6dHJ1ZX0.1nxr8zSvIj7fuy7ZOND_gUD5h8w49_b502DoyIQqemI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"hayoung764@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/searchuser",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"searchuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin_activate_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/activateuser",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"activateuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin_block_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/blockuser",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"blockuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin_unblocked_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/unblockeduser",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"unblockeduser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin_delete_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/deleteuser",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"deleteuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin_query_all_users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/admin/listusers",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"listusers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

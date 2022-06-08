@@ -1,4 +1,3 @@
-from urllib import response
 from flask import jsonify, request
 from flask_restful import Resource, url_for
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt, set_access_cookies, unset_jwt_cookies
@@ -67,7 +66,7 @@ def refresh_expiring_access_tokens(response):
         now = datetime.datetime.utcnow()
         target_timestamp = datetime.datetime.timestamp(now + datetime.timedelta(minutes=30))
         if target_timestamp > expire_timestamp:
-            access_token = create_access_token(identity=get_jwt_identity())
+            access_token = create_access_token(identity=get_jwt_identity(), additional_claims={'is_admin': False})
             set_access_cookies(response, access_token)
         return response
     except (RuntimeError, KeyError):
@@ -79,7 +78,7 @@ class Login(Resource):
         user = User.find_by_email(data['email'])
         if user and user.check_password(data['password']):
             expires = datetime.timedelta(days=1)
-            access_token = create_access_token(identity=user.id, expires_delta=expires)
+            access_token = create_access_token(identity=user.id, expires_delta=expires, additional_claims={'is_admin': False})
             response = jsonify({'message': 'Logged in as {}. Access token is {}'.format(user.email, access_token)})
             set_access_cookies(response, access_token)
             response.status_code = 200
