@@ -1,10 +1,7 @@
 <template>
   <div>
-    <v-tabs
-      v-model="tab"
-      align-with-title
-    >
-      <v-tabs-slider color="yellow" />
+    <v-tabs v-model="tab">
+      <v-tabs-slider color="primary" />
       <v-tab
         v-for="item in items"
         :key="item.title"
@@ -17,7 +14,11 @@
         v-for="item in items"
         :key="item.title"
       >
-        <component :is="item.component" />
+        <component
+          :is="item.component"
+          :ref="item.ref"
+          v-model="formData"
+        />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -31,22 +32,34 @@ export default {
   name: "SurveyEditTabs",
   components: {
     SurveyBuild,
-    SurveyPreview
+    SurveyPreview,
   },
   data() {
     return {
-      tab: "",
+      tab: "Build",
+      formData: {
+        title: "",
+        description: "",
+        list: [],
+      },
       items: [
         {
           title: "Build",
-          component: SurveyBuild
+          component: SurveyBuild,
+          ref: "surveyBuild",
         },
         {
           title: "Preview",
-          component: SurveyPreview
-        }
-      ]
+          component: SurveyPreview,
+          ref: "surveyPreview",
+        },
+      ],
     };
-  }
+  },
+  methods: {
+    getData() {
+      return this.formData;
+    },
+  },
 };
 </script>

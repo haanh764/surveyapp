@@ -95,6 +95,26 @@
       <v-btn
         small
         text
+        :disabled="index == 0"
+        @click.stop="onWidgetMoveToTopClick(index)"
+      >
+        <v-icon>
+          mdi-chevron-up
+        </v-icon>
+      </v-btn>
+      <v-btn
+        small
+        text
+        :disabled="index == data.list.length - 1"
+        @click.stop="onWidgetMoveToBottomClick(index)"
+      >
+        <v-icon>
+          mdi-chevron-down
+        </v-icon>
+      </v-btn>
+      <v-btn
+        small
+        text
         @click.stop="onWidgetItemDelete(index)"
       >
         <v-icon>
@@ -154,6 +174,12 @@ export default {
     },
   },
   methods: {
+    onWidgetMoveToTopClick(index) {
+      this.$emit("click:moveTop", index);
+    },
+    onWidgetMoveToBottomClick(index) {
+      this.$emit("click:moveBottom", index);
+    },
     onWidgetItemClick(index) {
       this.selectedWidget = { ...this.data.list[index] };
     },
@@ -171,9 +197,7 @@ export default {
         key: genUniqKey(),
         order: index + 1,
       };
-
-      this.data.list.splice(index, 0, cloneData);
-
+      this.$emit("click:clone", { widget: cloneData, index: index });
       this.$nextTick(() => {
         this.selectedWidget = this.data.list[index + 1];
       });

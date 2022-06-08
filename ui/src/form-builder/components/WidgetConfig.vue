@@ -176,9 +176,11 @@
               <v-btn
                 text
                 small
+                class="text-none text-normal pa-0 "
+                :disabled="selectedWidget.options.options.length >= 20"
                 @click="handleAddOption"
               >
-                add option
+                <u>Add option</u>
               </v-btn>
             </v-col>
           </template>
@@ -211,8 +213,8 @@ export default {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   // very dirty, but nothing can be done
   // should be refactored sometime
@@ -228,7 +230,7 @@ export default {
       min: "",
       defaultValue: "",
       max: "",
-      options: []
+      options: [],
     };
   },
   computed: {
@@ -236,7 +238,7 @@ export default {
       return this.selectedWidget.type && this.selectedWidget.type != "text";
     },
     isOptionWidget() {
-      const optionWidgets = [ "checkbox", "radio" ];
+      const optionWidgets = ["checkbox", "radio"];
       return (
         !!this.selectedWidget &&
         optionWidgets.includes(this.selectedWidget.type)
@@ -252,12 +254,12 @@ export default {
       return this.selectedWidget && Object.keys(this.selectedWidget).length > 0;
     },
     hasTextDefaultValue() {
-      const textDefaultValueWidgets = [ "text", "input", "textarea" ];
+      const textDefaultValueWidgets = ["text", "input", "textarea"];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
       );
-    }
+    },
   },
   watch: {
     question(val) {
@@ -268,46 +270,40 @@ export default {
     },
     defaultValue(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ defaultValue: val } }
+        options: { ...this.selectedWidget.options, ...{ defaultValue: val } },
       });
     },
     min(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ min: val } }
+        options: { ...this.selectedWidget.options, ...{ min: val } },
       });
     },
     max(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ max: val } }
+        options: { ...this.selectedWidget.options, ...{ max: val } },
       });
     },
     step(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ step: val } }
+        options: { ...this.selectedWidget.options, ...{ step: val } },
       });
     },
     placeholder(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ placeholder: val } }
+        options: { ...this.selectedWidget.options, ...{ placeholder: val } },
       });
     },
     selectedWidget: {
       deep: true,
       handler(val) {
         if (val && Object.keys(val).length > 0) {
-          let { question, description, options } = val;
-          this.question = question;
-          this.description = description;
-          this.min = options.min;
-          this.max = options.max;
-          this.step = options.step;
-          this.placeholder = options.placeholder;
-          this.defaultValue = options.defaultValue;
+          this.setFormData();
         }
-      }
-    }
+      },
+    },
   },
   created() {
+    this.setFormData();
     if (
       !!this.selectedWidget &&
       this.hasNestedProperty(this.selectedWidget, "options.options")
@@ -316,6 +312,17 @@ export default {
     }
   },
   methods: {
+    setFormData() {
+      let { question, description, options } = this.selectedWidget;
+      this.question = question;
+      this.description = description;
+
+      this.min = options.min;
+      this.max = options.max;
+      this.step = options.step;
+      this.placeholder = options.placeholder;
+      this.defaultValue = options.defaultValue;
+    },
     hasNestedProperty(obj, propertyPath) {
       if (!propertyPath) return false;
       var properties = propertyPath.split(".");
@@ -335,7 +342,7 @@ export default {
     emitChange(updatedValue) {
       this.$emit("update:selectedWidget", {
         ...this.selectedWidget,
-        ...updatedValue
+        ...updatedValue,
       });
     },
     handleOptionsRemove(index) {
@@ -343,8 +350,8 @@ export default {
     },
     handleAddOption() {
       this.$emit("update:addOption", { value: "option", text: "option" });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

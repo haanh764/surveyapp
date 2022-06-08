@@ -8,15 +8,20 @@
       <v-col cols="12">
         <generate-form
           ref="generateForm"
-          :data="widgetForm"
-          :value="widgetForm.value"
+          :key="generateFormKey"
+          :data="value"
+          :value="formData.models"
         />
       </v-col>
-      <v-col cols="12">
+      <v-col
+        v-if="value.list.length"
+        cols="12"
+      >
         <v-btn
           height="53"
           class="v-btn--primary"
           block
+          disabled
           @click="getData"
         >
           SUBMIT
@@ -35,32 +40,55 @@ export default {
   components: {
     GenerateForm,
   },
+  props: {
+    value: {
+      type: Object,
+      default() {
+        return {
+          list: [],
+          models: {},
+        };
+      },
+    },
+  },
   data() {
     return {
-      widgetForm: {
-        list: formBuilderListSample.sample,
-        value: {},
+      generateFormKey: 1,
+      formData: {
+        list: [],
+        models: {},
       },
     };
   },
+  watch: {
+    value: {
+      deep: true,
+      handler() {
+        this.generateFormKey += 1;
+      },
+    },
+  },
   created() {
+    this.setFormData();
     this.setModels();
   },
   methods: {
+    setFormData() {
+      this.formData = { ...this.value };
+      console.log(this.value);
+    },
     setModels() {
       let modelObject = {};
-      this.widgetForm.list.forEach((widget) => {
+      this.formData.list.forEach((widget) => {
+        console.log(widget.options.defaultValue);
         modelObject[widget.model] = widget.options.defaultValue
           ? widget.options.defaultValue
           : "";
       });
-      this.widgetForm.value = modelObject;
+      this.formData.models = modelObject;
     },
     getData() {
-      console.log(JSON.stringify(this.widgetForm));
-    },
-    reset() {
-      this.$refs.generateForm.resetFields();
+      console.log(JSON.stringify(this.formData));
     },
   },
 };

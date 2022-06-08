@@ -27,6 +27,9 @@
                 :select.sync="selectedWidget"
                 :index="index"
                 :data="data"
+                @click:moveTop="onWidgetItemMoveTopClick"
+                @click:moveBottom="onWidgetItemMoveBottomClick"
+                @click:clone="onWidgetItemCloneClick"
                 @click:settings="onWidgetItemSettingsClick"
                 @click:delete="onWidgetItemDeleteClick"
               />
@@ -45,28 +48,28 @@ import { genUniqKey } from "@/util/form-builder";
 
 export default {
   components: {
-    WidgetFormItem
+    WidgetFormItem,
   },
   props: {
     data: {
       type: Object,
       default() {
         return {
-          list: []
+          list: [],
         };
-      }
+      },
     },
     select: {
       type: Object,
       default() {
         return null;
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       selectedWidget: this.select,
-      widgets: []
+      widgets: [],
     };
   },
   computed: {
@@ -76,8 +79,8 @@ export default {
       },
       set(val) {
         this.data.list = val;
-      }
-    }
+      },
+    },
   },
   watch: {
     select(val) {
@@ -87,8 +90,8 @@ export default {
       deep: true,
       handler(val) {
         this.$emit("update:select", val);
-      }
-    }
+      },
+    },
   },
   mounted() {
     document.body.ondrop = function (event) {
@@ -100,8 +103,11 @@ export default {
     };
   },
   methods: {
-    filterWidget(widgets) {
-      return widgets.filter((widget) => !!widget.key);
+    onWidgetItemMoveTopClick(index) {
+      this.$emit("click:moveTop", index);
+    },
+    onWidgetItemMoveBottomClick(index) {
+      this.$emit("click:moveBottom", index);
     },
     onWidgetItemDeleteClick(index) {
       this.$emit("click:delete", index);
@@ -111,6 +117,9 @@ export default {
     },
     onWidgetMove({ newIndex, oldIndex }) {
       console.log("index", newIndex, oldIndex);
+    },
+    onWidgetItemCloneClick({ widget, index }) {
+      this.$emit("update:addWidget", { widget, index });
     },
     onWidgetAdd(event) {
       const to = event.to;
@@ -126,13 +135,14 @@ export default {
         widget: {
           ...basicComponents[event.oldIndex],
           key,
-          order: event.oldIndex
+          model: `${basicComponents[event.oldIndex].type}_${key}`,
+          order: event.newIndex,
         },
-        index: event.newIndex
+        index: event.newIndex,
       });
 
       this.selectedWidget = this.data.list[newIndex];
-    }
-  }
+    },
+  },
 };
 </script>

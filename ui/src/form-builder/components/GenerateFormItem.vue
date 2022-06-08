@@ -61,6 +61,7 @@
     </template>
 
     <template v-if="widget.type == 'text'">
+      {{ widget.options.tag }}
       <h1
         v-if="widget.options.tag == 'h1'"
         :ref="`${widget.type}_${widget.key}`"

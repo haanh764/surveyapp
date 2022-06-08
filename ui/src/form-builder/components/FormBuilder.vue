@@ -44,6 +44,8 @@
                 :data="widgetForm"
                 :select.sync="selectedWidget"
                 @update:addWidget="onAddNewWidget"
+                @click:moveTop="onWidgetItemMoveTopClick"
+                @click:moveBottom="onWidgetItemMoveBottomClick"
                 @click:settings="onWidgetItemSettingsClick"
                 @click:delete="onWidgetItemDeleteClick"
               />
@@ -64,6 +66,7 @@
         </v-card-title>
         <v-card-text>
           <widget-config
+            :key="widgetConfigKey"
             :selected-widget.sync="selectedWidget"
             @update:selectedWidget="updateSelectedWidgetInList"
             @update:removeOptions="onRemoveOptionsFromSelectedWidget"
@@ -90,6 +93,12 @@ export default {
     GenerateForm,
   },
   props: {
+    value: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     survey: {
       type: Object,
       default() {
@@ -107,18 +116,41 @@ export default {
       selectedWidget: null,
       widgetModels: {},
       widgetFormComponentKey: 1,
+      widgetConfigKey: 1,
       jsonTemplate: "",
       jsonCopyValue: "",
     };
   },
+  watch: {
+    "widgetForm.list": {
+      deep: true,
+      handler(val) {
+        this.$emit("input", val);
+      },
+    },
+  },
   methods: {
+    onWidgetItemMoveBottomClick(index) {
+      const prevBottomWidget = this.widgetForm.list[index + 1];
+      this.widgetForm.list[index + 1] = this.widgetForm.list[index];
+      this.widgetForm.list[index] = prevBottomWidget;
+      this.widgetFormComponentKey += 1;
+    },
+    onWidgetItemMoveTopClick(index) {
+      const prevTopWidget = this.widgetForm.list[index - 1];
+      this.widgetForm.list[index - 1] = this.widgetForm.list[index];
+      this.widgetForm.list[index] = prevTopWidget;
+      this.widgetFormComponentKey += 1;
+    },
     onWidgetItemDeleteClick(index) {
       if (this.widgetForm.list[index]) {
         this.widgetForm.list.splice(index, 1);
+        this.widgetFormComponentKey += 1;
       }
     },
     onWidgetItemSettingsClick(index) {
       this.selectedWidget = this.widgetForm.list[index];
+      this.widgetConfigKey += 1;
       this.$nextTick(() => {
         this.isWidgetSettingModalShown = true;
       });
@@ -174,8 +206,8 @@ export default {
         let widgetIndex = this.widgetForm.list.findIndex(
           (widget) => widget.key == val.key
         );
-        this.widgetForm.list[widgetIndex] = { ...val };
 
+        this.widgetForm.list[widgetIndex] = { ...val };
         this.$nextTick(() => {
           this.widgetFormComponentKey += 1;
         });

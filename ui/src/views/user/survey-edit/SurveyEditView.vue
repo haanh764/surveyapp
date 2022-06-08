@@ -9,7 +9,10 @@
       mobile view
     </template>
     <template v-else>
-      <v-row justify="space-between">
+      <v-row
+        justify="space-between"
+        class="mb-2"
+      >
         <v-col
           cols="9"
           class="text-left"
@@ -52,11 +55,17 @@
         <v-col cols="12">
           <v-card>
             <v-row>
-              <v-col cols="8">
-                <survey-edit-tabs />
+              <v-col
+                cols="8"
+                class="pa-0"
+              >
+                <survey-edit-tabs ref="surveyEditTabs" />
               </v-col>
-              <v-col cols="4">
-                <survey-config-tabs />
+              <v-col
+                cols="4"
+                class="pa-0"
+              >
+                <survey-config-tabs ref="surveyConfigTabs" />
               </v-col>
             </v-row>
           </v-card>
@@ -79,20 +88,24 @@ export default {
       import(
         /* webpackChunkName: "survey-config-tabs" */
         "./components/SurveyConfigTabs"
-      )
+      ),
   },
   data() {
     return {
+      formData: {
+        data: {},
+        config: {},
+      },
       saveOptions: [
         {
           title: "Save as draft",
-          callback: "onSaveAsDraftOptionClick"
+          callback: "onSaveAsDraftOptionClick",
         },
         {
           title: "Save and publish",
-          callback: "onSaveAndPublishOptionClick"
-        }
-      ]
+          callback: "onSaveAndPublishOptionClick",
+        },
+      ],
     };
   },
   methods: {
@@ -101,6 +114,8 @@ export default {
     },
     onSaveAsDraftOptionClick() {
       console.log("save as draft");
+      const data = this.$refs.surveyEditTabs.getData();
+      console.log(data);
       // call api
       // save
       // go to detail page
@@ -110,8 +125,8 @@ export default {
       // call api
       // save
       // go to detail page
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h1> {{ data.title || 'Survey name' }}</h1>
+    <p> {{ data.description || 'Survey description' }}</p>
     <template v-for="item in data.list">
       <generate-form-item
         :key="item.key"
@@ -18,28 +20,28 @@ import GenerateFormItem from "./GenerateFormItem";
 export default {
   name: "GenerateForm",
   components: {
-    GenerateFormItem
+    GenerateFormItem,
   },
   props: {
     data: {
       type: Object,
       default() {
         return {
-          list: []
+          list: [],
         };
-      }
+      },
     },
     value: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       models: {},
-      rules: {}
+      rules: {},
     };
   },
   watch: {
@@ -47,14 +49,14 @@ export default {
       deep: true,
       handler(val) {
         this.generateModel(val.list);
-      }
+      },
     },
     value: {
       deep: true,
       handler(val) {
         this.models = { ...this.models, ...val };
-      }
-    }
+      },
+    },
   },
   created() {
     this.generateModel(this.data.list);
@@ -75,7 +77,7 @@ export default {
     },
     onInputChange(value, field) {
       this.$emit("on-change", field, value, this.models);
-    }
-  }
+    },
+  },
 };
 </script>
