@@ -86,6 +86,8 @@ import GenerateForm from "./GenerateForm";
 import genFormCode from "@/form-builder/generator/generateFormCode";
 import copyText from "@/util/copy";
 
+import { EventBus } from "@/util/event-bus";
+
 export default {
   name: "FormBuilder",
   components: {
@@ -95,9 +97,9 @@ export default {
   },
   props: {
     value: {
-      type: Array,
+      type: Object,
       default() {
-        return [];
+        return {};
       },
     },
     survey: {
@@ -112,10 +114,10 @@ export default {
       isWidgetSettingModalShown: false,
       widgetForm: {
         list: [],
+        models: {},
       },
       copiedHtml: "",
       selectedWidget: null,
-      widgetModels: {},
       widgetFormComponentKey: 1,
       widgetConfigKey: 1,
       jsonTemplate: "",
@@ -126,11 +128,33 @@ export default {
     "widgetForm.list": {
       deep: true,
       handler(val) {
-        this.$emit("input", val);
+        this.setModels();
+        this.$nextTick(() => {
+          this.$emit("input", this.widgetForm);
+        });
       },
     },
   },
+  mounted() {
+    this.startListeningToEventBus();
+  },
+  beforeDestroy() {
+    this.stopListeningToEventBus();
+  },
   methods: {
+    setModels() {
+      let models = {};
+      this.widgetForm.list.forEach((widget) => {
+        models[widget.model] = widget.options.defaultValue || "";
+      });
+      this.widgetForm.models = { ...this.widgetForm.models, ...models };
+    },
+    startListeningToEventBus() {
+      EventBus.$on("update:addWidget", this.onAddNewWidget);
+    },
+    stopListeningToEventBus() {
+      EventBus.$off("update:addWidget", () => {});
+    },
     onWidgetItemMoveBottomClick(index) {
       const prevBottomWidget = this.widgetForm.list[index + 1];
       this.widgetForm.list[index + 1] = this.widgetForm.list[index];
@@ -215,7 +239,7 @@ export default {
       }
     },
     onCopyButtonClick() {
-      let code = genFormCode(this.widgetForm, this.widgetModels);
+      let code = genFormCode(this.widgetForm, this.widgetForm.models);
       this.copiedHtml = code;
 
       const cpSuccess = copyText(code);

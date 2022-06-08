@@ -17,7 +17,7 @@
         <component
           :is="item.component"
           :ref="item.ref"
-          v-model="formData"
+          v-model="formData.formBuilder"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -40,7 +40,10 @@ export default {
       formData: {
         title: "",
         description: "",
-        list: [],
+        formBuilder: {
+          list: [],
+          models: {},
+        },
       },
       items: [
         {

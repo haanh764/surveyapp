@@ -9,12 +9,12 @@
         <generate-form
           ref="generateForm"
           :key="generateFormKey"
-          :data="value"
+          :data="value.formBuilder"
           :value="formData.models"
         />
       </v-col>
       <v-col
-        v-if="value.list.length"
+        v-if="value.formBuilder.list.length"
         cols="12"
       >
         <v-btn
@@ -44,8 +44,10 @@ export default {
       type: Object,
       default() {
         return {
-          list: [],
-          models: {},
+          formBuilder: {
+            list: [],
+            models: {},
+          },
         };
       },
     },
@@ -74,12 +76,11 @@ export default {
   },
   methods: {
     setFormData() {
-      this.formData = { ...this.value };
+      this.formData = { ...this.value.formBuilder };
     },
     setModels() {
       let modelObject = {};
       this.formData.list.forEach((widget) => {
-        console.log(widget.options.defaultValue);
         modelObject[widget.model] = widget.options.defaultValue
           ? widget.options.defaultValue
           : "";

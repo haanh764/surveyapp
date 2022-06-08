@@ -5,77 +5,74 @@
     :class="{'--is-mobile': isMobile, '--is-desktop': !isMobile}"
     tag="section"
   >
-    <template v-if="isMobile">
-      mobile view
-    </template>
-    <template v-else>
-      <v-row
-        justify="space-between"
-        class="mb-2"
+    <v-row
+      justify="space-between"
+      class="mb-2"
+    >
+      <v-col
+        cols="9"
+        class="text-left"
       >
-        <v-col
-          cols="9"
-          class="text-left"
-        >
-          <h1>
-            Edit survey
-          </h1>
-        </v-col>
-        <v-col
-          cols="3"
-          class="text-right"
-        >
-          <v-menu offset-y>
-            <template #activator="{ on, attrs }">
-              <v-btn
-                class="v-btn--accent text-left"
-                v-bind="attrs"
-                width="150"
-                v-on="on"
-              >
-                <v-icon class="mr-1">
-                  mdi-chevron-down
-                </v-icon>
-                Save
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, index) in saveOptions"
-                :key="index"
-                @click.stop="onOptionClick(item.callback)"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-card>
-            <v-row>
-              <v-col
-                cols="8"
-                class="pa-0"
-              >
-                <survey-edit-tabs ref="surveyEditTabs" />
-              </v-col>
-              <v-col
-                cols="4"
-                class="pa-0"
-              >
-                <survey-config-tabs ref="surveyConfigTabs" />
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </template>
+        <h1>
+          Edit survey
+        </h1>
+      </v-col>
+      <v-col
+        cols="3"
+        class="text-right"
+      >
+        <v-menu offset-y>
+          <template #activator="{ on, attrs }">
+            <v-btn
+              class="v-btn--accent text-left"
+              v-bind="attrs"
+              width="150"
+              v-on="on"
+            >
+              <v-icon class="mr-1">
+                mdi-chevron-down
+              </v-icon>
+              Save
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in saveOptions"
+              :key="index"
+              @click.stop="onOptionClick(item.callback)"
+            >
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-card>
+          <v-row>
+            <v-col
+              cols="8"
+              class="pa-0"
+            >
+              <survey-edit-tabs ref="surveyEditTabs" />
+            </v-col>
+            <v-col
+              cols="4"
+              class="pa-0"
+            >
+              <survey-config-tabs ref="surveyConfigTabs" />
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import copyText from "@/util/copy.js";
+
 export default {
   name: "SurveyEditView",
   components: {
@@ -116,7 +113,11 @@ export default {
       const surveyData = this.$refs.surveyEditTabs.getData();
       const settingData = this.$refs.surveyConfigTabs.getData();
 
-      console.log({ data: surveyData, config: settingData });
+      const finalOutput = { data: surveyData, config: settingData.config };
+      console.log(JSON.stringify(finalOutput));
+      copyText(JSON.stringify(finalOutput));
+
+      this.$notify.toast("Survey has been successfully saved");
     },
     onSaveAndPublishOptionClick() {
       console.log("save and publish");

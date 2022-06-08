@@ -228,6 +228,12 @@ export default {
         };
       },
     },
+    value: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
@@ -253,6 +259,9 @@ export default {
         this.$emit("input", this.formData);
       },
     },
+  },
+  mounted() {
+    this.$emit("input", this.formData);
   },
   methods: {
     copyLinkToClipboard() {

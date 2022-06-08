@@ -25,7 +25,7 @@
         cols="12"
         class="pa-10"
       >
-        <form-builder v-model="formData.list" />
+        <form-builder v-model="formData.formBuilder" />
       </v-col>
     </v-row>
   </v-container>
@@ -43,7 +43,10 @@ export default {
       formData: {
         title: "",
         description: "",
-        list: [],
+        formBuilder: {
+          list: [],
+          models: {},
+        },
       },
     };
   },

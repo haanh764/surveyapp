@@ -16,7 +16,7 @@
       >
         <component
           :is="item.component"
-          v-model="formData"
+          v-model="formData.config"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -36,7 +36,9 @@ export default {
   data() {
     return {
       tab: "Elements",
-      formData: {},
+      formData: {
+        config: {},
+      },
       items: [
         {
           title: "Elements",

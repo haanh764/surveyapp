@@ -14,9 +14,10 @@
           @start="onMovingElementStart"
         >
           <v-list-item
-            v-for="item in items"
+            v-for="(item, index) in items"
             :key="item.title"
             class="survey-elements__item"
+            @click.stop="onElementClick(item, index)"
           >
             <v-list-item-content class="text-center">
               <center>
@@ -40,6 +41,7 @@
 
 <script>
 import { basicComponents } from "@/form-builder/components/components.js";
+import { EventBus } from "@/util/event-bus";
 
 export default {
   name: "SurveyElements",
@@ -110,6 +112,11 @@ export default {
     onMovingElement() {},
     onMovingElementStart() {},
     onMovingElementEnd() {},
+    onElementClick(widget, index) {
+      if (this.isMobile) {
+        EventBus.$emit("update:addWidget", { widget, index });
+      }
+    },
   },
 };
 </script>
