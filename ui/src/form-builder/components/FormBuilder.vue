@@ -7,31 +7,25 @@
     <v-row justify="center">
       <v-col
         cols="12"
-        class="pa-0"
+        class="pa-0 mb-10"
       >
         <v-container>
           <v-row justify="center">
             <v-col
               cols="12"
-              class="pb-10 text-right"
+              class="pa-3 text-right"
             >
               <v-btn
                 text
                 small
+                class="text-none"
                 @click="onClearButtonClick"
               >
-                <v-icon>mdi-delete</v-icon>
-                clear
+                <v-icon small>
+                  mdi-delete
+                </v-icon>
+                <span class="">Clear form</span>
               </v-btn>
-
-              <!-- <v-btn
-                text
-                small
-                @click="onCopyJsonButtonClick"
-              >
-                <v-icon>mdi-ticket</v-icon>
-                get json
-              </v-btn> -->
             </v-col>
 
             <v-col
@@ -127,7 +121,7 @@ export default {
   watch: {
     "widgetForm.list": {
       deep: true,
-      handler(val) {
+      handler() {
         this.setModels();
         this.$nextTick(() => {
           this.$emit("input", this.widgetForm);
@@ -181,9 +175,9 @@ export default {
       });
     },
     onAddNewWidget({ widget, index }) {
-      // still buggy
-      // somehow some widgets are added twice
       this.widgetForm.list.splice(index, 0, widget);
+      this.selectedWidget = widget;
+      this.widgetFormComponentKey += 1;
     },
     onAddOptionToSelectedWidget() {
       this.selectedWidget.options.options.push({
@@ -253,5 +247,6 @@ export default {
 
 <style lang="scss">
 .form-builder {
+  margin-bottom: calculate-space(10);
 }
 </style>

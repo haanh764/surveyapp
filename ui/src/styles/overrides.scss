@@ -1,4 +1,4 @@
-@import "./form-builder/index.scss";
+// @import "./form-builder/index.scss";
 
 body {
   font-family: $font-family-sans-serif;
@@ -61,4 +61,18 @@ table {
 }
 .v-checkbox {
   margin-right: 30px;
+}
+
+// tabs
+
+.survey-tab {
+  .v-tabs-bar {
+    border-bottom: 1px solid $light-gray;
+  }
+
+  .v-tab {
+    &--active {
+      background-color: map-get($overlays, "primary");
+    }
+  }
 }

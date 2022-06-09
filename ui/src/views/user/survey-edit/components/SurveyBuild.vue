@@ -7,23 +7,24 @@
     <v-row justify="start">
       <v-col
         cols="12"
-        class="pa-10"
+        class="pa-3 survey-build__form"
       >
         <v-text-field
           v-model.trim="formData.title"
           name="title"
+          required
           placeholder="Survey name..."
         />
         <v-text-field
           v-model.trim="formData.description"
+          class="pa-0"
           name="description"
           placeholder="Survey description"
         />
       </v-col>
-      <v-divider />
       <v-col
         cols="12"
-        class="pa-10"
+        class="pa-0"
       >
         <form-builder v-model="formData.formBuilder" />
       </v-col>
@@ -41,7 +42,7 @@ export default {
   data() {
     return {
       formData: {
-        title: "",
+        title: "Survey name",
         description: "",
         formBuilder: {
           list: [],
@@ -66,7 +67,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .survey-build {
+  &__form {
+    border-bottom: 1px solid $light-gray;
+
+    .theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+      border-color: $light-gray;
+    }
+  }
 }
 </style>

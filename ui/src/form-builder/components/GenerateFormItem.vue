@@ -1,10 +1,7 @@
 <template>
-  <div :prop="widget.model">
-    <div
-      v-if="widget.type != 'text'"
-      class="text-left"
-    >
-      <h1> {{ widget.question || 'No question given' }} </h1>
+  <div class="generate-form-item text-left">
+    <div v-if="widget.question">
+      <h1>{{ widget.question || 'No question given' }}</h1>
       <p class="text-secondary">
         {{ widget.description }}
       </p>

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-tabs v-model="tab">
+    <v-tabs
+      v-model="tab"
+      class="survey-tab "
+      :centered="isMobile"
+      :grow="isMobile"
+    >
       <v-tabs-slider color="primary" />
       <v-tab
         v-for="item in items"

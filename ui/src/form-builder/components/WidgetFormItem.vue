@@ -208,12 +208,13 @@ export default {
 
 <style lang="scss" scoped>
 .widget-view {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   &.active {
-    background-color: $light-gray;
+    background-color: transparentize($light-gray, 0.5);
   }
 
   &:hover {
-    background-color: $light-gray;
+    background-color: transparentize($light-gray, 0.5);
   }
 }
 </style>

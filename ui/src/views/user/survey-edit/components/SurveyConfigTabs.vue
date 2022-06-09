@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <v-tabs v-model="tab">
+  <div class="survey-config-tabs">
+    <v-tabs
+      v-model="tab"
+      centered
+      grow
+      class="survey-tab"
+    >
       <v-tabs-slider color="primary" />
       <v-tab
         v-for="item in items"
@@ -58,3 +63,5 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+</style>

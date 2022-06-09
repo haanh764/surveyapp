@@ -4,13 +4,22 @@
     tag="section"
   >
     <v-row justify="start">
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="text-left"
+      >
         <h1> {{ data.title || 'Survey name' }}</h1>
       </v-col>
-      <v-col cols="12">
-        <p> {{ data.description || 'Survey description' }}</p>
+      <v-col
+        cols="12"
+        class="text-left"
+      >
+        <p> {{ data.description }}</p>
       </v-col>
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="text-left"
+      >
         <template v-for="item in data.list">
           <generate-form-item
             :key="item.key"

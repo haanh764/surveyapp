@@ -7,6 +7,7 @@
       <v-col cols="12">
         <draggable
           class="survey-elements"
+          :class="{'--is-mobile': isMobile}"
           :list="items"
           v-bind="{group:{ name:'people', pull:'clone',put:false},sort:false, ghostClass: 'ghost'}"
           :move="onMovingElement"
@@ -17,7 +18,8 @@
             v-for="(item, index) in items"
             :key="item.title"
             class="survey-elements__item"
-            @click.stop="onElementClick(item, index)"
+            :class="{'--is-mobile': isMobile}"
+            @click="onElementClick(item, index)"
           >
             <v-list-item-content class="text-center">
               <center>
@@ -42,6 +44,7 @@
 <script>
 import { basicComponents } from "@/form-builder/components/components.js";
 import { EventBus } from "@/util/event-bus";
+import { genUniqKey } from "@/util/form-builder";
 
 export default {
   name: "SurveyElements",
@@ -114,6 +117,9 @@ export default {
     onMovingElementEnd() {},
     onElementClick(widget, index) {
       if (this.isMobile) {
+        widget.key = genUniqKey();
+        widget.model = `${widget.type}_${widget.key}`;
+        this.$emit("update:addWidget", { widget, index });
         EventBus.$emit("update:addWidget", { widget, index });
       }
     },
@@ -127,10 +133,16 @@ export default {
   width: 100%;
   flex-direction: row;
   flex-flow: wrap;
+  justify-content: start;
+
+  &.--is-mobile {
+    justify-content: center;
+  }
 
   &__item {
     max-width: 40%;
-    margin: 0 5%;
+    height: 80px;
+    margin: 0 10px;
     border: 1px solid $light-gray;
     border-radius: 5px;
     margin-bottom: calculate-space(2);
@@ -139,6 +151,13 @@ export default {
     &:hover {
       cursor: grab;
       background-color: $light-gray;
+    }
+
+    &.--is-mobile {
+      max-width: 25%;
+      margin: 5% 10px;
+
+      cursor: pointer;
     }
 
     .item__img {

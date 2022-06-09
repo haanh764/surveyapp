@@ -5,7 +5,7 @@
         cols="12"
         class="text-left"
       >
-        <h3>
+        <h3 class="mt-5">
           Submission date
         </h3>
         <p class="text-secondary ">
@@ -134,14 +134,14 @@
           Invite-only
         </h3>
         <v-row justify="space-between">
-          <v-col cols="10">
+          <v-col cols="9">
             <p class="text-secondary">
               Share your survey only to selected participants by their email address. By default all surveys are public
             </p>
           </v-col>
           <v-col
-            cols="2"
-            class="text-right"
+            cols="3"
+            class="text-center"
           >
             <v-switch v-model="formData.isPublic" />
           </v-col>
@@ -152,14 +152,14 @@
         class="text-left"
       >
         <v-row justify="space-between">
-          <v-col cols="10">
-            <p>
+          <v-col cols="9">
+            <p class="text-secondary">
               Automatically send surveys to invited participants on start date
             </p>
           </v-col>
           <v-col
-            cols="2"
-            class="text-right"
+            cols="3"
+            class="text-center"
           >
             <v-switch v-model="formData.isSurveySentAutomatically" />
           </v-col>

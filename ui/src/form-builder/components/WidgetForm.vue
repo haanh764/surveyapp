@@ -1,7 +1,8 @@
 <template>
   <v-container
     fluid
-    class="widget-form-container"
+    class="widget-form"
+    :class="{'--is-empty': !filteredList.length}"
   >
     <v-row justify="center">
       <v-col
@@ -9,6 +10,7 @@
         class="pa-0"
       >
         <draggable
+          class="widget-form__drag-area"
           :list="filteredList"
           v-bind="{group:{ name:'people',},sort:true, ghostClass: 'ghost', animation: 200, handle: '.drag-widget'}"
           :move="onWidgetMove"
@@ -18,7 +20,7 @@
           <transition-group
             name="fade"
             tag="div"
-            class="widget-form-list"
+            class="widget-form__list"
           >
             <template v-for="(element, index) in filteredList">
               <widget-form-item
@@ -150,3 +152,36 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+:root {
+  --widget-form-height: 200px;
+
+  @media only screen and (max-width: map-get($breakpoints, "md")) {
+    --widget-form-height: 30vh;
+  }
+}
+
+.widget-form {
+  min-height: var(--widget-form-height);
+
+  &.--is-empty {
+    border: 1px dashed $light-gray;
+  }
+
+  @media only screen and (max-width: map-get($breakpoints, "md")) {
+    min-height: var(--widget-form-height);
+    margin-bottom: calculate-space(10);
+  }
+
+  &__drag-area {
+    width: 100%;
+    height: 100%;
+    min-height: var(--widget-form-height);
+  }
+
+  &__list {
+    min-height: var(--widget-form-height);
+  }
+}
+</style>

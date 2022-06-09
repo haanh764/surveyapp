@@ -9,12 +9,12 @@
         <generate-form
           ref="generateForm"
           :key="generateFormKey"
-          :data="value.formBuilder"
+          :data="formData"
           :value="formData.models"
         />
       </v-col>
       <v-col
-        v-if="value.formBuilder.list.length"
+        v-if="formData.list.length"
         cols="12"
       >
         <v-btn
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     setFormData() {
-      this.formData = { ...this.value.formBuilder };
+      this.formData = { ...this.formData, ...this.value.formBuilder };
     },
     setModels() {
       let modelObject = {};
