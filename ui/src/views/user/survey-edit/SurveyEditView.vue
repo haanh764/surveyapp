@@ -122,7 +122,10 @@
         </template>
 
         <template v-if="bottomSheetContent == 'settings'">
-          <survey-settings />
+          <survey-settings
+            ref="surveySettings"
+            v-model="formData.config"
+          />
         </template>
       </template>
     </bottom-sheet>
@@ -190,8 +193,17 @@ export default {
       this[functionName]();
     },
     onSaveAsDraftOptionClick() {
-      const surveyData = this.$refs.surveyEditTabs.getData();
-      const settingData = this.$refs.surveyConfigTabs.getData();
+      let surveyData,
+        settingData = {};
+      if (this.isMobile) {
+        this.bottomSheetContent = "settings";
+
+        surveyData = this.$refs.surveyEditTabs.getData();
+        settingData = this.$refs.surveySettings.getData();
+      } else {
+        surveyData = this.$refs.surveyEditTabs.getData();
+        settingData = this.$refs.surveyConfigTabs.getData();
+      }
 
       const finalOutput = { data: surveyData, config: settingData.config };
       console.log(JSON.stringify(finalOutput));
@@ -204,6 +216,16 @@ export default {
       // call api
       // save
       // go to detail page
+
+      const surveyData = this.$refs.surveyEditTabs.getData();
+      const settingData = this.$refs.surveyConfigTabs.getData();
+
+      const finalOutput = { data: surveyData, config: settingData.config };
+      console.log(JSON.stringify(finalOutput));
+      copyText(JSON.stringify(finalOutput));
+
+      this.$notify.toast("Survey has been successfully published");
+      this.$router.push("/user/surveys/1");
     },
     onClickNewSurveyElementsButton() {
       this.isBottomSheetShown = true;

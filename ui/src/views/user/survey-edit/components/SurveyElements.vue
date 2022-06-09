@@ -19,6 +19,7 @@
             :key="item.title"
             class="survey-elements__item"
             :class="{'--is-mobile': isMobile}"
+            @dblclick="onElementDoubleClick(item, index)"
             @click="onElementClick(item, index)"
           >
             <v-list-item-content class="text-center">
@@ -115,12 +116,18 @@ export default {
     onMovingElement() {},
     onMovingElementStart() {},
     onMovingElementEnd() {},
+    addNewElement(widget, index) {
+      widget.key = genUniqKey();
+      widget.model = `${widget.type}_${widget.key}`;
+      this.$emit("update:addWidget", { widget, index });
+      EventBus.$emit("update:addWidget", { widget, index });
+    },
+    onElementDoubleClick(widget, index) {
+      this.addNewElement(widget, index);
+    },
     onElementClick(widget, index) {
       if (this.isMobile) {
-        widget.key = genUniqKey();
-        widget.model = `${widget.type}_${widget.key}`;
-        this.$emit("update:addWidget", { widget, index });
-        EventBus.$emit("update:addWidget", { widget, index });
+        this.addNewElement(widget, index);
       }
     },
   },
@@ -133,10 +140,9 @@ export default {
   width: 100%;
   flex-direction: row;
   flex-flow: wrap;
-  justify-content: start;
+  justify-content: space-between;
 
   &.--is-mobile {
-    justify-content: center;
   }
 
   &__item {
@@ -154,7 +160,7 @@ export default {
     }
 
     &.--is-mobile {
-      max-width: 25%;
+      max-width: 30%;
       margin: 5px;
 
       cursor: pointer;

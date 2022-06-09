@@ -1,5 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-container
+    fluid
+    tag="section"
+    class="survey-settings"
+  >
     <v-row justify="start">
       <v-col
         cols="12"
@@ -126,7 +130,10 @@
             <v-switch v-model="formData.isPublic" />
           </v-col>
         </v-row>
-        <div @click="copyLinkToClipboard">
+        <div
+          class="survey-link"
+          @click="copyLinkToClipboard"
+        >
           <a :href="survey.link">
             {{ survey.link || 'An error occured' }}
           </a>
@@ -263,11 +270,10 @@ export default {
       // eslint-disable-next-line no-undef
       todayDate: moment().format("YYYY-MM-DD"),
       newEmail: "",
-
       formData: {
         startDate: "",
         endDate: "",
-        isPublic: false,
+        isPublic: true,
         emails: [],
         isSurveySentAutomatically: false,
       },
@@ -298,9 +304,27 @@ export default {
     removeEmail(index) {
       this.formData.emails.splice(index, 1);
     },
+    getData() {
+      return this.formData;
+    },
   },
 };
 </script>
 
-<style>
+<style lang="scss">
+.survey-settings {
+  .survey-link {
+    background-color: $grayish-white;
+    padding: 20px;
+    border: 1px solid $light-gray;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+
+    &:hover {
+      cursor: pointer;
+      background-color: transparentize($light-gray, $amount: 0.5);
+    }
+  }
+}
 </style>

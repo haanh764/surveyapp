@@ -177,6 +177,8 @@ export default {
   &__empty-state {
     padding-top: 100px;
     font-weight: bold;
+    display: block;
+    text-align: center;
     @include font-size(1.25);
   }
 
