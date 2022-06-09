@@ -6,7 +6,11 @@
   >
     <v-row justify="center">
       <v-col cols="auto">
-        thank you view
+        <content-card 
+          title="Thank you for using our services" 
+          description="Your account has been successfully deleted. You can make a new account to use our services." 
+          :image="require('@assets/svg/man-woman-holding-mail.svg')"
+        />
       </v-col>
     </v-row>
   </v-container>
