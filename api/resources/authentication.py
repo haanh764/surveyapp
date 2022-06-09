@@ -10,6 +10,7 @@ import datetime
 from email_validator import validate_email, EmailNotValidError
 from common.authentication_helper import generate_confirmation_token, confirm_token, send_email
 
+
 class SignUp(Resource):
     def post(self):
         data = request.get_json()
@@ -28,6 +29,7 @@ class SignUp(Resource):
         except EmailNotValidError as errorMsg:
             return {'message': 'Invalid email address. {}'.format(errorMsg)}, 400
 
+
 class ActivateAccount(Resource):
     def get(self, token):
         email = confirm_token(token)
@@ -41,6 +43,7 @@ class ActivateAccount(Resource):
         else:
             return {'message': 'The confirmation link is invalid or has expired.'}, 400
 
+
 class NotActivated(Resource):
     @jwt_required()
     def get(self):
@@ -48,6 +51,7 @@ class NotActivated(Resource):
         current_user = User.find_by_id(current_user_id)
         if current_user.isActivated == False:
             return {'message': 'User {} is not activated'.format(current_user.email)}, 200
+
 
 class ResendActivation(Resource):
     @jwt_required()
