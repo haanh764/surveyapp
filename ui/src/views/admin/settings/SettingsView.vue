@@ -116,6 +116,7 @@ export default {
         email: "",
         password: ""
       },
+      isSucessSnackbarShown: false,
     };
   },
   computed: {
@@ -129,11 +130,9 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      console.log(this.formData.password);
       // to do: post form data to back-end's update admin api
       this.isSucessSnackbarShown = true;
-      
-      this.$router.push({ name: "admin-users" });
+      setTimeout( () => this.$router.push({ name: "admin-surveys" }), 1000);
     },
   },
 };

@@ -5,7 +5,7 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col cols="auto">
+      <v-col cols="12">
         <content-card 
           title="Thank you for using our services" 
           description="Your account has been successfully deleted. You can make a new account to use our services." 

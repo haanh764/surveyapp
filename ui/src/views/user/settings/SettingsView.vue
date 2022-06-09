@@ -124,6 +124,7 @@
         <MaterialSnackbar
           v-model="isSucessSnackbarShown"
           type="success"
+          timeout="500"
         >
           New settings have been saved!
         </MaterialSnackbar>
@@ -160,11 +161,9 @@ export default {
   },
   methods: {
     onFormSubmit() {
-        console.log(this.formData.password);
         // to do: post form data to back-end's update user api
         this.isSucessSnackbarShown = true;
-        
-        this.$router.push({ name: "user-surveys" });
+        setTimeout( () => this.$router.push({ name: "user-surveys" }), 1000);
     },
     onDeleteAccount() {
         this.isDeleteItemModalShown = true;
