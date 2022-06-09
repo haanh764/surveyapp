@@ -54,6 +54,7 @@
       ref="widgetSettingModal"
       v-model="isWidgetSettingModalShown"
       :is-close-button-shown="true"
+      :max-width="900"
     >
       <v-card elevation="0">
         <v-card-title>
@@ -179,11 +180,8 @@ export default {
       this.selectedWidget = widget;
       this.widgetFormComponentKey += 1;
     },
-    onAddOptionToSelectedWidget() {
-      this.selectedWidget.options.options.push({
-        value: "option",
-        text: "option",
-      });
+    onAddOptionToSelectedWidget(newOption) {
+      this.selectedWidget.options.options.push(newOption);
       this.$nextTick(() => {
         this.updateSelectedWidgetInList(this.selectedWidget);
       });

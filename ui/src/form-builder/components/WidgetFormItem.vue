@@ -1,144 +1,188 @@
 <template>
   <v-container
     v-if="hasElement && hasSelectedWidget"
-    class="widget-view"
-    :class="{'active': selectedWidget.key == element.key}"
+    class="widget-form-item"
+    :class="[ selectedWidget.key == element.key && 'active', `widget--${element.type}` ]"
     :label="element.name"
     @click.stop="onWidgetItemClick(index)"
   >
-    <template v-if="element.type != 'text'">
-      <v-text-field
-        v-model="element.question"
-        label="Question"
-        disabled
-        placeholder="Survey question"
-      />
-
-      <v-text-field
-        v-model="element.description"
-        label="Description"
-        disabled
-        placeholder="Survey description"
-      />
-    </template>
-
-    <template v-if="element.type == 'input'">
-      <v-text-field
-        v-model="element.options.defaultValue"
-        :placeholder="element.options.placeholder"
-        disabled
-        outlined
-      />
-    </template>
-
-    <template v-if="element.type == 'radio'">
-      <v-radio-group v-model="element.options.defaultValue">
-        <v-radio
-          v-for="(item, index) in element.options.options"
-          :key="item.value + index"
-          disabled
-          :label="item.text"
-          :value="item.value"
-        />
-      </v-radio-group>
-    </template>
-
-    <template v-if="element.type == 'checkbox'">
-      <v-item-group>
-        <v-checkbox
-          v-for="(item, index) in element.options.options"
-          :key="item.value + index"
-          v-model="element.options.defaultValue"
-          disabled
-          :label="item.text"
-          :value="item.value"
+    <v-row
+      justify="start"
+      class="widget-form-item__content"
+    >
+      <v-col cols="11">
+        <div
+          v-if="element.type != 'text'"
+          class="text-left mb-5"
         >
-          {{ item }}
-        </v-checkbox>
-      </v-item-group>
-    </template>
+          <h1
+            class="mb-2 widget-form-item__question"
+            :class="{'text-italic': !element.question}"
+          >
+            {{ element.question || 'Type a question...' }}
+          </h1>
+          <p
+            class="text-secondary"
+            :class="{'text-italic': !element.question}"
+          >
+            {{ element.description || 'Type a question description...' }}
+          </p>
+        </div>
 
-    <template v-if="element.type=='slider'">
-      {{ element.options.min }}
-      <v-slider
-        v-model="element.options.defaultValue"
-        :min="element.options.min"
-        :max="element.options.max"
-        disabled
-        :step="element.options.step"
-      />
-      {{ element.options.max }}
-    </template>
+        <template v-if="element.type == 'input'">
+          <v-text-field
+            v-if="element.options.type == 'text'"
+            v-model="element.options.defaultValue"
+            :placeholder="element.options.placeholder"
+            disabled
+            outlined
+          />
+          <v-textarea
+            v-if="element.options.type == 'textarea'"
+            v-model="element.options.defaultValue"
+            :placeholder="element.options.placeholder"
+            disabled
+            outlined
+          />
+        </template>
 
-    <template v-if="element.type == 'text'">
-      <h1 v-if="element.options.tag == 'h1'">
-        {{ element.options.defaultValue }}
-      </h1>
-      <p v-if="element.options.tag == 'p'">
-        {{ element.options.defaultValue }}
-      </p>
-    </template>
+        <template v-if="element.type == 'radio'">
+          <v-radio-group v-model="element.options.defaultValue">
+            <v-radio
+              v-for="(item, index) in element.options.options"
+              :key="item.value + index"
+              disabled
+              :label="item.text"
+              :value="item.value"
+            />
+          </v-radio-group>
+        </template>
 
-    <div
+        <template v-if="element.type == 'checkbox'">
+          <v-item-group class="content__checkbox">
+            <v-checkbox
+              v-for="(item, index) in element.options.options"
+              :key="item.value + index"
+              v-model="element.options.defaultValue"
+              disabled
+              class="ma-0"
+              :label="item.text"
+              :value="item.value"
+            >
+              {{ item }}
+            </v-checkbox>
+          </v-item-group>
+        </template>
+
+        <template v-if="element.type=='slider'">
+          {{ element.options.min }}
+          <v-slider
+            v-model="element.options.defaultValue"
+            :min="element.options.min"
+            :max="element.options.max"
+            disabled
+            :step="element.options.step"
+          />
+          {{ element.options.max }}
+        </template>
+
+        <template v-if="element.type == 'text'">
+          <div class="text-left">
+            <h1 v-if="element.options.tag == 'h1'">
+              {{ element.options.defaultValue }}
+            </h1>
+            <p
+              v-if="element.options.tag == 'p'"
+              class="text-secondary"
+            >
+              {{ element.options.defaultValue }}
+            </p>
+          </div>
+        </template>
+      </v-col>
+      <v-col
+        cols="1"
+        class="drag-icon"
+      >
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-col>
+    </v-row>
+    <v-row
       v-if="selectedWidget.key == element.key"
-      class="widget-view-action"
+      justify="space-between"
+      class="widget-form-item__actions"
     >
-      <v-btn
-        small
-        text
-        @click.stop="onWidgetItemClone(index)"
+      <v-col
+        cols="3"
+        class="text-left action-button-group --left"
       >
-        <v-icon>
-          mdi-content-copy
-        </v-icon>
-      </v-btn>
-      <v-btn
-        small
-        text
-        :disabled="index == 0"
-        @click.stop="onWidgetMoveToTopClick(index)"
+        <v-btn
+          small
+          text
+          class="settings-button"
+          @click.stop="onWidgetItemSettingsClick(index)"
+        >
+          <v-icon
+            small
+            class="mr-2"
+          >
+            mdi-cog
+          </v-icon>
+          Settings
+        </v-btn>
+      </v-col>
+      <v-col
+        cols="9"
+        class="pa-0 text-right action-button-group --right"
       >
-        <v-icon>
-          mdi-chevron-up
-        </v-icon>
-      </v-btn>
-      <v-btn
-        small
-        text
-        :disabled="index == data.list.length - 1"
-        @click.stop="onWidgetMoveToBottomClick(index)"
-      >
-        <v-icon>
-          mdi-chevron-down
-        </v-icon>
-      </v-btn>
-      <v-btn
-        small
-        text
-        @click.stop="onWidgetItemDelete(index)"
-      >
-        <v-icon>
-          mdi-delete
-        </v-icon>
-      </v-btn>
-
-      <v-btn
-        small
-        text
-        @click.stop="onWidgetItemSettingsClick(index)"
-      >
-        <v-icon>
-          mdi-cog
-        </v-icon>
-      </v-btn>
-    </div>
-
-    <div
-      v-if="selectedWidget.key == element.key"
-      class="widget-view-drag"
-    >
-      <v-icon>mdi-drag</v-icon>
-    </div>
+        <v-btn
+          small
+          fab
+          text
+          outlined
+          @click.stop="onWidgetItemClone(index)"
+        >
+          <v-icon small>
+            mdi-content-copy
+          </v-icon>
+        </v-btn>
+        <v-btn
+          small
+          text
+          fab
+          outlined
+          :disabled="index == 0"
+          @click.stop="onWidgetMoveToTopClick(index)"
+        >
+          <v-icon small>
+            mdi-chevron-up
+          </v-icon>
+        </v-btn>
+        <v-btn
+          small
+          fab
+          outlined
+          text
+          :disabled="index == data.list.length - 1"
+          @click.stop="onWidgetMoveToBottomClick(index)"
+        >
+          <v-icon small>
+            mdi-chevron-down
+          </v-icon>
+        </v-btn>
+        <v-btn
+          small
+          text
+          fab
+          outlined
+          @click.stop="onWidgetItemDelete(index)"
+        >
+          <v-icon small>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -207,14 +251,81 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.widget-view {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.widget-form-item {
+  padding: 20px;
+
   &.active {
-    background-color: transparentize($light-gray, 0.5);
+    border-top: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+    background-color: transparentize($light-gray, 0.8);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
   &:hover {
     background-color: transparentize($light-gray, 0.5);
+  }
+
+  &__question {
+    @include font-size(1.5);
+  }
+
+  &__content {
+    .drag-icon {
+      align-self: center;
+    }
+
+    .content__checkbox {
+      .v-input--selection-controls .v-input__slot {
+        margin: 0;
+      }
+    }
+  }
+
+  &__actions {
+    .action-button-group {
+      &.--left {
+        .settings-button {
+          font-weight: 400;
+          text-transform: capitalize;
+          letter-spacing: 0;
+          border: 1px solid $light-gray;
+          color: $dark-gray;
+          @include font-size(0.875);
+          border-radius: 15px;
+        }
+      }
+
+      &.--right {
+        display: flex;
+        justify-content: flex-end;
+
+        > * {
+          // dirty // to be removed
+          margin-right: 5px;
+
+          &:last-child {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  &.widget {
+    &--text {
+    }
+
+    &--input {
+    }
+
+    &--slider {
+    }
+
+    &--checkbox {
+    }
+
+    &--radio {
+    }
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <v-dialog
     v-model="show"
     class="modal"
-    max-width="600px"
+    :max-width="maxWidth"
     persistent
   >
     <v-card class="pa-0">
@@ -77,6 +77,10 @@ export default {
     title: {
       type: String,
       default: "",
+    },
+    maxWidth: {
+      type: Number,
+      default: 600,
     },
     content: {
       type: String,

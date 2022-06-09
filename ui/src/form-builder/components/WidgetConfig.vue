@@ -16,14 +16,12 @@
           >
             <v-text-field
               v-model="question"
-              dense
               outlined
               label="Question"
               placeholder="Survey question"
             />
             <v-text-field
               v-model="description"
-              dense
               outlined
               label="Description"
               placeholder="Survey description"
@@ -35,7 +33,6 @@
           >
             <v-text-field
               v-model="placeholder"
-              dense
               outlined
               label="placeholder"
             />
@@ -48,7 +45,6 @@
             >
               <v-text-field
                 v-model.number="min"
-                dense
                 outlined
                 label="min"
                 placeholder="min"
@@ -60,7 +56,6 @@
             >
               <v-text-field
                 v-model.number="max"
-                dense
                 outlined
                 label="max"
               />
@@ -71,7 +66,6 @@
             >
               <v-text-field
                 v-model.number="step"
-                dense
                 outlined
                 label="step"
               />
@@ -80,94 +74,51 @@
 
           <template v-if="isOptionWidget">
             <v-col
-              v-if="selectedWidget.type=='radio' "
+              v-if="selectedWidget.type=='radio' || selectedWidget.type=='checkbox' "
               cols="12"
             >
-              <v-radio-group
-                v-model="options.defaultValue"
-                class="ma-0"
-              >
-                <template v-for="(item, index) in selectedWidget.options.options">
-                  <v-row
-                    :key="`radio-group_${index}`"
-                    justify="start"
-                  >
-                    <v-col cols="1">
-                      <span>
-                        {{ index + 1 }}
-
-                      </span>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-text-field
-                        v-model="item.value"
-                        dense
-                        outlined
-                        label="value"
-                      />
-                    </v-col>
-                    <v-col cols="5">
-                      <v-text-field
-                        v-model="item.text"
-                        dense
-                        outlined
-                        label="label"
-                      />
-                    </v-col>
-                    <v-col
-                      class="text-center"
-                      cols="1"
-                    >
-                      <v-btn
-                        small
-                        text
-                        @click="handleOptionsRemove(index)"
-                      >
-                        <v-icon>
-                          mdi-minus
-                        </v-icon>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </template>
-              </v-radio-group>
-            </v-col>
-
-            <template v-if="selectedWidget.type=='checkbox'">
-              <v-item-group v-model="options.defaultValue">
-                <div
-                  v-for="(item, index) in selectedWidget.options.options"
-                  :key="index"
+              <template v-for="(item, index) in selectedWidget.options.options">
+                <v-row
+                  :key="`${selectedWidget.type}-group_${index}`"
+                  justify="start"
                 >
-                  {{ index + 1 }}
-
-                  <v-text-field
-                    v-model="item.value"
-                    dense
-                    outlined
-                    label="value"
-                  />
-                  <v-text-field
-                    v-model="item.text"
-                    dense
-                    outlined
-                    label="label"
-                  />
-                  <v-btn
-                    circle
-                    plain
-                    type="danger"
-                    size="mini"
-                    style="padding: 4px;margin-left: 5px;"
-                    @click="handleOptionsRemove(index)"
+                  <v-col cols="1">
+                    <span>
+                      {{ index + 1 }}
+                    </span>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-text-field
+                      v-model="item.value"
+                      outlined
+                      label="value"
+                    />
+                  </v-col>
+                  <v-col cols="5">
+                    <v-text-field
+                      v-model="item.text"
+                      outlined
+                      label="label"
+                    />
+                  </v-col>
+                  <v-col
+                    class="text-center"
+                    cols="1"
                   >
-                    <v-icon>
-                      mdi-minus
-                    </v-icon>
-                  </v-btn>
-                </div>
-              </v-item-group>
-            </template>
+                    <v-btn
+                      small
+                      text
+                      :disabled="selectedWidget.options.options.length == 1"
+                      @click="handleOptionsRemove(index)"
+                    >
+                      <v-icon>
+                        mdi-minus
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </template>
+            </v-col>
 
             <v-col
               cols="12"
@@ -186,12 +137,28 @@
           </template>
 
           <template v-if="hasTextDefaultValue">
-            <v-text-field
-              v-model="defaultValue"
-              dense
-              outlined
-              label="Default value"
-            />
+            <v-col
+              cols="12"
+              class="mt-5"
+            >
+              <v-text-field
+                v-model="defaultValue"
+                outlined
+                label="Default value"
+              />
+            </v-col>
+          </template>
+
+          <template v-if="hasOptionDefaultValue">
+            <v-col cols="12">
+              <v-select
+                v-model="defaultValue"
+                :multiple="selectedWidget.type == 'checkbox'"
+                outlined
+                :items="selectedWidget.options.options"
+                label="Default value"
+              />
+            </v-col>
           </template>
         </v-row>
 
@@ -206,6 +173,7 @@
 </template>
 
 <script>
+import { genUniqKey } from "@/util/form-builder";
 export default {
   name: "WidgetConfig",
   props: {
@@ -255,6 +223,13 @@ export default {
     },
     hasTextDefaultValue() {
       const textDefaultValueWidgets = ["text", "input", "textarea"];
+      return (
+        this.hasSelectedWidget &&
+        textDefaultValueWidgets.includes(this.selectedWidget.type)
+      );
+    },
+    hasOptionDefaultValue() {
+      const textDefaultValueWidgets = ["checkbox", "radio"];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
@@ -346,10 +321,22 @@ export default {
       });
     },
     handleOptionsRemove(index) {
+      if (this.selectedWidget.type == "radio") {
+        this.defaultValue = "";
+      } else if (this.selectedWidget.type == "checkbox") {
+        let option = this.selectedWidget.options.options[index];
+        this.defaultValue = this.defaultValue.filter(
+          (defVal) => defVal != option.value
+        );
+      }
       this.$emit("update:removeOptions", index);
     },
     handleAddOption() {
-      this.$emit("update:addOption", { value: "option", text: "option" });
+      let optionsLength = this.selectedWidget.options.options.length;
+      this.$emit("update:addOption", {
+        value: `option_${optionsLength + 1}`,
+        text: `Option ${optionsLength + 1}`,
+      });
     },
   },
 };
