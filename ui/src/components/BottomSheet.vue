@@ -2,19 +2,31 @@
   <v-bottom-sheet
     v-model="show"
     persistent
+    :attach="fullscreen"
+    :fullscreen="fullscreen"
+    class="bottom-sheet s-bottom-sheet"
   >
     <v-sheet
-      class="text-center"
-      :height="windowHeight-100"
+      class="text-center s-bottom-sheet__content"
+      :height="windowHeight-distance"
     >
       <v-container>
-        <v-row>
-          <v-col
-            cols="12"
-            class="text-right"
-          >
+        <v-row
+          class="mt-6"
+          justify="center"
+          align="center"
+          :class="`text-${alignTitle}`"
+        >
+          <v-col cols="10">
+            <h2>{{ title }}</h2>
+          </v-col>
+          <v-col cols="1">
             <v-btn
-              class="mt-6"
+              small
+              fab
+              outlined
+              elevation="2"
+              class="s-bottom-sheet__close-button"
               text
               @click="show = !show"
             >
@@ -33,8 +45,25 @@
 <script>
 export default {
   name: "BottomSheet",
+
   props: {
     value: Boolean,
+    alignTitle: {
+      type: String,
+      default: "left",
+    },
+    title: {
+      type: String,
+      default: "",
+    },
+    distance: {
+      type: Number,
+      default: 100,
+    },
+    fullscreen: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     show: {
@@ -48,3 +77,17 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.s-bottom-sheet {
+  &__content {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  &__close-button {
+    background-color: $light-gray;
+    color: $white !important;
+    border: none !important;
+  }
+}
+</style>

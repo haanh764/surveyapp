@@ -75,19 +75,37 @@
         </template>
 
         <template v-if="element.type=='slider'">
-          {{ element.options.min }}
-          <v-slider
-            v-model="element.options.defaultValue"
-            :min="element.options.min"
-            :max="element.options.max"
-            disabled
-            :step="element.options.step"
-          />
-          {{ element.options.max }}
+          <v-row
+            justify="center"
+            align="start"
+            class="mt-5"
+          >
+            <v-col
+              cols="2"
+              class="text-center"
+            >
+              <small> {{ element.options.min }} </small>
+            </v-col>
+            <v-col cols="8">
+              <v-slider
+                v-model="element.options.defaultValue"
+                :min="element.options.min"
+                :max="element.options.max"
+                disabled
+                :step="element.options.step"
+              />
+            </v-col>
+            <v-col
+              cols="2"
+              class="text-center"
+            >
+              <small>{{ element.options.max }}</small>
+            </v-col>
+          </v-row>
         </template>
 
         <template v-if="element.type == 'text'">
-          <div class="text-left">
+          <div class="text-left content__text">
             <h1 v-if="element.options.tag == 'h1'">
               {{ element.options.defaultValue }}
             </h1>
@@ -275,8 +293,18 @@ export default {
     }
 
     .content__checkbox {
-      .v-input--selection-controls .v-input__slot {
+      .v-input--checkbox .v-input__slot {
         margin: 0;
+      }
+    }
+
+    .content__text {
+      > h1 {
+        @include font-size(1.5);
+      }
+
+      > p {
+        @include font-size(1);
       }
     }
   }

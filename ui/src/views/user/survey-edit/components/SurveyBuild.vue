@@ -9,15 +9,23 @@
         cols="12"
         class="pa-3 survey-build__form"
       >
-        <v-text-field
-          v-model.trim="formData.title"
-          name="title"
-          required
-          placeholder="Survey name..."
-        />
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="Title"
+          rules="required"
+        >
+          <v-text-field
+            v-model.trim="formData.title"
+            class="form__title"
+            name="title"
+            :error-messages="errors[0]"
+            required
+            placeholder="Survey name..."
+          />
+        </ValidationProvider>
         <v-text-field
           v-model.trim="formData.description"
-          class="pa-0"
+          class="pa-0 form__description"
           name="description"
           placeholder="Survey description"
         />
@@ -70,10 +78,18 @@ export default {
 <style lang="scss">
 .survey-build {
   &__form {
-    border-bottom: 1px solid $light-gray;
-
     .theme--light.v-text-field > .v-input__control > .v-input__slot:before {
       border-color: $light-gray;
+    }
+
+    .form__title {
+      @include font-size(1.5);
+      font-weight: 500;
+    }
+
+    .form__description {
+      @include font-size(1);
+      text-color: $dark-gray;
     }
   }
 }

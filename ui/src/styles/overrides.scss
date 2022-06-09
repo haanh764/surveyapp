@@ -6,7 +6,6 @@ body {
   line-height: 1.25;
 
   @media only screen and (max-width: map-get($breakpoints, "md")) {
-    @include font-size(0.875);
     line-height: 1;
   }
 }
@@ -79,4 +78,25 @@ table {
       background-color: map-get($overlays, "primary");
     }
   }
+}
+
+// bottom-sheet
+.v-bottom-sheet {
+  &:not(.v-dialog--fullscreen) {
+    .v-sheet {
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+    }
+  }
+}
+
+// display flex
+.justify-flex--end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.align-flex--center {
+  display: flex;
+  align-items: center;
 }

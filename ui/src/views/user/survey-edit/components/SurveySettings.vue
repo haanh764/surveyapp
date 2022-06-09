@@ -12,7 +12,10 @@
           You can set start and end date of submission
         </p>
       </v-col>
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="pb-0"
+      >
         <v-menu
           ref="startDateMenu"
           v-model="isStartDateMenuShown"
@@ -55,7 +58,10 @@
           </v-date-picker>
         </v-menu>
       </v-col>
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class="pt-0"
+      >
         <v-menu
           ref="endDateMenu"
           v-model="isEndDateMenuShown"
@@ -108,12 +114,15 @@
           Public
         </h3>
         <v-row>
-          <v-col cols="10">
+          <v-col cols="9">
             <p class="text-secondary">
               Share your survey to public.
             </p>
           </v-col>
-          <v-col cols="2">
+          <v-col
+            cols="3"
+            class="justify-flex--end"
+          >
             <v-switch v-model="formData.isPublic" />
           </v-col>
         </v-row>
@@ -141,7 +150,7 @@
           </v-col>
           <v-col
             cols="3"
-            class="text-center"
+            class="text-center justify-flex--end"
           >
             <v-switch v-model="formData.isPublic" />
           </v-col>
@@ -152,14 +161,17 @@
         class="text-left"
       >
         <v-row justify="space-between">
-          <v-col cols="9">
-            <p class="text-secondary">
+          <v-col
+            cols="9"
+            class="align-flex--center"
+          >
+            <p class="text-secondary ma-0">
               Automatically send surveys to invited participants on start date
             </p>
           </v-col>
           <v-col
             cols="3"
-            class="text-center"
+            class="justify-flex--end"
           >
             <v-switch v-model="formData.isSurveySentAutomatically" />
           </v-col>
@@ -169,13 +181,22 @@
         cols="12"
         class="text-left"
       >
-        <v-text-field
-          v-model.trim="newEmail"
-          outlined
-          :disabled="formData.emails.length >= 20"
-          label="E-mail"
-          @keydown.enter="addNewEmail"
-        />
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="E-mail"
+          rules="email"
+        >
+          <v-text-field
+            v-model.trim="newEmail"
+            outlined
+            :disabled="formData.emails.length >= 20"
+            label="E-mail"
+            placeholder="email@email.com"
+            :error-messages="errors[0]"
+            @keydown.enter="addNewEmail"
+          />
+        </ValidationProvider>
+
         <v-list>
           <v-list-item-group multiple>
             <template v-for="(item, i) in formData.emails">

@@ -155,7 +155,7 @@ export default {
 
     &.--is-mobile {
       max-width: 25%;
-      margin: 5% 10px;
+      margin: 5px;
 
       cursor: pointer;
     }

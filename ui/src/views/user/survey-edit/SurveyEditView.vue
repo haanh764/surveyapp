@@ -111,12 +111,19 @@
     <bottom-sheet
       ref="menuBottomSheet"
       v-model="isBottomSheetShown"
+      :title="bottomSheetTitle"
+      :fullscreen="bottomSheetContent == 'settings'"
+      :distance="bottomSheetContent == 'settings' ? 0 : 100"
+      align-title="center"
     >
       <template #content>
-        <h2 class="text-center mb-2">
-          New survey elements
-        </h2>
-        <survey-elements @update:addWidget="isBottomSheetShown = false" />
+        <template v-if="bottomSheetContent == 'surveyElements'">
+          <survey-elements @update:addWidget="isBottomSheetShown = false" />
+        </template>
+
+        <template v-if="bottomSheetContent == 'settings'">
+          <survey-settings />
+        </template>
       </template>
     </bottom-sheet>
   </v-container>
@@ -143,10 +150,16 @@ export default {
         /* webpackChunkName: "survey-elements" */
         "./components/SurveyElements"
       ),
+    SurveySettings: () =>
+      import(
+        /* webpackChunkName: "survey-settings" */
+        "./components/SurveySettings"
+      ),
   },
   data() {
     return {
       isBottomSheetShown: false,
+      bottomSheetContent: "surveyElements", // surveyElements, settings
       formData: {
         data: {},
         config: {},
@@ -162,6 +175,15 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    bottomSheetTitle() {
+      const title = {
+        surveyElements: "New survey elements",
+        settings: "Survey settings",
+      };
+      return title[this.bottomSheetContent];
+    },
   },
   methods: {
     onOptionClick(functionName) {
@@ -185,8 +207,12 @@ export default {
     },
     onClickNewSurveyElementsButton() {
       this.isBottomSheetShown = true;
+      this.bottomSheetContent = "surveyElements";
     },
-    onClickSettingsButton() {},
+    onClickSettingsButton() {
+      this.isBottomSheetShown = true;
+      this.bottomSheetContent = "settings";
+    },
   },
 };
 </script>

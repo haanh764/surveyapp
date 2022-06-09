@@ -4,11 +4,20 @@
     class="widget-form"
     :class="{'--is-empty': !filteredList.length}"
   >
-    <v-row justify="center">
+    <v-row
+      justify="center"
+      align="center"
+    >
       <v-col
         cols="12"
         class="pa-0"
       >
+        <p
+          v-if="!filteredList.length"
+          class="widget-form__empty-state"
+        >
+          Add your first question to start creating your survey
+        </p>
         <draggable
           class="widget-form__drag-area"
           :list="filteredList"
@@ -155,7 +164,7 @@ export default {
 
 <style lang="scss">
 :root {
-  --widget-form-height: 200px;
+  --widget-form-height: 100px;
 
   @media only screen and (max-width: map-get($breakpoints, "md")) {
     --widget-form-height: 30vh;
@@ -165,8 +174,17 @@ export default {
 .widget-form {
   min-height: var(--widget-form-height);
 
+  &__empty-state {
+    padding-top: 100px;
+    font-weight: bold;
+    @include font-size(1.25);
+  }
+
   &.--is-empty {
     border: 1px dashed $light-gray;
+    background-color: $grayish-white;
+    color: $light-gray;
+    font-style: italic;
   }
 
   @media only screen and (max-width: map-get($breakpoints, "md")) {
