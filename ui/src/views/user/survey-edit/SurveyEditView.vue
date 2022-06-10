@@ -132,7 +132,7 @@
         </template>
       </template>
     </bottom-sheet>
-    <!-- dirty: added as gimmick -->
+    <!-- dirty: added as gimmick to communicate with the settings component -->
     <survey-settings
       v-show="false"
       ref="surveySettings"
@@ -174,7 +174,11 @@ export default {
       bottomSheetContent: "surveyElements", // surveyElements, settings
       activeSurveyEditTab: 0,
       formData: {
-        data: {},
+        data: {
+          formBuilder: {
+            list: [],
+          },
+        },
         config: {},
       },
       saveOptions: [
@@ -218,11 +222,22 @@ export default {
     },
     getData() {
       EventBus.$emit("event:getFormBuilderData");
-      const finalOutput = {
-        data: this.formData.data,
-        config: this.formData.config,
-      };
-      return finalOutput;
+
+      this.formData.data.formBuilder.list = this.formData.data.formBuilder.list
+        .map(
+          // eslint-disable-next-line no-unused-vars
+          ({ asset, ...widget }) => widget
+        )
+        .filter((widget) => !!widget.key)
+        .map((widget, index) => {
+          return {
+            ...widget,
+            order: index,
+            model: widget.model ? widget.model : `${widget.type}_${widget.key}`,
+          };
+        });
+
+      return this.formData;
     },
     onSaveAsDraftOptionClick() {
       const finalOutput = this.getData();

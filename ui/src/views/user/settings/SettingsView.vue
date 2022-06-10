@@ -4,7 +4,7 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col cols="12">
+      <v-col cols="10">
         <v-card
           class="user-settings-view__card"
           :class="{'pa-10': !isMobile}"
@@ -116,16 +116,6 @@
           primary-action-button-text="YES, I WANT TO DELETE MY ACCOUNT"
           @click:primary-action="onDeleteConfirmation"
         />
-
-        <MaterialSnackbar
-          v-model="isSucessSnackbarShown"
-          type="success"
-          timeout="1000"
-          bottom
-          right
-        >
-          New settings have been saved!
-        </MaterialSnackbar>
       </v-col>
     </v-row>
   </v-container>
@@ -160,7 +150,7 @@ export default {
   methods: {
     onFormSubmit() {
       // to do: post form data to back-end's update user api
-      this.isSucessSnackbarShown = true;
+      this.$notify.toast("New settings have been saved!");
     },
     onDeleteAccount() {
       this.isDeleteItemModalShown = true;

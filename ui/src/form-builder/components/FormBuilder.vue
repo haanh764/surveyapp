@@ -151,6 +151,9 @@ export default {
     };
   },
   computed: {
+    filteredWidgets() {
+      return this.widgetForm.list.filter((widget) => !!widget.key);
+    },
     widgetSettingModalTitle() {
       return this.selectedWidget
         ? `${this.selectedWidget.label} question settings`
@@ -186,7 +189,7 @@ export default {
       EventBus.$on("update:addWidget", this.onAddNewWidget);
     },
     stopListeningToEventBus() {
-      EventBus.$off("update:addWidget", () => {});
+      EventBus.$off("update:addWidget");
     },
     onWidgetItemMoveBottomClick(index) {
       const prevBottomWidget = this.widgetForm.list[index + 1];
@@ -218,9 +221,13 @@ export default {
       });
     },
     onAddNewWidget({ widget, index }) {
-      this.widgetForm.list.splice(index, 0, widget);
-      this.selectedWidget = widget;
-      this.widgetFormComponentKey += 1;
+      if (this.filteredWidgets.length >= 100) {
+        this.$notify.toast("Maximum 100 elements reached");
+      } else {
+        this.widgetForm.list.splice(index, 0, widget);
+        this.selectedWidget = widget;
+        this.widgetFormComponentKey += 1;
+      }
     },
     onMoveNewWidget({ oldIndex, newIndex }) {
       const oldIndexWidget = this.widgetForm.list[oldIndex];
@@ -245,31 +252,13 @@ export default {
         this.updateSelectedWidgetInList(this.selectedWidget);
       });
     },
-    onCopyJsonButtonClick() {
-      this.jsonTemplate = this.widgetForm;
-      const widgets = this.widgetForm.list
-        .map(
-          // eslint-disable-next-line no-unused-vars
-          ({ asset, ...widget }) => widget
-        )
-        .filter((widget) => !!widget.key)
-        .map((widget, index) => {
-          return {
-            ...widget,
-            order: index,
-            model: widget.model ? widget.model : `${widget.type}_${widget.key}`,
-          };
-        });
-      copyText(JSON.stringify(widgets));
-      console.log("form builder json", JSON.stringify(widgets));
-      return widgets;
-    },
     onClearButtonClick() {
       this.widgetForm = {
         list: [],
         models: {},
       };
       this.selectedWidget = null;
+      this.widgetFormComponentKey += 1;
     },
     updateSelectedWidgetInList(val) {
       if (val) {

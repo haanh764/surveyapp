@@ -23,8 +23,6 @@
           />
           <v-btn
             v-if="showBackToHomeButton"
-            text
-            flat
             class="v-btn--primary content-card__home-button"
             to="/"
             height="53"

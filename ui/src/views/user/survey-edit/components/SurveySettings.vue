@@ -379,12 +379,17 @@ export default {
 <style lang="scss">
 .survey-settings {
   .survey-link {
-    background-color: $grayish-white;
+    background-color: $medium-gray;
     padding: 20px;
     border: 1px solid $light-gray;
+    color: $primary-text-color;
     display: flex;
     justify-content: space-between;
     text-align: left;
+
+    a {
+      color: inherit;
+    }
 
     &:hover {
       cursor: pointer;

@@ -139,6 +139,12 @@
               >
                 <u>Add option</u>
               </v-btn>
+              <small
+                v-if="selectedWidget.options.options.length >= 20"
+                class="d-block text-error mt-2"
+              >
+                Maximum options (20) reached
+              </small>
             </v-col>
           </template>
 

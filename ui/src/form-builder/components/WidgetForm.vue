@@ -2,7 +2,7 @@
   <v-container
     fluid
     class="widget-form"
-    :class="{'--is-empty': !filteredList.length}"
+    :class="{'--is-empty': !filteredWidgets.length}"
   >
     <v-row
       justify="center"
@@ -13,14 +13,14 @@
         class="pa-0"
       >
         <p
-          v-if="!filteredList.length"
+          v-if="!filteredWidgets.length"
           class="widget-form__empty-state"
         >
           Add your first question to start creating your survey
         </p>
         <draggable
           class="widget-form__drag-area"
-          :list="filteredList"
+          :list="filteredWidgets"
           v-bind="{group:{ name:'people',},sort:true, ghostClass: 'ghost', animation: 200, handle: '.drag-widget'}"
           :move="onWidgetMove"
           @end="onWidgetMoveEnd"
@@ -31,7 +31,7 @@
             tag="div"
             class="widget-form__list drag-widget"
           >
-            <template v-for="(element, index) in filteredList">
+            <template v-for="(element, index) in filteredWidgets">
               <widget-form-item
                 v-if="element && element.key"
                 :key="`${element.key}_${index}`"
@@ -60,39 +60,39 @@ import { genUniqKey } from "@/util/form-builder";
 
 export default {
   components: {
-    WidgetFormItem
+    WidgetFormItem,
   },
   props: {
     data: {
       type: Object,
       default() {
         return {
-          list: []
+          list: [],
         };
-      }
+      },
     },
     select: {
       type: Object,
       default() {
         return null;
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       selectedWidget: this.select,
-      widgets: []
+      widgets: [],
     };
   },
   computed: {
-    filteredList: {
+    filteredWidgets: {
       get() {
         return this.data.list.filter((widget) => !!widget.key);
       },
       set(val) {
         this.data.list = val;
-      }
-    }
+      },
+    },
   },
   watch: {
     select(val) {
@@ -102,8 +102,8 @@ export default {
       deep: true,
       handler(val) {
         this.$emit("update:select", val);
-      }
-    }
+      },
+    },
   },
   mounted() {
     document.body.ondrop = function (event) {
@@ -149,14 +149,14 @@ export default {
           ...basicComponents[event.oldIndex],
           key,
           model: `${basicComponents[event.oldIndex].type}_${key}`,
-          order: event.newIndex
+          order: event.newIndex,
         },
-        index: event.newIndex
+        index: event.newIndex,
       });
 
       this.selectedWidget = this.data.list[newIndex];
-    }
-  }
+    },
+  },
 };
 </script>
 

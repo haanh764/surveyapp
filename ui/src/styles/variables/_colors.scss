@@ -16,16 +16,19 @@ $disabled-color: #d8d8d8;
 $white: #fff;
 $grayish-white: #fafafa;
 $light-gray: #dfe0eb;
+$medium-gray: #ededed;
 $light-blue: #f7f9fd;
 $gray: #d8d8d8;
 $black: #000;
 $dark-gray: #6c757d;
+$red: #9f1010;
 
 $theme-colors: (
   "primary": $primary-color,
   "primary-dark": $dark-primary-color,
   "primary-dark-2": $dark-primary-color-2,
   "accent": $accent-color,
+  "error": $red,
 );
 
 $primary-text-color: #000;
