@@ -68,7 +68,7 @@ class DbConnector():
             session.delete(model)
 
 
-    def get_model_by_id(self, model_class, model_id):
+    def get_model_by_id(self, model_class, model_id: int) -> Any:
         '''
         Args:
             model_class: model class on which we want to base our search 
