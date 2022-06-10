@@ -123,25 +123,25 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   computed: {
-    ...mapGetters("user", ["userData"]),
+    ...mapGetters("user", [ "userData" ]),
     userEmail() {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
       return this.formData.password.length >= 8;
-    },
+    }
   },
   methods: {
     onFormSubmit() {
       // to do: post form data to back-end's update admin api
       this.$notify.toast("New settings have been saved!");
-    },
-  },
+    }
+  }
 };
 </script>
 

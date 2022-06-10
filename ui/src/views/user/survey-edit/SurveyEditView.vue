@@ -166,7 +166,7 @@ export default {
       import(
         /* webpackChunkName: "survey-settings" */
         "./components/SurveySettings"
-      ),
+      )
   },
   data() {
     return {
@@ -176,31 +176,31 @@ export default {
       formData: {
         data: {
           formBuilder: {
-            list: [],
-          },
+            list: []
+          }
         },
-        config: {},
+        config: {}
       },
       saveOptions: [
         {
           title: "Save as draft",
-          callback: "onSaveAsDraftOptionClick",
+          callback: "onSaveAsDraftOptionClick"
         },
         {
           title: "Save and publish",
-          callback: "onSaveAndPublishOptionClick",
-        },
-      ],
+          callback: "onSaveAndPublishOptionClick"
+        }
+      ]
     };
   },
   computed: {
     bottomSheetTitle() {
       const title = {
         surveyElements: "New survey elements",
-        settings: "Survey settings",
+        settings: "Survey settings"
       };
       return title[this.bottomSheetContent];
-    },
+    }
   },
   mounted() {
     this.mountListeners();
@@ -233,7 +233,7 @@ export default {
           return {
             ...widget,
             order: index,
-            model: widget.model ? widget.model : `${widget.type}_${widget.key}`,
+            model: widget.model ? widget.model : `${widget.type}_${widget.key}`
           };
         });
 
@@ -264,8 +264,8 @@ export default {
     onClickSettingsButton() {
       this.isBottomSheetShown = true;
       this.bottomSheetContent = "settings";
-    },
-  },
+    }
+  }
 };
 </script>
 

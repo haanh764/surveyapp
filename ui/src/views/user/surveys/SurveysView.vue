@@ -353,7 +353,7 @@ export default {
       import(
         /* webpackChunkName: "conditions-interaction" */
         "./components/ConditionsInteraction"
-      ),
+      )
   },
   data() {
     return {
@@ -371,22 +371,22 @@ export default {
           title: "Earnings 2022",
           responses: 10,
           status: 1,
-          lastUpdatedDate: "01/02/2022 08:00:00",
+          lastUpdatedDate: "01/02/2022 08:00:00"
         },
         {
           id: 2,
           title: "Chicken 2022",
           responses: 11,
           status: 2,
-          lastUpdatedDate: "09/08/2022 08:00:00",
-        },
-      ],
+          lastUpdatedDate: "09/08/2022 08:00:00"
+        }
+      ]
     };
   },
   computed: {
-    ...get("user", ["userData"]),
-    ...sync("app", ["mini"]),
-    ...mapGetters("user", ["hasAcceptedPrivacyPolicy", "hasAcceptedTnC"]),
+    ...get("user", [ "userData" ]),
+    ...sync("app", [ "mini" ]),
+    ...mapGetters("user", [ "hasAcceptedPrivacyPolicy", "hasAcceptedTnC" ]),
     hasAcceptedConditions() {
       return (
         this.userData.hasAcceptedPrivacyPolicy && this.userData.hasAcceptedTnC
@@ -411,9 +411,9 @@ export default {
         { text: "Survey name", value: "title" },
         { text: "Status", value: "status" },
         { text: "Responses", value: "responses" },
-        { text: "Actions", value: "id" },
+        { text: "Actions", value: "id" }
       ];
-    },
+    }
   },
   created() {
     // get survey api
@@ -441,8 +441,8 @@ export default {
         return {
           ...survey,
           ...{
-            index,
-          },
+            index
+          }
         };
       });
     },
@@ -526,8 +526,8 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

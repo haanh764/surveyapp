@@ -40,13 +40,13 @@ export default {
   name: "SurveyEditTabs",
   components: {
     SurveyBuild,
-    SurveyPreview,
+    SurveyPreview
   },
   props: {
     value: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   data() {
     return {
@@ -57,21 +57,21 @@ export default {
         description: "",
         formBuilder: {
           list: [],
-          models: {},
-        },
+          models: {}
+        }
       },
       items: [
         {
           title: "Build",
           component: SurveyBuild,
-          ref: "surveyBuild",
+          ref: "surveyBuild"
         },
         {
           title: "Preview",
           component: SurveyPreview,
-          ref: "surveyPreview",
-        },
-      ],
+          ref: "surveyPreview"
+        }
+      ]
     };
   },
   mounted() {
@@ -88,7 +88,7 @@ export default {
       EventBus.$on("event:getFormBuilderData", () => {
         EventBus.$emit("event:setFormBuilderData", {
           data: this.formData,
-          key: "data",
+          key: "data"
         });
       });
     },
@@ -100,7 +100,7 @@ export default {
     },
     getData() {
       return this.formData;
-    },
-  },
+    }
+  }
 };
 </script>

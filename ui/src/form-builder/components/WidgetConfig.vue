@@ -204,7 +204,6 @@
 </template>
 
 <script>
-import { genUniqKey } from "@/util/form-builder";
 export default {
   name: "WidgetConfig",
   props: {
@@ -212,8 +211,8 @@ export default {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   // very dirty, but nothing can be done
   // should be refactored sometime
@@ -229,7 +228,7 @@ export default {
       min: "",
       defaultValue: "",
       max: "",
-      options: [],
+      options: []
     };
   },
   computed: {
@@ -237,7 +236,7 @@ export default {
       return this.selectedWidget.type && this.selectedWidget.type != "text";
     },
     isOptionWidget() {
-      const optionWidgets = ["checkbox", "radio"];
+      const optionWidgets = [ "checkbox", "radio" ];
       return (
         !!this.selectedWidget &&
         optionWidgets.includes(this.selectedWidget.type)
@@ -253,26 +252,26 @@ export default {
       return this.selectedWidget && Object.keys(this.selectedWidget).length > 0;
     },
     hasTextDefaultValue() {
-      const textDefaultValueWidgets = ["text", "input", "textarea"];
+      const textDefaultValueWidgets = [ "text", "input", "textarea" ];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
       );
     },
     hasNumberDefaultValue() {
-      const textDefaultValueWidgets = ["slider"];
+      const textDefaultValueWidgets = [ "slider" ];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
       );
     },
     hasOptionDefaultValue() {
-      const textDefaultValueWidgets = ["checkbox", "radio"];
+      const textDefaultValueWidgets = [ "checkbox", "radio" ];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
       );
-    },
+    }
   },
   watch: {
     question(val) {
@@ -283,27 +282,27 @@ export default {
     },
     defaultValue(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ defaultValue: val } },
+        options: { ...this.selectedWidget.options, ...{ defaultValue: val } }
       });
     },
     min(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ min: val } },
+        options: { ...this.selectedWidget.options, ...{ min: val } }
       });
     },
     max(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ max: val } },
+        options: { ...this.selectedWidget.options, ...{ max: val } }
       });
     },
     step(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ step: val } },
+        options: { ...this.selectedWidget.options, ...{ step: val } }
       });
     },
     placeholder(val) {
       this.emitChange({
-        options: { ...this.selectedWidget.options, ...{ placeholder: val } },
+        options: { ...this.selectedWidget.options, ...{ placeholder: val } }
       });
     },
     selectedWidget: {
@@ -312,8 +311,8 @@ export default {
         if (val && Object.keys(val).length > 0) {
           this.setFormData();
         }
-      },
-    },
+      }
+    }
   },
   created() {
     this.setFormData();
@@ -355,7 +354,7 @@ export default {
     emitChange(updatedValue) {
       this.$emit("update:selectedWidget", {
         ...this.selectedWidget,
-        ...updatedValue,
+        ...updatedValue
       });
     },
     handleOptionsRemove(index) {
@@ -373,10 +372,10 @@ export default {
       let optionsLength = this.selectedWidget.options.options.length;
       this.$emit("update:addOption", {
         value: `option_${optionsLength + 1}`,
-        text: `Option ${optionsLength + 1}`,
+        text: `Option ${optionsLength + 1}`
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

@@ -7,8 +7,8 @@ export const basicComponents = [
     options: {
       defaultValue: "",
       placeholder: "",
-      type: "text",
-    },
+      type: "text"
+    }
   },
   {
     type: "input",
@@ -18,8 +18,8 @@ export const basicComponents = [
     options: {
       defaultValue: "",
       placeholder: "",
-      type: "textarea",
-    },
+      type: "textarea"
+    }
   },
   {
     type: "radio",
@@ -31,18 +31,18 @@ export const basicComponents = [
       options: [
         {
           value: "Option_1",
-          text: "Option 1",
+          text: "Option 1"
         },
         {
           value: "Option_2",
-          text: "Option 2",
+          text: "Option 2"
         },
         {
           value: "Option_3",
-          text: "Option 3",
-        },
-      ],
-    },
+          text: "Option 3"
+        }
+      ]
+    }
   },
   {
     type: "checkbox",
@@ -54,18 +54,18 @@ export const basicComponents = [
       options: [
         {
           value: "Option_1",
-          text: "Option 1",
+          text: "Option 1"
         },
         {
           value: "Option_2",
-          text: "Option 2",
+          text: "Option 2"
         },
         {
           value: "Option_3",
-          text: "Option 3",
-        },
-      ],
-    },
+          text: "Option 3"
+        }
+      ]
+    }
   },
   {
     type: "slider",
@@ -76,23 +76,23 @@ export const basicComponents = [
       defaultValue: 0,
       min: 0,
       max: 100,
-      step: 1,
-    },
+      step: 1
+    }
   },
   {
     type: "text",
     label: "Headings",
     options: {
       tag: "h1",
-      defaultValue: "This is a heading",
-    },
+      defaultValue: "This is a heading"
+    }
   },
   {
     type: "text",
     label: "Paragraph",
     options: {
       tag: "p",
-      defaultValue: "This is a text",
-    },
-  },
+      defaultValue: "This is a text"
+    }
+  }
 ];

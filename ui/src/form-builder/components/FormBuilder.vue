@@ -108,9 +108,6 @@
 import WidgetConfig from "./WidgetConfig";
 import WidgetForm from "./WidgetForm";
 import GenerateForm from "./GenerateForm";
-import genFormCode from "@/form-builder/generator/generateFormCode";
-import copyText from "@/util/copy";
-
 import { EventBus } from "@/util/event-bus";
 
 export default {
@@ -118,21 +115,21 @@ export default {
   components: {
     WidgetConfig,
     WidgetForm,
-    GenerateForm,
+    GenerateForm
   },
   props: {
     value: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     survey: {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   data() {
     return {
@@ -140,14 +137,14 @@ export default {
       isWidgetSettingModalShown: false,
       widgetForm: {
         list: [],
-        models: {},
+        models: {}
       },
       copiedHtml: "",
       selectedWidget: null,
       widgetFormComponentKey: 1,
       widgetConfigKey: 1,
       jsonTemplate: "",
-      jsonCopyValue: "",
+      jsonCopyValue: ""
     };
   },
   computed: {
@@ -158,7 +155,7 @@ export default {
       return this.selectedWidget
         ? `${this.selectedWidget.label} question settings`
         : "Title";
-    },
+    }
   },
   watch: {
     "widgetForm.list": {
@@ -168,8 +165,8 @@ export default {
         this.$nextTick(() => {
           this.$emit("input", this.widgetForm);
         });
-      },
-    },
+      }
+    }
   },
   mounted() {
     this.startListeningToEventBus();
@@ -255,7 +252,7 @@ export default {
     onClearButtonClick() {
       this.widgetForm = {
         list: [],
-        models: {},
+        models: {}
       };
       this.selectedWidget = null;
       this.widgetFormComponentKey += 1;
@@ -273,8 +270,8 @@ export default {
           this.setModels();
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

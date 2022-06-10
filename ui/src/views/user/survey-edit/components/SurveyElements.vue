@@ -56,50 +56,50 @@ export default {
           title: "Short open answer",
           type: "input",
           options: {
-            type: "text",
+            type: "text"
           },
-          asset: require("@assets/icons/short_open_answer.png"),
+          asset: require("@assets/icons/short_open_answer.png")
         },
         {
           title: "Long open answer",
           type: "input",
           options: {
-            type: "textarea",
+            type: "textarea"
           },
-          asset: require("@assets/icons/long_open_answer.png"),
+          asset: require("@assets/icons/long_open_answer.png")
         },
         {
           title: "Single choice",
           type: "radio",
-          asset: require("@assets/icons/radio.png"),
+          asset: require("@assets/icons/radio.png")
         },
         {
           title: "Multiple choices",
           type: "checkbox",
-          asset: require("@assets/icons/checkbox.png"),
+          asset: require("@assets/icons/checkbox.png")
         },
         {
           title: "Slider",
           type: "slider",
-          asset: require("@assets/icons/slider.png"),
+          asset: require("@assets/icons/slider.png")
         },
         {
           title: "Headings",
           type: "text",
           options: {
-            tag: "h1",
+            tag: "h1"
           },
-          asset: require("@assets/icons/headings.png"),
+          asset: require("@assets/icons/headings.png")
         },
         {
           title: "Paragraph",
           type: "text",
           options: {
-            tag: "p",
+            tag: "p"
           },
-          asset: require("@assets/icons/paragraph.png"),
-        },
-      ],
+          asset: require("@assets/icons/paragraph.png")
+        }
+      ]
     };
   },
   created() {
@@ -127,8 +127,8 @@ export default {
     },
     onElementClick(widget, index) {
       this.isMobile && this.addNewElement(widget, index);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -85,40 +85,40 @@ export default {
     value: Boolean,
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     subtitle: {
       type: String,
-      default: "",
+      default: ""
     },
     maxWidth: {
       type: Number,
-      default: 600,
+      default: 600
     },
     content: {
       type: String,
-      default: "",
+      default: ""
     },
     primaryActionButtonText: {
       type: String,
-      default: "OK",
+      default: "OK"
     },
     isActionButtonShown: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isFooterShown: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isPrompt: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isCloseButtonShown: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   computed: {
     show: {
@@ -127,14 +127,14 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      },
-    },
+      }
+    }
   },
   methods: {
     onPrimaryActionButtonClick() {
       this.$emit("click:primary-action", true);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

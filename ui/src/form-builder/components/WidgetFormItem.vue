@@ -49,8 +49,8 @@
         <template v-if="element.type == 'radio'">
           <v-radio-group v-model="element.options.defaultValue">
             <v-radio
-              v-for="(item, index) in element.options.options"
-              :key="item.value + index"
+              v-for="(item, optionIndex) in element.options.options"
+              :key="item.value + optionIndex"
               disabled
               :label="item.text"
               :value="item.value"
@@ -61,8 +61,8 @@
         <template v-if="element.type == 'checkbox'">
           <v-item-group class="content__checkbox">
             <v-checkbox
-              v-for="(item, index) in element.options.options"
-              :key="item.value + index"
+              v-for="(item, optionIndex) in element.options.options"
+              :key="item.value + optionIndex"
               v-model="element.options.defaultValue"
               disabled
               class="ma-0"
@@ -208,10 +208,33 @@
 import { genUniqKey } from "@/util/form-builder";
 
 export default {
-  props: ["element", "select", "index", "data"],
+  props: {
+    element: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
+    select: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
+    index: {
+      type: Number,
+      default: 0
+    },
+    data: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
   data() {
     return {
-      selectedWidget: this.select,
+      selectedWidget: this.select
     };
   },
   computed: {
@@ -222,7 +245,7 @@ export default {
     },
     hasElement() {
       return !!this.element;
-    },
+    }
   },
   watch: {
     select(val) {
@@ -232,8 +255,8 @@ export default {
       deep: true,
       handler(val) {
         this.$emit("update:select", val);
-      },
-    },
+      }
+    }
   },
   methods: {
     onWidgetMoveToTopClick(index) {
@@ -257,14 +280,14 @@ export default {
         ...this.data.list[index],
         options: { ...this.data.list[index].options },
         key: genUniqKey(),
-        order: index + 1,
+        order: index + 1
       };
       this.$emit("click:clone", { widget: cloneData, index: index });
       this.$nextTick(() => {
         this.selectedWidget = this.data.list[index + 1];
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

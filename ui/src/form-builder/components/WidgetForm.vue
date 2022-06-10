@@ -60,28 +60,28 @@ import { genUniqKey } from "@/util/form-builder";
 
 export default {
   components: {
-    WidgetFormItem,
+    WidgetFormItem
   },
   props: {
     data: {
       type: Object,
       default() {
         return {
-          list: [],
+          list: []
         };
-      },
+      }
     },
     select: {
       type: Object,
       default() {
         return null;
-      },
-    },
+      }
+    }
   },
   data() {
     return {
       selectedWidget: this.select,
-      widgets: [],
+      widgets: []
     };
   },
   computed: {
@@ -91,8 +91,8 @@ export default {
       },
       set(val) {
         this.data.list = val;
-      },
-    },
+      }
+    }
   },
   watch: {
     select(val) {
@@ -102,8 +102,8 @@ export default {
       deep: true,
       handler(val) {
         this.$emit("update:select", val);
-      },
-    },
+      }
+    }
   },
   mounted() {
     document.body.ondrop = function (event) {
@@ -127,7 +127,9 @@ export default {
     onWidgetItemSettingsClick(index) {
       this.$emit("click:settings", index);
     },
-    onWidgetMove({ newIndex, oldIndex }) {},
+    onWidgetMove({ newIndex, oldIndex }) {
+      console.log("on widget move", newIndex, oldIndex); 
+    },
     onWidgetMoveEnd({ newIndex, oldIndex }) {
       this.$emit("update:moveWidget", { newIndex, oldIndex });
     },
@@ -149,14 +151,14 @@ export default {
           ...basicComponents[event.oldIndex],
           key,
           model: `${basicComponents[event.oldIndex].type}_${key}`,
-          order: event.newIndex,
+          order: event.newIndex
         },
-        index: event.newIndex,
+        index: event.newIndex
       });
 
       this.selectedWidget = this.data.list[newIndex];
-    },
-  },
+    }
+  }
 };
 </script>
 

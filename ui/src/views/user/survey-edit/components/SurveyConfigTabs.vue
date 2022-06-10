@@ -36,31 +36,31 @@ export default {
   name: "SurveyConfigTabs",
   components: {
     SurveyElements,
-    SurveySettings,
+    SurveySettings
   },
   data() {
     return {
       tab: "Elements",
       formData: {
-        config: {},
+        config: {}
       },
       items: [
         {
           title: "Elements",
-          component: SurveyElements,
+          component: SurveyElements
         },
         {
           title: "Settings",
-          component: SurveySettings,
-        },
-      ],
+          component: SurveySettings
+        }
+      ]
     };
   },
   methods: {
     getData() {
       return this.formData;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

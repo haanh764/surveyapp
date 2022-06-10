@@ -1,9 +1,3 @@
-/**
- * @author: giscafer ,https://github.com/giscafer
- * @date: 2020-05-03 00:41:10
- * @description: 动态生成表单源码
- */
-
 import { DATA_MODEL, FORM_MODEL } from "./constant";
 import { genFormItemTemp } from "./generateFormItemCode";
 

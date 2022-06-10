@@ -45,29 +45,29 @@ export default {
   props: {
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     description: {
       type: String,
-      default: "",
+      default: ""
     },
     image: {
       type: String,
-      default: null,
+      default: null
     },
     maxImageWidth: {
       type: Number,
-      default: 100,
+      default: 100
     },
     maxImageHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     showBackToHomeButton: {
       type: Boolean,
-      default: true,
-    },
-  },
+      default: true
+    }
+  }
 };
 </script>
 

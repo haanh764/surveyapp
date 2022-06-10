@@ -45,7 +45,7 @@ import FormBuilder from "@/form-builder/components/FormBuilder.vue";
 export default {
   name: "SurveyBuild",
   components: {
-    FormBuilder,
+    FormBuilder
   },
   data() {
     return {
@@ -54,9 +54,9 @@ export default {
         description: "",
         formBuilder: {
           list: [],
-          models: {},
-        },
-      },
+          models: {}
+        }
+      }
     };
   },
   watch: {
@@ -64,14 +64,14 @@ export default {
       deep: true,
       handler(val) {
         this.$emit("input", val);
-      },
-    },
+      }
+    }
   },
   methods: {
     getData() {
       return this.formData;
-    },
-  },
+    }
+  }
 };
 </script>
 
