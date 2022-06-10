@@ -125,7 +125,7 @@ CREATE TABLE choice_answers(
     answerId int NOT NULL,
     multiple_choice_questions_questionId int NOT NULL,
     FOREIGN KEY (answerId) REFERENCES answers(id),
-    FOREIGN KEY (multiple_choice_questions_questionId) REFERENCES multiple_choice_questions(questionId)
+    FOREIGN KEY (multiple_choice_questionsId) REFERENCES multiple_choice_questions(id)
 );
 
 CREATE TABLE analyses(
@@ -165,6 +165,6 @@ CREATE TABLE answer_options_choice_answer(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     choice_answer_answerId int NOT NULL,
     answer_optionId int NOT NULL,
-    FOREIGN KEY (choice_answer_answerId) REFERENCES choice_answers(answerId),
+    FOREIGN KEY (choice_answerId) REFERENCES choice_answers(id),
     FOREIGN KEY (answer_optionId) REFERENCES answer_options(id)
 );
