@@ -39,6 +39,7 @@
                 :data="widgetForm"
                 :select.sync="selectedWidget"
                 @update:addWidget="onAddNewWidget"
+                @update:moveWidget="onMoveNewWidget"
                 @click:moveTop="onWidgetItemMoveTopClick"
                 @click:moveBottom="onWidgetItemMoveBottomClick"
                 @click:settings="onWidgetItemSettingsClick"
@@ -53,24 +54,53 @@
     <modal
       ref="widgetSettingModal"
       v-model="isWidgetSettingModalShown"
-      :is-close-button-shown="true"
-      :max-width="900"
+      :title="widgetSettingModalTitle"
+      primary-action-button-text="save"
+      subtitle="All changes are immediately applied"
+      @click:primary-action="isWidgetSettingModalShown = false"
     >
-      <v-card elevation="0">
-        <v-card-title>
-          Survey item configuration
-        </v-card-title>
-        <v-card-text>
-          <widget-config
-            :key="widgetConfigKey"
-            :selected-widget.sync="selectedWidget"
-            @update:selectedWidget="updateSelectedWidgetInList"
-            @update:removeOptions="onRemoveOptionsFromSelectedWidget"
-            @update:addOption="onAddOptionToSelectedWidget"
-          />
-        </v-card-text>
-      </v-card>
+      <v-container
+        fluid
+        tag="section"
+      >
+        <v-row justify="center">
+          <v-col
+            cols="10"
+            class="pa-0"
+          >
+            <v-card elevation="0">
+              <v-card-text>
+                <widget-config
+                  :key="widgetConfigKey"
+                  :selected-widget.sync="selectedWidget"
+                  @update:selectedWidget="updateSelectedWidgetInList"
+                  @update:removeOptions="onRemoveOptionsFromSelectedWidget"
+                  @update:addOption="onAddOptionToSelectedWidget"
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </modal>
+
+    <bottom-sheet
+      ref="widgetSettingBottomSheet"
+      v-model="isWidgetSettingBottomSheetShown"
+      :title="widgetSettingModalTitle"
+      :fullscreen="true"
+      align-title="center"
+    >
+      <template #content>
+        <widget-config
+          :key="widgetConfigKey"
+          :selected-widget.sync="selectedWidget"
+          @update:selectedWidget="updateSelectedWidgetInList"
+          @update:removeOptions="onRemoveOptionsFromSelectedWidget"
+          @update:addOption="onAddOptionToSelectedWidget"
+        />
+      </template>
+    </bottom-sheet>
   </v-container>
 </template>
 
@@ -106,6 +136,7 @@ export default {
   },
   data() {
     return {
+      isWidgetSettingBottomSheetShown: false,
       isWidgetSettingModalShown: false,
       widgetForm: {
         list: [],
@@ -118,6 +149,13 @@ export default {
       jsonTemplate: "",
       jsonCopyValue: "",
     };
+  },
+  computed: {
+    widgetSettingModalTitle() {
+      return this.selectedWidget
+        ? `${this.selectedWidget.label} question settings`
+        : "Title";
+    },
   },
   watch: {
     "widgetForm.list": {
@@ -142,7 +180,7 @@ export default {
       this.widgetForm.list.forEach((widget) => {
         models[widget.model] = widget.options.defaultValue || "";
       });
-      this.widgetForm.models = { ...this.widgetForm.models, ...models };
+      this.widgetForm.models = { ...models };
     },
     startListeningToEventBus() {
       EventBus.$on("update:addWidget", this.onAddNewWidget);
@@ -172,12 +210,27 @@ export default {
       this.selectedWidget = this.widgetForm.list[index];
       this.widgetConfigKey += 1;
       this.$nextTick(() => {
-        this.isWidgetSettingModalShown = true;
+        if (this.isMobile) {
+          this.isWidgetSettingBottomSheetShown = true;
+        } else {
+          this.isWidgetSettingModalShown = true;
+        }
       });
     },
     onAddNewWidget({ widget, index }) {
       this.widgetForm.list.splice(index, 0, widget);
       this.selectedWidget = widget;
+      this.widgetFormComponentKey += 1;
+    },
+    onMoveNewWidget({ oldIndex, newIndex }) {
+      const oldIndexWidget = this.widgetForm.list[oldIndex];
+      const newIndexWidget = this.widgetForm.list[newIndex];
+
+      this.widgetForm.list[oldIndex] = { ...newIndexWidget };
+      this.widgetForm.list[newIndex] = { ...oldIndexWidget };
+
+      this.selectedWidget = oldIndexWidget;
+
       this.widgetFormComponentKey += 1;
     },
     onAddOptionToSelectedWidget(newOption) {
@@ -214,6 +267,7 @@ export default {
     onClearButtonClick() {
       this.widgetForm = {
         list: [],
+        models: {},
       };
       this.selectedWidget = null;
     },
@@ -223,20 +277,12 @@ export default {
         let widgetIndex = this.widgetForm.list.findIndex(
           (widget) => widget.key == val.key
         );
-
         this.widgetForm.list[widgetIndex] = { ...val };
+
         this.$nextTick(() => {
           this.widgetFormComponentKey += 1;
+          this.setModels();
         });
-      }
-    },
-    onCopyButtonClick() {
-      let code = genFormCode(this.widgetForm, this.widgetForm.models);
-      this.copiedHtml = code;
-
-      const cpSuccess = copyText(code);
-      if (cpSuccess) {
-        console.log("copy successful", code);
       }
     },
   },

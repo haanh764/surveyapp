@@ -80,7 +80,7 @@ export default {
 <style lang="scss">
 .s-bottom-sheet {
   &__content {
-    max-height: 80vh;
+    height: 100vh !important;
     overflow-y: auto;
   }
 

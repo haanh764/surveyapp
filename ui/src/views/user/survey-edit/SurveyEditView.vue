@@ -61,7 +61,10 @@
               :cols="isMobile ? 12 : 8"
               class="pa-0"
             >
-              <survey-edit-tabs ref="surveyEditTabs" />
+              <survey-edit-tabs
+                ref="surveyEditTabs"
+                v-model="activeSurveyEditTab"
+              />
             </v-col>
             <v-col
               v-if="!isMobile"
@@ -75,7 +78,7 @@
       </v-col>
     </v-row>
     <v-row
-      v-if="isMobile"
+      v-if="isMobile && activeSurveyEditTab == 0"
       justify="center"
     >
       <v-col
@@ -129,11 +132,17 @@
         </template>
       </template>
     </bottom-sheet>
+    <!-- dirty: added as gimmick -->
+    <survey-settings
+      v-show="false"
+      ref="surveySettings"
+      v-model="formData.config"
+    />
   </v-container>
 </template>
 
 <script>
-import copyText from "@/util/copy.js";
+import { EventBus } from "@/util/event-bus";
 
 export default {
   name: "SurveyEditView",
@@ -163,6 +172,7 @@ export default {
     return {
       isBottomSheetShown: false,
       bottomSheetContent: "surveyElements", // surveyElements, settings
+      activeSurveyEditTab: 0,
       formData: {
         data: {},
         config: {},
@@ -188,41 +198,46 @@ export default {
       return title[this.bottomSheetContent];
     },
   },
+  mounted() {
+    this.mountListeners();
+  },
+  beforeDestroy() {
+    this.destroyListeners();
+  },
   methods: {
+    destroyListeners() {
+      EventBus.$off("event:setFormBuilderData");
+    },
+    mountListeners() {
+      EventBus.$on("event:setFormBuilderData", ({ data, key }) => {
+        this.formData[key] = data;
+      });
+    },
     onOptionClick(functionName) {
       this[functionName]();
     },
+    getData() {
+      EventBus.$emit("event:getFormBuilderData");
+      const finalOutput = {
+        data: this.formData.data,
+        config: this.formData.config,
+      };
+      return finalOutput;
+    },
     onSaveAsDraftOptionClick() {
-      let surveyData,
-        settingData = {};
-      if (this.isMobile) {
-        this.bottomSheetContent = "settings";
-
-        surveyData = this.$refs.surveyEditTabs.getData();
-        settingData = this.$refs.surveySettings.getData();
-      } else {
-        surveyData = this.$refs.surveyEditTabs.getData();
-        settingData = this.$refs.surveyConfigTabs.getData();
-      }
-
-      const finalOutput = { data: surveyData, config: settingData.config };
+      const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
-      copyText(JSON.stringify(finalOutput));
 
       this.$notify.toast("Survey has been successfully saved");
     },
     onSaveAndPublishOptionClick() {
       console.log("save and publish");
+      const finalOutput = this.getData();
+      console.log(JSON.stringify(finalOutput));
+
       // call api
       // save
       // go to detail page
-
-      const surveyData = this.$refs.surveyEditTabs.getData();
-      const settingData = this.$refs.surveyConfigTabs.getData();
-
-      const finalOutput = { data: surveyData, config: settingData.config };
-      console.log(JSON.stringify(finalOutput));
-      copyText(JSON.stringify(finalOutput));
 
       this.$notify.toast("Survey has been successfully published");
       this.$router.push("/user/surveys/1");

@@ -19,8 +19,8 @@
             :key="item.title"
             class="survey-elements__item"
             :class="{'--is-mobile': isMobile}"
-            @dblclick="onElementDoubleClick(item, index)"
-            @click="onElementClick(item, index)"
+            @dblclick.stop="onElementDoubleClick(item, index)"
+            @click.stop="onElementClick(item, index)"
           >
             <v-list-item-content class="text-center">
               <center>
@@ -123,12 +123,10 @@ export default {
       EventBus.$emit("update:addWidget", { widget, index });
     },
     onElementDoubleClick(widget, index) {
-      this.addNewElement(widget, index);
+      !this.isMobile && this.addNewElement(widget, index);
     },
     onElementClick(widget, index) {
-      if (this.isMobile) {
-        this.addNewElement(widget, index);
-      }
+      this.isMobile && this.addNewElement(widget, index);
     },
   },
 };

@@ -5,6 +5,7 @@
       class="survey-tab "
       :centered="isMobile"
       :grow="isMobile"
+      @change="$emit('input', tab)"
     >
       <v-tabs-slider color="primary" />
       <v-tab
@@ -22,7 +23,8 @@
         <component
           :is="item.component"
           :ref="item.ref"
-          v-model="formData.formBuilder"
+          :value="formData"
+          @input="setFormData"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -32,6 +34,7 @@
 <script>
 import SurveyBuild from "@views/user/survey-edit/components/SurveyBuild.vue";
 import SurveyPreview from "@views/user/survey-edit/components/SurveyPreview.vue";
+import { EventBus } from "@/util/event-bus";
 
 export default {
   name: "SurveyEditTabs",
@@ -39,9 +42,16 @@ export default {
     SurveyBuild,
     SurveyPreview,
   },
+  props: {
+    value: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
-      tab: "Build",
+      tab: 0,
+      componentKey: 1,
       formData: {
         title: "",
         description: "",
@@ -64,7 +74,30 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.mountListeners();
+  },
+  beforeDestroy() {
+    this.destroyListeners();
+  },
   methods: {
+    destroyListeners() {
+      EventBus.$off("event:getFormBuilderData");
+    },
+    mountListeners() {
+      EventBus.$on("event:getFormBuilderData", () => {
+        EventBus.$emit("event:setFormBuilderData", {
+          data: this.formData,
+          key: "data",
+        });
+      });
+    },
+    setFormData(formData) {
+      this.formData = { ...this.formData, ...formData };
+      this.$nextTick(() => {
+        this.componentKey += 1;
+      });
+    },
     getData() {
       return this.formData;
     },

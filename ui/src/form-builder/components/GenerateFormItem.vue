@@ -1,77 +1,132 @@
 <template>
-  <div class="generate-form-item text-left">
-    <div v-if="widget.question">
-      <h1>{{ widget.question || 'No question given' }}</h1>
-      <p class="text-secondary">
-        {{ widget.description }}
-      </p>
-    </div>
-
-    <template v-if="widget.type == 'input'">
-      <v-text-field
-        :ref="`${widget.type}_${widget.key}`"
-        v-model="dataModel"
-        outlined
-        :placeholder="widget.options.placeholder"
-      />
-    </template>
-
-    <template v-if="widget.type == 'radio'">
-      <v-radio-group
-        :ref="`${widget.type}_${widget.key}`"
-        v-model="dataModel"
+  <v-container
+    class="generate-form-item"
+    :class="`generate-form-item--widget-${widget.type}`"
+    fluid
+    tag="section"
+  >
+    <v-row justify="center">
+      <v-col
+        v-if="isWidgetQuestionShown"
+        cols="12"
+        class=""
       >
-        <v-radio
-          v-for="(item, index) in widget.options.options"
-          :key="index"
-          :label="item.text"
-          :value="item.value"
-        />
-      </v-radio-group>
-    </template>
-
-    <template v-if="widget.type == 'checkbox'">
-      <v-item-group :ref="`${widget.type}_${widget.key}`">
-        <v-checkbox
-          v-for="(item, index) in widget.options.options"
-          :key="index"
-          v-model="dataModel"
-          multiple
-          :label="item.text"
-          :value="item.value"
+        <h1 class="generate-form-item__question">
+          {{ widget.question || 'No question given' }}
+        </h1>
+        <p
+          v-if="widget.description"
+          class="text-secondary generate-form-item__description"
         >
-          {{ item.text }}
-        </v-checkbox>
-      </v-item-group>
-    </template>
+          {{ widget.description }}
+        </p>
+      </v-col>
 
-    <template v-if="widget.type=='slider'">
-      {{ widget.options.min }}
-      <v-slider
-        :ref="`${widget.type}_${widget.key}`"
-        v-model="dataModel"
-        :min="widget.options.min"
-        :max="widget.options.max"
-        :step="widget.options.step"
-      />
-      {{ widget.options.max }}
-    </template>
+      <v-col
+        v-if="widget.type == 'input'"
+        cols="12"
+        class=""
+      >
+        <v-text-field
+          v-if="widget.options.type == 'text'"
+          :ref="`${widget.type}_${widget.key}`"
+          v-model.trim="dataModel"
+          outlined
+          :placeholder="widget.options.placeholder"
+        />
+        <v-textarea
+          v-if="widget.options.type == 'textarea'"
+          :ref="`${widget.type}_${widget.key}`"
+          v-model.trim="dataModel"
+          outlined
+          :placeholder="widget.options.placeholder"
+        />
+      </v-col>
 
-    <template v-if="widget.type == 'text'">
-      <h1
-        v-if="widget.options.tag == 'h1'"
-        :ref="`${widget.type}_${widget.key}`"
+      <v-col
+        v-if="widget.type == 'radio'"
+        cols="12"
+        class=""
       >
-        {{ dataModel }}
-      </h1>
-      <p
-        v-if="widget.options.tag == 'p'"
-        :ref="`${widget.type}_${widget.key}`"
+        <v-radio-group
+          :ref="`${widget.type}_${widget.key}`"
+          v-model="dataModel"
+        >
+          <v-radio
+            v-for="(item, index) in widget.options.options"
+            :key="index"
+            :label="item.text"
+            :value="item.value"
+          />
+        </v-radio-group>
+      </v-col>
+
+      <v-col
+        v-if="widget.type == 'checkbox'"
+        cols="12"
+        class=""
       >
-        {{ dataModel }}
-      </p>
-    </template>
-  </div>
+        <v-item-group :ref="`${widget.type}_${widget.key}`">
+          <v-checkbox
+            v-for="(item, index) in widget.options.options"
+            :key="`checkbox_${index}`"
+            v-model="dataModel"
+            multiple
+            :label="item.text"
+            :value="item.value"
+          />
+        </v-item-group>
+      </v-col>
+      <v-col
+        v-if="widget.type == 'text'"
+        cols="12"
+      >
+        <h1
+          v-if="widget.options.tag == 'h1'"
+          :ref="`${widget.type}_${widget.key}`"
+          class="generate-form-item__text --h1"
+        >
+          {{ dataModel }}
+        </h1>
+        <p
+          v-if="widget.options.tag == 'p'"
+          :ref="`${widget.type}_${widget.key}`"
+          class="generate-form-item__text --p"
+        >
+          {{ dataModel }}
+        </p>
+      </v-col>
+    </v-row>
+    <v-row
+      v-if="widget.type=='slider'"
+      class=""
+    >
+      <v-col
+        cols="2"
+        class="text-center"
+      >
+        <small>
+          {{ widget.options.min }}
+        </small>
+      </v-col>
+      <v-col cols="8">
+        <v-slider
+          :ref="`${widget.type}_${widget.key}`"
+          v-model="dataModel"
+          :min="widget.options.min"
+          :max="widget.options.max"
+          :step="widget.options.step"
+        />
+      </v-col>
+      <v-col
+        cols="2"
+        class="text-center"
+      >
+        <small>
+          {{ widget.options.max }} </small>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -102,6 +157,11 @@ export default {
       dataModel: this.models[this.widget.model],
     };
   },
+  computed: {
+    isWidgetQuestionShown() {
+      return this.widget.type != "text";
+    },
+  },
   watch: {
     dataModel: {
       deep: true,
@@ -123,3 +183,41 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.generate-form-item {
+  &--widget-text {
+  }
+
+  &--widget-input {
+  }
+  &--widget-slider {
+  }
+
+  &--widget-checkbox {
+    .v-input--selection-controls {
+      margin: 0;
+    }
+  }
+  &--widget-radio {
+  }
+
+  &__question {
+    @include font-size(1.25);
+  }
+
+  &__description {
+    @include font-size(1);
+  }
+
+  &__text {
+    &.--p {
+      @include font-size(1);
+    }
+
+    &.--h1 {
+      @include font-size(1.25);
+    }
+  }
+}
+</style>

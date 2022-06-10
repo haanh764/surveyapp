@@ -20,14 +20,14 @@
             name="title"
             :error-messages="errors[0]"
             required
-            placeholder="Survey name..."
+            placeholder="Survey title..."
           />
         </ValidationProvider>
         <v-text-field
           v-model.trim="formData.description"
           class="pa-0 form__description"
           name="description"
-          placeholder="Survey description"
+          placeholder="Survey description..."
         />
       </v-col>
       <v-col
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       formData: {
-        title: "Survey name",
+        title: "Survey title",
         description: "",
         formBuilder: {
           list: [],

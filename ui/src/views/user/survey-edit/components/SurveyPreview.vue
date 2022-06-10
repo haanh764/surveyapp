@@ -9,23 +9,9 @@
         <generate-form
           ref="generateForm"
           :key="generateFormKey"
-          :data="formData"
-          :value="formData.models"
+          :form-data="value"
+          :value="value.formBuilder.models"
         />
-      </v-col>
-      <v-col
-        v-if="formData.list.length"
-        cols="12"
-      >
-        <v-btn
-          height="53"
-          class="v-btn--primary"
-          block
-          disabled
-          @click="getData"
-        >
-          SUBMIT
-        </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -55,40 +41,22 @@ export default {
   data() {
     return {
       generateFormKey: 1,
-      formData: {
-        list: [],
-        models: {},
-      },
     };
   },
   watch: {
-    value: {
+    "value.formBuilder.list": {
       deep: true,
       handler() {
-        this.setModels();
         this.generateFormKey += 1;
+        this.$nextTick(() => {
+          this.$forceUpdate();
+        });
       },
     },
   },
-  created() {
-    this.setFormData();
-    this.setModels();
-  },
   methods: {
-    setFormData() {
-      this.formData = { ...this.formData, ...this.value.formBuilder };
-    },
-    setModels() {
-      let modelObject = {};
-      this.formData.list.forEach((widget) => {
-        modelObject[widget.model] = widget.options.defaultValue
-          ? widget.options.defaultValue
-          : "";
-      });
-      this.formData.models = modelObject;
-    },
     getData() {
-      console.log(JSON.stringify(this.formData));
+      console.log(JSON.stringify(this.value));
     },
   },
 };

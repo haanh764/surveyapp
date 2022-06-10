@@ -109,17 +109,24 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-row v-if="formData.isPublic">
+    <v-row
+      v-if="formData.isPublic"
+      justify="start"
+      align="center"
+    >
       <v-col
         cols="12"
-        class="text-left"
+        class="text-left "
       >
-        <h3>
-          Public
-        </h3>
-        <v-row>
+        <v-row
+          justify="start"
+          align="center"
+        >
           <v-col cols="9">
-            <p class="text-secondary">
+            <h3 class="d-block">
+              Public
+            </h3>
+            <p class="text-secondary ma-0">
               Share your survey to public.
             </p>
           </v-col>
@@ -131,7 +138,7 @@
           </v-col>
         </v-row>
         <div
-          class="survey-link"
+          class="survey-link mt-5"
           @click="copyLinkToClipboard"
         >
           <a :href="survey.link">
@@ -149,10 +156,13 @@
         <h3>
           Invite-only
         </h3>
-        <v-row justify="space-between">
+        <v-row
+          justify="space-between"
+          align="center"
+        >
           <v-col cols="9">
             <p class="text-secondary">
-              Share your survey only to selected participants by their email address. By default all surveys are public
+              Share your survey only to selected participants by their email address.
             </p>
           </v-col>
           <v-col
@@ -167,7 +177,10 @@
         cols="12"
         class="text-left"
       >
-        <v-row justify="space-between">
+        <v-row
+          justify="space-between"
+          align="center"
+        >
           <v-col
             cols="9"
             class="align-flex--center"
@@ -186,7 +199,7 @@
       </v-col>
       <v-col
         cols="12"
-        class="text-left"
+        class="text-left pb-0 "
       >
         <ValidationProvider
           v-slot="{ errors }"
@@ -200,10 +213,43 @@
             label="E-mail"
             placeholder="email@email.com"
             :error-messages="errors[0]"
-            @keydown.enter="addNewEmail"
+            @keydown.enter="!errors.length && addNewEmail()"
           />
         </ValidationProvider>
+      </v-col>
+      <v-col
+        cols="5"
+        class="text-left"
+      >
+        <small class="text-secondary">{{ formData.emails.length }} participants added.</small>
+      </v-col>
+      <v-col
+        cols="7"
+        class="text-right"
+      >
+        <v-btn
+          text
+          outlined
+          rounded
+          small
+          :disabled="!formData.emails.length"
+          class="text-capitalize text-secondary"
+          @click="onSendInvitationButtonClick"
+        >
+          <v-icon
+            small
+            class="mr-1"
+          >
+            mdi-send
+          </v-icon>
+          Send invitation
+        </v-btn>
+      </v-col>
 
+      <v-col
+        cols="12"
+        class="py-0"
+      >
         <v-list>
           <v-list-item-group multiple>
             <template v-for="(item, i) in formData.emails">
@@ -244,6 +290,7 @@
 
 <script>
 import copyText from "@/util/copy.js";
+import { EventBus } from "@/util/event-bus";
 
 export default {
   name: "SurveySettings",
@@ -289,8 +336,26 @@ export default {
   },
   mounted() {
     this.$emit("input", this.formData);
+    this.mountListeners();
+  },
+  beforeDestroy() {
+    this.destroyListeners();
   },
   methods: {
+    destroyListeners() {
+      EventBus.$off("event:getFormBuilderData");
+    },
+    mountListeners() {
+      EventBus.$on("event:getFormBuilderData", () => {
+        EventBus.$emit("event:setFormBuilderData", {
+          data: this.formData,
+          key: "config",
+        });
+      });
+    },
+    onSendInvitationButtonClick() {
+      console.log("send invitation");
+    },
     copyLinkToClipboard() {
       let isCopySuccessful = copyText(this.survey.link);
       if (isCopySuccessful) {

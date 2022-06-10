@@ -4,10 +4,7 @@
     tag="section"
     class="widget-config"
   >
-    <v-row
-      justify="start"
-      class="pb-10"
-    >
+    <v-row justify="start">
       <v-col cols="12">
         <v-row v-if="hasSelectedWidget">
           <v-col
@@ -16,12 +13,14 @@
           >
             <v-text-field
               v-model="question"
+              :dense="isMobile"
               outlined
               label="Question"
               placeholder="Survey question"
             />
             <v-text-field
               v-model="description"
+              :dense="isMobile"
               outlined
               label="Description"
               placeholder="Survey description"
@@ -33,6 +32,7 @@
           >
             <v-text-field
               v-model="placeholder"
+              :dense="isMobile"
               outlined
               label="placeholder"
             />
@@ -45,6 +45,7 @@
             >
               <v-text-field
                 v-model.number="min"
+                :dense="isMobile"
                 outlined
                 label="min"
                 placeholder="min"
@@ -56,6 +57,7 @@
             >
               <v-text-field
                 v-model.number="max"
+                :dense="isMobile"
                 outlined
                 label="max"
               />
@@ -66,6 +68,7 @@
             >
               <v-text-field
                 v-model.number="step"
+                :dense="isMobile"
                 outlined
                 label="step"
               />
@@ -76,6 +79,7 @@
             <v-col
               v-if="selectedWidget.type=='radio' || selectedWidget.type=='checkbox' "
               cols="12"
+              class="py-0"
             >
               <template v-for="(item, index) in selectedWidget.options.options">
                 <v-row
@@ -90,6 +94,7 @@
                   <v-col cols="4">
                     <v-text-field
                       v-model="item.value"
+                      :dense="isMobile"
                       outlined
                       label="value"
                     />
@@ -97,6 +102,7 @@
                   <v-col cols="5">
                     <v-text-field
                       v-model="item.text"
+                      :dense="isMobile"
                       outlined
                       label="label"
                     />
@@ -122,7 +128,7 @@
 
             <v-col
               cols="12"
-              class="text-right pa-0"
+              class="text-right py-0"
             >
               <v-btn
                 text
@@ -143,6 +149,7 @@
             >
               <v-text-field
                 v-model="defaultValue"
+                :dense="isMobile"
                 outlined
                 label="Default value"
               />
@@ -150,9 +157,13 @@
           </template>
 
           <template v-if="hasOptionDefaultValue">
-            <v-col cols="12">
+            <v-col
+              cols="12"
+              class="mt-5"
+            >
               <v-select
                 v-model="defaultValue"
+                :dense="isMobile"
                 :multiple="selectedWidget.type == 'checkbox'"
                 outlined
                 :items="selectedWidget.options.options"
@@ -343,7 +354,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .widget-config {
-  max-height: 300px;
+  max-height: 70vh;
   overflow-y: auto;
 }
 </style>
