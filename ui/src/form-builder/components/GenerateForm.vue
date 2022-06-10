@@ -72,29 +72,29 @@ import GenerateFormItem from "./GenerateFormItem";
 export default {
   name: "GenerateForm",
   components: {
-    GenerateFormItem
+    GenerateFormItem,
   },
   props: {
     value: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     formData: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     canSubmit: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      models: {}
+      models: {},
     };
   },
   watch: {
@@ -106,14 +106,14 @@ export default {
         this.$nextTick(() => {
           this.$forceUpdate();
         });
-      }
+      },
     },
     value: {
       deep: true,
       handler(val) {
         this.models = { ...this.models, ...val };
-      }
-    }
+      },
+    },
   },
   created() {
     this.generateModel(this.formData.formBuilder.list);
@@ -133,15 +133,15 @@ export default {
       }
     },
     onSubmitButtonClick() {
-      this.$emit("click:submit", {
+      this.$emit("submit", {
         models: this.models,
-        list: this.formData.formBuilder
+        list: this.formData.formBuilder.list,
       });
     },
     onInputChange(value, field) {
       this.$emit("on-change", field, value, this.models);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
