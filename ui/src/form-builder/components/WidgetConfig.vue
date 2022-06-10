@@ -5,11 +5,15 @@
     class="widget-config"
   >
     <v-row justify="start">
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        class=""
+      >
         <v-row v-if="hasSelectedWidget">
           <v-col
             v-if="isWidgetQuestionShown"
             cols="12"
+            class="py-0"
           >
             <v-text-field
               v-model="question"
@@ -29,6 +33,7 @@
           <v-col
             v-if="isTextInputWidget && hasNestedProperty(selectedWidget, 'options.placeholder')"
             cols="12"
+            class="py-0"
           >
             <v-text-field
               v-model="placeholder"
@@ -151,7 +156,7 @@
           <template v-if="hasTextDefaultValue">
             <v-col
               cols="12"
-              class="mt-5"
+              :class="{'py-0' : selectedWidget.type != 'text'}"
             >
               <v-text-field
                 v-model="defaultValue"
@@ -165,7 +170,7 @@
           <template v-if="hasNumberDefaultValue">
             <v-col
               cols="12"
-              class="mt-5"
+              class="py-0"
             >
               <v-text-field
                 v-model.number="defaultValue"
@@ -177,10 +182,7 @@
           </template>
 
           <template v-if="hasOptionDefaultValue">
-            <v-col
-              cols="12"
-              class="mt-5"
-            >
+            <v-col cols="12">
               <v-select
                 v-model="defaultValue"
                 :dense="isMobile"

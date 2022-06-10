@@ -304,6 +304,7 @@ export default {
 
   &:hover {
     background-color: transparentize($light-gray, 0.5);
+    cursor: grab;
   }
 
   &__question {

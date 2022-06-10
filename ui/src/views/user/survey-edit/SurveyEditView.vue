@@ -10,7 +10,7 @@
       class="mb-2"
     >
       <v-col
-        cols="8"
+        cols="6"
         class="text-left pl-0"
       >
         <h1>
@@ -18,7 +18,7 @@
         </h1>
       </v-col>
       <v-col
-        cols="4"
+        cols="6"
         class="text-right pr-0"
       >
         <v-menu offset-y>

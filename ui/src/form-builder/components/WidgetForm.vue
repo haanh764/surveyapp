@@ -175,7 +175,7 @@ export default {
   min-height: var(--widget-form-height);
 
   &__empty-state {
-    padding-top: 100px;
+    padding: 50px 50px 0;
     font-weight: bold;
     display: block;
     text-align: center;

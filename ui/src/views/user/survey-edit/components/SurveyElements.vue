@@ -107,7 +107,12 @@ export default {
       let basicComponent = basicComponents.find(
         (basicComponent) =>
           basicComponent.type == item.type &&
-          (item.options ? basicComponent.options.tag == item.options.tag : true)
+          (item.options
+            ? basicComponent.options.tag == item.options.tag
+            : true) &&
+          (item.options
+            ? basicComponent.options.type == item.options.type
+            : true)
       );
       return { ...item, ...basicComponent };
     });
@@ -119,6 +124,7 @@ export default {
     addNewElement(widget, index) {
       widget.key = genUniqKey();
       widget.model = `${widget.type}_${widget.key}`;
+
       this.$emit("update:addWidget", { widget, index });
       EventBus.$emit("update:addWidget", { widget, index });
     },
