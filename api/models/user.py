@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.orm import relationship
 from database.db_config import Base
-from database.db_config import Base, session
 
 
 class User(Base):

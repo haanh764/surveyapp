@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey
 from sqlalchemy.dialects.mysql import MEDIUMBLOB
 from sqlalchemy.orm import relationship
-from database.db_config import Base, session
+from database.db_config import Base
 from .survey import Survey
 
 
