@@ -10,6 +10,8 @@
           title="Thank you for using our services" 
           description="Your account has been successfully deleted. You can make a new account to use our services." 
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
+          :maxImageWidth="240"
+          :maxImageHeight="140"
         />
       </v-col>
     </v-row>

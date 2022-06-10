@@ -7,7 +7,7 @@ const style = {
     success: "#4CAF50",
     warning: "#FB8C00",
     error: "#FF5252",
-    disabled: "#B3B3B3"
+    disabled: "#F0F0F0"
   }
 };
 

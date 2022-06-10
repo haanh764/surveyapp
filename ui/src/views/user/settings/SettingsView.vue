@@ -97,7 +97,7 @@
                           class="text-none pa-0 mt-2 mb-5 user-settings-form__delete-button"
                           @click="onDeleteAccount()"
                         >
-                          DELETE ACCOUNT
+                          Delete Account
                         </v-btn>
                       </v-row>
                     </v-col>
@@ -180,4 +180,12 @@ export default {
 </script>
 
 <style lang="scss">
+.user-settings-form {
+  &__delete-button {
+    letter-spacing: 0;
+    font-weight: 400;
+    text-transform: none;
+    text-decoration: underline;
+  }
+}
 </style>
