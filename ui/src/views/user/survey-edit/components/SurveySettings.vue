@@ -211,9 +211,11 @@
             outlined
             :disabled="formData.emails.length >= 20"
             label="E-mail"
+            persistent-hint
+            hint="Click enter to add new participant"
             placeholder="email@email.com"
             :error-messages="errors[0]"
-            @keydown.enter="!errors.length && addNewEmail()"
+            @keydown.enter="!errors.length && newEmail && addNewEmail()"
           />
         </ValidationProvider>
       </v-col>
@@ -299,16 +301,16 @@ export default {
       type: Object,
       default() {
         return {
-          link: "http://www.google.com"
+          link: "http://www.google.com",
         };
-      }
+      },
     },
     value: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -322,8 +324,8 @@ export default {
         endDate: "",
         isPublic: true,
         emails: [],
-        isSurveySentAutomatically: false
-      }
+        isSurveySentAutomatically: false,
+      },
     };
   },
   watch: {
@@ -331,8 +333,8 @@ export default {
       deep: true,
       handler() {
         this.$emit("input", this.formData);
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.$emit("input", this.formData);
@@ -349,7 +351,7 @@ export default {
       EventBus.$on("event:getFormBuilderData", () => {
         EventBus.$emit("event:setFormBuilderData", {
           data: this.formData,
-          key: "config"
+          key: "config",
         });
       });
     },
@@ -371,8 +373,8 @@ export default {
     },
     getData() {
       return this.formData;
-    }
-  }
+    },
+  },
 };
 </script>
 
