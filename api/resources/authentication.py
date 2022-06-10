@@ -36,6 +36,7 @@ class SignUp(Resource):
         except EmailNotValidError as errorMsg:
             return {'message': 'Invalid email address. {}'.format(errorMsg)}, 400
 
+
 class ActivateAccount(Resource):
     def get(self, token):
         email = confirm_token(token)
@@ -49,6 +50,7 @@ class ActivateAccount(Resource):
         else:
             return {'message': 'The confirmation link is invalid or has expired.'}, 400
 
+
 class NotActivated(Resource):
     @jwt_required()
     def get(self):
@@ -56,6 +58,7 @@ class NotActivated(Resource):
         current_user = db_connector.get_model_by_id(User, current_user_id)
         if current_user.isActivated == False:
             return {'message': 'User {} is not activated'.format(current_user.email)}, 200
+
 
 class ResendActivation(Resource):
     @jwt_required()

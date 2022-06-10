@@ -1,6 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Boolean
 from database.db_config import Base
+from database.db_config import Base, session
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -9,6 +11,7 @@ class User(Base):
     password = Column(String(100), nullable=False)
     isActivated = Column(Boolean, nullable=False, default=False)
     isBlocked = Column(Boolean, nullable=False, default=False)
+    surveys = relationship("Survey", back_populates="users", cascade="all, delete-orphan")
 
     def __init__(self, email, password):
         self.email = email
