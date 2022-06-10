@@ -14,4 +14,4 @@ class DbTesting(Resource):
         pass
 
     def get(self):                
-        return {'message': db_connector.get_model_by_id(User, 1).__str__()}
+        return {'message': db_connector.get_model_by_id(User, 3).__str__()}

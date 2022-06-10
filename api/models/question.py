@@ -40,10 +40,6 @@ class Question(Base):
             'image': self.image
         }
 
-    def add_question(self):
-        session.add(self)
-        session.commit()
-
 
 class ScaleQuestion(Base):
     __tablename__ = 'scale_questions'
@@ -66,9 +62,6 @@ class ScaleQuestion(Base):
             'max_value': self.max_value
         }
 
-    def add_question(self):
-        session.add(self)
-        session.commit()
 
 
 class OpenAnswerQuestion(Base):
@@ -85,10 +78,6 @@ class OpenAnswerQuestion(Base):
             'id': self.id,
             'questionId': self.questionId
         }
-
-    def add_question(self):
-        session.add(self)
-        session.commit()
 
 
 class MultipleChoiceQuestion(Base):
@@ -109,10 +98,6 @@ class MultipleChoiceQuestion(Base):
             'questionId': self.questionId,
             'allowMultipleAnswers': self.allowMultipleAnswers
         }
-
-    def add_question(self):
-        session.add(self)
-        session.commit()
 
 
 class AnswerOption(Base):
@@ -135,7 +120,3 @@ class AnswerOption(Base):
             'text': self.text,
             'image': self.image
         }
-
-    def add_answer(self):
-        session.add(self)
-        session.commit()
