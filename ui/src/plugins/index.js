@@ -7,4 +7,5 @@ import "./vue-window-size";
 import "./vue-meta";
 import "./vuex-persist";
 import "./vee-validate";
+import "./js-cookie";
 

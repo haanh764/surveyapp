@@ -35,7 +35,7 @@
         <v-card-text v-if="isContentShown">
           {{ content }}
         </v-card-text>
-        <v-card-actions v-if="isFooterShown">
+        <v-card-actions v-if="isFooterShown" :class="isMobile? 'pa-0' : ''">
           <v-row justify="end">
             <v-col
               cols="auto"
@@ -116,6 +116,6 @@ export default {
 </script>
 <style lang="scss">
 .v-dialog {
-  overflow: hidden;
+  overflow: visible;
 }
 </style>
