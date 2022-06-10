@@ -156,6 +156,20 @@
             </v-col>
           </template>
 
+          <template v-if="hasNumberDefaultValue">
+            <v-col
+              cols="12"
+              class="mt-5"
+            >
+              <v-text-field
+                v-model.number="defaultValue"
+                :dense="isMobile"
+                outlined
+                label="Default value"
+              />
+            </v-col>
+          </template>
+
           <template v-if="hasOptionDefaultValue">
             <v-col
               cols="12"
@@ -234,6 +248,13 @@ export default {
     },
     hasTextDefaultValue() {
       const textDefaultValueWidgets = ["text", "input", "textarea"];
+      return (
+        this.hasSelectedWidget &&
+        textDefaultValueWidgets.includes(this.selectedWidget.type)
+      );
+    },
+    hasNumberDefaultValue() {
+      const textDefaultValueWidgets = ["slider"];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
