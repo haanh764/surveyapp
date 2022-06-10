@@ -161,6 +161,7 @@
                 </v-data-table>
               </template>
               <!-- USERS DATATABLE ENDS HERE : DESKTOP -->
+
               <modal
                 v-model="isDeleteItemModalShown"
                 name="delete-modal"
@@ -169,6 +170,96 @@
                 primary-action-button-text="OK"
                 @click:primary-action="onDeleteConfirmation"
               />
+
+              <modal
+                v-model="isEditItemModalShown"
+                name="edit-modal"
+              >
+                <template #default>
+                  <v-card-title>
+                    <p class="mb-10">
+                      Manage User
+                    </p>
+                  </v-card-title>
+                  <v-col
+                    cols="auto"
+                    class="py-0 px-8"
+                  >
+                    <v-row justify="center" align="center">
+                      <v-col cols="6" class="py-0">
+                        <p class="edit-modal__action-title">
+                          Activate Account
+                        </p>
+                        <p class="edit-modal__action-description">
+                          Activate account after registration to enable
+                          the user to use the whole website features.
+                        </p>
+                      </v-col>
+                      <v-col cols="6" class="py-0">
+                        <v-btn
+                          text
+                          class="edit-modal__action-button"
+                          :class="isSelectedUserActivated? 'v-btn--disabled' : 'v-btn--primary'"
+                          :disabled="isSelectedUserActivated"
+                          height="35"
+                          block
+                        >
+                          ACTIVATE ACCOUNT
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                      <v-col cols="6" class="py-0">
+                        <p class="edit-modal__action-title">
+                          Block Account
+                        </p>
+                        <p class="edit-modal__action-description">
+                          Block/unblock account to limit/allow website usage.
+                        </p>
+                      </v-col>
+                      <v-col cols="6" class="py-0">
+                        <v-row justify="center">
+                          <v-switch
+                            v-model="selectedUser.isBlocked"
+                            :label="`${getIsBlockedStatus(selectedUser.isBlocked).text}`"
+                          />
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                      <v-col cols="6" class="py-0">
+                        <p class="edit-modal__action-title">
+                          Reset Password
+                        </p>
+                        <p class="edit-modal__action-description">
+                          Send a new password to the associated email address.
+                        </p>
+                      </v-col>
+                      <v-col cols="6" class="py-0">
+                        <v-btn
+                          text
+                          class="v-btn--primary edit-modal__action-button"
+                          height="35"
+                          block
+                        >
+                          RESET PASSWORD
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-row justify="end">
+                      <v-btn
+                        text
+                        class="text-none mt-2 mb-5 edit-modal__close-button"
+                        :color="style.color.primary"
+                        height="40"
+                        @click="onClickCloseEditModal()"
+                      >
+                        CLOSE
+                      </v-btn>
+                    </v-row>
+                  </v-col>
+                </template>
+              </modal>
             </v-col>
           </v-row>
         </v-card>
@@ -188,6 +279,7 @@ export default {
     return {
       keyword: "",
       isSortedAscending: true,
+      isEditItemModalShown: false,
       isDeleteItemModalShown: false,
       selectedUser: {},
       users: [
@@ -236,6 +328,12 @@ export default {
         { text: "Actions", value: "id" },
       ];
     },
+    isSelectedUserActivated() {
+      if (this.selectedUser.isActivated == 1) {
+        return true;
+      }
+      return false;
+    }
   },
   created() {
     // get user api
@@ -255,11 +353,16 @@ export default {
       this.selectedUser = { ...item };
       this.isDeleteItemModalShown = true;
     },
+    onClickCloseEditModal() {
+      this.isEditItemModalShown = false;
+    },
     onClickItemEdit(item) {
       //show modal with toggle for activation,
       //toggle for blocking,
       //button for sending reset password link
       console.log(item);
+      this.selectedUser = { ...item };
+      this.isEditItemModalShown = true;
     },
     processUserData() {
       this.users = this.users.map((user, index) => {
@@ -388,6 +491,30 @@ export default {
       box-shadow: none !important;
       border: 1px solid $light-gray;
     }
+  }
+}
+
+.edit-modal {
+  &__title {
+    font-weight: bold;
+    margin-bottom: 50 !important;
+  }
+
+  &__action-title {
+    font-weight: bold;
+    margin-bottom: 0 !important;
+  }
+
+  &__action-description {
+    font-size: smaller;
+    padding-bottom: 0 !important;
+  }
+
+  &__close-button {
+    letter-spacing: 0;
+    font-weight: 400;
+    text-transform: none;
+    text-decoration: none;
   }
 }
 </style>
