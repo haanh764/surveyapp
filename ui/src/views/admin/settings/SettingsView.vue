@@ -1,100 +1,109 @@
 <template>
   <v-container
-    id="admin-setting-view"
+    id="admin-settings-view"
     tag="section"
   >
     <v-row justify="center">
-      <v-col :cols="isMobile? 12 : 8">
+      <v-col cols="12">
         <v-card
           class="admin-settings-view__card"
+          :class="{'pa-10': !isMobile}"
           :elevation="isMobile? 0 : 2"
         >
           <v-row justify="center">
-            <v-col cols="4">
-              <v-img
-                class="rounded-circle d-inline-block mx-2 mb-5"
-                :src="require('@assets/svg/profile_picture.svg')"
-                width="128"
-              />
+            <v-col :cols="isMobile ? 12 : 8">
+              <center>
+                <v-img
+                  class="mx-2 mb-10"
+                  :src="require('@assets/svg/profile_picture.svg')"
+                  width="200"
+                />
+              </center>
             </v-col>
-          </v-row>
-          <ValidationObserver v-slot="{ handleSubmit }">
-            <v-form
-              v-model="isFormValid"
-              class="admin-settings-form"
-              @keyup.native.enter="handleSubmit(onFormSubmit)"
-              @submit.prevent="handleSubmit(onFormSubmit)"
-            >
-              <v-container class="py-0">
-                <v-row>
-                  <v-col
-                    cols="12"
-                    class="my-0 py-0"
-                  >
-                    <ValidationProvider
+            <ValidationObserver v-slot="{ handleSubmit }">
+              <v-form
+                v-model="isFormValid"
+                class="admin-settings-form"
+                @keyup.native.enter="handleSubmit(onFormSubmit)"
+                @submit.prevent="handleSubmit(onFormSubmit)"
+              >
+                <v-container class="py-0">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      class="my-0 pa-0"
+                    >
+                      <ValidationProvider
                         v-slot="{ errors }"
                         name="E-mail"
                         rules="required|email"
+                      >
+                        <v-text-field
+                          v-model.trim="userEmail"
+                          outlined
+                          required
+                          disabled
+                          :error-messages="errors[0]"
+                          label="E-mail"
+                          class="my-0 pa-0 admin-settings-form__email"
+                          :background-color="style.color.disabled"
+                        />
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      class="my-0 pa-0"
                     >
-                      <v-text-field
-                        v-model.trim="formData.email"
-                        outlined
-                        required
-                        disabled
-                        :error-messages="errors[0]"
-                        label="E-mail"
-                        class="my-0 py-0"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    class="my-0 py-0"
-                  >
-                    <ValidationProvider
+                      <ValidationProvider
                         v-slot="{ errors }"
                         name="Password"
                         rules="required|min:8"
-                    >
-                      <v-text-field
-                        v-model.trim="formData.password"
-                        outlined
-                        required
-                        hint="Minimum 8 characters"
-                        persistent-hint
-                        label="Password"
-                        class="my-0 py-0"
-                        :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="isPasswordShown ? 'text' : 'password'"
-                        :error-messages="errors[0]"
-                        @click:append="isPasswordShown = !isPasswordShown"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                  >
-                    <v-row justify="center">
-                      <v-btn
-                        color="primary"
-                        min-width="150"
-                        class="mt-2 mb-5"
-                        v-bind:disabled='!isDisabled'
-                        @click="handleSubmit(onFormSubmit)"
                       >
-                        SAVE SETTINGS
-                      </v-btn>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </ValidationObserver>
+                        <v-text-field
+                          v-model.trim="formData.password"
+                          outlined
+                          required
+                          hint="Minimum 8 characters"
+                          persistent-hint
+                          label="Password"
+                          class="my-0 pa-0 admin-settings-form__password"
+                          :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
+                          :type="isPasswordShown ? 'text' : 'password'"
+                          :error-messages="errors[0]"
+                          @click:append="isPasswordShown = !isPasswordShown"
+                        />
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      class="mt-10"
+                    >
+                      <v-row justify="center">
+                        <v-btn
+                          block
+                          height="53"
+                          min-width="150"
+                          class="mt-2 mb-5 v-btn--primary"
+                          :disabled="!isPasswordLengthOkay"
+                          @click="handleSubmit(onFormSubmit)"
+                        >
+                          SAVE SETTINGS
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+            </ValidationObserver>
+          </v-row>
         </v-card>
 
         <MaterialSnackbar
           v-model="isSucessSnackbarShown"
           type="success"
+          timeout="1000"
+          bottom
+          right
         >
           New settings have been saved!
         </MaterialSnackbar>
@@ -122,24 +131,20 @@ export default {
   computed: {
     ...mapGetters("user", ["userData"]),
     userEmail() {
-        return this.userData.email;
+      return this.userData.email;
     },
-    isDisabled() {
-        return this.formData.password.length > 7;
+    isPasswordLengthOkay() {
+      return this.formData.password.length >= 8;
     },
   },
   methods: {
     onFormSubmit() {
       // to do: post form data to back-end's update admin api
       this.isSucessSnackbarShown = true;
-      setTimeout( () => this.$router.push({ name: "admin-surveys" }), 1000);
     },
   },
 };
 </script>
 
 <style lang="scss">
-:not(.v-select).v-text-field input[disabled="disabled"] {
-    background-color: $light-gray;
-}
 </style>

@@ -4,117 +4,113 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col :cols="isMobile? 12 : 8">
+      <v-col cols="12">
         <v-card
           class="user-settings-view__card"
+          :class="{'pa-10': !isMobile}"
           :elevation="isMobile? 0 : 2"
         >
           <v-row justify="center">
-            <v-col cols="4">
-              <v-img
-                class="rounded-circle d-inline-block mx-2 mb-5"
-                :src="require('@assets/svg/profile_picture.svg')"
-                width="128"
-              />
+            <v-col :cols="isMobile ? 12 : 8">
+              <center>
+                <v-img
+                  class="mx-2 mb-10"
+                  :src="require('@assets/svg/profile_picture.svg')"
+                  width="200"
+                />
+              </center>
             </v-col>
-          </v-row>
-          <ValidationObserver v-slot="{ handleSubmit }">
-            <v-form
-              v-model="isFormValid"
-              class="user-settings-form"
-              @keyup.native.enter="handleSubmit(onFormSubmit)"
-              @submit.prevent="handleSubmit(onFormSubmit)"
-            >
-              <v-container class="py-0">
-                <v-row>
-                  <v-col
-                    cols="12"
-                    class="my-0 py-0"
-                  >
-                    <ValidationProvider
+            <ValidationObserver v-slot="{ handleSubmit }">
+              <v-form
+                v-model="isFormValid"
+                class="user-settings-form"
+                @keyup.native.enter="handleSubmit(onFormSubmit)"
+                @submit.prevent="handleSubmit(onFormSubmit)"
+              >
+                <v-container class="py-0">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      class="my-0 pa-0"
+                    >
+                      <ValidationProvider
                         v-slot="{ errors }"
                         name="E-mail"
                         rules="required|email"
+                      >
+                        <v-text-field
+                          v-model.trim="userEmail"
+                          outlined
+                          required
+                          disabled
+                          :error-messages="errors[0]"
+                          label="E-mail"
+                          class="my-0 pa-0 user-settings-form__email"
+                          :background-color="style.color.disabled"
+                        />
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      class="my-0 pa-0"
                     >
-                      <v-text-field
-                        v-model.trim="userEmail"
-                        outlined
-                        required
-                        disabled
-                        :error-messages="errors[0]"
-                        label="E-mail"
-                        class="my-0 py-0"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    class="my-0 py-0"
-                  >
-                    <ValidationProvider
+                      <ValidationProvider
                         v-slot="{ errors }"
                         name="Password"
                         rules="required|min:8"
+                      >
+                        <v-text-field
+                          v-model.trim="formData.password"
+                          outlined
+                          required
+                          hint="Minimum 8 characters"
+                          persistent-hint
+                          label="Password"
+                          class="my-0 pa-0 user-settings-form__password"
+                          :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
+                          :type="isPasswordShown ? 'text' : 'password'"
+                          :error-messages="errors[0]"
+                          @click:append="isPasswordShown = !isPasswordShown"
+                        />
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      class="mt-10"
                     >
-                      <v-text-field
-                        v-model.trim="formData.password"
-                        outlined
-                        required
-                        hint="Minimum 8 characters"
-                        persistent-hint
-                        label="Password"
-                        class="my-0 py-0"
-                        :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="isPasswordShown ? 'text' : 'password'"
-                        :error-messages="errors[0]"
-                        @click:append="isPasswordShown = !isPasswordShown"
-                      />
-                    </ValidationProvider>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                  >
-                    <v-row justify="center">
-                      <v-btn
-                        color="primary"
-                        min-width="150"
-                        class="mt-2 mb-5"
-                        v-bind:disabled='!isDisabled'
-                        @click="handleSubmit(onFormSubmit)"
-                      >
-                        SAVE SETTINGS
-                      </v-btn>
-                    </v-row>
-                    <v-row justify="center">
-                      <v-btn
-                        text
-                        min-width="150"
-                        class="text-none pa-0 mt-2 mb-5"
-                        @click="onDeleteAccount()"
-                      >
-                        DELETE ACCOUNT
-                      </v-btn>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-form>
-          </ValidationObserver>
+                      <v-row justify="center">
+                        <v-btn
+                          block
+                          height="53"
+                          min-width="150"
+                          class="mt-2 mb-5 v-btn--primary"
+                          :disabled="!isPasswordLengthOkay"
+                          @click="handleSubmit(onFormSubmit)"
+                        >
+                          SAVE SETTINGS
+                        </v-btn>
+                      </v-row>
+                      <v-row justify="center">
+                        <v-btn
+                          text
+                          min-width="150"
+                          class="text-none pa-0 mt-2 mb-5 user-settings-form__delete-button"
+                          @click="onDeleteAccount()"
+                        >
+                          DELETE ACCOUNT
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+            </ValidationObserver>
+          </v-row>
         </v-card>
 
         <modal
-          v-if="!isMobile"
           v-model="isDeleteItemModalShown"
           name="delete-modal"
-          title="We are sorry to see you go!"
-          content="By deleting your account, you will lose all of your surveys and survey responses. If you are sure what you are doing, click the delete button below to continue."
-          primary-action-button-text="YES, I WANT TO DELETE MY ACCOUNT"
-          @click:primary-action="onDeleteConfirmation"
-        />
-        <BottomSheet
-          v-else
-          v-model="isDeleteItemModalShown"
-          name="delete-bottomsheet"
           title="We are sorry to see you go!"
           content="By deleting your account, you will lose all of your surveys and survey responses. If you are sure what you are doing, click the delete button below to continue."
           primary-action-button-text="YES, I WANT TO DELETE MY ACCOUNT"
@@ -124,7 +120,9 @@
         <MaterialSnackbar
           v-model="isSucessSnackbarShown"
           type="success"
-          timeout="500"
+          timeout="1000"
+          bottom
+          right
         >
           New settings have been saved!
         </MaterialSnackbar>
@@ -140,45 +138,46 @@ export default {
   name: "UserSettingsView",
   data() {
     return {
-        isFormValid: false,
-        isPasswordShown: false,
-        formData: {
-            email: "",
-            password: ""
-        },
-        isDeleteItemModalShown: false,
-        isSucessSnackbarShown: false,
+      isFormValid: false,
+      isPasswordShown: false,
+      formData: {
+        email: "",
+        password: ""
+      },
+      isDeleteItemModalShown: false,
+      isSucessSnackbarShown: false,
     };
   },
   computed: {
     ...mapGetters("user", ["userData"]),
     userEmail() {
-        return this.userData.email;
+      return this.userData.email;
     },
-    isDisabled() {
-        return this.formData.password.length > 7;
+    isPasswordLengthOkay() {
+      return this.formData.password.length >= 8;
     },
   },
   methods: {
     onFormSubmit() {
-        // to do: post form data to back-end's update user api
-        this.isSucessSnackbarShown = true;
-        setTimeout( () => this.$router.push({ name: "user-surveys" }), 1000);
+      // to do: post form data to back-end's update user api
+      this.isSucessSnackbarShown = true;
     },
     onDeleteAccount() {
-        this.isDeleteItemModalShown = true;
+      this.isDeleteItemModalShown = true;
     },
     onDeleteConfirmation() {
-        // to do: call delete api
-        this.isDeleteItemModalShown = false;
-        this.$router.push({ name: "general-user-delete-thankyou" });
+      // to do: call delete api
+      this.isDeleteItemModalShown = false;
+      this.$store.dispatch("user/setToken", "");
+      this.$store.dispatch("user/setUserData", {});
+      this.$store.dispatch("user/setItems", []);
+      this.$cookies.remove("user");
+
+      this.$router.push({ name: "general-user-delete-thankyou" }).catch(() => {});
     },
   },
 };
 </script>
 
 <style lang="scss">
-:not(.v-select).v-text-field input[disabled="disabled"] {
-    background-color: $light-gray;
-}
 </style>

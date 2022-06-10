@@ -215,13 +215,6 @@ router.beforeEach((to, from, next) => {
       Cookies.remove("user");
 
       return next({ name: "general-landing" });
-    } else if (to.name == "general-user-delete-thankyou") {
-      store.dispatch("user/setUserData", {});
-      store.dispatch("user/setToken", "");
-      store.dispatch("user/setItems", []);
-      Cookies.remove("user");
-
-      return next({ name: "general-user-delete-thankyou" });
     } else if (shouldBePrevented(to.name)) {
       if (accountType == 0) {
         return next(userMainPage);
