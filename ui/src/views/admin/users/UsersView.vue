@@ -371,7 +371,6 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
-import { mapGetters } from "vuex";
 import { getUsers } from "@api";
 
 export default {
@@ -412,7 +411,6 @@ export default {
   computed: {
     ...get("user", ["userData"]),
     ...sync("app", ["mini"]),
-    ...mapGetters("user", ["hasAcceptedPrivacyPolicy", "hasAcceptedTnC"]),
     filteredUsers() {
       let users = this.keyword
         ? this.users.filter((user) => {
@@ -482,15 +480,6 @@ export default {
       } else {
         this.isAccountBlockModalShown = true;
       }
-      /*
-      let actionText = (!this.selectedUser.isBlocked)? "UNBLOCK" : "BLOCK";
-      let confirmMessage = "Are you sure that you want to " + actionText + " this user?";
-      if ( confirm(confirmMessage) ) {
-        // to do: api call for update isBlocked status
-      } else {
-        this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
-      }
-      */
     },
     onAccountBlockConfirmation() {
       // to do: api call for update isBlocked=1 status
