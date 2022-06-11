@@ -16,18 +16,22 @@ class Question(Base):
     image = Column(MEDIUMBLOB, nullable=True)
     order_number = Column(Integer, nullable=False)
     tag = Column(String(8), nullable=True)
+    model_key = Column(String(255), nullable=True)
+    model = Column(String(255), nullable=True)
     survey = relationship("Survey", back_populates="questions")
     scale_question = relationship("ScaleQuestion", back_populates="question", cascade="all, delete-orphan")
     open_answer_question = relationship("OpenAnswerQuestion", back_populates="question", cascade="all, delete-orphan")
     multiple_choice_question = relationship("MultipleChoiceQuestion", back_populates="question", cascade="all, delete-orphan")
 
-    def __init__(self, survey_id, title, order_number, description=None, tag=None, image=None):
+    def __init__(self, survey_id, title, order_number, description=None, tag=None, model_key=None, model=None, image=None):
         self.surveyId = survey_id
         self.title = title
         self.description = description
         self.order_number = order_number
         self.tag = tag
         self.image = image
+        self.model_key = model_key
+        self.model = model
 
     def serialize(self):
         return {
@@ -37,7 +41,9 @@ class Question(Base):
             'description': self.description,
             'orderNumber': self.order_number,
             'tag': self.tag,
-            'image': self.image
+            'image': self.image,
+            'model_key': self.model_key,
+            'model': self.model
         }
 
     def add_question(self):
@@ -118,7 +124,7 @@ class MultipleChoiceQuestion(Base):
 class AnswerOption(Base):
     __tablename__ = 'answer_options'
     id = Column(Integer, primary_key=True, index=True)
-    multiple_choice_questions_questionId = Column(Integer, ForeignKey(MultipleChoiceQuestion.id), nullable=False)
+    multiple_choice_questions_id = Column(Integer, ForeignKey(MultipleChoiceQuestion.id), nullable=False)
     text = Column(String(255), nullable=True)
     image = Column(MEDIUMBLOB, nullable=True)
     question = relationship("MultipleChoiceQuestion", back_populates="answer_options")

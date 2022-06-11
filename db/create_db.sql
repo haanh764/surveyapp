@@ -78,7 +78,7 @@ CREATE TABLE questions(
     image MEDIUMBLOB,
     order_number int,
     tag varchar(8),
-    key varchar(255),
+    model_key varchar(255),
     model varchar(255),
     FOREIGN KEY (surveyId) REFERENCES surveys(id)
 );
@@ -157,10 +157,10 @@ CREATE TABLE question_analyses(
 
 CREATE TABLE answer_options(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    multiple_choice_questions_questionId int NOT NULL,
+    multiple_choice_questions_id int NOT NULL,
     image MEDIUMBLOB,
     text varchar(255),
-    FOREIGN KEY (multiple_choice_questions_questionId) REFERENCES multiple_choice_questions(questionId)
+    FOREIGN KEY (multiple_choice_questions_id) REFERENCES multiple_choice_questions(id)
 );
 
 CREATE TABLE answer_options_choice_answer(
