@@ -98,6 +98,8 @@
 </template>
 
 <script>
+import { userSignup } from "@api";
+
 export default {
   name: "SignupView",
   data() {
@@ -112,8 +114,19 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // to do: post form data to back-end's registration api
-      this.$router.push({ name: "general-user-signup-thankyou" });
+      // post form data to back-end's registration api
+      userSignup(this.formData)
+        .then((response) => {
+          console.log(response);
+          // do something with the response
+          console.log('registration should be successful?');
+          this.$router
+            .push({ name: "general-user-signup-thankyou" })
+            .catch(() => {});
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };

@@ -38,3 +38,9 @@ export const getSurveys = () => {
 export const addSurvey = (data) => {
   return axios.post(ADD_SURVEY_URL, data);
 };
+
+const USER_SIGNUP_URL = "/authentication/signup";
+
+export const userSignup = (data) => {
+  return axios.post(USER_SIGNUP_URL, data);
+}
