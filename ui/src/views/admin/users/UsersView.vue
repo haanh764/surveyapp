@@ -165,8 +165,8 @@
               <modal
                 v-model="isDeleteItemModalShown"
                 name="delete-modal"
-                title="Delete"
-                content="Are you sure you want to delete this user? This action cannot be undone."
+                title="Delete Account"
+                content="Are you sure you want to DELETE this user account? This action cannot be undone."
                 primary-action-button-text="OK"
                 @click:primary-action="onDeleteConfirmation"
               />
@@ -356,7 +356,7 @@
                 v-model="isResetPasswordModalShown"
                 name="reset-password-modal"
                 title="Reset Password"
-                content="Are you sure you want to reset this user's password? This action cannot be undone."
+                content="Are you sure you want to RESET this user's password? This action cannot be undone."
                 primary-action-button-text="OK"
                 @click:primary-action="onResetPasswordConfirmation"
               />
