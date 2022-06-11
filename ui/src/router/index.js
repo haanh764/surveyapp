@@ -195,7 +195,7 @@ router.beforeEach((to, from, next) => {
   const accountType = store.getters["user/accountType"];
 
   const userMainPage = { name: "user-surveys" };
-  const adminMainPage = { name: "admin-surveys" };
+  const adminMainPage = { name: "admin-users" };
 
   const preventedWords = [ "landing", "login", "signup", "delete" ];
   const shouldBePrevented = (routeName) => {
