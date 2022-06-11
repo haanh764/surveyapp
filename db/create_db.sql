@@ -78,6 +78,8 @@ CREATE TABLE questions(
     image MEDIUMBLOB,
     order_number int,
     tag varchar(8),
+    key varchar(255),
+    model varchar(255),
     FOREIGN KEY (surveyId) REFERENCES surveys(id)
 );
 
@@ -123,9 +125,9 @@ CREATE TABLE multiple_choice_questions(
 CREATE TABLE choice_answers(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     answerId int NOT NULL,
-    multiple_choice_questions_questionId int NOT NULL,
+    multiple_choice_questionsId int NOT NULL,
     FOREIGN KEY (answerId) REFERENCES answers(id),
-    FOREIGN KEY (multiple_choice_questions_questionId) REFERENCES multiple_choice_questions(questionId)
+    FOREIGN KEY (multiple_choice_questionsId) REFERENCES multiple_choice_questions(id)
 );
 
 CREATE TABLE analyses(
@@ -163,8 +165,8 @@ CREATE TABLE answer_options(
 
 CREATE TABLE answer_options_choice_answer(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    choice_answer_answerId int NOT NULL,
+    choice_answerId int NOT NULL,
     answer_optionId int NOT NULL,
-    FOREIGN KEY (choice_answer_answerId) REFERENCES choice_answers(answerId),
+    FOREIGN KEY (choice_answerId) REFERENCES choice_answers(id),
     FOREIGN KEY (answer_optionId) REFERENCES answer_options(id)
 );
