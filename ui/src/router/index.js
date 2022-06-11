@@ -48,6 +48,14 @@ const userRoutes = [
 const adminRoutes = [
   layout("Default", [
     {
+      path: "/admin/surveys",
+      name: "admin-surveys",
+      component: () =>
+        import(
+          /* webpackChunkName: "admin-surveys" */ "@views/admin/surveys/SurveysView.vue"
+        )
+    },
+    {
       path: "/admin/users",
       name: "admin-users",
       component: () =>
@@ -187,7 +195,7 @@ router.beforeEach((to, from, next) => {
   const accountType = store.getters["user/accountType"];
 
   const userMainPage = { name: "user-surveys" };
-  const adminMainPage = { name: "admin-users" };
+  const adminMainPage = { name: "admin-surveys" };
 
   const preventedWords = [ "landing", "login", "signup", "delete" ];
   const shouldBePrevented = (routeName) => {
