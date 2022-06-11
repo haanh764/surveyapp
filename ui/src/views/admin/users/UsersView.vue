@@ -186,7 +186,7 @@
                     class="py-0 px-8"
                   >
                     <v-row justify="center" align="center">
-                      <v-col cols="6" class="py-0">
+                      <v-col cols="7" class="py-0">
                         <p class="edit-modal__action-title">
                           Activate Account
                         </p>
@@ -195,7 +195,7 @@
                           the user to use the whole website features.
                         </p>
                       </v-col>
-                      <v-col cols="6" class="py-0">
+                      <v-col cols="5" class="py-0">
                         <v-btn
                           text
                           class="edit-modal__action-button"
@@ -203,13 +203,14 @@
                           :disabled="isSelectedUserActivated"
                           height="35"
                           block
+                          @click="onClickSelectedUserActivate"
                         >
                           ACTIVATE ACCOUNT
                         </v-btn>
                       </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
-                      <v-col cols="6" class="py-0">
+                      <v-col cols="7" class="py-0">
                         <p class="edit-modal__action-title">
                           Block Account
                         </p>
@@ -217,17 +218,17 @@
                           Block/unblock account to limit/allow website usage.
                         </p>
                       </v-col>
-                      <v-col cols="6" class="py-0">
+                      <v-col cols="5" class="py-0">
                         <v-row justify="center">
                           <v-switch
                             v-model="selectedUser.isBlocked"
-                            :label="`${getIsBlockedStatus(selectedUser.isBlocked).text}`"
+                            @click.native.stop="toggleSelectedUserIsBlocked"
                           />
                         </v-row>
                       </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
-                      <v-col cols="6" class="py-0">
+                      <v-col cols="7" class="py-0">
                         <p class="edit-modal__action-title">
                           Reset Password
                         </p>
@@ -235,12 +236,13 @@
                           Send a new password to the associated email address.
                         </p>
                       </v-col>
-                      <v-col cols="6" class="py-0">
+                      <v-col cols="5" class="py-0">
                         <v-btn
                           text
                           class="v-btn--primary edit-modal__action-button"
                           height="35"
                           block
+                          @click="onClickSelectedUserResetPassword"
                         >
                           RESET PASSWORD
                         </v-btn>
@@ -260,6 +262,105 @@
                   </v-col>
                 </template>
               </modal>
+
+              <modal
+                v-model="isAccountActivationModalShown"
+                name="account-activation-modal"
+                title="Activate Account"
+                content="Are you sure you want to ACTIVATE this user's account? This action cannot be undone."
+                primary-action-button-text="OK"
+                @click:primary-action="onAccountActivationConfirmation"
+              />
+
+              <modal
+                v-model="isAccountBlockModalShown"
+                name="account-block-modal"
+              >
+                <template #default>
+                  <v-card-title>
+                    <p class="mb-10">
+                      Block Account
+                    </p>
+                  </v-card-title>
+                  <v-card-text>
+                    Are you sure you want to BLOCK this user's account?
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-row justify="end">
+                      <v-col
+                        cols="auto"
+                        class="text-right"
+                      >
+                        <v-btn
+                          text
+                          class="text-uppercase"
+                          @click.stop="onAccountBlockCancelation"
+                        >
+                          CANCEL
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          text
+                          class="text-uppercase"
+                          @click="onAccountBlockConfirmation"
+                        >
+                          OK
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card-actions>
+                </template>
+              </modal>
+
+              <modal
+                v-model="isAccountUnblockModalShown"
+                name="account-unblock-modal"
+              >
+                <template #default>
+                  <v-card-title>
+                    <p class="mb-10">
+                      Unblock Account
+                    </p>
+                  </v-card-title>
+                  <v-card-text>
+                    Are you sure you want to UNBLOCK this user's account?
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-row justify="end">
+                      <v-col
+                        cols="auto"
+                        class="text-right"
+                      >
+                        <v-btn
+                          text
+                          class="text-uppercase"
+                          @click.stop="onAccountUnblockCancelation"
+                        >
+                          CANCEL
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          text
+                          class="text-uppercase"
+                          @click="onAccountUnblockConfirmation"
+                        >
+                          OK
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card-actions>
+                </template>
+              </modal>
+
+              <modal
+                v-model="isResetPasswordModalShown"
+                name="reset-password-modal"
+                title="Reset Password"
+                content="Are you sure you want to reset this user's password? This action cannot be undone."
+                primary-action-button-text="OK"
+                @click:primary-action="onResetPasswordConfirmation"
+              />
+
             </v-col>
           </v-row>
         </v-card>
@@ -281,25 +382,29 @@ export default {
       isSortedAscending: true,
       isEditItemModalShown: false,
       isDeleteItemModalShown: false,
+      isAccountActivationModalShown: false,
+      isAccountBlockModalShown: false,
+      isAccountUnblockModalShown: false,
+      isResetPasswordModalShown: false,
       selectedUser: {},
       users: [
         {
           id: 1,
           email: "ayam@bebek.angsa",
-          isActivated: 1,
-          isBlocked: 0,
+          isActivated: true,
+          isBlocked: false,
         },
         {
           id: 2,
           email: "sadBoy123@pevuer.pl",
-          isActivated: 0,
-          isBlocked: 1,
+          isActivated: false,
+          isBlocked: true,
         },
         {
           id: 3,
           email: "lifeIsHard456@gmail.pl",
-          isActivated: 1,
-          isBlocked: 1,
+          isActivated: true,
+          isBlocked: true,
         },
       ],
     };
@@ -323,8 +428,8 @@ export default {
     tableHeaders() {
       return [
         { text: "Email Address", value: "email" },
-        { text: "Is Activated?", value: "isActivated" },
-        { text: "Is Blocked?", value: "isBlocked" },
+        { text: "Activation Status", value: "isActivated" },
+        { text: "Blockade Status", value: "isBlocked" },
         { text: "Actions", value: "id" },
       ];
     },
@@ -364,6 +469,52 @@ export default {
       this.selectedUser = { ...item };
       this.isEditItemModalShown = true;
     },
+    onClickSelectedUserActivate() {
+      this.isAccountActivationModalShown = true;
+    },
+    onAccountActivationConfirmation() {
+      // to do: api call for update isActivated status
+      this.isAccountActivationModalShown = false;
+    },
+    toggleSelectedUserIsBlocked() {
+      if (!this.selectedUser.isBlocked) {
+        this.isAccountUnblockModalShown = true;
+      } else {
+        this.isAccountBlockModalShown = true;
+      }
+      /*
+      let actionText = (!this.selectedUser.isBlocked)? "UNBLOCK" : "BLOCK";
+      let confirmMessage = "Are you sure that you want to " + actionText + " this user?";
+      if ( confirm(confirmMessage) ) {
+        // to do: api call for update isBlocked status
+      } else {
+        this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
+      }
+      */
+    },
+    onAccountBlockConfirmation() {
+      // to do: api call for update isBlocked=1 status
+      this.isAccountBlockModalShown = false;
+    },
+    onAccountBlockCancelation() {
+      this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
+      this.isAccountBlockModalShown = false;
+    },
+    onAccountUnblockConfirmation() {
+      // to do: api call for update isBlocked=0 status
+      this.isAccountUnblockModalShown = false;
+    },
+    onAccountUnblockCancelation() {
+      this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
+      this.isAccountUnblockModalShown = false;
+    },
+    onClickSelectedUserResetPassword() {
+      this.isResetPasswordModalShown = true;
+    },
+    onResetPasswordConfirmation() {
+      // to do: api call for resetting user password
+      this.isResetPasswordModalShown = false;
+    },
     processUserData() {
       this.users = this.users.map((user, index) => {
         return {
@@ -377,7 +528,7 @@ export default {
     getIsActivatedStatus(itemStatus) {
       let item = {};
       switch (itemStatus) {
-        case 1:
+        case true:
           item = { color: "#ffffff", text: "Active", textColor: "#000000" };
           break;
         default:
@@ -389,7 +540,7 @@ export default {
     getIsBlockedStatus(itemStatus) {
       let item = {};
       switch (itemStatus) {
-        case 0:
+        case false:
           item = { color: "#ffffff", text: "Unblocked", textColor: "#000000" };
           break;
         default:
