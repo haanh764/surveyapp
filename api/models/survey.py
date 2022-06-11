@@ -2,7 +2,7 @@ import datetime
 
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Date, DateTime
 from sqlalchemy.orm import relationship
-from database.db_config import Base, session
+from database.db_config import Base
 from sqlalchemy.orm import relationship
 from .user import User
 
@@ -44,7 +44,3 @@ class Survey(Base):
             'creationDate': self.creationDate,
             'modificationDate': self.modificationDate
         }
-
-    def add_survey(self):
-        session.add(self)
-        session.commit()

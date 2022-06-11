@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey
 from sqlalchemy.dialects.mysql import MEDIUMBLOB
 from sqlalchemy.orm import relationship
-from database.db_config import Base, session
+from database.db_config import Base
 from .survey import Survey
 
 
@@ -46,10 +46,6 @@ class Question(Base):
             'model': self.model
         }
 
-    def add_question(self):
-        session.add(self)
-        session.commit()
-
 
 class ScaleQuestion(Base):
     __tablename__ = 'scale_questions'
@@ -72,9 +68,6 @@ class ScaleQuestion(Base):
             'max_value': self.max_value
         }
 
-    def add_question(self):
-        session.add(self)
-        session.commit()
 
 
 class OpenAnswerQuestion(Base):
@@ -91,10 +84,6 @@ class OpenAnswerQuestion(Base):
             'id': self.id,
             'questionId': self.questionId
         }
-
-    def add_question(self):
-        session.add(self)
-        session.commit()
 
 
 class MultipleChoiceQuestion(Base):
@@ -115,10 +104,6 @@ class MultipleChoiceQuestion(Base):
             'questionId': self.questionId,
             'allowMultipleAnswers': self.allowMultipleAnswers
         }
-
-    def add_question(self):
-        session.add(self)
-        session.commit()
 
 
 class AnswerOption(Base):
@@ -141,7 +126,3 @@ class AnswerOption(Base):
             'text': self.text,
             'image': self.image
         }
-
-    def add_answer(self):
-        session.add(self)
-        session.commit()
