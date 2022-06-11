@@ -1,20 +1,58 @@
 <template>
   <v-container
-    id="login-view"
+    id="survey-fill-view"
     class="fill-height text-center"
     tag="section"
   >
-    <!-- to do: check if survey has been filled, if yes show the thank you page, else show the survey page -->
     <v-row justify="center">
-      <v-col cols="auto">
-        survey view
+      <v-col :cols="isMobile ? 12: 10">
+        <v-card
+          :elevation="isMobile ? 0 : 2"
+          class="pa-5"
+        >
+          <generate-form
+            ref="generateForm"
+            :form-data="survey.data"
+            :value="survey.data.formBuilder.models"
+            :can-submit="canSubmit"
+            @submit="onClickSubmitButton"
+          />
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-export default { name: "LoginView" };
+import surveyDataSample from "@/assets/json/survey-data-sample.json";
+import GenerateForm from "@/form-builder/components/GenerateForm.vue";
+
+export default {
+  name: "SurveyFillView",
+  components: { GenerateForm },
+  data() {
+    return {
+      survey: {
+        data: {
+          title: "",
+          description: "",
+          formBuilder: {
+            list: [],
+            models: {},
+          },
+        },
+        config: {
+          startDate: "",
+          endDate: "",
+        },
+      },
+    };
+  },
+  computed() {},
+  created() {
+    this.survey = { ...this.survey, ...surveyDataSample };
+  },
+};
 </script>
 
 <style lang="scss">
