@@ -3,45 +3,102 @@ body {
   @include font-size(1);
   line-height: 1.25;
 
-  @media only screen and (max-width: map-get($breakpoints, 'md')) {
-    @include font-size(.875);
+  @media only screen and (max-width: map-get($breakpoints, "md")) {
     line-height: 1;
   }
 }
 
-
 .text-mono {
-  font-family: monospace
+  font-family: monospace;
+}
+
+.text-error {
+  color: map-get($theme-colors, "error");
 }
 
 .flex-1-1-auto {
-  flex: 1 1 auto !important
+  flex: 1 1 auto !important;
 }
 
 .flex-1-0-auto {
-  flex: 1 0 auto !important
+  flex: 1 0 auto !important;
 }
 
 .flex-0-1-auto {
-  flex: 0 1 auto !important
+  flex: 0 1 auto !important;
 }
 
 .flex-0-0-auto {
-  flex: 0 0 auto !important
+  flex: 0 0 auto !important;
 }
 
 .position-relative {
-  position: relative !important
+  position: relative !important;
 }
 
 .overflow-y-scroll {
-  overflow-y: scroll
+  overflow-y: scroll;
 }
 
 table {
-
-  >thead>tr>th,
-  >tbody>tr>td {
-    font-weight: 300 !important
+  > thead > tr > th,
+  > tbody > tr > td {
+    font-weight: 300 !important;
   }
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+// form builder
+
+.v-radio + .v-radio {
+  margin-left: 0 !important;
+}
+
+.v-radio {
+  margin-right: 30px;
+}
+
+.v-checkbox + .v-checkbox {
+  margin-left: 0 !important;
+}
+.v-checkbox {
+  margin-right: 30px;
+}
+
+// tabs
+
+.survey-tab {
+  .v-tabs-bar {
+    border-bottom: 1px solid $light-gray;
+  }
+
+  .v-tab {
+    &--active {
+      background-color: map-get($overlays, "primary");
+    }
+  }
+}
+
+// bottom-sheet
+.v-bottom-sheet {
+  &:not(.v-dialog--fullscreen) {
+    .v-sheet {
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+    }
+  }
+}
+
+// display flex
+.justify-flex--end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.align-flex--center {
+  display: flex;
+  align-items: center;
 }

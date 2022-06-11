@@ -1,9 +1,9 @@
 <template>
   <v-card
     v-bind="$attrs"
-    v-on="$listeners"
     class="content-card text-center"
     :class="{'--is-mobile': isMobile, 'elevated-2': !isMobile}"
+    v-on="$listeners"
   >
     <v-container>
       <v-row justify="center">
@@ -15,14 +15,13 @@
             {{ description }}
           </v-card-text>
           <v-img
-            class="mx-auto"
             v-if="image"
+            class="mx-auto"
             :src="image"
             :max-width="maxImageWidth"
             :max-height="maxImageHeight"
           />
           <v-btn
-            text
             v-if="showBackToHomeButton"
             class="v-btn--primary content-card__home-button"
             to="/"
@@ -46,29 +45,29 @@ export default {
   props: {
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     description: {
       type: String,
-      default: "",
+      default: ""
     },
     image: {
       type: String,
-      default: null,
+      default: null
     },
     maxImageWidth: {
       type: Number,
-      default: 100,
+      default: 100
     },
     maxImageHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     showBackToHomeButton: {
       type: Boolean,
-      default: true,
-    },
-  },
+      default: true
+    }
+  }
 };
 </script>
 

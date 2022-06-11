@@ -31,7 +31,10 @@
       </v-col>
     </v-row>
     <v-row justify="space-between">
-      <v-col cols="6" class="pa-4">
+      <v-col
+        cols="6"
+        class="pa-4"
+      >
         <v-btn
           block
           height="53"
@@ -41,7 +44,10 @@
           DECLINE
         </v-btn>
       </v-col>
-      <v-col cols="6" class="pa-4">
+      <v-col
+        cols="6"
+        class="pa-4"
+      >
         <v-btn
           block
           height="53"

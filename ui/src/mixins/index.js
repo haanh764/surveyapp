@@ -1,4 +1,4 @@
 import Vue from "vue";
-import { styleMixin } from "./style-mixin";
+import { styleMixin } from "./style";
 
 Vue.mixin(styleMixin);

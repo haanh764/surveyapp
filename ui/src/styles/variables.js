@@ -8,6 +8,11 @@ const style = {
     warning: "#FB8C00",
     error: "#FF5252",
     disabled: "#F0F0F0"
+  },
+  overlay: {
+    primary: "#bb86fc1f",
+    success: "#e1fcef",
+    info: "#f0f1fa"
   }
 };
 

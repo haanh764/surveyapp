@@ -48,10 +48,6 @@ export default {
 
   &__container {
     min-height: 100vh;
-
-    &.--is-mobile {
-      min-height: 100%;
-    }
   }
 }
 </style>

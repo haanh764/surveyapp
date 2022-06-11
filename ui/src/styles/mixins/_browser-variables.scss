@@ -1,16 +1,13 @@
 :root {
-
-  @each $theme-color,
-  $value in $theme-colors {
+  @each $theme-color, $value in $theme-colors {
     --color-#{$theme-color}: #{$value};
   }
 
-  @each $default-font-size-key,
-  $value in $default-font-size {
+  @each $default-font-size-key, $value in $default-font-size {
     --default-font-size-#{$default-font-size-key}: #{$value};
 
-    @media screen and (max-width: map-get($breakpoints, 'md')) {
-      --default-font-size-#{$default-font-size-key}: #{$value*.875};
+    @media screen and (max-width: map-get($breakpoints, "md")) {
+      --default-font-size-#{$default-font-size-key}: #{$value * 0.875};
     }
   }
 }

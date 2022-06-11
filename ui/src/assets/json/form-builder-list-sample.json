@@ -1,0 +1,77 @@
+{
+  "sample": [
+    {
+      "type": "text",
+      "label": "Headings",
+      "options": { "tag": "h1", "defaultValue": "This is a heading" },
+      "key": "483e7d80c",
+      "model": "text_483e7d80c",
+      "order": 5
+    },
+    {
+      "type": "text",
+      "label": "Paragraph",
+      "options": { "tag": "p", "defaultValue": "This is a text" },
+      "key": "c7fbb6f2a",
+      "model": "text_c7fbb6f2a",
+      "order": 6
+    },
+    {
+      "type": "slider",
+      "label": "Slider",
+      "question": "slider question",
+      "description": "slider description",
+      "options": { "defaultValue": 0, "min": 0, "max": 100, "step": 1 },
+      "key": "109f3d239",
+      "model": "slider_109f3d239",
+      "order": 4
+    },
+    {
+      "type": "checkbox",
+      "label": "Multiple choices",
+      "question": "checkbox question",
+      "description": "checkbox description",
+      "options": {
+        "defaultValue": ["option_1", "option_2"],
+        "options": [
+          { "value": "option_1", "text": "option 1" },
+          { "value": "option_2", "text": "option 2" },
+          { "value": "option_3", "text": "option 3" }
+        ]
+      },
+      "key": "e977226e6",
+      "model": "checkbox_e977226e6",
+      "order": 3
+    },
+    {
+      "type": "radio",
+      "label": "Single choice",
+      "question": "radio question",
+      "description": "radio description",
+      "options": {
+        "defaultValue": "Option_2",
+        "options": [
+          { "value": "Option_2", "text": "Option 2" },
+          { "value": "Option_3", "text": "Option 3" }
+        ]
+      },
+      "key": "c617faead",
+      "model": "radio_c617faead",
+      "order": 2
+    },
+    {
+      "type": "input",
+      "label": "Short open answer",
+      "question": "input text question",
+      "description": "",
+      "options": {
+        "defaultValue": "",
+        "placeholder": "input text placeholder",
+        "type": "text"
+      },
+      "key": "4be14b2cb",
+      "model": "input_4be14b2cb",
+      "order": 0
+    }
+  ]
+}

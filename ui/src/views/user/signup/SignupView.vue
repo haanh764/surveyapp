@@ -106,16 +106,16 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
     onFormSubmit() {
       // to do: post form data to back-end's registration api
       this.$router.push({ name: "general-user-signup-thankyou" });
-    },
-  },
+    }
+  }
 };
 </script>
 

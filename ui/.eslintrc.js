@@ -22,7 +22,8 @@ module.exports = {
     "vue/multi-word-component-names": "warn",
     "vue/no-v-text-v-html-on-component": "warn",
     "vue/no-unused-vars": "warn",
-    "vue/valid-v-slot": "warn"
+    "vue/valid-v-slot": "off",
+    "vue/no-mutating-props": "warn" // bad practice, should be removed later
   },
   overrides: [
     {

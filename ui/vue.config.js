@@ -6,6 +6,7 @@ const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 const vueSrc = "./src";
 
 module.exports = defineConfig({
+  runtimeCompiler: true,
   transpileDependencies: true,
   lintOnSave: "warning",
   configureWebpack: {

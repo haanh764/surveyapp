@@ -2,7 +2,8 @@
   <v-dialog
     v-model="show"
     class="modal"
-    max-width="600px"
+    :class="{'--overflow-hidden': isPrompt}"
+    :max-width="maxWidth"
     persistent
   >
     <v-card class="pa-0">
@@ -11,54 +12,68 @@
           row
           d-flex
           nowrap
-          align="right"
           justify="end"
-          class="pa-4"
         >
-          <v-btn
-            icon
-            text
-            small
-            fab
-            @click.stop="show=false"
+          <v-col
+            cols="9"
+            class="text-left pa-0"
           >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+            <v-card-title class="">
+              {{ title }}
+            </v-card-title>
+            <v-card-subtitle class="d-block text-secondary">
+              {{ subtitle }}
+            </v-card-subtitle>
+          </v-col>
+          <v-col
+            cols="3"
+            class="align-flex--center justify-flex--end pa-0"
+          >
+            <v-btn
+              icon
+              text
+              small
+              fab
+              @click.stop="show=false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-col>
         </v-row>
       </v-card-actions>
-      <!-- use slot if default slot is given, else use default template -->
-      <slot v-if="!!$slots.default" />
-      <template v-else>
-        <v-card-title v-if="isTitleShown">
-          {{ title || "Title" | capitalize }}
-        </v-card-title>
-        <v-card-text v-if="isContentShown">
-          {{ content }}
-        </v-card-text>
-        <v-card-actions v-if="isFooterShown" :class="isMobile? 'pa-0' : ''">
-          <v-row justify="end">
-            <v-col
-              cols="auto"
-              class="text-right"
+      <v-card-text
+        v-if="content"
+        class="pa-5"
+      >
+        {{ content }}
+      </v-card-text>
+      <slot name="default" />
+      <v-card-actions v-if="isFooterShown">
+        <v-row justify="end">
+          <v-col
+            cols="auto"
+            class="text-right"
+          >
+            <v-btn
+              text
+              class="mr-2"
+              @click.stop="show=false"
             >
-              <v-btn
-                text
-                @click.stop="show=false"
-              >
-                Close
-              </v-btn>
-              <v-btn
-                color="primary"
-                text
-                class="text-uppercase"
-                @click="onPrimaryActionButtonClick"
-              >
-                {{ primaryActionButtonText || "OK" }}
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card-actions>
-      </template>
+              Close
+            </v-btn>
+            <slot name="actions" />
+            <v-btn
+              v-if="isActionButtonShown"
+              color="primary"
+              text
+              class="text-uppercase"
+              @click="onPrimaryActionButtonClick"
+            >
+              {{ primaryActionButtonText || "OK" }}
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -72,19 +87,23 @@ export default {
       type: String,
       default: ""
     },
+    subtitle: {
+      type: String,
+      default: ""
+    },
+    maxWidth: {
+      type: Number,
+      default: 600
+    },
     content: {
       type: String,
       default: ""
     },
     primaryActionButtonText: {
       type: String,
-      default: ""
+      default: "OK"
     },
-    isTitleShown: {
-      type: Boolean,
-      default: true
-    },
-    isContentShown: {
+    isActionButtonShown: {
       type: Boolean,
       default: true
     },
@@ -92,9 +111,13 @@ export default {
       type: Boolean,
       default: true
     },
+    isPrompt: {
+      type: Boolean,
+      default: true
+    },
     isCloseButtonShown: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   computed: {
@@ -115,7 +138,9 @@ export default {
 };
 </script>
 <style lang="scss">
-.v-dialog {
-  overflow: visible;
+.modal {
+  &.--overflow-hidden {
+    overflow: hidden;
+  }
 }
 </style>

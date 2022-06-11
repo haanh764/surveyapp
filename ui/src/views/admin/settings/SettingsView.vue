@@ -4,7 +4,7 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col cols="12">
+      <v-col cols="10">
         <v-card
           class="admin-settings-view__card"
           :class="{'pa-10': !isMobile}"
@@ -115,8 +115,8 @@
 <script>
 import { mapGetters } from "vuex";
 
-export default { 
-  name: "AdminSettingsView", 
+export default {
+  name: "AdminSettingsView",
   data() {
     return {
       isFormValid: false,
@@ -124,25 +124,24 @@ export default {
       formData: {
         email: "",
         password: ""
-      },
-      isSucessSnackbarShown: false,
+      }
     };
   },
   computed: {
-    ...mapGetters("user", ["userData"]),
+    ...mapGetters("user", [ "userData" ]),
     userEmail() {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
       return this.formData.password.length >= 8;
-    },
+    }
   },
   methods: {
     onFormSubmit() {
       // to do: post form data to back-end's update admin api
-      this.isSucessSnackbarShown = true;
-    },
-  },
+      this.$notify.toast("New settings have been saved!");
+    }
+  }
 };
 </script>
 
