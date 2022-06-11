@@ -107,15 +107,13 @@
 <script>
 import WidgetConfig from "./WidgetConfig";
 import WidgetForm from "./WidgetForm";
-import GenerateForm from "./GenerateForm";
 import { EventBus } from "@/util/event-bus";
 
 export default {
   name: "FormBuilder",
   components: {
     WidgetConfig,
-    WidgetForm,
-    GenerateForm
+    WidgetForm
   },
   props: {
     value: {
