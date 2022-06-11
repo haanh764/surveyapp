@@ -16,14 +16,14 @@ const userMenuItems = [
 
 const adminMenuItems = [
   {
-    title: "Surveys",
-    icon: "mdi-clipboard-outline",
-    to: "/admin/surveys"
-  },
-  {
     title: "Users",
     icon: "mdi-account",
     to: "/admin/users",
+  },
+  {
+    title: "Surveys",
+    icon: "mdi-clipboard-outline",
+    to: "/admin/surveys",
     isLastBeforeSeparation: true
   },
   {

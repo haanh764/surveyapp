@@ -107,7 +107,7 @@ export default {
       this.$store.dispatch("user/setUserData", userData);
       this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
 
-      this.$router.push({ name: "admin-surveys" });
+      this.$router.push({ name: "admin-users" });
     }
   }
 };
