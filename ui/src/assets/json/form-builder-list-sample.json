@@ -61,20 +61,6 @@
     },
     {
       "type": "input",
-      "label": "Long open answer",
-      "question": "textarea question",
-      "description": "textarea description",
-      "options": {
-        "defaultValue": "textarea",
-        "placeholder": "",
-        "type": "textarea"
-      },
-      "key": "bb583bcd7",
-      "model": "input_bb583bcd7",
-      "order": 1
-    },
-    {
-      "type": "input",
       "label": "Short open answer",
       "question": "input text question",
       "description": "",

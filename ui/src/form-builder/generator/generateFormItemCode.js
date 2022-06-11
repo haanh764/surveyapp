@@ -28,13 +28,6 @@ function genWidgetTemp(widget, isForm = false) {
           v-model="${model}"
           placeholder="${placeholder}"
         ></v-text-field>`;
-  } else if (widget.type === "textarea") {
-    widgetTemp += `<v-text-field
-          type="textarea"
-          :rows="5"
-          v-model="${model}"
-          placeholder="${placeholder || ""}"
-          ></v-text-field>`;
   } else if (widget.type === "radio") {
     const optionArr = options;
     const optionFunc = () => {

@@ -50,20 +50,20 @@ export default {
     value: Boolean,
     alignTitle: {
       type: String,
-      default: "left",
+      default: "left"
     },
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     distance: {
       type: Number,
-      default: 100,
+      default: 100
     },
     fullscreen: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     show: {
@@ -72,9 +72,9 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 <style lang="scss">

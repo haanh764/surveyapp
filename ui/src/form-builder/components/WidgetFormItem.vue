@@ -31,14 +31,6 @@
 
         <template v-if="element.type == 'input'">
           <v-text-field
-            v-if="element.options.type == 'text'"
-            v-model="element.options.defaultValue"
-            :placeholder="element.options.placeholder"
-            disabled
-            outlined
-          />
-          <v-textarea
-            v-if="element.options.type == 'textarea'"
             v-model="element.options.defaultValue"
             :placeholder="element.options.placeholder"
             disabled

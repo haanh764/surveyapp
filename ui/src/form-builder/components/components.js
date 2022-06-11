@@ -1,24 +1,12 @@
 export const basicComponents = [
   {
     type: "input",
-    label: "Short open answer",
+    label: "Open answer",
     question: "",
     description: "",
     options: {
       defaultValue: "",
-      placeholder: "",
-      type: "text"
-    }
-  },
-  {
-    type: "input",
-    label: "Long open answer",
-    question: "",
-    description: "",
-    options: {
-      defaultValue: "",
-      placeholder: "",
-      type: "textarea"
+      placeholder: ""
     }
   },
   {

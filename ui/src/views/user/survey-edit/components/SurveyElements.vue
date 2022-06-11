@@ -53,20 +53,9 @@ export default {
     return {
       items: [
         {
-          title: "Short open answer",
+          title: "Open answer",
           type: "input",
-          options: {
-            type: "text"
-          },
           asset: require("@assets/icons/short_open_answer.png")
-        },
-        {
-          title: "Long open answer",
-          type: "input",
-          options: {
-            type: "textarea"
-          },
-          asset: require("@assets/icons/long_open_answer.png")
         },
         {
           title: "Single choice",

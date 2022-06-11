@@ -9,14 +9,13 @@
       <v-col
         v-if="isWidgetQuestionShown"
         cols="12"
-        class=""
       >
-        <h1 class="generate-form-item__question">
+        <h1 class="generate-form-item__question pa-0">
           {{ widget.question || 'No question given' }}
         </h1>
         <p
           v-if="widget.description"
-          class="text-secondary generate-form-item__description"
+          class="text-secondary generate-form-item__description ma-0"
         >
           {{ widget.description }}
         </p>
@@ -28,14 +27,6 @@
         class=""
       >
         <v-text-field
-          v-if="widget.options.type == 'text'"
-          :ref="`${widget.type}_${widget.key}`"
-          v-model.trim="dataModel"
-          outlined
-          :placeholder="widget.options.placeholder"
-        />
-        <v-textarea
-          v-if="widget.options.type == 'textarea'"
           :ref="`${widget.type}_${widget.key}`"
           v-model.trim="dataModel"
           outlined
@@ -46,7 +37,7 @@
       <v-col
         v-if="widget.type == 'radio'"
         cols="12"
-        class=""
+        class="py-0"
       >
         <v-radio-group
           :ref="`${widget.type}_${widget.key}`"
@@ -137,30 +128,30 @@ export default {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     models: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     rules: {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   data() {
     return {
-      dataModel: this.models[this.widget.model],
+      dataModel: this.models[this.widget.model]
     };
   },
   computed: {
     isWidgetQuestionShown() {
       return this.widget.type != "text";
-    },
+    }
   },
   watch: {
     dataModel: {
@@ -169,17 +160,17 @@ export default {
         this.models[this.widget.model] = val;
         this.$emit("update:models", {
           ...this.models,
-          [this.widget.model]: val,
+          [this.widget.model]: val
         });
-      },
+      }
     },
     models: {
       deep: true,
       handler(val) {
         this.dataModel = val[this.widget.model];
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 
@@ -199,6 +190,9 @@ export default {
     }
   }
   &--widget-radio {
+    .v-input--selection-controls {
+      margin-top: 0;
+    }
   }
 
   &__question {

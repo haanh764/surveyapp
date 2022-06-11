@@ -254,7 +254,7 @@ export default {
       return this.selectedWidget && Object.keys(this.selectedWidget).length > 0;
     },
     hasTextDefaultValue() {
-      const textDefaultValueWidgets = [ "text", "input", "textarea" ];
+      const textDefaultValueWidgets = [ "text", "input" ];
       return (
         this.hasSelectedWidget &&
         textDefaultValueWidgets.includes(this.selectedWidget.type)
