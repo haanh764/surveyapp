@@ -217,10 +217,10 @@ export default {
     },
     tableHeaders() {
       return [
-        { text: "Survey name", value: "title" },
-        { text: "Owner", value: "owner" },
         { text: "Last updated at", value: "lastUpdatedDate" },
+        { text: "Survey name", value: "title" },
         { text: "Status", value: "status" },
+        { text: "Owner", value: "owner" },
         { text: "Responses", value: "responses" },
         { text: "Actions", value: "id" },
       ];
