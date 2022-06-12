@@ -25,6 +25,10 @@ module.exports = {
     "vue/valid-v-slot": "off",
     "vue/no-mutating-props": "warn" // bad practice, should be removed later
   },
+  globals: {
+    _: "readonly",
+    moment: "readonly"
+  },
   overrides: [
     {
       files: [

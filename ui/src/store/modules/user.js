@@ -18,7 +18,7 @@ const adminMenuItems = [
   {
     title: "Users",
     icon: "mdi-account",
-    to: "/admin/users",
+    to: "/admin/users"
   },
   {
     title: "Surveys",

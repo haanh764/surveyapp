@@ -12,13 +12,15 @@
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
         >
           <template #actions>
-            Haven't received your email?
-            <v-btn
-              text
-              class="text-none pa-0"
-            >
-              Click here
-            </v-btn>
+            <div class="mt-5 text-secondary">
+              Haven't received your email?
+              <v-btn
+                text
+                class="text-none pa-0 text-secondary "
+              >
+                <u class="d-inline-block ">Click here</u>
+              </v-btn>
+            </div>
           </template>
         </content-card>
       </v-col>
