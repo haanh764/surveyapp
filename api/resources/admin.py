@@ -2,7 +2,6 @@ import datetime
 from flask import request, jsonify
 from flask_restful import Resource
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt, set_access_cookies, unset_jwt_cookies
-from database.db_connector import db_connector
 from models.admin import Admin
 from models.revoked_token import RevokedToken
 from models.user import User
@@ -10,44 +9,36 @@ from common.authentication_helper import admin_required, generate_password
 from app import jwt, app, mail
 from flask_mail import Message
 
-
 @app.after_request
 def refresh_expiring_access_tokens(response):
     try:
         expire_timestamp = get_jwt()["exp"]
         now = datetime.datetime.utcnow()
-        target_timestamp = datetime.datetime.timestamp(
-            now + datetime.timedelta(minutes=30))
+        target_timestamp = datetime.datetime.timestamp(now + datetime.timedelta(minutes=30))
         if target_timestamp > expire_timestamp:
-            access_token = create_access_token(
-                identity=get_jwt_identity(), additional_claims={'is_admin': True})
+            access_token = create_access_token(identity=get_jwt_identity(), additional_claims={'is_admin': True})
             set_access_cookies(response, access_token)
         return response
     except (RuntimeError, KeyError):
         return response
 
-
 class AdminLogin(Resource):
     def post(self):
         data = request.get_json()
-        admin = db_connector.find_model_by_email(Admin, data['email'])
+        admin = Admin.find_by_email(data['email'])
         if admin and admin.check_password(data['password']):
             expires = datetime.timedelta(days=1)
-            access_token = create_access_token(
-                identity=admin.id, expires_delta=expires, additional_claims={'is_admin': True})
-            response = jsonify({'message': 'Logged in as admin with email {}. Access token is {}'.format(
-                admin.email, access_token)})
+            access_token = create_access_token(identity=admin.id, expires_delta=expires, additional_claims={'is_admin': True})
+            response = jsonify({'message': 'Logged in as admin with email {}. Access token is {}'.format(admin.email, access_token)})
             set_access_cookies(response, access_token)
             response.status_code = 200
             return response
         return {'message': 'Invalid username or password'}, 401
 
-
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
     jti = jwt_payload["jti"]
-    return db_connector.is_revoked_token_jti_blacklisted(jti)
-
+    return RevokedToken.is_jti_blacklisted(jti)
 
 class AdminLogout(Resource):
     @jwt_required()
@@ -60,25 +51,22 @@ class AdminLogout(Resource):
             response = jsonify({'message': 'Admin has logged out'})
             unset_jwt_cookies(response)
             revoked_token = RevokedToken(jti=jti, type=ttype)
-            db_connector.add_model_to_db(revoked_token)
+            revoked_token.add()
             return {'message': 'Access token has been revoked'}, 200
         except:
             return {'message': 'Something went wrong'}, 500
-
 
 class ResetUserPassword(Resource):
     @jwt_required()
     @admin_required()
     def post(self):
         user_email = request.get_json()['email']
-        selected_user = db_connector.find_model_by_email(User, user_email)
-
+        selected_user = User.find_by_email(user_email)
         if selected_user:
             new_password = generate_password(8)
             selected_user.password = new_password
             selected_user.generate_password()
-            db_connector.add_model_to_db(selected_user)
-
+            selected_user.add_user()
             msg = Message()
             msg.subject = 'Password reset'
             msg.sender = app.config['MAIL_USERNAME']
@@ -86,81 +74,73 @@ class ResetUserPassword(Resource):
             msg.body = 'Your new password is: {}'.format(new_password)
             mail.send(msg)
             return {'message': 'Password has been reset. New password has been sent to your email!'}, 200
-
         return {'message': 'User not found'}, 404
-
 
 class SearchUser(Resource):
     @jwt_required()
     @admin_required()
     def post(self):
         data = request.get_json()
-        user = db_connector.find_model_by_email(User, data['email'])
+        user = User.find_by_email(data['email'])
         if user:
             return {'message': 'User found', 'user_email': user.email, 'user_activated': user.isActivated, 'user_blocked': user.isBlocked}, 200
         return {'message': 'User not found'}, 404
-
 
 class ActivateUser(Resource):
     @jwt_required()
     @admin_required()
     def post(self):
         data = request.get_json()
-        user = db_connector.find_model_by_email(User, data['email'])
+        user = User.find_by_email(data['email'])
         if user and not user.isActivated:
             user.isActivated = True
-            db_connector.add_model_to_db(user)
+            user.add_user()
             return {'message': 'User has been activated'}, 200
         return {'message': 'User not found'}, 404
-
 
 class BlockUser(Resource):
     @jwt_required()
     @admin_required()
     def post(self):
         data = request.get_json()
-        user = db_connector.find_model_by_email(User, data['email'])
+        user = User.find_by_email(data['email'])
         if user and not user.isBlocked:
             user.isBlocked = True
-            db_connector.add_model_to_db(user)
+            user.add_user()
             return {'message': 'User has been blocked'}, 200
         return {'message': 'User not found'}, 404
-
 
 class UnblockedUser(Resource):
     @jwt_required()
     @admin_required()
     def post(self):
         data = request.get_json()
-        user = db_connector.find_model_by_email(User, data['email'])
+        user = User.find_by_email(data['email'])
         if user and user.isBlocked:
             user.isBlocked = False
-            db_connector.add_model_to_db(user)
+            user.add_user()
             return {'message': 'User has been unblocked'}, 200
         return {'message': 'User not found'}, 404
-
 
 class AdminDeleteUser(Resource):
     @jwt_required()
     @admin_required()
     def post(self):
         data = request.get_json()
-        user = db_connector.find_model_by_email(User, data['email'])
+        user = User.find_by_email(data['email'])
         if user:
-            db_connector.delete_model_from_db(user)
+            user.delete_user()
             return {'message': 'User has been deleted'}, 200
         return {'message': 'User not found'}, 404
-
 
 class AdminListUsers(Resource):
     @jwt_required()
     @admin_required()
     def get(self):
-        users = db_connector.get_all_models(User)
+        users = User.get_all_users()
         users_data = dict()
         for user in users:
-            users_data[user.id] = {
-                'user_email': user.email, 'user_activated': user.isActivated, 'user_blocked': user.isBlocked}
+            users_data[user.id] = {'user_email': user.email, 'user_activated': user.isActivated, 'user_blocked': user.isBlocked}
         response = jsonify({
             'message': 'Users list has been returned',
             'users': users_data
