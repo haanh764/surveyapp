@@ -16,7 +16,10 @@
               <!-- USERS DATATABLE STARTS HERE : MOBILE -->
               <template v-if="isMobile">
                 <v-row justify="center">
-                  <v-col cols="9" class="mb-2">
+                  <v-col
+                    cols="9"
+                    class="mb-2"
+                  >
                     <v-text-field
                       v-model.trim="keyword"
                       solo
@@ -30,7 +33,10 @@
                       {{ users.length }} users
                     </p>
                   </v-col>
-                  <v-col cols="3" class="text-right">
+                  <v-col
+                    cols="3"
+                    class="text-right"
+                  >
                     <v-btn
                       text
                       icon
@@ -185,8 +191,14 @@
                     cols="auto"
                     class="py-0 px-8"
                   >
-                    <v-row justify="center" align="center">
-                      <v-col cols="7" class="py-0">
+                    <v-row
+                      justify="center"
+                      align="center"
+                    >
+                      <v-col
+                        cols="7"
+                        class="py-0"
+                      >
                         <p class="edit-modal__action-title">
                           Activate Account
                         </p>
@@ -195,7 +207,10 @@
                           the user to use the whole website features.
                         </p>
                       </v-col>
-                      <v-col cols="5" class="py-0">
+                      <v-col
+                        cols="5"
+                        class="py-0"
+                      >
                         <v-btn
                           text
                           class="edit-modal__action-button"
@@ -209,8 +224,14 @@
                         </v-btn>
                       </v-col>
                     </v-row>
-                    <v-row justify="center" align="center">
-                      <v-col cols="7" class="py-0">
+                    <v-row
+                      justify="center"
+                      align="center"
+                    >
+                      <v-col
+                        cols="7"
+                        class="py-0"
+                      >
                         <p class="edit-modal__action-title">
                           Block Account
                         </p>
@@ -218,7 +239,10 @@
                           Block/unblock account to limit/allow website usage.
                         </p>
                       </v-col>
-                      <v-col cols="5" class="py-0">
+                      <v-col
+                        cols="5"
+                        class="py-0"
+                      >
                         <v-row justify="center">
                           <v-switch
                             v-model="selectedUser.isBlocked"
@@ -227,8 +251,14 @@
                         </v-row>
                       </v-col>
                     </v-row>
-                    <v-row justify="center" align="center">
-                      <v-col cols="7" class="py-0">
+                    <v-row
+                      justify="center"
+                      align="center"
+                    >
+                      <v-col
+                        cols="7"
+                        class="py-0"
+                      >
                         <p class="edit-modal__action-title">
                           Reset Password
                         </p>
@@ -236,7 +266,10 @@
                           Send a new password to the associated email address.
                         </p>
                       </v-col>
-                      <v-col cols="5" class="py-0">
+                      <v-col
+                        cols="5"
+                        class="py-0"
+                      >
                         <v-btn
                           text
                           class="v-btn--primary edit-modal__action-button"
@@ -360,7 +393,6 @@
                 primary-action-button-text="OK"
                 @click:primary-action="onResetPasswordConfirmation"
               />
-
             </v-col>
           </v-row>
         </v-card>
@@ -391,26 +423,26 @@ export default {
           id: 1,
           email: "ayam@bebek.angsa",
           isActivated: true,
-          isBlocked: false,
+          isBlocked: false
         },
         {
           id: 2,
           email: "sadBoy123@pevuer.pl",
           isActivated: false,
-          isBlocked: true,
+          isBlocked: true
         },
         {
           id: 3,
           email: "lifeIsHard456@gmail.pl",
           isActivated: true,
-          isBlocked: true,
-        },
-      ],
+          isBlocked: true
+        }
+      ]
     };
   },
   computed: {
-    ...get("user", ["userData"]),
-    ...sync("app", ["mini"]),
+    ...get("user", [ "userData" ]),
+    ...sync("app", [ "mini" ]),
     filteredUsers() {
       let users = this.keyword
         ? this.users.filter((user) => {
@@ -428,7 +460,7 @@ export default {
         { text: "Email Address", value: "email" },
         { text: "Activation Status", value: "isActivated" },
         { text: "Blockade Status", value: "isBlocked" },
-        { text: "Actions", value: "id" },
+        { text: "Actions", value: "id" }
       ];
     },
     isSelectedUserActivated() {
@@ -509,8 +541,8 @@ export default {
         return {
           ...user,
           ...{
-            index,
-          },
+            index
+          }
         };
       });
     },
@@ -576,8 +608,8 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

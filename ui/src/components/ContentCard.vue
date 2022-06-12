@@ -22,14 +22,15 @@
             :max-height="maxImageHeight"
           />
           <v-btn
-            v-if="showBackToHomeButton"
+            v-if="showPrimaryButton"
             class="v-btn--primary content-card__home-button"
-            to="/"
             height="53"
             block
+            @click="onPrimaryButtonClick"
           >
-            BACK TO HOME
+            {{ primaryButtonText }}
           </v-btn>
+
           <template v-if="$slots.actions">
             <slot name="actions" />
           </template>
@@ -40,6 +41,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "ContentCard",
   props: {
@@ -57,15 +60,31 @@ export default {
     },
     maxImageWidth: {
       type: Number,
-      default: 100
+      default: 419
     },
     maxImageHeight: {
       type: Number,
-      default: 100
+      default: 305
     },
-    showBackToHomeButton: {
+    showPrimaryButton: {
       type: Boolean,
       default: true
+    },
+    primaryButtonText: {
+      type: String,
+      default: "Back to home"
+    },
+    onPrimaryButtonClickCallback: {
+      type: Function,
+      default() {
+        return router.push("/");
+      }
+    }
+  },
+  methods: {
+    onPrimaryButtonClick() {
+      this.$emit("click:primary");
+      this.onPrimaryButtonClickCallback.call();
     }
   }
 };

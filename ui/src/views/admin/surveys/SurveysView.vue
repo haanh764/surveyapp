@@ -16,7 +16,10 @@
               <!-- SURVEYS DATATABLE STARTS HERE : MOBILE -->
               <template v-if="isMobile">
                 <v-row justify="center">
-                  <v-col cols="9" class="mb-2">
+                  <v-col
+                    cols="9"
+                    class="mb-2"
+                  >
                     <v-text-field
                       v-model.trim="keyword"
                       solo
@@ -30,7 +33,10 @@
                       {{ surveys.length }} surveys
                     </p>
                   </v-col>
-                  <v-col cols="3" class="text-right">
+                  <v-col
+                    cols="3"
+                    class="text-right"
+                  >
                     <v-btn
                       text
                       icon
@@ -162,7 +168,6 @@
           primary-action-button-text="OK"
           @click:primary-action="onDeleteConfirmation"
         />
-
       </v-col>
     </v-row>
   </v-container>
@@ -187,7 +192,7 @@ export default {
           title: "Earnings 2022",
           responses: 10,
           status: 1,
-          lastUpdatedDate: "01/02/2022 08:00:00",
+          lastUpdatedDate: "01/02/2022 08:00:00"
         },
         {
           id: 2,
@@ -195,14 +200,14 @@ export default {
           title: "Chicken 2022",
           responses: 11,
           status: 2,
-          lastUpdatedDate: "09/08/2022 08:00:00",
-        },
-      ],
+          lastUpdatedDate: "09/08/2022 08:00:00"
+        }
+      ]
     };
   },
   computed: {
-    ...get("user", ["userData"]),
-    ...sync("app", ["mini"]),
+    ...get("user", [ "userData" ]),
+    ...sync("app", [ "mini" ]),
     filteredSurveys() {
       let surveys = this.keyword
         ? this.surveys.filter((survey) => {
@@ -222,9 +227,9 @@ export default {
         { text: "Status", value: "status" },
         { text: "Owner", value: "owner" },
         { text: "Responses", value: "responses" },
-        { text: "Actions", value: "id" },
+        { text: "Actions", value: "id" }
       ];
-    },
+    }
   },
   created() {
     // get survey api
@@ -249,8 +254,8 @@ export default {
         return {
           ...survey,
           ...{
-            index,
-          },
+            index
+          }
         };
       });
     },
@@ -307,8 +312,8 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

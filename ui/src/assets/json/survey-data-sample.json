@@ -112,8 +112,8 @@
     }
   },
   "config": {
-    "startDate": "2022-06-11 00:00:00",
-    "endDate": "23/12/2022 00:00:00",
+    "startDate": "2022-06-11 00:00:00.123456+00:00",
+    "endDate": "2022-06-21 00:00:00.123456+00:00",
     "isPublic": true,
     "emails": [],
     "isSurveySentAutomatically": false

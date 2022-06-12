@@ -1,5 +1,16 @@
 import moment from "moment";
 
-export const convertToStandardDate = function (value) {
-  return moment(value, "DD/MM/YYYY hh:mm:ss").format("DD MMM YYYY");
+const pythonDefaultDateFormat = "YYYY-MM-DD hh:mm:ss.SSSSSS+00:00";
+export const convertToStandardDate = function (
+  value,
+  givenFormat = pythonDefaultDateFormat
+) {
+  return moment(value, givenFormat).format("DD MMM YYYY");
+};
+
+export const isTodayBeforeGivenDate = function (
+  givenDate,
+  givenDateFormat = pythonDefaultDateFormat
+) {
+  return moment().isBefore(moment(givenDate, givenDateFormat));
 };
