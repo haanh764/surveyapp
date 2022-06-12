@@ -48,7 +48,7 @@
         <v-divider />
       </v-col>
       <v-col
-        v-if="formData.formBuilder.list.length"
+        v-if="formData.formBuilder.list.length && isSubmitButtonShown"
         cols="12"
         class="justify-flex--end"
       >
@@ -72,29 +72,33 @@ import GenerateFormItem from "./GenerateFormItem";
 export default {
   name: "GenerateForm",
   components: {
-    GenerateFormItem
+    GenerateFormItem,
   },
   props: {
     value: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     formData: {
       type: Object,
       default() {
         return {};
-      }
+      },
+    },
+    isSubmitButtonShown: {
+      type: Boolean,
+      default: true,
     },
     canSubmit: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      models: {}
+      models: {},
     };
   },
   watch: {
@@ -106,14 +110,14 @@ export default {
         this.$nextTick(() => {
           this.$forceUpdate();
         });
-      }
+      },
     },
     value: {
       deep: true,
       handler(val) {
         this.models = { ...this.models, ...val };
-      }
-    }
+      },
+    },
   },
   created() {
     this.generateModel(this.formData.formBuilder.list);
@@ -135,13 +139,13 @@ export default {
     onSubmitButtonClick() {
       this.$emit("submit", {
         models: this.models,
-        list: this.formData.formBuilder.list
+        list: this.formData.formBuilder.list,
       });
     },
     onInputChange(value, field) {
       this.$emit("on-change", field, value, this.models);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
