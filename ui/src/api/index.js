@@ -42,5 +42,46 @@ export const addSurvey = (data) => {
 const USER_SIGNUP_URL = "/authentication/signup";
 
 export const userSignup = (data) => {
-  return axios.post(USER_SIGNUP_URL, data);
+  //return axios.post(USER_SIGNUP_URL, data);
+  return axios.post(USER_SIGNUP_URL, {
+    body: {
+      mode: "raw",
+      raw: "{\n    \"email\": \"" + data.email + "\",\n    \"password\": \"" + data.password + "\"\n}",
+      options: {
+        raw: {
+          language: "json"
+        }
+      }
+    }
+  });
 }
+
+/*
+export const userSignup = (data) => {
+  return axios({
+    method: "post",
+    header: [],
+    body: {
+      mode: "raw",
+      raw: "{\n    \"email\": \"" + data.email + "\",\n    \"password\": \"" + data.password + "\"\n}",
+      options: {
+        raw: {
+          language: "json"
+        }
+      }
+    },
+    url: {
+      raw: baseURL + USER_SIGNUP_URL,
+      host: [
+        "localhost"
+      ],
+      port: "8000",
+      path: [
+        "api",
+        "authentication",
+        "signup"
+      ]
+    }
+  });
+}
+*/

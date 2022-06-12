@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { userSignup } from "@api";
+//import { userSignup } from "@api";
 
 export default {
   name: "SignupView",
@@ -115,11 +115,12 @@ export default {
   methods: {
     onFormSubmit() {
       // post form data to back-end's registration api
+      /*
       userSignup(this.formData)
         .then((response) => {
           console.log(response);
           // do something with the response
-          console.log('registration should be successful?');
+          console.log("registration should be successful?");
           this.$router
             .push({ name: "general-user-signup-thankyou" })
             .catch(() => {});
@@ -127,6 +128,35 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      */
+     fetch("http://localhost:8000/api/authentication/signup", {
+        method: "POST",
+        headers: [],
+        body: {
+          mode: "raw",
+          raw: "{\n    \"email\": \"" + this.formData.email + "\",\n    \"password\": \"" + this.formData.password + "\"\n}",
+          options: {
+            raw: {
+              language: "json"
+            }
+          }
+        }
+      }).then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      /*
+      fetch("http://localhost:8000/api/authentication/signup")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      */
     }
   }
 };
