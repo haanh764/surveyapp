@@ -16,17 +16,21 @@ class AddSurvey(Resource):
             data = data['data']
             survey = Survey(current_user_id, data['title'], data['description'], config['startDate'], config['endDate'])
             survey.add_survey()
-            questions = data['formBuilder']['formBuilder']['list']
+            questions = data['formBuilder']['list']
             for i, question in enumerate(questions):
                 options = question['options']
+                model_key = question['key']
+                model = question['model']
                 if isinstance(options, dict) and 'tag' in options:
-                    base_question = Question(survey.id, options['defaultValue'],
-                                             question['order'], tag=options['tag'])
+                    base_question = Question(survey.id, question['title'],
+                                             question['order'], tag=options['tag'],
+                                             model_key=model_key, model=model)
                     base_question.add_question()
                 else:
                     type = question['type']
-                    base_question = Question(survey.id, question['question'], question['order'],
-                                             description=question['description'])
+                    base_question = Question(survey.id, question['title'], question['order'],
+                                             description=question['description'],
+                                             model_key=model_key, model=model)
                     base_question.add_question()
                     if type == 'slider':
                         scale_question = ScaleQuestion(base_question.id, options['min'], options['max'])

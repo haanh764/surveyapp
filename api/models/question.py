@@ -129,15 +129,15 @@ class AnswerOption(Base):
     image = Column(MEDIUMBLOB, nullable=True)
     question = relationship("MultipleChoiceQuestion", back_populates="answer_options")
 
-    def __init__(self, multiple_choice_questions_questionId, text=None, image=None):
-        self.multiple_choice_questions_questionId = multiple_choice_questions_questionId
+    def __init__(self, multiple_choice_questions_id, text=None, image=None):
+        self.multiple_choice_questions_id = multiple_choice_questions_id
         self.text = text
         self.image = image
 
     def serialize(self):
         return {
             'id': self.id,
-            'multiple_choice_questions_questionId': self.multiple_choice_questions_questionId,
+            'multiple_choice_questions_questionId': self.multiple_choice_questions_id,
             'text': self.text,
             'image': self.image
         }
