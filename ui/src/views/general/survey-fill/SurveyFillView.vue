@@ -1,7 +1,6 @@
 <template>
   <v-container
-    id="survey-fill-view"
-    class="fill-height text-center"
+    class="fill-height text-center survey-fill-view"
     tag="section"
   >
     <v-row justify="center">
@@ -105,20 +104,20 @@ export default {
       socialMedias: [
         {
           icon: "mdi-facebook",
-          text: "Facebook"
+          text: "Facebook",
         },
         {
           icon: "mdi-twitter",
-          text: "Twitter"
+          text: "Twitter",
         },
         {
           icon: "mdi-reddit",
-          text: "Reddit"
+          text: "Reddit",
         },
         {
           icon: "mdi-whatsapp",
-          text: "WhatsApp"
-        }
+          text: "WhatsApp",
+        },
       ],
       survey: {
         data: {
@@ -127,16 +126,16 @@ export default {
           link: "",
           formBuilder: {
             list: [],
-            models: {}
-          }
+            models: {},
+          },
         },
         config: {
           startDate: "",
           endDate: "",
           isPublic: false,
-          emails: []
-        }
-      }
+          emails: [],
+        },
+      },
     };
   },
   computed: {
@@ -147,7 +146,7 @@ export default {
       return this.survey.config.isPublic
         ? this.isWithinDate
         : this.token && this.hasPermission && this.isWithinDate;
-    }
+    },
   },
   created() {
     this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
@@ -173,13 +172,15 @@ export default {
       const isCopySuccess = copyText(this.survey.data.link);
 
       isCopySuccess && this.$notify.toast("Link has been copied to clipboard");
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .survey-fill-view {
+  padding: 40px 0 80px;
+
   &__social-media {
     .social-media-list {
       display: flex;

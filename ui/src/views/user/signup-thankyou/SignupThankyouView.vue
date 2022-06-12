@@ -16,9 +16,9 @@
               Haven't received your email?
               <v-btn
                 text
-                class="text-none pa-0"
+                class="text-none pa-0 text-secondary "
               >
-                <u>Click here</u>
+                <u class="d-inline-block ">Click here</u>
               </v-btn>
             </div>
           </template>
