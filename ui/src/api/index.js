@@ -6,6 +6,9 @@ const { timeout, baseURL } = config;
 axios.defaults.baseURL = baseURL;
 axios.defaults.timeout = timeout;
 
+axios.defaults.headers.common["Accept"] = "application/json";
+axios.defaults.headers.common["Content-Type"] = "application/json";
+
 // handle default
 axios.interceptors.request.use(
   (config) => {
@@ -42,12 +45,5 @@ export const addSurvey = (data) => {
 const USER_SIGNUP_URL = "/authentication/signup";
 
 export const userSignup = (data) => {
-  let config = {
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  }
-
-  return axios.post(USER_SIGNUP_URL, data, config);
+  return axios.post(USER_SIGNUP_URL, data);
 }

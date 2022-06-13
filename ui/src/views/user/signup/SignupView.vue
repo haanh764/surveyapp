@@ -129,28 +129,6 @@ export default {
           this.$notify.toast("Something went wrong. Please try again later.");
           console.log(error);
         });
-
-      /* WORKING CODE WITH FETCH
-      console.log("Will try to fetch now....");
-      fetch("http://localhost:8000/api/authentication/signup", {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({email: this.formData.email, password: this.formData.password})
-      }).then((data) => {
-          console.log("We get response!");
-          console.log(data);
-          this.$router
-            .push({ name: "general-user-signup-thankyou" })
-            .catch(() => {});
-        })
-        .catch((error) => {~
-          console.log("Aw, error!");
-          console.log(error);
-        });
-      */
     }
   }
 };
