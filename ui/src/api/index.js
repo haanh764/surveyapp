@@ -31,8 +31,8 @@ axios.interceptors.response.use(
   }
 );
 
-const GET_SURVEYS_URL = "/user/surveys";
-const ADD_SURVEY_URL = "/user/surveys";
+const GET_SURVEYS_URL = "user/surveys";
+const ADD_SURVEY_URL = "user/surveys";
 
 export const getSurveys = () => {
   return axios.get(GET_SURVEYS_URL);
@@ -42,8 +42,14 @@ export const addSurvey = (data) => {
   return axios.post(ADD_SURVEY_URL, data);
 };
 
-const USER_SIGNUP_URL = "/authentication/signup";
+const USER_SIGNUP_URL = "authentication/signup";
 
 export const userSignup = (data) => {
   return axios.post(USER_SIGNUP_URL, data);
+}
+
+const USER_LOGIN_URL = "authentication/login";
+
+export const userLogin = (data) => {
+  return axios.post(USER_LOGIN_URL, data, config);
 }
