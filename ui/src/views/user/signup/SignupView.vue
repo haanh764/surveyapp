@@ -98,6 +98,8 @@
 </template>
 
 <script>
+import { userSignup } from "@api";
+
 export default {
   name: "SignupView",
   data() {
@@ -112,8 +114,21 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // to do: post form data to back-end's registration api
-      this.$router.push({ name: "general-user-signup-thankyou" });
+      userSignup(this.formData)
+        .then((response) => {
+          if (response["message"].includes(" already exists.")) {
+            this.$notify.toast(response["message"]);
+          }
+          else {
+            this.$router
+              .push({ name: "general-user-signup-thankyou" })
+              .catch(() => {});
+          }
+        })
+        .catch((error) => {
+          this.$notify.toast("Something went wrong. Please try again later.");
+          console.log(error);
+        });
     }
   }
 };
