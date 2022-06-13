@@ -42,43 +42,12 @@ export const addSurvey = (data) => {
 const USER_SIGNUP_URL = "/authentication/signup";
 
 export const userSignup = (data) => {
-  //return axios.post(USER_SIGNUP_URL, data);
-  //please make data in json format and then stringify it before feeding the data into this function
-  return axios.post(USER_SIGNUP_URL, {
+  let config = {
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: data
-  });
-}
-
-/*
-export const userSignup = (data) => {
-  return axios({
-    method: "post",
-    header: [],
-    body: {
-      mode: "raw",
-      raw: "{\n    \"email\": \"" + data.email + "\",\n    \"password\": \"" + data.password + "\"\n}",
-      options: {
-        raw: {
-          language: "json"
-        }
-      }
-    },
-    url: {
-      raw: baseURL + USER_SIGNUP_URL,
-      host: [
-        "localhost"
-      ],
-      port: "8000",
-      path: [
-        "api",
-        "authentication",
-        "signup"
-      ]
+      "Accept": "application/json",
+      "Content-Type": "application/json"
     }
-  });
+  }
+
+  return axios.post(USER_SIGNUP_URL, data, config);
 }
-*/

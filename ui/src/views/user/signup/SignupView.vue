@@ -114,27 +114,24 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // post form data to back-end's registration api
-      console.log("Will try to fetch now....");
-      console.log(this.formData.email);
-      console.log(this.formData.password);
-      userSignup(JSON.stringify(this.formData))
+      userSignup(this.formData)
         .then((response) => {
-          console.log("We get response!");
-          console.log(response);
-          this.$router
-            .push({ name: "general-user-signup-thankyou" })
-            .catch(() => {});
+          if (response["message"].includes(" already exists.")) {
+            this.$notify.toast(response["message"]);
+          }
+          else {
+            this.$router
+              .push({ name: "general-user-signup-thankyou" })
+              .catch(() => {});
+          }
         })
         .catch((error) => {
-          console.log("Aw, error!");
+          this.$notify.toast("Something went wrong. Please try again later.");
           console.log(error);
         });
 
-      /* WORKING CODE
+      /* WORKING CODE WITH FETCH
       console.log("Will try to fetch now....");
-      console.log(this.formData.email);
-      console.log(this.formData.password);
       fetch("http://localhost:8000/api/authentication/signup", {
         method: 'POST',
         headers: {
