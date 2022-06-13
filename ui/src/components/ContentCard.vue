@@ -48,45 +48,45 @@ export default {
   props: {
     title: {
       type: String,
-      default: ""
+      default: "",
     },
     description: {
       type: String,
-      default: ""
+      default: "",
     },
     image: {
       type: String,
-      default: null
+      default: null,
     },
     maxImageWidth: {
       type: Number,
-      default: 419
+      default: 419,
     },
     maxImageHeight: {
       type: Number,
-      default: 305
+      default: 305,
     },
     showPrimaryButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     primaryButtonText: {
       type: String,
-      default: "Back to home"
+      default: "Back to home",
     },
     onPrimaryButtonClickCallback: {
       type: Function,
       default() {
         return router.push("/");
-      }
-    }
+      },
+    },
   },
   methods: {
     onPrimaryButtonClick() {
       this.$emit("click:primary");
       this.onPrimaryButtonClickCallback.call();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -106,10 +106,11 @@ export default {
 
   &__title {
     justify-content: center;
-    @include font-size(2);
+    @include font-size(1.5, "!important");
+    font-weight: 600;
 
     @media only screen and (max-width: map-get($breakpoints, "md")) {
-      @include font-size(1.25);
+      @include font-size(1.25, "!important");
     }
 
     @media only screen and (max-width: map-get($breakpoints, "xxs")) {
@@ -119,7 +120,7 @@ export default {
 
   &__description {
     color: $secondary-text-color;
-    @include font-size(1);
+    @include font-size(1, "!important");
 
     @media only screen and (max-width: map-get($breakpoints, "xxs")) {
       font-size: 0.8rem !important;

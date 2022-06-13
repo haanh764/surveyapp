@@ -28,7 +28,7 @@
               elevation="2"
               class="s-bottom-sheet__close-button"
               text
-              @click="show = !show"
+              @click="onClickCloseButton"
             >
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -50,20 +50,20 @@ export default {
     value: Boolean,
     alignTitle: {
       type: String,
-      default: "left"
+      default: "left",
     },
     title: {
       type: String,
-      default: ""
+      default: "",
     },
     distance: {
       type: Number,
-      default: 100
+      default: 100,
     },
     fullscreen: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     show: {
@@ -72,9 +72,15 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      }
-    }
-  }
+      },
+    },
+  },
+  methods: {
+    onClickCloseButton() {
+      this.show = !this.show;
+      this.$emit("close");
+    },
+  },
 };
 </script>
 <style lang="scss">

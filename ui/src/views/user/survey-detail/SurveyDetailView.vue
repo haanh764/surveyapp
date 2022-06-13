@@ -1,6 +1,6 @@
 <template>
   <v-container
-    class="fill-height text-center survey-detail-view"
+    class="text-center survey-detail-view"
     tag="section"
     :class="{'pa-0': isMobile }"
   >
@@ -64,6 +64,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-</style>

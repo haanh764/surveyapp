@@ -303,10 +303,27 @@
       </div>
     </modal>
 
+    <bottom-sheet
+      v-model="isSurveySettingsBottomSheetShown"
+      title="Set survey privacy"
+      :fullscreen="true"
+      align-title="center"
+      @close="onSubmitSurveySettings"
+    >
+      <template #content>
+        <div class="pa-5">
+          <survey-settings
+            :can-set-date="false"
+            v-model="formData.config"
+          />
+        </div>
+      </template>
+    </bottom-sheet>
+
     <modal
       v-model="isDeleteModalShown"
       name="delete-modal"
-      title="Delete"
+      title="Warning"
       content="Are you sure you want to delete this survey? This action cannot be undone."
       primary-action-button-text="OK"
       @click:primary-action="onDeleteConfirmation"
@@ -337,6 +354,7 @@ export default {
       isDeleteModalShown: false,
       isSurveySettingsModalShown: false,
       isViewParticipantsModalShown: false,
+      isSurveySettingsBottomSheetShown: false,
       formData: {
         config: {},
       },
@@ -378,7 +396,11 @@ export default {
       this.$notify.toast("Survey has been successfully saved");
     },
     onClickSetSurveyPrivacyButton() {
-      this.isSurveySettingsModalShown = true;
+      if (this.isMobile) {
+        this.isSurveySettingsBottomSheetShown = true;
+      } else {
+        this.isSurveySettingsModalShown = true;
+      }
     },
     onClickViewParticipantsButton() {
       this.isViewParticipantsModalShown = true;
