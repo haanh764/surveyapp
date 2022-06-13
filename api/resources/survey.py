@@ -49,3 +49,10 @@ class AddSurvey(Resource):
         except KeyError:
             return {'message': 'Invalid data in post request.'}, 400
         return {'message': 'The survey {} has been created.'.format(survey.title)}, 200
+
+class ListSurveysByUser(Resource):
+    @jwt_required()
+    def get(self):
+        current_user_id = get_jwt_identity()
+        surveys = Survey.list_surveys_by_user(current_user_id)
+        return jsonify([survey.serialize() for survey in surveys])

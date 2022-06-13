@@ -48,3 +48,6 @@ class Survey(Base):
     def add_survey(self):
         session.add(self)
         session.commit()
+    
+    def list_surveys_by_user(user_id):
+        return session.query(Survey).filter_by(surveyOwner=user_id).all()
