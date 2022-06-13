@@ -98,7 +98,7 @@
 </template>
 
 <script>
-//import { userSignup } from "@api";
+import { userSignup } from "@api";
 
 export default {
   name: "SignupView",
@@ -115,45 +115,42 @@ export default {
   methods: {
     onFormSubmit() {
       // post form data to back-end's registration api
-      /*
-      userSignup(this.formData)
+      console.log("Will try to fetch now....");
+      console.log(this.formData.email);
+      console.log(this.formData.password);
+      userSignup(JSON.stringify(this.formData))
         .then((response) => {
+          console.log("We get response!");
           console.log(response);
-          // do something with the response
-          console.log("registration should be successful?");
           this.$router
             .push({ name: "general-user-signup-thankyou" })
             .catch(() => {});
         })
         .catch((error) => {
+          console.log("Aw, error!");
           console.log(error);
         });
-      */
-     fetch("http://localhost:8000/api/authentication/signup", {
-        method: "POST",
-        headers: [],
-        body: {
-          mode: "raw",
-          raw: "{\n    \"email\": \"" + this.formData.email + "\",\n    \"password\": \"" + this.formData.password + "\"\n}",
-          options: {
-            raw: {
-              language: "json"
-            }
-          }
-        }
+
+      /* WORKING CODE
+      console.log("Will try to fetch now....");
+      console.log(this.formData.email);
+      console.log(this.formData.password);
+      fetch("http://localhost:8000/api/authentication/signup", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: this.formData.email, password: this.formData.password})
       }).then((data) => {
+          console.log("We get response!");
           console.log(data);
+          this.$router
+            .push({ name: "general-user-signup-thankyou" })
+            .catch(() => {});
         })
-        .catch((error) => {
-          console.log(error);
-        });
-      /*
-      fetch("http://localhost:8000/api/authentication/signup")
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
+        .catch((error) => {~
+          console.log("Aw, error!");
           console.log(error);
         });
       */
