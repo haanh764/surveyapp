@@ -53,11 +53,10 @@
                 <v-col cols="auto">
                   <v-text-field
                     v-model.trim="keyword"
-                    rounded
-                    :background-color="style.color.lightBlue"
                     solo
                     dense
-                    outlined
+                    flat
+                    :outlined="isMobile"
                     class="detail-responses-search mb-2"
                     :class="[isMobile? '--is-mobile' : '--is-desktop']"
                     prepend-inner-icon="mdi-magnify"

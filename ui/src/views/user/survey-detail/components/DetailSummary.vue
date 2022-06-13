@@ -48,7 +48,7 @@ export default {
   .vue-friendly-iframe {
     iframe {
       width: 100%;
-      min-height: 100vh;
+      min-height: 500px;
     }
   }
 }
