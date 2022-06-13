@@ -34,6 +34,7 @@
       >
         <template v-for="(item, index) in formData.formBuilder.list">
           <generate-form-item
+            :disabled="disabled"
             :key="`${item.key}_${index}`"
             :models.sync="models"
             :widget="item"
@@ -86,6 +87,10 @@ export default {
       default() {
         return {};
       },
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     isSubmitButtonShown: {
       type: Boolean,

@@ -30,6 +30,7 @@
           :ref="`${widget.type}_${widget.key}`"
           v-model.trim="dataModel"
           outlined
+          :disabled="disabled"
           :placeholder="widget.options.placeholder"
         />
       </v-col>
@@ -47,6 +48,7 @@
             v-for="(item, index) in widget.options.options"
             :key="index"
             :label="item.text"
+            :disabled="disabled"
             :value="item.value"
           />
         </v-radio-group>
@@ -62,6 +64,7 @@
             v-for="(item, index) in widget.options.options"
             :key="`checkbox_${index}`"
             v-model="dataModel"
+            :disabled="disabled"
             multiple
             :label="item.text"
             :value="item.value"
@@ -104,6 +107,7 @@
         <v-slider
           :ref="`${widget.type}_${widget.key}`"
           v-model="dataModel"
+          :disabled="disabled"
           :min="widget.options.min"
           :max="widget.options.max"
           :step="widget.options.step"
@@ -128,30 +132,34 @@ export default {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     models: {
       type: Object,
       default() {
         return {};
-      }
+      },
     },
     rules: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      dataModel: this.models[this.widget.model]
+      dataModel: this.models[this.widget.model],
     };
   },
   computed: {
     isWidgetQuestionShown() {
       return this.widget.type != "text";
-    }
+    },
   },
   watch: {
     dataModel: {
@@ -160,17 +168,17 @@ export default {
         this.models[this.widget.model] = val;
         this.$emit("update:models", {
           ...this.models,
-          [this.widget.model]: val
+          [this.widget.model]: val,
         });
-      }
+      },
     },
     models: {
       deep: true,
       handler(val) {
         this.dataModel = val[this.widget.model];
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

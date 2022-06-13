@@ -10,3 +10,4 @@ import "./vee-validate";
 import "./js-cookie";
 import "./vuedraggable";
 import "./vuetify-notify";
+import "./vue-friendly-iframe";

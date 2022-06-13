@@ -4,7 +4,10 @@
     tag="section"
     class="survey-settings"
   >
-    <v-row justify="start">
+    <v-row
+      justify="start"
+      v-if="canSetDate"
+    >
       <v-col
         cols="12"
         class="text-left"
@@ -141,8 +144,8 @@
           class="survey-link mt-5"
           @click="copyLinkToClipboard"
         >
-          <a :href="survey.link">
-            {{ survey.link || 'An error occured' }}
+          <a :href="survey.data.link">
+            {{ survey.data.link || 'An error occured' }}
           </a>
           <v-icon>mdi-content-copy</v-icon>
         </div>
@@ -297,20 +300,26 @@ import { EventBus } from "@/util/event-bus";
 export default {
   name: "SurveySettings",
   props: {
+    canSetDate: {
+      type: Boolean,
+      default: true,
+    },
     survey: {
       type: Object,
       default() {
         return {
-          link: "http://www.google.com"
+          data: {
+            link: "http://www.google.com",
+          },
         };
-      }
+      },
     },
     value: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -324,8 +333,8 @@ export default {
         endDate: "",
         isPublic: true,
         emails: [],
-        isSurveySentAutomatically: false
-      }
+        isSurveySentAutomatically: false,
+      },
     };
   },
   watch: {
@@ -333,8 +342,12 @@ export default {
       deep: true,
       handler() {
         this.$emit("input", this.formData);
-      }
-    }
+      },
+    },
+  },
+  created() {
+    // load survey data from props
+    // map to form data
   },
   mounted() {
     this.$emit("input", this.formData);
@@ -351,15 +364,16 @@ export default {
       EventBus.$on("event:getFormBuilderData", () => {
         EventBus.$emit("event:setFormBuilderData", {
           data: this.formData,
-          key: "config"
+          key: "config",
         });
       });
     },
     onSendInvitationButtonClick() {
       console.log("send invitation");
+      this.$notify.toast("Invitations have been sent");
     },
     copyLinkToClipboard() {
-      let isCopySuccessful = copyText(this.survey.link);
+      let isCopySuccessful = copyText(this.survey.data.link);
       if (isCopySuccessful) {
         this.$notify.toast("Link has been copied to clipboard");
       }
@@ -373,8 +387,8 @@ export default {
     },
     getData() {
       return this.formData;
-    }
-  }
+    },
+  },
 };
 </script>
 

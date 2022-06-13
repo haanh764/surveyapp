@@ -2,9 +2,13 @@
   <v-container
     class="fill-height text-center survey-detail-view"
     tag="section"
+    :class="{'pa-0': isMobile }"
   >
     <v-row justify="center">
-      <v-col :cols="isMobile? 12 : 10">
+      <v-col
+        :cols="isMobile? 12 : 10"
+        :class="{'pa-0': isMobile }"
+      >
         <v-card :elevation="isMobile? 0 : 2">
           <v-tabs
             v-model="tab"
@@ -33,6 +37,7 @@
     </v-row>
   </v-container>
 </template>
+
 
 <script>
 import DetailQuestions from "./components/DetailQuestions.vue";

@@ -15,3 +15,18 @@ export const isTodayBeforeGivenDate = function (
 ) {
   return moment().isBefore(moment(givenDate, givenDateFormat));
 };
+
+export const getDurationFromTodayToGivenDate = function (
+  givenDate,
+  givenDateFormat = pythonDefaultDateFormat
+) {
+  let now = moment(new Date()); //todays date
+  let duration = moment.duration(now.diff(givenDate, givenDateFormat));
+  return {
+    duration,
+    minutes: duration.asMinutes(),
+    hours: duration.asHours(),
+    days: duration.asDays,
+    months: duration.asMonths(),
+  };
+};

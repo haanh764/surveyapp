@@ -23,7 +23,7 @@ import GenerateForm from "@/form-builder/components/GenerateForm.vue";
 export default {
   name: "SurveyPreview",
   components: {
-    GenerateForm
+    GenerateForm,
   },
   props: {
     value: {
@@ -32,15 +32,15 @@ export default {
         return {
           formBuilder: {
             list: [],
-            models: {}
-          }
+            models: {},
+          },
         };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      generateFormKey: 1
+      generateFormKey: 1,
     };
   },
   watch: {
@@ -51,14 +51,9 @@ export default {
         this.$nextTick(() => {
           this.$forceUpdate();
         });
-      }
-    }
+      },
+    },
   },
-  methods: {
-    getData() {
-      console.log(JSON.stringify(this.value));
-    }
-  }
 };
 </script>
 

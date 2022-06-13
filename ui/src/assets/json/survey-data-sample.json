@@ -2,6 +2,8 @@
   "data": {
     "title": "Cat owner survey 2022",
     "description": "Survey dedicated to all cat lovers in the world",
+    "isPublished": true,
+    "link": "http://www.google.com",
     "formBuilder": {
       "list": [
         {
@@ -101,11 +103,11 @@
         }
       ],
       "models": {
-        "input_e77197d15": "",
-        "input_6743209e4": "",
-        "radio_72b98a503": "",
-        "checkbox_5bc84abf1": [],
-        "slider_6b457fb73": "",
+        "input_e77197d15": "test",
+        "input_6743209e4": "test",
+        "radio_72b98a503": "Option_2",
+        "checkbox_5bc84abf1": ["Option_1", "Option_2"],
+        "slider_6b457fb73": 40,
         "text_f4f8d69e1": "This is a heading",
         "text_242ded82c": "This is a text"
       }
@@ -115,7 +117,7 @@
     "startDate": "2022-06-11 00:00:00.123456+00:00",
     "endDate": "2022-06-21 00:00:00.123456+00:00",
     "isPublic": true,
-    "emails": [],
+    "emails": ["test@user.com", "test@user2.com"],
     "isSurveySentAutomatically": false
   }
 }
