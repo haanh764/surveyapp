@@ -49,3 +49,20 @@ class AddSurvey(Resource):
         except KeyError:
             return {'message': 'Invalid data in post request.'}, 400
         return {'message': 'The survey {} has been created.'.format(survey.title)}, 200
+
+class ListSurveysByUser(Resource):
+    @jwt_required()
+    def get(self):
+        current_user_id = get_jwt_identity()
+        surveys = Survey.list_surveys_by_user(current_user_id)
+        return jsonify([survey.serialize() for survey in surveys])
+
+class GetSurvey(Resource):
+    @jwt_required()
+    def get(self, survey_id):
+        current_user_id = get_jwt_identity()
+        survey = Survey.get_survey(survey_id)
+        if survey.surveyOwner == current_user_id:
+            return jsonify(survey.serialize())
+        else:
+            return {'message': 'You are not allowed to access this survey.'}, 403
