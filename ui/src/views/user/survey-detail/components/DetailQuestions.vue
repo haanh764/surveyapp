@@ -20,7 +20,7 @@
           <template v-if="isMobile">
             <v-col
               cols="12"
-              class="text-right"
+              class="text-right pb-5 pt-0"
             >
               <strong class="d-block primary--text">
                 <v-icon
@@ -375,11 +375,13 @@ export default {
       return isTodayBeforeGivenDate(this.survey.config.startDate);
     },
     timeDifferenceBeforePublication() {
-      const { hours } = getDurationFromTodayToGivenDate(
+      const { hours, days } = getDurationFromTodayToGivenDate(
         this.survey.config.startDate
       );
+      const time =
+        hours < 24 ? `${hours.toFixed(0)} hours` : `${days.toFixed(0)} days`;
       return this.isStartDateBeforeToday
-        ? `To be published in ${hours} hours`
+        ? `To be published in ${time}`
         : `Published on ${convertToStandardDate(this.survey.config.startDate)}`;
     },
     surveyId() {

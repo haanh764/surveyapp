@@ -21,12 +21,12 @@ export const getDurationFromTodayToGivenDate = function (
   givenDateFormat = pythonDefaultDateFormat
 ) {
   let now = moment(new Date()); //todays date
-  let duration = moment.duration(now.diff(givenDate, givenDateFormat));
+  let duration = moment.duration(moment(givenDate, givenDateFormat).diff(now));
   return {
     duration,
     minutes: duration.asMinutes(),
     hours: duration.asHours(),
-    days: duration.asDays,
+    days: duration.asDays(),
     months: duration.asMonths(),
   };
 };
