@@ -19,7 +19,7 @@ class Survey(Base):
     title = Column(String(255), nullable=False)
     description = Column(String(255), nullable=False)
     isPublic = Column(Boolean, nullable=True)
-    hash = Column(String(30), nullable=True)
+    surveyHash = Column(String(30), nullable=True)
     startDate = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
     endDate = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
     creationDate = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
@@ -60,10 +60,10 @@ class Survey(Base):
 
     def generate_hash(self):
         str = string.ascii_lowercase + string.ascii_uppercase
-        self.hash = ''.join(random.choice(str) for _ in range(30))
+        self.surveyHash = ''.join(random.choice(str) for _ in range(30))
 
-    def check_hash(self, hash):
-        return self.hash == hash
+    def check_hash(self, surveyHash):
+        return self.surveyHash == surveyHash
 
     def serialize(self):
         return {

@@ -42,7 +42,7 @@ CREATE TABLE surveys(
     title varchar(255),
     description varchar(255),
 	isPublic boolean,
-	hash varchar(30),
+	surveyHash varchar(30),
     startDate DATETIME,
     endDate DATETIME,
     creationDate DATETIME,
