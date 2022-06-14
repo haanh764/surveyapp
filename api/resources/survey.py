@@ -25,13 +25,15 @@ class AddSurvey(Resource):
             exists = False
             if 'id' in data:
                 survey = Survey.get_survey(data['id'])
+                if not survey:
+                    return {'message': 'Id is passed but no survey with such id exists.'}, 400
                 if not survey.surveyOwner == current_user_id:
                     return {'message': 'User is not the owner of this survey.'}, 400
                 exists = True
             else:
-                survey = Survey(current_user_id, data['title'], data['description'], config['startDate'], config['endDate'])
+                survey = Survey(current_user_id, data['title'], data['description'], config['startDate'], config['endDate'], config['isPublic'])
             if exists:
-                survey.modify(data['title'], data['description'], config['startDate'], config['endDate'])
+                survey.modify(data['title'], data['description'], config['startDate'], config['endDate'], config['isPublic'])
                 for question in survey.questions:
                     question.delete_question()
             survey.add_survey()
@@ -83,8 +85,9 @@ class ListSurveysByUser(Resource):
 class GetSurvey(Resource):
     @jwt_required(optional=True)
     def get(self, survey_id):
-        allow = True
+        allow = False
         survey = Survey.get_survey(survey_id)
+        hash = request.args.get('hash', None)
         if not survey:
             return {'message': 'Such survey does not exist.'}, 403
         try:
@@ -94,6 +97,11 @@ class GetSurvey(Resource):
                     return {'message': 'You are not allowed to access the website.'}, 403
                 if survey.surveyOwner == current_user_id:
                     allow = True
+            if hash is not None:
+                if hash == survey.hash:
+                    allow = True
+            if survey.isPublic:
+                allow = True
         except Exception as e:
             allow = False
         if not allow:

@@ -1,9 +1,14 @@
 import datetime
+import random
+import string
 
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Date, DateTime
 from sqlalchemy.orm import relationship
 from database.db_config import Base, session
 from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
 from .user import User
 
 
@@ -11,8 +16,10 @@ class Survey(Base):
     __tablename__ = 'surveys'
     id = Column(Integer, primary_key=True, index=True)
     surveyOwner = Column(Integer, ForeignKey(User.id), nullable=False)
-    title = Column(String(100), nullable=False)
-    description = Column(String(100), nullable=False)
+    title = Column(String(255), nullable=False)
+    description = Column(String(255), nullable=False)
+    isPublic = Column(Boolean, nullable=True)
+    hash = Column(String(30), nullable=True)
     startDate = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
     endDate = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
     creationDate = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
@@ -20,11 +27,11 @@ class Survey(Base):
     users = relationship("User", back_populates="surveys")
     questions = relationship("Question", back_populates="survey", cascade="all, delete-orphan")
 
-    def __init__(self, surveyOwner, title, description, startDate, endDate):
+    def __init__(self, surveyOwner, title, description, startDate, endDate, isPublic=False):
         self.surveyOwner = surveyOwner
         self.title = title
         self.description = description
-        if startDate:
+        if not startDate:
             self.startDate = datetime.datetime.now(datetime.timezone.utc)
         else:
             self.startDate = startDate
@@ -32,8 +39,13 @@ class Survey(Base):
             self.endDate = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=7)
         else:
             self.endDate = endDate
+        if isPublic:
+            self.isPublic = isPublic
+        else:
+            self.isPublic = False
+        self.generate_hash()
 
-    def modify(self, title, description, startDate, endDate):
+    def modify(self, title, description, startDate, endDate, isPublic=False):
         self.title = title
         self.description = description
         if startDate:
@@ -41,6 +53,17 @@ class Survey(Base):
         if endDate:
             self.endDate = endDate
         self.modificationDate = datetime.datetime.now(datetime.timezone.utc)
+        if isPublic:
+            self.isPublic = isPublic
+        else:
+            self.isPublic = False
+
+    def generate_hash(self):
+        str = string.ascii_lowercase + string.ascii_uppercase
+        self.hash = ''.join(random.choice(str) for _ in range(30))
+
+    def check_hash(self, hash):
+        return self.hash == hash
 
     def serialize(self):
         return {
@@ -48,6 +71,7 @@ class Survey(Base):
             'surveyOwner': self.surveyOwner,
             'title': self.title,
             'description': self.description,
+            'isPublic': self.isPublic,
             'startDate': self.startDate,
             'endDate': self.endDate,
             'creationDate': self.creationDate,
