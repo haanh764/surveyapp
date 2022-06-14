@@ -50,8 +50,9 @@ class NotActivated(Resource):
         current_user_id = get_jwt_identity()
         current_user = User.find_by_id(current_user_id)
         if current_user.isActivated == False:
-            return {'message': 'User {} is not activated'.format(current_user.email)}, 200
-
+            return {'message': 'User {} is not activated'.format(current_user.email)}, 201
+        else:
+            return {'message': 'User {} is already activated'.format(current_user.email)}, 200
 
 class ResendActivation(Resource):
     @jwt_required()
