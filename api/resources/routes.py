@@ -3,6 +3,7 @@ from resources.view import Home
 from resources.user import ChangePassword, DeleteUser
 from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers
 from resources.survey import AddSurvey, ListSurveysByUser, GetSurvey
+from resources.analysis import QueriesSurveyAnswer
 
 def initialize_routes(api):
     api.add_resource(Home, '/api/home')
@@ -30,4 +31,5 @@ def initialize_routes(api):
 
     api.add_resource(AddSurvey, '/api/survey/add')
     api.add_resource(GetSurvey, '/api/survey/get/<string:survey_id>')
+    api.add_resource(QueriesSurveyAnswer, '/api/analysis/queriesurveyanswer')
     
