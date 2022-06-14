@@ -96,7 +96,7 @@ class Survey(Base):
         survey_json['config']['startDate'] = survey_dict['startDate']
         survey_json['config']['id'] = survey_dict['id']
         survey_json['config']['endDate'] = survey_dict['endDate']
-        #survey_json['config']['isPublic'] = survey_dict['isPublic']
+        survey_json['config']['isPublic'] = survey_dict['isPublic']
         survey_json['data']['title'] = survey_dict['title']
         survey_json['data']['description'] = survey_dict['description']
         form_builder = dict()

@@ -85,14 +85,15 @@ class AddSurvey(Resource):
                         open_answer_question = OpenAnswerQuestion(base_question.id)
                         open_answer_question.add_question()
         except KeyError:
-            return {'message': 'Invalid data in post request.'},
-        emails = config['emails']
-        user = User.find_by_id(current_user_id)
-        sender = user.email
-        link = url_for('getsurvey', survey_id=survey.id, hash=survey.surveyHash, _external=True)
-        for email in emails:
-            if is_email_valid:
-                send_email(email, 'You have been assigned to a new survey.', sender, link)
+            return {'message': 'Invalid data in post request.'}
+        if congig['isSurveySentAutomatically']:
+            emails = config['emails']
+            user = User.find_by_id(current_user_id)
+            sender = user.email
+            link = url_for('getsurvey', survey_id=survey.id, hash=survey.surveyHash, _external=True)
+            for email in emails:
+                if is_email_valid:
+                    send_email(email, 'You have been assigned to a new survey.', sender, link)
         if exists:
             return {'message': 'The survey {} has been modified.'.format(survey.title)}, 200
         return {'message': 'The survey {} has been created.'.format(survey.title)}, 200
