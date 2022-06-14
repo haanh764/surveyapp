@@ -35,6 +35,7 @@
         <template v-for="(item, index) in formData.formBuilder.list">
           <generate-form-item
             :key="`${item.key}_${index}`"
+            :disabled="disabled"
             :models.sync="models"
             :widget="item"
             @input-change="onInputChange"
@@ -48,7 +49,7 @@
         <v-divider />
       </v-col>
       <v-col
-        v-if="formData.formBuilder.list.length"
+        v-if="formData.formBuilder.list.length && isSubmitButtonShown"
         cols="12"
         class="justify-flex--end"
       >
@@ -86,6 +87,14 @@ export default {
       default() {
         return {};
       }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    isSubmitButtonShown: {
+      type: Boolean,
+      default: true
     },
     canSubmit: {
       type: Boolean,

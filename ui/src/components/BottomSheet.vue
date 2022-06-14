@@ -28,7 +28,7 @@
               elevation="2"
               class="s-bottom-sheet__close-button"
               text
-              @click="show = !show"
+              @click="onClickCloseButton"
             >
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -73,6 +73,12 @@ export default {
       set(value) {
         this.$emit("input", value);
       }
+    }
+  },
+  methods: {
+    onClickCloseButton() {
+      this.show = !this.show;
+      this.$emit("close");
     }
   }
 };

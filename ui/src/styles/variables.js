@@ -1,5 +1,6 @@
 const style = {
   color: {
+    lightBlue: "#f7f9fd",
     primary: "#6200EE",
     secondary: "#9C27b0",
     accent: "#e91e63",

@@ -53,11 +53,6 @@ export default {
         });
       }
     }
-  },
-  methods: {
-    getData() {
-      console.log(JSON.stringify(this.value));
-    }
   }
 };
 </script>

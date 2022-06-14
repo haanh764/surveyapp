@@ -4,7 +4,21 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col :cols="isMobile ? 12: 10">
+      <v-col
+        v-if="survey.data.isPublished"
+        cols="12"
+      >
+        <content-card
+          title="Sorry, this survey is not yet published"
+          description="Check your invite link or make sure you are granted the right
+ to fill in the survey"
+          :image="require('@assets/svg/man-woman-holding-mail.svg')"
+        />
+      </v-col>
+      <v-col
+        v-else
+        :cols="isMobile ? 12: 10"
+      >
         <template v-if="hasSubmitted">
           <content-card
             title="Thank you!"
@@ -39,8 +53,8 @@
                   class="survey-fill-view__link"
                   @click="onClickSurveyLink"
                 >
-                  <a :href="survey.data.link">
-                    {{ survey.data.link || 'http://www.google.com' }}
+                  <a :href="surveyLink">
+                    {{ surveyLink }}
                   </a>
                   <v-icon>mdi-content-copy </v-icon>
                 </div>
@@ -101,44 +115,52 @@ export default {
       todayDate: moment().format("DD MMM YYYY"),
       hasPermission: false,
       hasSubmitted: false,
+      baseUrl: window.location.origin,
       socialMedias: [
         {
           icon: "mdi-facebook",
-          text: "Facebook",
+          text: "Facebook"
         },
         {
           icon: "mdi-twitter",
-          text: "Twitter",
+          text: "Twitter"
         },
         {
           icon: "mdi-reddit",
-          text: "Reddit",
+          text: "Reddit"
         },
         {
           icon: "mdi-whatsapp",
-          text: "WhatsApp",
-        },
+          text: "WhatsApp"
+        }
       ],
       survey: {
         data: {
           title: "",
           description: "",
           link: "",
+          isPublished: false,
           formBuilder: {
             list: [],
-            models: {},
-          },
+            models: {}
+          }
         },
         config: {
           startDate: "",
           endDate: "",
           isPublic: false,
-          emails: [],
-        },
-      },
+          emails: []
+        }
+      }
     };
   },
   computed: {
+    surveyId() {
+      return this.$route.params.id;
+    },
+    surveyLink() {
+      return `${this.baseUrl}/survey/${this.surveyId}`;
+    },
     isWithinDate() {
       return isTodayBeforeGivenDate(this.survey.config.endDate);
     },
@@ -146,7 +168,7 @@ export default {
       return this.survey.config.isPublic
         ? this.isWithinDate
         : this.token && this.hasPermission && this.isWithinDate;
-    },
+    }
   },
   created() {
     this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
@@ -169,11 +191,11 @@ export default {
       // download as pdf
     },
     onClickSurveyLink() {
-      const isCopySuccess = copyText(this.survey.data.link);
+      const isCopySuccess = copyText(this.surveyLink);
 
       isCopySuccess && this.$notify.toast("Link has been copied to clipboard");
-    },
-  },
+    }
+  }
 };
 </script>
 

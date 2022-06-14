@@ -106,10 +106,11 @@ export default {
 
   &__title {
     justify-content: center;
-    @include font-size(2);
+    @include font-size(1.5, "!important");
+    font-weight: 600;
 
     @media only screen and (max-width: map-get($breakpoints, "md")) {
-      @include font-size(1.25);
+      @include font-size(1.25, "!important");
     }
 
     @media only screen and (max-width: map-get($breakpoints, "xxs")) {
@@ -119,7 +120,7 @@ export default {
 
   &__description {
     color: $secondary-text-color;
-    @include font-size(1);
+    @include font-size(1, "!important");
 
     @media only screen and (max-width: map-get($breakpoints, "xxs")) {
       font-size: 0.8rem !important;

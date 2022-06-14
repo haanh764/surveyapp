@@ -5,7 +5,7 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col cols="auto">
+      <v-col :cols="isMobile ? 12 : 10">
         <content-card
           title="Thanks for registering!"
           description="Please check your inbox or spams to confirm your registration"

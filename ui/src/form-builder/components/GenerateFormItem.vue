@@ -30,6 +30,7 @@
           :ref="`${widget.type}_${widget.key}`"
           v-model.trim="dataModel"
           outlined
+          :disabled="disabled"
           :placeholder="widget.options.placeholder"
         />
       </v-col>
@@ -47,6 +48,7 @@
             v-for="(item, index) in widget.options.options"
             :key="index"
             :label="item.text"
+            :disabled="disabled"
             :value="item.value"
           />
         </v-radio-group>
@@ -62,6 +64,7 @@
             v-for="(item, index) in widget.options.options"
             :key="`checkbox_${index}`"
             v-model="dataModel"
+            :disabled="disabled"
             multiple
             :label="item.text"
             :value="item.value"
@@ -104,6 +107,7 @@
         <v-slider
           :ref="`${widget.type}_${widget.key}`"
           v-model="dataModel"
+          :disabled="disabled"
           :min="widget.options.min"
           :max="widget.options.max"
           :step="widget.options.step"
@@ -141,6 +145,10 @@ export default {
       default() {
         return {};
       }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

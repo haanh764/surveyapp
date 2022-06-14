@@ -4,7 +4,10 @@
     tag="section"
     class="survey-settings"
   >
-    <v-row justify="start">
+    <v-row
+      v-if="canSetDate"
+      justify="start"
+    >
       <v-col
         cols="12"
         class="text-left"
@@ -141,8 +144,8 @@
           class="survey-link mt-5"
           @click="copyLinkToClipboard"
         >
-          <a :href="survey.link">
-            {{ survey.link || 'An error occured' }}
+          <a :href="surveyLink">
+            {{ surveyLink || 'An error occured' }}
           </a>
           <v-icon>mdi-content-copy</v-icon>
         </div>
@@ -297,11 +300,15 @@ import { EventBus } from "@/util/event-bus";
 export default {
   name: "SurveySettings",
   props: {
+    canSetDate: {
+      type: Boolean,
+      default: true
+    },
     survey: {
       type: Object,
       default() {
         return {
-          link: "http://www.google.com"
+          data: {}
         };
       }
     },
@@ -318,6 +325,7 @@ export default {
       isEndDateMenuShown: false,
       // eslint-disable-next-line no-undef
       todayDate: moment().format("YYYY-MM-DD"),
+      baseUrl: window.location.origin,
       newEmail: "",
       formData: {
         startDate: "",
@@ -328,6 +336,14 @@ export default {
       }
     };
   },
+  computed: {
+    surveyId() {
+      return this.$route.params.id;
+    },
+    surveyLink() {
+      return `${this.baseUrl}/survey/${this.surveyId}`;
+    }
+  },
   watch: {
     formData: {
       deep: true,
@@ -335,6 +351,10 @@ export default {
         this.$emit("input", this.formData);
       }
     }
+  },
+  created() {
+    // load survey data from props
+    // map to form data
   },
   mounted() {
     this.$emit("input", this.formData);
@@ -357,9 +377,10 @@ export default {
     },
     onSendInvitationButtonClick() {
       console.log("send invitation");
+      this.$notify.toast("Invitations have been sent");
     },
     copyLinkToClipboard() {
-      let isCopySuccessful = copyText(this.survey.link);
+      let isCopySuccessful = copyText(this.surveyLink);
       if (isCopySuccessful) {
         this.$notify.toast("Link has been copied to clipboard");
       }
