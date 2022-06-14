@@ -34,8 +34,8 @@
       >
         <template v-for="(item, index) in formData.formBuilder.list">
           <generate-form-item
-            :disabled="disabled"
             :key="`${item.key}_${index}`"
+            :disabled="disabled"
             :models.sync="models"
             :widget="item"
             @input-change="onInputChange"
@@ -73,37 +73,37 @@ import GenerateFormItem from "./GenerateFormItem";
 export default {
   name: "GenerateForm",
   components: {
-    GenerateFormItem,
+    GenerateFormItem
   },
   props: {
     value: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     formData: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isSubmitButtonShown: {
       type: Boolean,
-      default: true,
+      default: true
     },
     canSubmit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      models: {},
+      models: {}
     };
   },
   watch: {
@@ -115,14 +115,14 @@ export default {
         this.$nextTick(() => {
           this.$forceUpdate();
         });
-      },
+      }
     },
     value: {
       deep: true,
       handler(val) {
         this.models = { ...this.models, ...val };
-      },
-    },
+      }
+    }
   },
   created() {
     this.generateModel(this.formData.formBuilder.list);
@@ -144,13 +144,13 @@ export default {
     onSubmitButtonClick() {
       this.$emit("submit", {
         models: this.models,
-        list: this.formData.formBuilder.list,
+        list: this.formData.formBuilder.list
       });
     },
     onInputChange(value, field) {
       this.$emit("on-change", field, value, this.models);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

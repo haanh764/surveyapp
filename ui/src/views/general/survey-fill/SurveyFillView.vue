@@ -4,7 +4,21 @@
     tag="section"
   >
     <v-row justify="center">
-      <v-col :cols="isMobile ? 12: 10">
+      <v-col
+        v-if="survey.data.isPublished"
+        cols="12"
+      >
+        <content-card
+          title="Sorry, this survey is not yet published"
+          description="Check your invite link or make sure you are granted the right
+ to fill in the survey"
+          :image="require('@assets/svg/man-woman-holding-mail.svg')"
+        />
+      </v-col>
+      <v-col
+        v-else
+        :cols="isMobile ? 12: 10"
+      >
         <template v-if="hasSubmitted">
           <content-card
             title="Thank you!"
@@ -39,8 +53,8 @@
                   class="survey-fill-view__link"
                   @click="onClickSurveyLink"
                 >
-                  <a :href="survey.data.link">
-                    {{ survey.data.link || 'http://www.google.com' }}
+                  <a :href="surveyLink">
+                    {{ surveyLink }}
                   </a>
                   <v-icon>mdi-content-copy </v-icon>
                 </div>
@@ -101,6 +115,7 @@ export default {
       todayDate: moment().format("DD MMM YYYY"),
       hasPermission: false,
       hasSubmitted: false,
+      baseUrl: window.location.origin,
       socialMedias: [
         {
           icon: "mdi-facebook",
@@ -124,6 +139,7 @@ export default {
           title: "",
           description: "",
           link: "",
+          isPublished: false,
           formBuilder: {
             list: [],
             models: {}
@@ -139,6 +155,12 @@ export default {
     };
   },
   computed: {
+    surveyId() {
+      return this.$route.params.id;
+    },
+    surveyLink() {
+      return `${this.baseUrl}/survey/${this.surveyId}`;
+    },
     isWithinDate() {
       return isTodayBeforeGivenDate(this.survey.config.endDate);
     },
@@ -169,7 +191,7 @@ export default {
       // download as pdf
     },
     onClickSurveyLink() {
-      const isCopySuccess = copyText(this.survey.data.link);
+      const isCopySuccess = copyText(this.surveyLink);
 
       isCopySuccess && this.$notify.toast("Link has been copied to clipboard");
     }

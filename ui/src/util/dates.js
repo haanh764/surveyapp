@@ -27,6 +27,6 @@ export const getDurationFromTodayToGivenDate = function (
     minutes: duration.asMinutes(),
     hours: duration.asHours(),
     days: duration.asDays(),
-    months: duration.asMonths(),
+    months: duration.asMonths()
   };
 };

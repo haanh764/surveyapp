@@ -48,45 +48,45 @@ export default {
   props: {
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     description: {
       type: String,
-      default: "",
+      default: ""
     },
     image: {
       type: String,
-      default: null,
+      default: null
     },
     maxImageWidth: {
       type: Number,
-      default: 419,
+      default: 419
     },
     maxImageHeight: {
       type: Number,
-      default: 305,
+      default: 305
     },
     showPrimaryButton: {
       type: Boolean,
-      default: true,
+      default: true
     },
     primaryButtonText: {
       type: String,
-      default: "Back to home",
+      default: "Back to home"
     },
     onPrimaryButtonClickCallback: {
       type: Function,
       default() {
         return router.push("/");
-      },
-    },
+      }
+    }
   },
   methods: {
     onPrimaryButtonClick() {
       this.$emit("click:primary");
       this.onPrimaryButtonClickCallback.call();
-    },
-  },
+    }
+  }
 };
 </script>
 

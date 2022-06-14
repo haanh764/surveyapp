@@ -38,7 +38,9 @@
                 <v-icon
                   small
                   class="mr-1"
-                >mdi-calendar</v-icon>
+                >
+                  mdi-calendar
+                </v-icon>
                 {{ survey.config.startDate | standardDate }} - {{ survey.config.endDate | standardDate }}
               </p>
             </v-col>
@@ -62,7 +64,9 @@
                   <v-icon
                     class="pr-2"
                     small
-                  >mdi-content-copy</v-icon>
+                  >
+                    mdi-content-copy
+                  </v-icon>
                   Copy link
                 </v-btn>
               </template>
@@ -79,7 +83,9 @@
                   <v-icon
                     class="pr-2"
                     small
-                  >mdi-account-outline</v-icon>
+                  >
+                    mdi-account-outline
+                  </v-icon>
                   View participants
                 </v-btn>
               </template>
@@ -94,28 +100,32 @@
                 small
                 outlined
                 rounded
-                @click="onClickSetSurveyPrivacyButton"
                 class="mr-2 text-secondary text-none"
+                @click="onClickSetSurveyPrivacyButton"
               >
                 <v-icon
                   small
                   class="mr-2"
-                >mdi-lock</v-icon>
+                >
+                  mdi-lock
+                </v-icon>
                 Set survey privacy
               </v-btn>
               <v-btn
+                v-else
                 text
                 small
                 outlined
                 rounded
                 class="mr-2 text-secondary text-none"
-                v-else
                 @click="onClickEditSurveyButton"
               >
                 <v-icon
                   small
                   class="pr-2"
-                >mdi-pencil</v-icon>
+                >
+                  mdi-pencil
+                </v-icon>
                 Edit survey
               </v-btn>
               <v-btn
@@ -128,7 +138,9 @@
                   small
                   class="pr-2"
                   rounded
-                >mdi-delete</v-icon>
+                >
+                  mdi-delete
+                </v-icon>
                 <u>Delete survey</u>
               </v-btn>
             </v-col>
@@ -141,7 +153,9 @@
                 <v-icon
                   small
                   class="mr-1"
-                >mdi-calendar</v-icon>
+                >
+                  mdi-calendar
+                </v-icon>
                 {{ survey.config.startDate | standardDate }} - {{ survey.config.endDate | standardDate }}
               </p>
             </v-col>
@@ -165,7 +179,9 @@
                   <v-icon
                     class="pr-2"
                     small
-                  >mdi-content-copy</v-icon>
+                  >
+                    mdi-content-copy
+                  </v-icon>
                   Copy link
                 </v-btn>
               </template>
@@ -183,7 +199,9 @@
                   <v-icon
                     class="pr-2"
                     small
-                  >mdi-account-outline</v-icon>
+                  >
+                    mdi-account-outline
+                  </v-icon>
                   View participants
                 </v-btn>
               </template>
@@ -208,22 +226,26 @@
                 class="text-secondary text-none mr-2"
                 @click="onClickSetSurveyPrivacyButton"
               >
-                <v-icon small>mdi-share</v-icon>
+                <v-icon small>
+                  mdi-share
+                </v-icon>
                 Set survey privacy
               </v-btn>
               <v-btn
+                v-else
                 text
                 small
                 outlined
                 rounded
                 class="mr-2 text-secondary text-none"
-                v-else
                 @click="onClickEditSurveyButton"
               >
                 <v-icon
                   small
                   class="pr-2"
-                >mdi-pencil</v-icon>
+                >
+                  mdi-pencil
+                </v-icon>
                 Edit survey
               </v-btn>
               <v-btn
@@ -236,7 +258,9 @@
                   small
                   class="pr-2"
                   rounded
-                >mdi-delete</v-icon>
+                >
+                  mdi-delete
+                </v-icon>
                 <u>Delete survey</u>
               </v-btn>
             </v-col>
@@ -285,7 +309,6 @@
             </template>
           </v-list-item-group>
         </v-list>
-
       </v-card>
     </modal>
 
@@ -297,8 +320,8 @@
     >
       <div class="pa-5">
         <survey-settings
-          :can-set-date="false"
           v-model="formData.config"
+          :can-set-date="false"
         />
       </div>
     </modal>
@@ -313,8 +336,8 @@
       <template #content>
         <div class="pa-5">
           <survey-settings
-            :can-set-date="false"
             v-model="formData.config"
+            :can-set-date="false"
           />
         </div>
       </template>
@@ -339,7 +362,7 @@ import SurveySettings from "@/views/user/survey-edit/components/SurveySettings";
 import {
   isTodayBeforeGivenDate,
   convertToStandardDate,
-  getDurationFromTodayToGivenDate,
+  getDurationFromTodayToGivenDate
 } from "@/util/dates";
 import copyText from "@util/copy";
 
@@ -347,7 +370,7 @@ export default {
   name: "DetailQuestions",
   components: {
     GenerateForm,
-    SurveySettings,
+    SurveySettings
   },
   data() {
     return {
@@ -355,20 +378,18 @@ export default {
       isSurveySettingsModalShown: false,
       isViewParticipantsModalShown: false,
       isSurveySettingsBottomSheetShown: false,
+      baseUrl: window.location.origin,
       formData: {
-        config: {},
+        config: {}
       },
       survey: {
         data: {
           link: "",
-          isPublished: false,
+          isPublished: false
         },
-        config: {},
-      },
+        config: {}
+      }
     };
-  },
-  created() {
-    this.survey = { ...this.survey, ...surveyDataSample };
   },
   computed: {
     isStartDateBeforeToday() {
@@ -387,6 +408,12 @@ export default {
     surveyId() {
       return this.$route.params.id;
     },
+    surveyLink() {
+      return `${this.baseUrl}/survey/${this.surveyId}`;
+    }
+  },
+  created() {
+    this.survey = { ...this.survey, ...surveyDataSample };
   },
   methods: {
     onSubmitSurveySettings() {
@@ -415,7 +442,7 @@ export default {
       this.$router.push("/user/surveys");
     },
     onClickCopyLinkButton() {
-      const isSuccess = copyText(this.survey.data.link);
+      const isSuccess = copyText(this.surveyLink);
 
       isSuccess &&
         this.$notify.toast("Link has been succesfully copied to clipboard");
@@ -425,8 +452,8 @@ export default {
     },
     onClickEditSurveyButton() {
       this.$router.push(`/user/surveys/${this.surveyId}/edit`);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

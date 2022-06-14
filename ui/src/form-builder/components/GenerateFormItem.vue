@@ -132,34 +132,34 @@ export default {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     models: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     rules: {
       type: Object,
       default() {
         return {};
-      },
+      }
     },
     disabled: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      dataModel: this.models[this.widget.model],
+      dataModel: this.models[this.widget.model]
     };
   },
   computed: {
     isWidgetQuestionShown() {
       return this.widget.type != "text";
-    },
+    }
   },
   watch: {
     dataModel: {
@@ -168,17 +168,17 @@ export default {
         this.models[this.widget.model] = val;
         this.$emit("update:models", {
           ...this.models,
-          [this.widget.model]: val,
+          [this.widget.model]: val
         });
-      },
+      }
     },
     models: {
       deep: true,
       handler(val) {
         this.dataModel = val[this.widget.model];
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

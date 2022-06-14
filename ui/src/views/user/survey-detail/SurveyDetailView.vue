@@ -52,15 +52,15 @@ export default {
       items: [
         {
           title: "Survey",
-          component: DetailQuestions,
+          component: DetailQuestions
         },
         {
           title: "Responses",
-          component: DetailResponses,
+          component: DetailResponses
         },
-        { title: "Summary", component: DetailSummary },
-      ],
+        { title: "Summary", component: DetailSummary }
+      ]
     };
-  },
+  }
 };
 </script>

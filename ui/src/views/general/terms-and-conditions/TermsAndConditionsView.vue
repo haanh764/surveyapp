@@ -11,7 +11,8 @@
       >
         <v-card
           :elevation="isMobile? 0 : 2"
-          class="pa-5"
+          class=""
+          :class="{'pa-5': !isMobile}"
         >
           <v-card-title>Terms and Conditions</v-card-title>
           <v-card-text>
@@ -19,7 +20,8 @@
               Please read this software's terms and conditions carefully before using the software.
             </p>
             <v-divider class="mt-5" />
-            <p class="text-secondary mt-5 mb-5">{{ loremIpsum.long }}
+            <p class="text-secondary mt-5 mb-5">
+              {{ loremIpsum.long }}
             </p>
             <v-divider class="mb-5" />
             <p>
@@ -38,8 +40,8 @@ export default {
   name: "TermsAndConditionsView",
   data() {
     return {
-      loremIpsum,
+      loremIpsum
     };
-  },
+  }
 };
 </script>

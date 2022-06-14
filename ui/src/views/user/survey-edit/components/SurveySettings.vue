@@ -5,8 +5,8 @@
     class="survey-settings"
   >
     <v-row
-      justify="start"
       v-if="canSetDate"
+      justify="start"
     >
       <v-col
         cols="12"
@@ -144,8 +144,8 @@
           class="survey-link mt-5"
           @click="copyLinkToClipboard"
         >
-          <a :href="survey.data.link">
-            {{ survey.data.link || 'An error occured' }}
+          <a :href="surveyLink">
+            {{ surveyLink || 'An error occured' }}
           </a>
           <v-icon>mdi-content-copy</v-icon>
         </div>
@@ -302,24 +302,22 @@ export default {
   props: {
     canSetDate: {
       type: Boolean,
-      default: true,
+      default: true
     },
     survey: {
       type: Object,
       default() {
         return {
-          data: {
-            link: "http://www.google.com",
-          },
+          data: {}
         };
-      },
+      }
     },
     value: {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   data() {
     return {
@@ -327,23 +325,32 @@ export default {
       isEndDateMenuShown: false,
       // eslint-disable-next-line no-undef
       todayDate: moment().format("YYYY-MM-DD"),
+      baseUrl: window.location.origin,
       newEmail: "",
       formData: {
         startDate: "",
         endDate: "",
         isPublic: true,
         emails: [],
-        isSurveySentAutomatically: false,
-      },
+        isSurveySentAutomatically: false
+      }
     };
+  },
+  computed: {
+    surveyId() {
+      return this.$route.params.id;
+    },
+    surveyLink() {
+      return `${this.baseUrl}/survey/${this.surveyId}`;
+    }
   },
   watch: {
     formData: {
       deep: true,
       handler() {
         this.$emit("input", this.formData);
-      },
-    },
+      }
+    }
   },
   created() {
     // load survey data from props
@@ -364,7 +371,7 @@ export default {
       EventBus.$on("event:getFormBuilderData", () => {
         EventBus.$emit("event:setFormBuilderData", {
           data: this.formData,
-          key: "config",
+          key: "config"
         });
       });
     },
@@ -373,7 +380,7 @@ export default {
       this.$notify.toast("Invitations have been sent");
     },
     copyLinkToClipboard() {
-      let isCopySuccessful = copyText(this.survey.data.link);
+      let isCopySuccessful = copyText(this.surveyLink);
       if (isCopySuccessful) {
         this.$notify.toast("Link has been copied to clipboard");
       }
@@ -387,8 +394,8 @@ export default {
     },
     getData() {
       return this.formData;
-    },
-  },
+    }
+  }
 };
 </script>
 

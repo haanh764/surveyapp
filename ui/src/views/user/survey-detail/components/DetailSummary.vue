@@ -20,16 +20,16 @@ export default {
   name: "DetailSummary",
   data() {
     return {
-      summaryUrl: "http://localhost:8080/",
+      summaryUrl: "http://localhost:8080/"
     };
-  },
-  created() {
-    this.getSurveySummary();
   },
   computed: {
     surveyId() {
       return this.$route.params.id;
-    },
+    }
+  },
+  created() {
+    this.getSurveySummary();
   },
   methods: {
     onLoadSummaryPage() {
@@ -39,8 +39,8 @@ export default {
       // get survey summary by id
       // assign to summaryUrl
       // load
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">
