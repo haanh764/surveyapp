@@ -108,8 +108,8 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   },
   methods: {
@@ -120,15 +120,16 @@ export default {
       // save to vuex
       const userData = {
         accountType: 0,
-        email: "user@email.com"
+        email: "user@email.com",
       };
+      // this.$cookies.set("access_token_cookie", "test");  // can be set if needed, token is already set in vuex tho
       this.$store.dispatch("user/setToken", "test");
       this.$store.dispatch("user/setUserData", userData);
       this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
 
       this.$router.push({ name: "user-surveys" });
-    }
-  }
+    },
+  },
 };
 </script>
 

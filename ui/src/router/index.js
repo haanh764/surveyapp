@@ -212,7 +212,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch("user/setUserData", {});
       store.dispatch("user/setToken", "");
       store.dispatch("user/setItems", []);
-      Cookies.remove("user");
+      Cookies.remove("access_token_cookie");
 
       return next({ name: "general-landing" });
     } else if (shouldBePrevented(to.name)) {
