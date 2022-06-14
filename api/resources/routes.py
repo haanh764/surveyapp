@@ -29,5 +29,5 @@ def initialize_routes(api):
     api.add_resource(AdminListUsers, '/api/admin/listusers')
 
     api.add_resource(AddSurvey, '/api/survey/add')
-    api.add_resource(GetSurvey, '/api/survey/get/<string:survey_id>')
+    api.add_resource(GetSurvey, '/api/survey/<string:survey_id>')
     

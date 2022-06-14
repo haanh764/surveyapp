@@ -1,9 +1,15 @@
 from flask import jsonify, request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_login import current_user
 
 from models.survey import Survey
+from models.user import User
 from models.question import Question, ScaleQuestion, OpenAnswerQuestion, MultipleChoiceQuestion, AnswerOption
+
+
+def is_allowed(user):
+    return user.isActivated and not user.isBlocked
 
 
 class AddSurvey(Resource):
@@ -11,10 +17,23 @@ class AddSurvey(Resource):
     def post(self):
         data = request.get_json()
         current_user_id = get_jwt_identity()
+        if not is_allowed(User.find_by_id(current_user_id)):
+            return {'message': 'User is not allowed to perform this action.'}, 400
         try:
             config = data['config']
             data = data['data']
-            survey = Survey(current_user_id, data['title'], data['description'], config['startDate'], config['endDate'])
+            exists = False
+            if 'id' in data:
+                survey = Survey.get_survey(data['id'])
+                if not survey.surveyOwner == current_user_id:
+                    return {'message': 'User is not the owner of this survey.'}, 400
+                exists = True
+            else:
+                survey = Survey(current_user_id, data['title'], data['description'], config['startDate'], config['endDate'])
+            if exists:
+                survey.modify(data['title'], data['description'], config['startDate'], config['endDate'])
+                for question in survey.questions:
+                    question.delete_question()
             survey.add_survey()
             questions = data['formBuilder']['list']
             for i, question in enumerate(questions):
@@ -48,7 +67,10 @@ class AddSurvey(Resource):
                         open_answer_question.add_question()
         except KeyError:
             return {'message': 'Invalid data in post request.'}, 400
+        if exists:
+            return {'message': 'The survey {} has been modified.'.format(survey.title)}, 200
         return {'message': 'The survey {} has been created.'.format(survey.title)}, 200
+
 
 class ListSurveysByUser(Resource):
     @jwt_required()
@@ -57,12 +79,23 @@ class ListSurveysByUser(Resource):
         surveys = Survey.list_surveys_by_user(current_user_id)
         return jsonify([survey.serialize() for survey in surveys])
 
+
 class GetSurvey(Resource):
-    @jwt_required()
+    @jwt_required(optional=True)
     def get(self, survey_id):
-        current_user_id = get_jwt_identity()
+        allow = True
         survey = Survey.get_survey(survey_id)
-        if survey.surveyOwner == current_user_id:
-            return jsonify(survey.serialize())
-        else:
+        if not survey:
+            return {'message': 'Such survey does not exist.'}, 403
+        try:
+            current_user_id = get_jwt_identity()
+            if current_user_id is not None:
+                if not is_allowed(User.find_by_id(current_user_id)):
+                    return {'message': 'You are not allowed to access the website.'}, 403
+                if survey.surveyOwner == current_user_id:
+                    allow = True
+        except Exception as e:
+            allow = False
+        if not allow:
             return {'message': 'You are not allowed to access this survey.'}, 403
+        return jsonify(survey.get_json())

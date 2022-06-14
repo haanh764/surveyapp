@@ -39,15 +39,19 @@ class Question(Base):
             'surveyId': self.surveyId,
             'title': self.title,
             'description': self.description,
-            'orderNumber': self.order_number,
+            'order': self.order_number,
             'tag': self.tag,
             'image': self.image,
-            'model_key': self.model_key,
+            'key': self.model_key,
             'model': self.model
         }
 
     def add_question(self):
         session.add(self)
+        session.commit()
+
+    def delete_question(self):
+        session.delete(self)
         session.commit()
 
 
@@ -68,8 +72,8 @@ class ScaleQuestion(Base):
         return {
             'id': self.id,
             'questionId': self.questionId,
-            'min_value': self.min_value,
-            'max_value': self.max_value
+            'min': self.min_value,
+            'max': self.max_value
         }
 
     def add_question(self):

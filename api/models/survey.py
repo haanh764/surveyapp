@@ -24,7 +24,7 @@ class Survey(Base):
         self.surveyOwner = surveyOwner
         self.title = title
         self.description = description
-        if not startDate:
+        if startDate:
             self.startDate = datetime.datetime.now(datetime.timezone.utc)
         else:
             self.startDate = startDate
@@ -32,6 +32,15 @@ class Survey(Base):
             self.endDate = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=7)
         else:
             self.endDate = endDate
+
+    def modify(self, title, description, startDate, endDate):
+        self.title = title
+        self.description = description
+        if startDate:
+            self.startDate = startDate
+        if endDate:
+            self.endDate = endDate
+        self.modificationDate = datetime.datetime.now(datetime.timezone.utc)
 
     def serialize(self):
         return {
@@ -54,3 +63,57 @@ class Survey(Base):
 
     def get_survey(survey_id):
         return session.query(Survey).filter_by(id=survey_id).first()
+
+    def get_json(self):
+        survey_json = dict()
+        survey_dict = self.serialize()
+        survey_json['config'] = dict()
+        survey_json['data'] = dict()
+        survey_json['config']['startDate'] = survey_dict['startDate']
+        survey_json['config']['id'] = survey_dict['id']
+        survey_json['config']['endDate'] = survey_dict['endDate']
+        #survey_json['config']['isPublic'] = survey_dict['isPublic']
+        survey_json['data']['title'] = survey_dict['title']
+        survey_json['data']['description'] = survey_dict['description']
+        form_builder = dict()
+        models = dict()
+        questions = list()
+        for question in sorted(self.questions, key=lambda x: x.order_number):
+            question_data = question.serialize()
+            models[question.model] = None
+            scale_question = question.scale_question
+            open_answer_question = question.open_answer_question
+            multiple_choice_question = question.multiple_choice_question
+            options = dict()
+            if scale_question:
+                scale_question = scale_question[0]
+                question_data['type'] = 'slider'
+                options['step'] = 1
+                options['defaultValue'] = scale_question.min_value
+                pass
+            elif open_answer_question:
+                options['defaultValue'] = None
+                options['placeholder'] = None
+                question_data['type'] = 'text'
+                pass
+            elif multiple_choice_question:
+                multiple_choice_question = multiple_choice_question[0]
+                if multiple_choice_question.allowMultipleAnswers:
+                    question_data['type'] = 'checkbox'
+                    models[question.model] = list()
+                else:
+                    question_data['type'] = 'radio'
+                options = list()
+                for answer_option in multiple_choice_question.answer_options:
+                    options.append(answer_option.serialize())
+            else:
+                options['defaultValue'] = None
+                options['tag'] = question.tag
+                options['type'] = 'text'
+                question_data['type'] = 'text'
+            question_data['options'] = options
+            questions.append(question_data)
+        form_builder['list'] = questions
+        form_builder['models'] = models
+        survey_json['data']['formBuilder'] = form_builder
+        return survey_json
