@@ -120,9 +120,7 @@ export default {
       // save to vuex
       const userData = {
         accountType: 0,
-        email: "user@email.com",
-        hasAcceptedPrivacyPolicy: false,
-        hasAcceptedTnC: false
+        email: "user@email.com"
       };
       this.$store.dispatch("user/setToken", "test");
       this.$store.dispatch("user/setUserData", userData);

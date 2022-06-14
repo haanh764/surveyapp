@@ -1,14 +1,14 @@
 <template>
   <v-bottom-sheet
     v-model="show"
-    persistent
+    :persistent="persistent"
     :attach="fullscreen"
     :fullscreen="fullscreen"
     class="bottom-sheet s-bottom-sheet"
   >
     <v-sheet
       class="text-center s-bottom-sheet__content"
-      :height="windowHeight-distance"
+      :height="height || windowHeight-distance"
     >
       <v-container>
         <v-row
@@ -56,9 +56,17 @@ export default {
       type: String,
       default: ""
     },
+    height: {
+      type: Number,
+      default: 0
+    },
     distance: {
       type: Number,
       default: 100
+    },
+    persistent: {
+      type: Boolean,
+      default: false
     },
     fullscreen: {
       type: Boolean,
@@ -84,6 +92,16 @@ export default {
 };
 </script>
 <style lang="scss">
+// bottom-sheet
+.v-bottom-sheet {
+  &:not(.v-dialog--fullscreen) {
+    .v-sheet {
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+    }
+  }
+}
+
 .s-bottom-sheet {
   &__content {
     height: 100vh !important;
