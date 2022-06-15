@@ -132,20 +132,20 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: "",
+        password: ""
       },
       isDeleteItemModalShown: false,
-      isSucessSnackbarShown: false,
+      isSucessSnackbarShown: false
     };
   },
   computed: {
-    ...mapGetters("user", ["userData"]),
+    ...mapGetters("user", [ "userData" ]),
     userEmail() {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
       return this.formData.password.length >= 8;
-    },
+    }
   },
   methods: {
     onFormSubmit() {
@@ -166,8 +166,8 @@ export default {
       this.$router
         .push({ name: "general-user-delete-thankyou" })
         .catch(() => {});
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -63,8 +63,8 @@ export const userLogin = (data) => {
 
 export const userNotActivated = () => {
   return axios.get(USER_NOT_ACTIVATED_URL);
-}
+};
 
 export const userResendActivation = () => {
   return axios.post(USER_RESEND_ACTIVATION_URL);
-}
+};
