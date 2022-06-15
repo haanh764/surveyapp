@@ -1,9 +1,10 @@
 import config from "./config.js";
 import { EventBus } from "@util/event-bus";
+import Cookies from "js-cookie";
 
 const axios = require("axios");
-
 const { timeout, baseURL } = config;
+
 axios.defaults.baseURL = baseURL;
 axios.defaults.timeout = timeout;
 axios.defaults.headers.common["Accept"] = "application/json";
@@ -12,6 +13,10 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 // handle default
 axios.interceptors.request.use(
   (config) => {
+    const userToken = Cookies.get("access_token_cookie");
+    if (userToken) {
+      config.headers.Authorization = `Bearer ${userToken}`;
+    }
     return config;
   },
   (error) => {
@@ -35,8 +40,10 @@ axios.interceptors.response.use(
 
 const GET_SURVEYS_URL = "user/surveys";
 const ADD_SURVEY_URL = "user/surveys";
-const USER_LOGIN_URL = "authentication/login";
 const USER_SIGNUP_URL = "authentication/signup";
+const USER_LOGIN_URL = "authentication/login";
+const USER_NOT_ACTIVATED_URL = "authentication/notactivated";
+const USER_RESEND_ACTIVATION_URL = "authentication/resend";
 
 export const getSurveys = () => {
   return axios.get(GET_SURVEYS_URL);
@@ -51,5 +58,13 @@ export const userSignup = (data) => {
 };
 
 export const userLogin = (data) => {
-  return axios.post(USER_LOGIN_URL, data, config);
+  return axios.post(USER_LOGIN_URL, data);
 };
+
+export const userNotActivated = () => {
+  return axios.get(USER_NOT_ACTIVATED_URL);
+}
+
+export const userResendActivation = () => {
+  return axios.post(USER_RESEND_ACTIVATION_URL);
+}

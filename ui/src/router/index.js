@@ -41,6 +41,14 @@ const userRoutes = [
         import(
           /* webpackChunkName: "user-settings" */ "@views/user/settings/SettingsView.vue"
         )
+    },
+    {
+      path: "/user/confirm",
+      name: "user-confirm",
+      component: () =>
+        import(
+          /* webpackChunkName: "user-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue"
+        )
     }
   ])
 ];
@@ -107,15 +115,6 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue"
-        )
-    },
-    {
-      path: "/user/login/confirm",
-      meta: { isAccessableAfterLogin: false },
-      name: "general-user-login-confirm",
-      component: () =>
-        import(
-          /* webpackChunkName: "general-user-login-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue"
         )
     },
     {
@@ -193,6 +192,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const hasLoggedIn = store.getters["user/hasLoggedIn"];
   const accountType = store.getters["user/accountType"];
+  const hasBeenActivated = store.getters["user/hasBeenActivated"];
 
   const userMainPage = { name: "user-surveys" };
   const adminMainPage = { name: "admin-users" };
@@ -215,6 +215,8 @@ router.beforeEach((to, from, next) => {
       Cookies.remove("access_token_cookie");
 
       return next({ name: "general-landing" });
+    } else if (from.name == "user-confirm" && !hasBeenActivated) {
+      return next({ name: "user-confirm" });
     } else if (shouldBePrevented(to.name)) {
       if (accountType == 0) {
         return next(userMainPage);

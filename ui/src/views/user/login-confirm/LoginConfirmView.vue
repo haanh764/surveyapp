@@ -12,7 +12,20 @@
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
           :max-image-height="isMobile ? 145: 305"
           :max-image-width="isMobile? 200: 400"
-        />
+          :showPrimaryButton="false"
+        >
+          <template #actions>
+            <div class="mt-5 text-secondary">
+              Haven't received your activation email?
+              <v-btn
+                text
+                class="text-none pa-0 text-secondary "
+              >
+                <u class="d-inline-block ">Click here</u>
+              </v-btn>
+            </div>
+          </template>
+        </content-card>
       </v-col>
     </v-row>
   </v-container>
