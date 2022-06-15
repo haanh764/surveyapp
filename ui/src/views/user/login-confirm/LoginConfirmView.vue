@@ -8,7 +8,7 @@
       <v-col :cols="isMobile? 12 : 10">
         <content-card
           title="Your account hasn't been activated"
-          description="Please confirm your registration before using our services."
+          description="Please confirm your registration before using our services. After clicking the activation link, please logout and then re-login."
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
           :max-image-height="isMobile ? 145: 305"
           :max-image-width="isMobile? 200: 400"
@@ -20,6 +20,7 @@
               <v-btn
                 text
                 class="text-none pa-0 text-secondary "
+                @click="onClickResendActivation"
               >
                 <u class="d-inline-block ">Click here</u>
               </v-btn>
@@ -32,7 +33,18 @@
 </template>
 
 <script>
-export default { name: "LoginConfirmView" };
+import { userResendActivation } from "@api";
+
+export default {
+  name: "LoginConfirmView",
+  methods: {
+    onClickResendActivation() {
+      userResendActivation().then((response) => {
+        this.$notify.toast(response["message"]);
+      });
+    }
+  }
+};
 </script>
 
 <style lang="scss">
