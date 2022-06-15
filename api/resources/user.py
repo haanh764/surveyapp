@@ -21,3 +21,14 @@ class DeleteUser(Resource):
         current_user = User.find_by_id(current_user_id)
         current_user.delete_user()
         return {'message': 'Your account has been successfully deleted'}, 200
+
+class isBlocked(Resource):
+    @jwt_required()
+    def get(self):
+        current_user_id = get_jwt_identity()
+        current_user = User.find_by_id(current_user_id)
+        if current_user.isBlocked:
+            return {'message': 'User {} is blocked'.format(current_user.email)}, 201
+        else:
+            return {'message': 'User {} is not blocked'.format(current_user.email)}, 200
+            
