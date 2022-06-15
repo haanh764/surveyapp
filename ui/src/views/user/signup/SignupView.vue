@@ -114,21 +114,15 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      userSignup(this.formData)
-        .then((response) => {
-          if (response["message"].includes(" already exists.")) {
-            this.$notify.toast(response["message"]);
-          }
-          else {
-            this.$router
-              .push({ name: "general-user-signup-thankyou" })
-              .catch(() => {});
-          }
-        })
-        .catch((error) => {
-          this.$notify.toast("Something went wrong. Please try again later.");
-          console.log(error);
-        });
+      userSignup(this.formData).then((response) => {
+        if (response["message"].includes(" already exists.")) {
+          this.$notify.toast(response["message"]);
+        } else {
+          this.$router
+            .push({ name: "general-user-signup-thankyou" })
+            .catch(() => {});
+        }
+      });
     }
   }
 };

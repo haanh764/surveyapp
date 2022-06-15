@@ -1,35 +1,59 @@
 <template>
-  <v-footer
-    id="default-footer"
-    class="default-footer"
-    :color="style.color.primary"
-  >
-    <div class="default-footer__copyright">
-      <v-img
-        :src="logo"
-        max-height="48"
-        max-width="48"
-      />
-      <span class="copyright">
-        (c) {{ new Date().getFullYear() }} SurveyApp Team
-      </span>
-    </div>
-    <links class="default-footer__links" />
-  </v-footer>
+  <div>
+    <cookies-confirmation
+      v-model="isCookiesBottomSheetShown"
+      @accept="hasAcceptedCookies = true"
+    />
+    <v-footer
+      id="default-footer"
+      class="default-footer"
+      :color="style.color.primary"
+    >
+      <div class="default-footer__copyright">
+        <v-img
+          :src="logo"
+          max-height="48"
+          max-width="48"
+        />
+        <span class="copyright">
+          (c) {{ new Date().getFullYear() }} SurveyApp Team
+        </span>
+      </div>
+      <links class="default-footer__links" />
+    </v-footer>
+  </div>
 </template>
 
 <script>
-// Components
 import Links from "@/components/Links";
+import CookiesConfirmation from "./CookiesConfirmation.vue";
 
 export default {
   name: "DefaultFooter",
-  components: { Links },
+  components: { Links, CookiesConfirmation },
+  data() {
+    return {
+      isCookiesBottomSheetShown: false,
+    };
+  },
   computed: {
     logo() {
       return require("@assets/svg/logo.svg");
+    },
+    hasAcceptedCookies: {
+      get() {
+        return this.$store.getters["user/hasAcceptedCookies"];
+      },
+      set(val) {
+        this.$store.dispatch("user/setHasAcceptedCookies", val);
+      },
+    },
+  },
+  mounted() {
+    if (!this.hasAcceptedCookies) {
+      this.isCookiesBottomSheetShown = true;
     }
-  }
+  },
 };
 </script>
 

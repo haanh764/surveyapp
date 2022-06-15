@@ -44,14 +44,12 @@ const generalMenuItems = [
 const state = {
   userData: {
     accountType: null,
-    email: null,
-    hasAcceptedPrivacyPolicy: false,
-    hasAcceptedTnC: false
+    email: null
   },
   token: null,
-  drawer: {
-    mini: false
-  },
+  hasAcceptedCookies: false,
+  hasAcceptedPrivacyPolicy: false,
+  hasAcceptedTnC: false,
   items: generalMenuItems
 };
 
@@ -59,12 +57,6 @@ const mutations = {
   ...make.mutations(state),
   setUserData(state, data) {
     state.userData = { ...state.userData, ...data };
-  },
-  setUserDataPrivacyPolicy(state, data) {
-    state.userData.hasAcceptedPrivacyPolicy = data;
-  },
-  setUserDataTnC(state, data) {
-    state.userData.hasAcceptedTnC = data;
   }
 };
 
@@ -88,18 +80,6 @@ const actions = {
     } else if (state.userData.accountType == 1) {
       dispatch("setItems", adminMenuItems.concat(generalMenuItems));
     }
-  },
-  setUserDataPrivacyPolicy: ({ state, dispatch }, data) => {
-    dispatch("setUserData", {
-      ...state.userData,
-      ...{ hasAcceptedPrivacyPolicy: data }
-    });
-  },
-  setUserDataTnC: ({ state, dispatch }, data) => {
-    dispatch("setUserData", {
-      ...state.userData,
-      ...{ hasAcceptedTnC: data }
-    });
   }
 };
 
@@ -108,10 +88,13 @@ const getters = {
     return !!state.token;
   },
   hasAcceptedPrivacyPolicy: (state) => {
-    return !!state.userData.hasAcceptedPrivacyPolicy;
+    return !!state.hasAcceptedPrivacyPolicy;
   },
   hasAcceptedTnC: (state) => {
-    return !!state.userData.hasAcceptedTnC;
+    return !!state.hasAcceptedTnC;
+  },
+  hasAcceptedCookies: (state) => {
+    return !!state.hasAcceptedCookies;
   },
   userData: (state) => {
     return state.userData || {};

@@ -1,14 +1,14 @@
 <template>
   <v-bottom-sheet
     v-model="show"
-    persistent
+    :persistent="persistent"
     :attach="fullscreen"
     :fullscreen="fullscreen"
     class="bottom-sheet s-bottom-sheet"
   >
     <v-sheet
       class="text-center s-bottom-sheet__content"
-      :height="windowHeight-distance"
+      :height="height || windowHeight-distance"
     >
       <v-container>
         <v-row
@@ -50,20 +50,28 @@ export default {
     value: Boolean,
     alignTitle: {
       type: String,
-      default: "left"
+      default: "left",
     },
     title: {
       type: String,
-      default: ""
+      default: "",
+    },
+    height: {
+      type: Number,
+      default: 0,
     },
     distance: {
       type: Number,
-      default: 100
+      default: 100,
+    },
+    persistent: {
+      type: Boolean,
+      default: true,
     },
     fullscreen: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     show: {
@@ -72,18 +80,28 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      }
-    }
+      },
+    },
   },
   methods: {
     onClickCloseButton() {
       this.show = !this.show;
       this.$emit("close");
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
+// bottom-sheet
+.v-bottom-sheet {
+  &:not(.v-dialog--fullscreen) {
+    .v-sheet {
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+    }
+  }
+}
+
 .s-bottom-sheet {
   &__content {
     height: 100vh !important;

@@ -388,9 +388,7 @@ export default {
     ...sync("app", [ "mini" ]),
     ...mapGetters("user", [ "hasAcceptedPrivacyPolicy", "hasAcceptedTnC" ]),
     hasAcceptedConditions() {
-      return (
-        this.userData.hasAcceptedPrivacyPolicy && this.userData.hasAcceptedTnC
-      );
+      return this.hasAcceptedPrivacyPolicy && this.hasAcceptedTnC;
     },
     filteredSurveys() {
       let surveys = this.keyword
@@ -477,7 +475,7 @@ export default {
       // call api to confirm privacy policy
       // set vuex
       this.$store.dispatch(
-        "user/setUserDataPrivacyPolicy",
+        "user/setHasAcceptedPrivacyPolicy",
         isPrivacyPolicyConfirmed
       );
       this.isPrivacyPolicyModalShown = false;
@@ -485,7 +483,7 @@ export default {
     onConfirmTnC(isTncConfirmed) {
       // call api to confirm privacy policy
       // set vuex
-      this.$store.dispatch("user/setUserDataTnC", isTncConfirmed);
+      this.$store.dispatch("user/setHasAcceptedTnC", isTncConfirmed);
       this.isTnCModalShown = false;
     },
     getSurveyApi() {
