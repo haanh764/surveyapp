@@ -12,7 +12,7 @@
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
           :max-image-height="isMobile ? 145: 305"
           :max-image-width="isMobile? 200: 400"
-          :showPrimaryButton="false"
+          :show-primary-button="false"
         >
           <template #actions>
             <div class="mt-5 text-secondary">
