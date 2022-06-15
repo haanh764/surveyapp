@@ -14,6 +14,8 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.interceptors.request.use(
   (config) => {
     const userToken = Cookies.get("access_token_cookie");
+    console.log("userToken in interceptors:");
+    console.log(userToken);
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;
     }
@@ -42,8 +44,11 @@ const GET_SURVEYS_URL = "user/surveys";
 const ADD_SURVEY_URL = "user/surveys";
 const USER_SIGNUP_URL = "authentication/signup";
 const USER_LOGIN_URL = "authentication/login";
+const USER_LOGOUT_URL = "authentication/logout";
 const USER_NOT_ACTIVATED_URL = "authentication/notactivated";
 const USER_RESEND_ACTIVATION_URL = "authentication/resend";
+const USER_CHANGE_PASSWORD_URL = "user/changepassword";
+const USER_DELETE_ACCOUNT_URL = "user/delete";
 
 export const getSurveys = () => {
   return axios.get(GET_SURVEYS_URL);
@@ -61,10 +66,22 @@ export const userLogin = (data) => {
   return axios.post(USER_LOGIN_URL, data);
 };
 
+export const userLogout = () => {
+  return axios.post(USER_LOGOUT_URL);
+};
+
 export const userNotActivated = () => {
   return axios.get(USER_NOT_ACTIVATED_URL);
 }
 
 export const userResendActivation = () => {
   return axios.post(USER_RESEND_ACTIVATION_URL);
+}
+
+export const userChangePassword = (data) => {
+  return axios.post(USER_CHANGE_PASSWORD_URL, data);
+}
+
+export const userDeleteAccount = () => {
+  return axios.delete(USER_DELETE_ACCOUNT_URL);
 }

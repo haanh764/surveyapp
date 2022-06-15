@@ -5,6 +5,7 @@ import { layout } from "@/util/routes";
 import PageNotFoundView from "@views/PageNotFoundView.vue";
 import store from "@store/index.js";
 import Cookies from "js-cookie";
+import { userLogout } from "@api";
 
 Vue.use(Router);
 
@@ -209,12 +210,34 @@ router.beforeEach((to, from, next) => {
 
   if (hasLoggedIn) {
     if (to.name == "general-logout") {
-      store.dispatch("user/setUserData", {});
-      store.dispatch("user/setToken", "");
-      store.dispatch("user/setItems", []);
-      Cookies.remove("access_token_cookie");
+      // note: then and catch blocks below are needed
+      // because userLogout is an API call and we must wait for
+      // either a response or an error
 
-      return next({ name: "general-landing" });
+      // unsetting data and cookies without then/catch
+      // after userLogout() will cause axios interceptor to
+      // fail to set Authorization header, because the unsetting
+      // is executed without waiting for userLogout() to finish
+
+      // first, perform logout in BE side to revoke token
+      userLogout()
+        .then(() => {
+          // then, unset data and cookies on client side
+          store.dispatch("user/setUserData", {});
+          store.dispatch("user/setToken", "");
+          store.dispatch("user/setItems", []);
+          Cookies.remove("access_token_cookie");
+          return next({ name: "general-landing" });
+        })
+        .catch(() => {
+          // if error, unset data and cookies on client side anyway
+          store.dispatch("user/setUserData", {});
+          store.dispatch("user/setToken", "");
+          store.dispatch("user/setItems", []);
+          Cookies.remove("access_token_cookie");
+          return next({ name: "general-landing" });
+        });
+
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });
     } else if (shouldBePrevented(to.name)) {
