@@ -100,6 +100,8 @@
 </template>
 
 <script>
+import { userLogin, userNotActivated } from "@api";
+
 export default {
   name: "LoginView",
   data() {
@@ -114,20 +116,27 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // get submission with this.formData
-      // submit form
-      // get auth key
-      // save to vuex
-      const userData = {
-        accountType: 0,
-        email: "user@email.com",
-      };
-      // this.$cookies.set("access_token_cookie", "test");  // can be set if needed, token is already set in vuex tho
-      this.$store.dispatch("user/setToken", "test");
-      this.$store.dispatch("user/setUserData", userData);
-      this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
+      userLogin(this.formData).then((response) => {
+        const authKey = response["message"].split("Access token is ")[1];
+        const userData = {
+          accountType: 0,
+          email: this.formData.email
+        };
+        this.$cookies.set("access_token_cookie", authKey);
+        this.$store.dispatch("user/setToken", authKey);
+        this.$store.dispatch("user/setUserData", userData);
+        this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
 
-      this.$router.push({ name: "user-surveys" });
+        userNotActivated().then((userActivationStatus) => {
+          if (userActivationStatus["message"].includes(" is not activated")) {
+            this.$store.dispatch("user/setHasBeenActivated", false);
+            this.$router.push({ name: "user-confirm" }).catch(() => {});
+          } else {
+            this.$store.dispatch("user/setHasBeenActivated", true);
+            this.$router.push({ name: "user-surveys" }).catch(() => {});
+          }
+        });
+      });
     },
   },
 };

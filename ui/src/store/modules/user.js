@@ -47,6 +47,7 @@ const state = {
     email: null
   },
   token: null,
+  hasBeenActivated: false,
   hasAcceptedCookies: false,
   hasAcceptedPrivacyPolicy: false,
   hasAcceptedTnC: false,
@@ -86,6 +87,9 @@ const actions = {
 const getters = {
   hasLoggedIn: (state) => {
     return !!state.token;
+  },
+  hasBeenActivated: (state) => {
+    return !!state.hasBeenActivated;
   },
   hasAcceptedPrivacyPolicy: (state) => {
     return !!state.hasAcceptedPrivacyPolicy;
