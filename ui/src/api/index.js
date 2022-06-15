@@ -14,8 +14,6 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.interceptors.request.use(
   (config) => {
     const userToken = Cookies.get("access_token_cookie");
-    console.log("userToken in interceptors:");
-    console.log(userToken);
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;
     }
