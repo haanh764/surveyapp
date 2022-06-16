@@ -403,7 +403,7 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
-import { getUsers } from "@api";
+import { adminListUsers } from "@api";
 
 export default {
   name: "AdminUsersView",
@@ -418,26 +418,15 @@ export default {
       isAccountUnblockModalShown: false,
       isResetPasswordModalShown: false,
       selectedUser: {},
-      users: [
+      users: []
+        /*
         {
           id: 1,
           email: "ayam@bebek.angsa",
           isActivated: true,
           isBlocked: false
-        },
-        {
-          id: 2,
-          email: "sadBoy123@pevuer.pl",
-          isActivated: false,
-          isBlocked: true
-        },
-        {
-          id: 3,
-          email: "lifeIsHard456@gmail.pl",
-          isActivated: true,
-          isBlocked: true
         }
-      ]
+        */
     };
   },
   computed: {
@@ -473,6 +462,7 @@ export default {
   created() {
     // get user api
     // add certain columns to user data
+    this.getUsersApi();
     this.processUserData();
   },
   mounted() {},
@@ -570,40 +560,23 @@ export default {
       }
       return item;
     },
-    getUserApi() {
-      // example of fetching api directly with fetch
-      fetch("http://localhost:8000")
-        .then((response) => response.json())
-        .then((data) => {
-          this.message = data.message;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      // example 1 with axios
-      this.$axios
-        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-        .then((response) => {
-          if (response.status == 200) {
-            // do something
-          } else {
-            // error
-            // do something
-          }
-        })
-        .catch((error) => {
-          // do something on error
-          console.error(error);
-        });
-
-      // example 2
-      // recommended because this way the api is centered in one place/file
-      // dont forget to handle errors
-      getUsers()
+    getUsersApi() {
+      adminListUsers()
         .then((response) => {
           console.log(response);
-          // do something with the response
+
+          this.users.length = 0;
+          const rawUsers = response["users"];
+          const rawUserIds = Object.keys(rawUsers);
+          rawUserIds.forEach(rawUserid => {
+            let rawUser = {
+              id: rawUserid,
+              email: rawUsers[rawUserid]["user_email"],
+              isActivated: rawUsers[rawUserid]["user_activated"],
+              isBlocked: rawUsers[rawUserid]["user_blocked"]
+            }
+            this.users.push(rawUser);
+          });
         })
         .catch((error) => {
           console.log(error);
