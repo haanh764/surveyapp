@@ -33,7 +33,7 @@ export default {
   components: { Links, CookiesConfirmation },
   data() {
     return {
-      isCookiesBottomSheetShown: false,
+      isCookiesBottomSheetShown: false
     };
   },
   computed: {
@@ -46,14 +46,14 @@ export default {
       },
       set(val) {
         this.$store.dispatch("user/setHasAcceptedCookies", val);
-      },
-    },
+      }
+    }
   },
   mounted() {
     if (!this.hasAcceptedCookies) {
       this.isCookiesBottomSheetShown = true;
     }
-  },
+  }
 };
 </script>
 

@@ -75,19 +75,19 @@ export const userLogout = () => {
 
 export const userNotActivated = () => {
   return axios.get(USER_NOT_ACTIVATED_URL);
-}
+};
 
 export const userResendActivation = () => {
   return axios.post(USER_RESEND_ACTIVATION_URL);
-}
+};
 
 export const userChangePassword = (data) => {
   return axios.post(USER_CHANGE_PASSWORD_URL, data);
-}
+};
 
 export const userDeleteAccount = () => {
   return axios.delete(USER_DELETE_ACCOUNT_URL);
-}
+};
 
 export const adminLogin = (data) => {
   return axios.post(ADMIN_LOGIN_URL, data);

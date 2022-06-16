@@ -136,11 +136,11 @@ export default {
         new_password: "",
       },
       isDeleteItemModalShown: false,
-      isSucessSnackbarShown: false,
+      isSucessSnackbarShown: false
     };
   },
   computed: {
-    ...mapGetters("user", ["userData"]),
+    ...mapGetters("user", [ "userData" ]),
     userEmail() {
       return this.userData.email;
     },
