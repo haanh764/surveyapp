@@ -60,7 +60,7 @@
                         rules="required|min:8"
                       >
                         <v-text-field
-                          v-model.trim="formData.password"
+                          v-model.trim="formData.new_password"
                           outlined
                           required
                           hint="Minimum 8 characters"
@@ -114,6 +114,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { adminChangePassword } from "@api";
 
 export default {
   name: "AdminSettingsView",
@@ -123,7 +124,7 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: ""
+        new_password: ""
       }
     };
   },
@@ -133,13 +134,15 @@ export default {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
-      return this.formData.password.length >= 8;
+      return this.formData.new_password.length >= 8;
     }
   },
   methods: {
     onFormSubmit() {
       // to do: post form data to back-end's update admin api
-      this.$notify.toast("New settings have been saved!");
+      adminChangePassword(this.formData).then((response) => {
+        this.$notify.toast(response["message"]);
+      });
     }
   }
 };

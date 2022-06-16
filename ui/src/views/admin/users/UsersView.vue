@@ -403,7 +403,10 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
-import { adminListUsers } from "@api";
+import {
+  adminListUsers, adminResetUserPassword, adminActivateUser,
+  adminBlockUser, adminUnblockUser, adminDeleteUser
+} from "@api";
 
 export default {
   name: "AdminUsersView",
@@ -460,19 +463,18 @@ export default {
     }
   },
   created() {
-    // get user api
-    // add certain columns to user data
     this.getUsersApi();
     this.processUserData();
   },
   mounted() {},
   methods: {
     onDeleteConfirmation() {
-      // call delete api
-      // delete
-      // refresh table
-      // hide modal
-      this.isDeleteItemModalShown = false;
+      const apiData = { email: this.selectedUser.email };
+      adminDeleteUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.isDeleteItemModalShown = false;
+        window.location.reload();
+      });
     },
     onClickItemDelete(item) {
       this.selectedUser = { ...item };
@@ -482,10 +484,6 @@ export default {
       this.isEditItemModalShown = false;
     },
     onClickItemEdit(item) {
-      //show modal with toggle for activation,
-      //toggle for blocking,
-      //button for sending reset password link
-      console.log(item);
       this.selectedUser = { ...item };
       this.isEditItemModalShown = true;
     },
@@ -493,7 +491,10 @@ export default {
       this.isAccountActivationModalShown = true;
     },
     onAccountActivationConfirmation() {
-      // to do: api call for update isActivated status
+      const apiData = { email: this.selectedUser.email };
+      adminActivateUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+      });
       this.isAccountActivationModalShown = false;
     },
     toggleSelectedUserIsBlocked() {
@@ -504,7 +505,10 @@ export default {
       }
     },
     onAccountBlockConfirmation() {
-      // to do: api call for update isBlocked=1 status
+      const apiData = { email: this.selectedUser.email };
+      adminBlockUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+      });
       this.isAccountBlockModalShown = false;
     },
     onAccountBlockCancelation() {
@@ -512,7 +516,10 @@ export default {
       this.isAccountBlockModalShown = false;
     },
     onAccountUnblockConfirmation() {
-      // to do: api call for update isBlocked=0 status
+      const apiData = { email: this.selectedUser.email };
+      adminUnblockUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+      });
       this.isAccountUnblockModalShown = false;
     },
     onAccountUnblockCancelation() {
@@ -523,7 +530,10 @@ export default {
       this.isResetPasswordModalShown = true;
     },
     onResetPasswordConfirmation() {
-      // to do: api call for resetting user password
+      const apiData = { email: this.selectedUser.email };
+      adminResetUserPassword(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+      });
       this.isResetPasswordModalShown = false;
     },
     processUserData() {
@@ -563,8 +573,6 @@ export default {
     getUsersApi() {
       adminListUsers()
         .then((response) => {
-          console.log(response);
-
           this.users.length = 0;
           const rawUsers = response["users"];
           const rawUserIds = Object.keys(rawUsers);
