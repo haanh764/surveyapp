@@ -84,7 +84,8 @@
                           height="53"
                           min-width="150"
                           class="mt-2 mb-5 v-btn--primary user-settings-form__submit-button"
-                          :disabled="!isPasswordLengthOkay"
+                          :loading="isLoading"
+                          :disabled="!isPasswordLengthOkay || isLoading"
                           @click="handleSubmit(onFormSubmit)"
                         >
                           SAVE SETTINGS
@@ -131,16 +132,17 @@ export default {
     return {
       isFormValid: false,
       isPasswordShown: false,
+      isLoading: false,
       formData: {
         email: "",
         new_password: "",
       },
       isDeleteItemModalShown: false,
-      isSucessSnackbarShown: false
+      isSucessSnackbarShown: false,
     };
   },
   computed: {
-    ...mapGetters("user", [ "userData" ]),
+    ...mapGetters("user", ["userData"]),
     userEmail() {
       return this.userData.email;
     },
@@ -150,9 +152,15 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      userChangePassword(this.formData).then((response) => {
-        this.$notify.toast(response["message"]);
-      });
+      this.isLoading = true;
+      userChangePassword({ new_password: this.formData.new_password })
+        .then((response) => {
+          this.$notify.toast(response["message"]);
+          this.isLoading = false;
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
     },
     unsetClientData() {
       this.isDeleteItemModalShown = false;

@@ -35,9 +35,9 @@ describe("The system must allow a user to login by entering an email and a passw
   });
 
   it("can log the user in when user entered correct email and password", function () {
+    cy.visit("/user/login/");
     cy.initPlugins();
     cy.acceptCookiePolicy();
-    cy.visit("/user/login/");
     cy.get(".login-form__email").type(user.email);
     cy.get(".login-form__password").type(user.password);
     cy.get(".login-form__submit-button").click();
