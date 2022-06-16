@@ -3,12 +3,11 @@ import { EventBus } from "@util/event-bus";
 import Cookies from "js-cookie";
 
 const axios = require("axios");
-const { timeout, baseURL } = config;
+const { timeout, baseURL, common } = config;
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.timeout = timeout;
-axios.defaults.headers.common["Accept"] = "application/json";
-axios.defaults.headers.common["Content-Type"] = "application/json";
+axios.defaults.headers.common = common;
 
 // handle default
 axios.interceptors.request.use(

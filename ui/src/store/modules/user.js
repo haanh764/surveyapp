@@ -100,6 +100,9 @@ const getters = {
   hasAcceptedCookies: (state) => {
     return !!state.hasAcceptedCookies;
   },
+  token: (state) => {
+    return state.token;
+  },
   userData: (state) => {
     return state.userData || {};
   },

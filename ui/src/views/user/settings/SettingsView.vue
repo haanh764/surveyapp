@@ -83,7 +83,7 @@
                           block
                           height="53"
                           min-width="150"
-                          class="mt-2 mb-5 v-btn--primary"
+                          class="mt-2 mb-5 v-btn--primary user-settings-form__submit-button"
                           :disabled="!isPasswordLengthOkay"
                           @click="handleSubmit(onFormSubmit)"
                         >
