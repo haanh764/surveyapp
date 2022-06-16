@@ -80,11 +80,9 @@ def create_dashboards(choices_answers, open_answers, scale_answers):
     num_numerical_data = data_type_df[data_type_df['Data_Type'] == int].shape[0]
     num_categorical_data = len(choice_questions)
     num_textual_data = num_questions - num_numerical_data - num_categorical_data
-
     graphs = []
 
     for idx, col in enumerate(df_all_answers.columns[2:]):
-        print(idx)
         if col in choice_questions:
             if df_all_answers[col].apply(lambda x: len(str(x).split(','))).value_counts().shape[0] >= 2:
                 fig = px.bar(df_all_answers[col].str.get_dummies(sep=', ').sum(), height=600, title=f'<b>Question {idx}. {col}</b>')

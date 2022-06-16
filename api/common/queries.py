@@ -9,7 +9,7 @@ query_multiple_choices = "SELECT responses.id, respondents.email, questions.titl
     JOIN surveys ON surveys.id = responses.surveyId \
     WHERE surveys.id = %s"
 
-query_open_answers = "SELECT respondents.id, respondents.email, questions.title, open_answers.answer_text \
+query_open_answers = "SELECT responses.id, respondents.email, questions.title, open_answers.answer_text \
     FROM responses JOIN surveys ON surveys.id = responses.surveyId \
 	JOIN respondents ON respondents.id = responses.respondentId \
     JOIN questions ON questions.surveyId = surveys.id \
@@ -18,7 +18,7 @@ query_open_answers = "SELECT respondents.id, respondents.email, questions.title,
     JOIN open_answers ON open_answers.open_answer_question_questionId = open_answer_questions.questionId and open_answers.answerId = answers.id \
     WHERE surveys.id = %s"
 
-query_scale_answers = "SELECT respondents.id, respondents.email, questions.title, scale_answers.value \
+query_scale_answers = "SELECT responses.id, respondents.email, questions.title, scale_answers.value \
     FROM responses JOIN surveys ON surveys.id = responses.surveyId \
 	JOIN respondents ON respondents.id = responses.respondentId \
     JOIN questions ON questions.surveyId = surveys.id \
