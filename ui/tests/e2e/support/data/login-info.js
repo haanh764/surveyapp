@@ -2,10 +2,10 @@
 export default {
   user: {
     email: "sapi@yopmail.com",
-    password: "asdfghjkl",
+    password: "asdfghjkl"
   },
   admin: {
     email: "surveyapp.manager@gmail.com",
-    password: "admin123",
-  },
+    password: "admin123"
+  }
 };

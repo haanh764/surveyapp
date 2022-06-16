@@ -135,20 +135,20 @@ export default {
       isLoading: false,
       formData: {
         email: "",
-        new_password: "",
+        new_password: ""
       },
       isDeleteItemModalShown: false,
-      isSucessSnackbarShown: false,
+      isSucessSnackbarShown: false
     };
   },
   computed: {
-    ...mapGetters("user", ["userData"]),
+    ...mapGetters("user", [ "userData" ]),
     userEmail() {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
       return this.formData.new_password.length >= 8;
-    },
+    }
   },
   methods: {
     onFormSubmit() {
@@ -186,8 +186,8 @@ export default {
             this.unsetClientData();
           });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

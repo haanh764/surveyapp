@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import store from "@store/";
 
 const axios = require("axios");
-const { timeout, baseURL, common } = config;
+const { timeout, baseURL } = config;
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.timeout = timeout;
@@ -22,7 +22,7 @@ axios.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log("API Request Error:", error);
+    console.log("API Request Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }
@@ -34,7 +34,7 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log("API Response Error:", error);
+    console.log("API Response Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }

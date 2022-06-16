@@ -7,9 +7,9 @@ const options = {
     alias: {
       "~": path.join(__dirname, "./"),
       "@": path.join(__dirname, "./src/"),
-      "~e2e": path.join(__dirname, "./tests/e2e/"),
-    },
-  },
+      "~e2e": path.join(__dirname, "./tests/e2e/")
+    }
+  }
 };
 
 module.exports = defineConfig({
@@ -17,7 +17,7 @@ module.exports = defineConfig({
   screenshotsFolder: "tests/e2e/screenshots",
   videosFolder: "tests/e2e/videos",
   env: {
-    VUE_APP_API_BASE_URL: "http://localhost:8000/api/",
+    VUE_APP_API_BASE_URL: "http://localhost:8000/api/"
   },
   e2e: {
     setupNodeEvents(on) {
@@ -25,6 +25,6 @@ module.exports = defineConfig({
     },
     baseUrl: "http://localhost:3000",
     specPattern: "tests/e2e/specs/**/*.cy.{js,jsx,ts,tsx}",
-    supportFile: "tests/e2e/support/index.js",
-  },
+    supportFile: "tests/e2e/support/index.js"
+  }
 });

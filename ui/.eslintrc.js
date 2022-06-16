@@ -36,6 +36,7 @@ module.exports = {
   globals: {
     _: "readonly",
     moment: "readonly",
+    NODE_ENV: "readonly",
     cy: "readonly",
     Cypress: "readonly"
   },

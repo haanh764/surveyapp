@@ -26,21 +26,21 @@ module.exports = defineConfig({
         "@router": path.resolve(__dirname, `${vueSrc}/router/`),
         "@util": path.resolve(__dirname, `${vueSrc}/util/`),
         "@styles": path.resolve(__dirname, `${vueSrc}/styles/`),
-        "@tests": path.resolve(__dirname, `${vueSrc}/tests/`),
+        "@tests": path.resolve(__dirname, `${vueSrc}/tests/`)
       },
-      extensions: [".js", ".vue", ".json", ".scss", ".sass"],
+      extensions: [ ".js", ".vue", ".json", ".scss", ".sass" ]
     },
     plugins: [
       new VuetifyLoaderPlugin(),
       new webpack.DefinePlugin({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        VUE_APP_API_BASE_URL: JSON.stringify(process.env.VUE_APP_API_BASE_URL),
+        VUE_APP_API_BASE_URL: JSON.stringify(process.env.VUE_APP_API_BASE_URL)
       }),
       new webpack.ProvidePlugin({
         _: "lodash/lodash.min.js",
-        moment: "moment",
-      }),
-    ],
+        moment: "moment"
+      })
+    ]
   },
   css: {
     loaderOptions: {
@@ -50,8 +50,8 @@ module.exports = defineConfig({
           @import "@/styles/mixins/index.scss";
           @import "@/styles/components/index.scss";
 
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 });

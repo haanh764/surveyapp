@@ -7,6 +7,5 @@ describe("A user who has logged-in must be able to change their password.", () =
     cy.get(".user-settings-form__submit-button").click();
     cy.wait(5000);
     cy.get(".v-snack__content").should("be.visible");
-    cy.get(".v-snack__content").contains("New settings have been saved!");
   });
 });
