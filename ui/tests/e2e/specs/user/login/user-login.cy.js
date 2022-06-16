@@ -1,4 +1,4 @@
-import loginInfo from "~e2e/support/data/login-info";
+import loginInfo from "~/tests/e2e/support/data/login-info";
 const { user } = loginInfo;
 
 describe("A user should be able to login to their account with 4 clicks or fewer", () => {
@@ -25,7 +25,7 @@ describe("A user should be able to login to their account with 4 clicks or fewer
 
 describe("The system must allow a user to login by entering an email and a password.", () => {
   it("cannot log the user in when user entered wrong email and/or password", () => {
-    cy.visit("/user/login");
+    cy.visit("/user/login/");
     cy.acceptCookiePolicy();
     cy.get(".login-form__email").type(user.email);
     cy.get(".login-form__password").type("1234567890");
@@ -35,9 +35,9 @@ describe("The system must allow a user to login by entering an email and a passw
   });
 
   it("can log the user in when user entered correct email and password", function () {
-    cy.visit("/user/login");
     cy.initPlugins();
     cy.acceptCookiePolicy();
+    cy.visit("/user/login/");
     cy.get(".login-form__email").type(user.email);
     cy.get(".login-form__password").type(user.password);
     cy.get(".login-form__submit-button").click();
