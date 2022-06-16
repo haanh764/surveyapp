@@ -50,7 +50,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"hayoung764@gmail.com\",\n    \"password\": \"TEJxaZ2q\"\n}",
+					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,7 +79,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\",\n    \"password\": \"test12345\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,19 +142,31 @@
 		},
 		{
 			"name": "NotActivateView",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MTQzMywianRpIjoiM2MyZjYyZTUtY2U3OS00NGUwLTljZDAtY2M3YWRhMWQ4MGIwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjUsIm5iZiI6MTY1NDQ0MTQzMywiZXhwIjoxNjU0NTI3ODMzfQ.miOUp_BkmfhpjWoIpHVosA-vIWpNDR3viaIku58DJOM",
+							"value": "",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"hayoung764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "localhost:8000/api/authentication/notactivated",
 					"host": [
@@ -296,7 +308,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin123\"\n}",
+					"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin1234567890\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -527,6 +539,248 @@
 						"api",
 						"admin",
 						"listusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddSurvey",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"title\":\"Survey title\",\"description\":\"description\",\"formBuilder\":{\"list\":[{\"title\":\"Short open answer\",\"type\":\"input\",\"options\":{\"defaultValue\":\"\",\"placeholder\":\"\",\"type\":\"text\"},\"label\":\"Short open answer\",\"question\":\"\",\"description\":\"\",\"key\":\"e77197d15\",\"model\":\"input_e77197d15\",\"order\":0},{\"title\":\"Long open answer\",\"type\":\"input\",\"options\":{\"defaultValue\":\"\",\"placeholder\":\"\",\"type\":\"textarea\"},\"label\":\"Long open answer\",\"question\":\"\",\"description\":\"\",\"key\":\"6743209e4\",\"model\":\"input_6743209e4\",\"order\":1},{\"title\":\"Single choice\",\"type\":\"radio\",\"label\":\"Single choice\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":\"\",\"options\":[{\"value\":\"Option_1\",\"text\":\"Option 1\"},{\"value\":\"Option_2\",\"text\":\"Option 2\"},{\"value\":\"Option_3\",\"text\":\"Option 3\"}]},\"key\":\"72b98a503\",\"model\":\"radio_72b98a503\",\"order\":2},{\"title\":\"Multiple choices\",\"type\":\"checkbox\",\"label\":\"Multiple choices\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":[],\"options\":[{\"value\":\"Option_1\",\"text\":\"Option 1\"},{\"value\":\"Option_2\",\"text\":\"Option 2\"},{\"value\":\"Option_3\",\"text\":\"Option 3\"}]},\"key\":\"5bc84abf1\",\"model\":\"checkbox_5bc84abf1\",\"order\":3},{\"title\":\"Slider\",\"type\":\"slider\",\"label\":\"Slider\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":0,\"min\":0,\"max\":100,\"step\":1},\"key\":\"6b457fb73\",\"model\":\"slider_6b457fb73\",\"order\":4},{\"title\":\"Headings\",\"type\":\"text\",\"options\":{\"tag\":\"h1\",\"defaultValue\":\"This is a heading\"},\"label\":\"Headings\",\"key\":\"f4f8d69e1\",\"model\":\"text_f4f8d69e1\",\"order\":5},{\"title\":\"Paragraph\",\"type\":\"text\",\"options\":{\"tag\":\"p\",\"defaultValue\":\"This is a text\"},\"label\":\"Paragraph\",\"key\":\"242ded82c\",\"model\":\"text_242ded82c\",\"order\":6}],\"models\":{\"input_e77197d15\":\"\",\"input_6743209e4\":\"\",\"radio_72b98a503\":\"\",\"checkbox_5bc84abf1\":[],\"slider_6b457fb73\":\"\",\"text_f4f8d69e1\":\"This is a heading\",\"text_242ded82c\":\"This is a text\"}}},\"config\":{\"startDate\":\"\",\"endDate\":\"\",\"isPublic\":true,\"emails\":[],\"isSurveySentAutomatically\":false}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/survey/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"survey",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test_dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/analysis/getsummary/17",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"analysis",
+						"getsummary",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test_datatable",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTI4NzI4NSwianRpIjoiNzNmOTBhNjktODQ1OC00ZDQ2LThhZjEtNjhkMGNhZTFkOWVkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mjg3Mjg1LCJleHAiOjE2NTUzNzM2ODUsImlzX2FkbWluIjpmYWxzZX0.IFXNnhPGEAvfnYKYIYN8snVqv05x7lNQ9EyewbAWCIo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/analysis/generatedatatable/17",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"analysis",
+						"generatedatatable",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_blocked",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTI4NzI4NSwianRpIjoiNzNmOTBhNjktODQ1OC00ZDQ2LThhZjEtNjhkMGNhZTFkOWVkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mjg3Mjg1LCJleHAiOjE2NTUzNzM2ODUsImlzX2FkbWluIjpmYWxzZX0.IFXNnhPGEAvfnYKYIYN8snVqv05x7lNQ9EyewbAWCIo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/user/isblocked",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"isblocked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin_delSurvey",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTM4NDc2MCwianRpIjoiMzFiMTRkMzgtNzJmYi00MzMyLTkxOWEtOTM5Y2VjOTU4YzgzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mzg0NzYwLCJleHAiOjE2NTU0NzExNjAsImlzX2FkbWluIjp0cnVlfQ.quo7AlsxIdCDGrUzEzyOCLAWU0SgJoNO7kzouZL5yNE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000//api/admin/deletesurvey",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"",
+						"api",
+						"admin",
+						"deletesurvey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin_change_psw",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTM4NTMyNiwianRpIjoiMjQxMTdkOTYtZTliNS00YWRiLWFmNzYtNWFlNDlmNzM2NDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mzg1MzI2LCJleHAiOjE2NTU0NzE3MjYsImlzX2FkbWluIjp0cnVlfQ.GyFlYhsEY2GU_eUjy1DO9fNczCUFH4k8taCUry4-I5Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"new_password\": \"admin1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/changepassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"changepassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User_Delete_Survey",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTM4NTc1OSwianRpIjoiNzQ2ZjljZTEtZGQ4OS00ZjVmLWFjNTctYzMwZGFhYmJmNDRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mzg1NzU5LCJleHAiOjE2NTU0NzIxNTksImlzX2FkbWluIjpmYWxzZX0.6HwWrUSTTx7Za5l60hZ2jEQmW1oh9ussFCFjqYY4DKY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 18\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/survey/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"survey",
+						"delete"
 					]
 				}
 			},

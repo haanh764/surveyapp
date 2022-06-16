@@ -54,3 +54,10 @@ class Survey(Base):
 
     def get_survey(survey_id):
         return session.query(Survey).filter_by(id=survey_id).first()
+
+    def find_by_id(id):
+        return session.query(Survey).filter_by(id=id).first()
+
+    def delete_survey(self):
+        session.delete(self)
+        session.commit()

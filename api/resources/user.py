@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.user import User
+from models.survey import Survey
 
 class ChangePassword(Resource):
     @jwt_required()
@@ -31,4 +32,18 @@ class isBlocked(Resource):
             return {'message': 'User {} is blocked'.format(current_user.email)}, 201
         else:
             return {'message': 'User {} is not blocked'.format(current_user.email)}, 200
+
+class UserDeleteSurvey(Resource):
+    @jwt_required()
+    def post(self):
+        data = request.get_json()
+        current_user_id = get_jwt_identity()
+        survey = Survey.find_by_id(data['id'])
+        if survey:
+            if survey.surveyOwner == current_user_id:
+                survey.delete_survey()
+                return {'message': 'Survey {} has been deleted'.format(survey.title)}, 200
+            else:
+                return {'message': 'You are not allowed to delete this survey'}, 401
+        return {'message': 'Survey not found'}, 404
             
