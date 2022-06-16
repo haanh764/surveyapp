@@ -16,7 +16,7 @@ const userRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "user-surveys" */ "@views/user/surveys/SurveysView.vue"
-        )
+        ),
     },
     {
       path: "/user/surveys/:id/edit",
@@ -24,7 +24,7 @@ const userRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "user-survey-edit" */ "@views/user/survey-edit/SurveyEditView.vue"
-        )
+        ),
     },
     {
       path: "/user/surveys/:id/",
@@ -32,7 +32,7 @@ const userRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "user-survey-detail" */ "@views/user/survey-detail/SurveyDetailView.vue"
-        )
+        ),
     },
     {
       path: "/user/settings",
@@ -40,7 +40,7 @@ const userRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "user-settings" */ "@views/user/settings/SettingsView.vue"
-        )
+        ),
     },
     {
       path: "/user/confirm",
@@ -48,9 +48,9 @@ const userRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "user-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue"
-        )
-    }
-  ])
+        ),
+    },
+  ]),
 ];
 
 const adminRoutes = [
@@ -61,7 +61,7 @@ const adminRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "admin-surveys" */ "@views/admin/surveys/SurveysView.vue"
-        )
+        ),
     },
     {
       path: "/admin/users",
@@ -69,7 +69,7 @@ const adminRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "admin-users" */ "@views/admin/users/UsersView.vue"
-        )
+        ),
     },
     {
       path: "/admin/settings",
@@ -77,9 +77,9 @@ const adminRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "admin-settings" */ "@views/admin/settings/SettingsView.vue"
-        )
-    }
-  ])
+        ),
+    },
+  ]),
 ];
 
 const generalRoutes = [
@@ -90,7 +90,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-landing" */ "@views/general/landing/LandingView.vue"
-        )
+        ),
     },
     {
       path: "/privacy-policy",
@@ -98,7 +98,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-privacy-policy" */ "@views/general/privacy-policy/PrivacyPolicyView.vue"
-        )
+        ),
     },
     {
       path: "/terms-and-conditions",
@@ -106,7 +106,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-terms-and-conditions" */ "@views/general/terms-and-conditions/TermsAndConditionsView.vue"
-        )
+        ),
     },
     {
       path: "/user/login",
@@ -115,7 +115,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-user-login" */ "@views/user/login/LoginView.vue"
-        )
+        ),
     },
     {
       path: "/user/signup",
@@ -123,7 +123,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-user-signup" */ "@views/user/signup/SignupView.vue"
-        )
+        ),
     },
     {
       path: "/admin/login",
@@ -131,7 +131,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-admin-login" */ "@views/admin/login/LoginView.vue"
-        )
+        ),
     },
     {
       path: "/survey/:id",
@@ -139,15 +139,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-survey-fill" */ "@views/general/survey-fill/SurveyFillView.vue"
-        )
-    },
-    {
-      path: "/survey/:id/submitted",
-      name: "general-survey-submitted",
-      component: () =>
-        import(
-          /* webpackChunkName: "general-survey-submitted" */ "@views/general/survey-submitted/SurveySubmittedView.vue"
-        )
+        ),
     },
     {
       path: "/user/signup/thankyou",
@@ -155,7 +147,7 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-user-signup-thankyou" */ "@views/user/signup-thankyou/SignupThankyouView.vue"
-        )
+        ),
     },
     {
       path: "/user/delete/thankyou",
@@ -163,10 +155,10 @@ const generalRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "general-user-delete-thankyou" */ "@views/user/delete-thankyou/DeleteThankyouView.vue"
-        )
+        ),
     },
-    { path: "/logout", name: "general-logout" }
-  ])
+    { path: "/logout", name: "general-logout" },
+  ]),
 ];
 
 const router = new Router({
@@ -184,9 +176,9 @@ const router = new Router({
     ...adminRoutes,
     layout("DefaultWithoutSidebar", [
       { path: "/404", name: "general-404", component: PageNotFoundView },
-      { path: "*", redirect: "404" }
-    ])
-  ]
+      { path: "*", redirect: "404" },
+    ]),
+  ],
 });
 
 router.beforeEach((to, from, next) => {
@@ -197,7 +189,7 @@ router.beforeEach((to, from, next) => {
   const userMainPage = { name: "user-surveys" };
   const adminMainPage = { name: "admin-users" };
 
-  const preventedWords = [ "landing", "login", "signup", "delete" ];
+  const preventedWords = ["landing", "login", "signup", "delete"];
   const shouldBePrevented = (routeName) => {
     return preventedWords.some((preventedWord) =>
       routeName.includes(preventedWord)

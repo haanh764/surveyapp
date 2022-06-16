@@ -110,8 +110,8 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
@@ -137,8 +137,8 @@ export default {
           }
         });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

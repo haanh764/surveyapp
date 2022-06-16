@@ -50,28 +50,28 @@ export default {
     value: Boolean,
     alignTitle: {
       type: String,
-      default: "left",
+      default: "left"
     },
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     height: {
       type: Number,
-      default: 0,
+      default: 0
     },
     distance: {
       type: Number,
-      default: 100,
+      default: 100
     },
     persistent: {
       type: Boolean,
-      default: true,
+      default: true
     },
     fullscreen: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     show: {
@@ -80,15 +80,15 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      },
-    },
+      }
+    }
   },
   methods: {
     onClickCloseButton() {
       this.show = !this.show;
       this.$emit("close");
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">
