@@ -2,5 +2,9 @@
 
 export default {
   baseURL: VUE_APP_API_BASE_URL,
-  timeout: 30000
+  timeout: 30000,
+  common: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  }
 };

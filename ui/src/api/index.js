@@ -1,6 +1,7 @@
 import config from "./config.js";
 import { EventBus } from "@util/event-bus";
 import Cookies from "js-cookie";
+import store from "@store/";
 
 const axios = require("axios");
 const { timeout, baseURL } = config;
@@ -13,14 +14,15 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 // handle default
 axios.interceptors.request.use(
   (config) => {
-    const userToken = Cookies.get("access_token_cookie");
+    const userToken =
+      Cookies.get("access_token_cookie") || store.getters["user/token"];
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;
     }
     return config;
   },
   (error) => {
-    console.log("API Request Error:", error);
+    console.log("API Request Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log("API Response Error:", error);
+    console.log("API Response Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }

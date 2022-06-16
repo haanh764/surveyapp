@@ -32,3 +32,4 @@ now.json
 .vercel
 yarn.lock
 *:Zone.Identifier
+tests/e2e/support/data/login-info.js
