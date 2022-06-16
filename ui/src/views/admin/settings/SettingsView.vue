@@ -139,8 +139,8 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // to do: post form data to back-end's update admin api
-      adminChangePassword(this.formData).then((response) => {
+      const apiData = { new_password: this.formData.new_password };
+      adminChangePassword(apiData).then((response) => {
         this.$notify.toast(response["message"]);
       });
     }
