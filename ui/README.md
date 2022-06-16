@@ -74,4 +74,4 @@ Running this command will open the cypress dialog. It's integrated with browser,
 The test files can be found in the `tests/e2e/specs` folder. All tests files are named by following `{name}.cy.js`.
 
 1. Open a new terminal and run `yarn serve --port 3000`. This will run the localhost in :3000 port.
-2. Open another new terminal and run `yarn cypress open`
+2. Open another new terminal and run `yarn cypress open`. This will open the Cypress window. Choose E2E, a browser of your choice, and run the tests. All tests are updated automatically on save and are reloaded on every save.
