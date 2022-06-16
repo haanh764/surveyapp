@@ -159,3 +159,17 @@ class AdminDeleteSurvey(Resource):
             survey.delete_survey()
             return {'message': 'Survey has been deleted'}, 200
         return {'message': 'Survey not found'}, 404
+
+class AdminChangePassword(Resource):
+    @jwt_required()
+    @admin_required()
+    def post(self):
+        data = request.get_json()
+        current_admin_id = get_jwt_identity()
+        current_admin = Admin.find_by_id(current_admin_id)
+        if current_admin:
+            current_admin.password = data['new_password']
+            current_admin.generate_password()
+            current_admin.add_admin()
+            return {'message': 'Password has been changed'}, 200
+        return {'message': 'Admin not found'}, 404
