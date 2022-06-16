@@ -60,7 +60,7 @@
                         rules="required|min:8"
                       >
                         <v-text-field
-                          v-model.trim="formData.password"
+                          v-model.trim="formData.new_password"
                           outlined
                           required
                           hint="Minimum 8 characters"
@@ -123,6 +123,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { userChangePassword, userDeleteAccount, userLogout } from "@api";
 
 export default {
   name: "UserSettingsView",
@@ -132,7 +133,7 @@ export default {
       isPasswordShown: false,
       formData: {
         email: "",
-        password: ""
+        new_password: "",
       },
       isDeleteItemModalShown: false,
       isSucessSnackbarShown: false
@@ -144,30 +145,41 @@ export default {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
-      return this.formData.password.length >= 8;
-    }
+      return this.formData.new_password.length >= 8;
+    },
   },
   methods: {
     onFormSubmit() {
-      // to do: post form data to back-end's update user api
-      this.$notify.toast("New settings have been saved!");
+      userChangePassword(this.formData).then((response) => {
+        this.$notify.toast(response["message"]);
+      });
     },
-    onDeleteAccount() {
-      this.isDeleteItemModalShown = true;
-    },
-    onDeleteConfirmation() {
-      // to do: call delete api
+    unsetClientData() {
       this.isDeleteItemModalShown = false;
       this.$store.dispatch("user/setToken", "");
       this.$store.dispatch("user/setUserData", {});
       this.$store.dispatch("user/setItems", []);
       this.$cookies.remove("access_token_cookie");
-
       this.$router
         .push({ name: "general-user-delete-thankyou" })
         .catch(() => {});
-    }
-  }
+    },
+    onDeleteAccount() {
+      this.isDeleteItemModalShown = true;
+    },
+    onDeleteConfirmation() {
+      userDeleteAccount().then((response) => {
+        this.$notify.toast(response["message"]);
+        userLogout()
+          .then(() => {
+            this.unsetClientData();
+          })
+          .catch(() => {
+            this.unsetClientData();
+          });
+      });
+    },
+  },
 };
 </script>
 

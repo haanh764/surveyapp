@@ -5,6 +5,7 @@ import { layout } from "@/util/routes";
 import PageNotFoundView from "@views/PageNotFoundView.vue";
 import store from "@store/index.js";
 import Cookies from "js-cookie";
+import { userLogout } from "@api";
 
 Vue.use(Router);
 
@@ -162,7 +163,7 @@ const generalRoutes = [
 ];
 
 const router = new Router({
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,
   scrollBehavior: (to, from, savedPosition) => {
     if (to.hash) return { selector: to.hash };
@@ -199,14 +200,24 @@ router.beforeEach((to, from, next) => {
   const width = window.innerWidth;
   const isMobile = width <= 768;
 
+  const unsetClientData = () => {
+    store.dispatch("user/setUserData", {});
+    store.dispatch("user/setToken", "");
+    store.dispatch("user/setItems", []);
+    Cookies.remove("access_token_cookie");
+  }
+
   if (hasLoggedIn) {
     if (to.name == "general-logout") {
-      store.dispatch("user/setUserData", {});
-      store.dispatch("user/setToken", "");
-      store.dispatch("user/setItems", []);
-      Cookies.remove("access_token_cookie");
-
-      return next({ name: "general-landing" });
+      userLogout()
+        .then(() => {
+          unsetClientData();
+          return next({ name: "general-landing" });
+        })
+        .catch(() => {
+          unsetClientData();
+          return next({ name: "general-landing" });
+        });
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });
     } else if (shouldBePrevented(to.name)) {
