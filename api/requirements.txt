@@ -26,3 +26,8 @@ Flask-JWT-Extended==4.4.0
 email-validator==1.2.1
 Flask-Mail==0.9.1
 cryptography==37.0.2
+dash==2.5.0
+dash-core-components==2.0.0
+dash-html-components==2.0.0
+dash-table==5.0.0
+wordcloud==1.8.1
