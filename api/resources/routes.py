@@ -3,7 +3,7 @@ from resources.view import Home
 from resources.user import ChangePassword, DeleteUser, isBlocked, UserDeleteSurvey
 from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers, AdminDeleteSurvey, AdminChangePassword
 from resources.survey import AddSurvey, ListSurveysByUser, GetSurvey
-from api.resources.analysis_datatable import GenrateDataTable
+from resources.analysis_datatable import GenrateDataTable
 from resources.analysis_dashboard import GetDataSummary
 
 def initialize_routes(api):
