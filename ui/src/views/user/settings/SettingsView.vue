@@ -154,36 +154,28 @@ export default {
         this.$notify.toast(response["message"]);
       });
     },
+    unsetClientData() {
+      this.isDeleteItemModalShown = false;
+      this.$store.dispatch("user/setToken", "");
+      this.$store.dispatch("user/setUserData", {});
+      this.$store.dispatch("user/setItems", []);
+      this.$cookies.remove("access_token_cookie");
+      this.$router
+        .push({ name: "general-user-delete-thankyou" })
+        .catch(() => {});
+    },
     onDeleteAccount() {
       this.isDeleteItemModalShown = true;
     },
     onDeleteConfirmation() {
-      // first, call the user delete api
       userDeleteAccount().then((response) => {
         this.$notify.toast(response["message"]);
-        // then, call the user logout api
         userLogout()
           .then(() => {
-            // finally, unset client-side data and redirect to thankyou page
-            this.isDeleteItemModalShown = false;
-            this.$store.dispatch("user/setToken", "");
-            this.$store.dispatch("user/setUserData", {});
-            this.$store.dispatch("user/setItems", []);
-            this.$cookies.remove("access_token_cookie");
-            this.$router
-              .push({ name: "general-user-delete-thankyou" })
-              .catch(() => {});
+            this.unsetClientData();
           })
           .catch(() => {
-            // if error, unset data and redirect anyway
-            this.isDeleteItemModalShown = false;
-            this.$store.dispatch("user/setToken", "");
-            this.$store.dispatch("user/setUserData", {});
-            this.$store.dispatch("user/setItems", []);
-            this.$cookies.remove("access_token_cookie");
-            this.$router
-              .push({ name: "general-user-delete-thankyou" })
-              .catch(() => {});
+            this.unsetClientData();
           });
       });
     },

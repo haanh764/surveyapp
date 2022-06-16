@@ -208,36 +208,24 @@ router.beforeEach((to, from, next) => {
   const width = window.innerWidth;
   const isMobile = width <= 768;
 
+  const unsetClientData = () => {
+    store.dispatch("user/setUserData", {});
+    store.dispatch("user/setToken", "");
+    store.dispatch("user/setItems", []);
+    Cookies.remove("access_token_cookie");
+  }
+
   if (hasLoggedIn) {
     if (to.name == "general-logout") {
-      // note: then and catch blocks below are needed
-      // because userLogout is an API call and we must wait for
-      // either a response or an error
-
-      // unsetting data and cookies without then/catch
-      // after userLogout() will cause axios interceptor to
-      // fail to set Authorization header, because the unsetting
-      // is executed without waiting for userLogout() to finish
-
-      // first, perform logout in BE side to revoke token
       userLogout()
         .then(() => {
-          // then, unset data and cookies on client side
-          store.dispatch("user/setUserData", {});
-          store.dispatch("user/setToken", "");
-          store.dispatch("user/setItems", []);
-          Cookies.remove("access_token_cookie");
+          unsetClientData();
           return next({ name: "general-landing" });
         })
         .catch(() => {
-          // if error, unset data and cookies on client side anyway
-          store.dispatch("user/setUserData", {});
-          store.dispatch("user/setToken", "");
-          store.dispatch("user/setItems", []);
-          Cookies.remove("access_token_cookie");
+          unsetClientData();
           return next({ name: "general-landing" });
         });
-
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });
     } else if (shouldBePrevented(to.name)) {

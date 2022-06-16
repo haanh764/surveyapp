@@ -48,6 +48,11 @@ const USER_RESEND_ACTIVATION_URL = "authentication/resend";
 const USER_CHANGE_PASSWORD_URL = "user/changepassword";
 const USER_DELETE_ACCOUNT_URL = "user/delete";
 
+const ADMIN_LOGIN_URL = "admin/login";
+const ADMIN_LOGOUT_URL = "admin/logout";
+//const ADMIN_CHANGE_PASSWORD_URL = ;
+//const ADMIN_DELETE_SURVEY_URL = ;
+
 export const getSurveys = () => {
   return axios.get(GET_SURVEYS_URL);
 };
@@ -83,3 +88,11 @@ export const userChangePassword = (data) => {
 export const userDeleteAccount = () => {
   return axios.delete(USER_DELETE_ACCOUNT_URL);
 }
+
+export const adminLogin = (data) => {
+  return axios.post(ADMIN_LOGIN_URL, data);
+};
+
+export const adminLogout = () => {
+  return axios.post(ADMIN_LOGOUT_URL);
+};
