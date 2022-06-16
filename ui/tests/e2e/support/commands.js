@@ -1,4 +1,12 @@
 import Cookies from "js-cookie";
+import loginInfo from "~e2e/support/data/login-info";
+import {
+  USER_LOGIN_URL,
+  USER_LOGOUT_URL,
+  ADMIN_LOGIN_URL,
+  ADMIN_LOGOUT_URL,
+  USER_ACTIVATION_STATUS_URL
+} from "~e2e/support/api";
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -23,20 +31,20 @@ Cypress.Commands.add("initPlugins", () => {
 Cypress.Commands.add("loginAsUser", (email, password, self) => {
   cy.request({
     method: "POST",
-    url: "http://localhost:8000/api/authentication/login",
+    url: USER_LOGIN_URL,
     headers: {
-      "content-type": "application/json",
+      "content-type": "application/json"
     },
     body: {
       email,
-      password,
-    },
+      password
+    }
   }).then((response) => {
     const authKey = response.body.message.split("Access token is ")[1];
     Cookies.set("access_token_cookie", authKey, { expires: 7 });
     const userData = {
       accountType: 0,
-      email,
+      email
     };
     self.$cookies.set("access_token_cookie", authKey, { expires: 7 });
     self.$store.dispatch("user/setToken", authKey);
@@ -48,20 +56,19 @@ Cypress.Commands.add("loginAsUser", (email, password, self) => {
 Cypress.Commands.add("loginAsAdmin", (self) => {
   cy.request({
     method: "POST",
-    url: "http://localhost:8000/api/authentication/login",
+    url: ADMIN_LOGIN_URL,
     headers: {
-      "content-type": "application/json",
+      "content-type": "application/json"
     },
     body: {
-      email: "surveyapp.manager@gmail.com",
-      password: "admin123",
-    },
+      ...loginInfo.admin
+    }
   }).then((response) => {
     const authKey = response.body.message.split("Access token is ")[1];
     Cookies.set("access_token_cookie", authKey, { expires: 7 });
     const userData = {
       accountType: 1,
-      email: "surveyapp.manager@gmail.com",
+      email: loginInfo.admin.email
     };
     self.$cookies.set("access_token_cookie", authKey, { expires: 7 });
     self.$store.dispatch("user/setToken", authKey);
@@ -70,25 +77,20 @@ Cypress.Commands.add("loginAsAdmin", (self) => {
   });
 });
 
-Cypress.Commands.add("initialization", (self, loginData = {}) => {
+Cypress.Commands.add("initialization", (self, customloginInfo = {}) => {
   cy.visit("/");
   cy.initPlugins();
   cy.acceptCookiePolicy();
 
-  // change the value as you wish, but make sure don't push the change
-  let login = {
-    email: "sapi@yopmail.com",
-    password: "asdfghjkl",
-  };
-  login = { ...login, ...loginData };
-  cy.loginAsUser(...login, self);
+  let login = { ...loginInfo.user, ...customloginInfo };
+  cy.loginAsUser(login.email, login.password, self);
 });
 
 // api is still buggy, couldnt test
 Cypress.Commands.add("checkUserActivationStatus", (self) => {
   cy.request({
     method: "GET",
-    url: "http://localhost:8000/api/authentication/notactivated",
+    url: USER_ACTIVATION_STATUS_URL
   }).then((response) => {
     if (self) {
       const hasBeenActivated =
@@ -107,10 +109,10 @@ Cypress.Commands.add("checkUserActivationStatus", (self) => {
 Cypress.Commands.add("logoutAsUser", (self) => {
   cy.request({
     method: "POST",
-    url: "http://localhost:8000/api/authentication/logout",
+    url: USER_LOGOUT_URL,
     headers: {
-      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`,
-    },
+      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`
+    }
   }).then((response) => {
     if (response.status == 200 && self) {
       self.$store.dispatch("user/setUserData", {});
@@ -125,10 +127,10 @@ Cypress.Commands.add("logoutAsUser", (self) => {
 Cypress.Commands.add("logoutAsAdmin", (self) => {
   cy.request({
     method: "POST",
-    url: "http://localhost:8000/api/admin/logout",
+    url: ADMIN_LOGOUT_URL,
     headers: {
-      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`,
-    },
+      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`
+    }
   }).then((response) => {
     if (response.status == 200 && self) {
       self.$store.dispatch("user/setUserData", {});
