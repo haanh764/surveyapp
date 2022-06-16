@@ -139,10 +139,10 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      const apiData = { new_password: this.formData.new_password };
-      adminChangePassword(apiData).then((response) => {
-        this.$notify.toast(response["message"]);
-      });
+      adminChangePassword({ new_password: this.formData.new_password })
+        .then((response) => {
+          this.$notify.toast(response["message"]);
+        });
     }
   }
 };
