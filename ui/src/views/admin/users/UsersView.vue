@@ -180,6 +180,7 @@
               <modal
                 v-model="isEditItemModalShown"
                 name="edit-modal"
+                :is-footer-shown="false"
               >
                 <template #default>
                   <v-card-title>
@@ -308,6 +309,8 @@
               <modal
                 v-model="isAccountBlockModalShown"
                 name="account-block-modal"
+                :is-close-button-shown="false"
+                :is-footer-shown="false"
               >
                 <template #default>
                   <v-card-title>
@@ -348,6 +351,8 @@
               <modal
                 v-model="isAccountUnblockModalShown"
                 name="account-unblock-modal"
+                :is-close-button-shown="false"
+                :is-footer-shown="false"
               >
                 <template #default>
                   <v-card-title>
@@ -422,14 +427,6 @@ export default {
       isResetPasswordModalShown: false,
       selectedUser: {},
       users: []
-        /*
-        {
-          id: 1,
-          email: "ayam@bebek.angsa",
-          isActivated: true,
-          isBlocked: false
-        }
-        */
     };
   },
   computed: {
@@ -468,6 +465,10 @@ export default {
   },
   mounted() {},
   methods: {
+    onClickItemDelete(item) {
+      this.selectedUser = { ...item };
+      this.isDeleteItemModalShown = true;
+    },
     onDeleteConfirmation() {
       const apiData = { email: this.selectedUser.email };
       adminDeleteUser(apiData).then((response) => {
@@ -475,10 +476,6 @@ export default {
         this.isDeleteItemModalShown = false;
         window.location.reload();
       });
-    },
-    onClickItemDelete(item) {
-      this.selectedUser = { ...item };
-      this.isDeleteItemModalShown = true;
     },
     onClickCloseEditModal() {
       this.isEditItemModalShown = false;
@@ -494,8 +491,9 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminActivateUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
+        this.isAccountActivationModalShown = false;
+        window.location.reload();
       });
-      this.isAccountActivationModalShown = false;
     },
     toggleSelectedUserIsBlocked() {
       if (!this.selectedUser.isBlocked) {
@@ -508,8 +506,9 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminBlockUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
+        this.isAccountBlockModalShown = false;
+        window.location.reload();
       });
-      this.isAccountBlockModalShown = false;
     },
     onAccountBlockCancelation() {
       this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
@@ -519,8 +518,9 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminUnblockUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
+        this.isAccountUnblockModalShown = false;
+        window.location.reload();
       });
-      this.isAccountUnblockModalShown = false;
     },
     onAccountUnblockCancelation() {
       this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
@@ -533,8 +533,9 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminResetUserPassword(apiData).then((response) => {
         this.$notify.toast(response["message"]);
+        this.isResetPasswordModalShown = false;
+        window.location.reload();
       });
-      this.isResetPasswordModalShown = false;
     },
     processUserData() {
       this.users = this.users.map((user, index) => {

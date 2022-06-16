@@ -59,7 +59,7 @@ const ADMIN_SEARCH_USER_URL = "admin/searchuser";
 const ADMIN_RESET_USER_PASSWORD_URL = "admin/resetuserpassword";
 const ADMIN_ACTIVATE_USER_URL = "admin/activateuser";
 const ADMIN_BLOCK_USER_URL = "admin/blockuser";
-const ADMIN_UNBLOCK_USER_URL = "admin/unblockuser";
+const ADMIN_UNBLOCK_USER_URL = "admin/unblockeduser";
 const ADMIN_DELETE_USER_URL = "admin/deleteuser";
 
 export const getSurveys = () => {
