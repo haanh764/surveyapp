@@ -586,9 +586,6 @@ export default {
             }
             this.users.push(rawUser);
           });
-        })
-        .catch((error) => {
-          console.log(error);
         });
     }
   }
