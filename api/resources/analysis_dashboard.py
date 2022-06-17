@@ -15,13 +15,16 @@ class GetDataSummary(Resource):
     @jwt_required()
     def get(self, survey_id):
         current_user_id = get_jwt_identity()
-        survey = Survey.get_survey(survey_id) 
-        if survey.surveyOwner != current_user_id:
-            return {'message': 'You are not allowed to access this survey.'}, 400
+        survey = Survey.get_survey(survey_id)
+        if survey:
+            if survey.surveyOwner != current_user_id:
+                return {'message': 'You are not allowed to access this survey.'}, 400
+            else:
+                global surveyId
+                surveyId = survey_id
+                return {'message': 'Survey answers retrieved successfully.'}, 200
         else:
-            global surveyId
-            surveyId = survey_id
-            return {'message': 'Survey answers retrieved successfully.'}, 200
+            return {'message': 'Survey not found.'}, 404
 
 def get_data(surveyId):
     with engine.begin() as connection:
