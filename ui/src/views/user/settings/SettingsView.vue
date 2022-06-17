@@ -1,6 +1,7 @@
 <template>
   <v-container
-    id="user-settings-view"
+    class="user-settings-view"
+    :class="{'--is-desktop': !isMobile}"
     tag="section"
   >
     <v-row justify="center">
@@ -196,6 +197,12 @@ export default {
 </script>
 
 <style lang="scss">
+.user-settings-view {
+  &.--is-desktop {
+    margin: 20px 0;
+  }
+}
+
 .user-settings-form {
   &__delete-button {
     letter-spacing: 0;

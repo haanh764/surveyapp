@@ -37,6 +37,8 @@ module.exports = {
     _: "readonly",
     moment: "readonly",
     NODE_ENV: "readonly",
+    VUE_APP_API_BASE_URL: "readonly",
+    IS_API_MOCKED: "readonly",
     cy: "readonly",
     Cypress: "readonly"
   },

@@ -7,15 +7,15 @@ import loginInfo from "~/tests/e2e/support/data/login-info";
 
 const { mockEmails } = loginInfo;
 
-const getRequestBody = function (request) {
-  return JSON.parse(request.requestBody);
+const getRequestProperty = function (request, property) {
+  return JSON.parse(request[property]);
 };
 
 export const mockUserSignup = (request) => {
-  let requestBody = getRequestBody(request);
+  let requestBody = getRequestProperty(request, "requestBody");
   let message = new Response(200, {}, { message: "Success." });
   if (requestBody.email == mockEmails.error400) {
-    message = new Response(400, { errors: ["some errors occured"] });
+    message = new Response(400, { errors: [ "some errors occured" ] });
   } else if (requestBody.email == mockEmails.success201) {
     message = new Response(201, {}, { message: "User already exists." });
   }
@@ -23,12 +23,19 @@ export const mockUserSignup = (request) => {
 };
 
 export const mockUserLogin = (request) => {
-  let requestBody = getRequestBody(request);
-  let message = new Response(200, {}, { message: "User is activated." });
+  let requestBody = getRequestProperty(request, "requestBody");
+  let message = new Response(
+    200,
+    {},
+    { message: "Access token is 1234567890" }
+  );
   if (requestBody.email == mockEmails.error400) {
-    message = new Response(400, { errors: ["some errors occured"] });
-  } else if (requestBody.email == mockEmails.success201) {
-    message = new Response(201, {}, { message: "User is not activated." });
+    message = new Response(400, { errors: [ "some errors occured" ] });
   }
+  return message;
+};
+
+export const mockUserNotActivated = () => {
+  let message = new Response(200, {}, { message: "User is activated" });
   return message;
 };

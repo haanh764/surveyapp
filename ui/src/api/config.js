@@ -1,5 +1,3 @@
-/* global VUE_APP_API_BASE_URL */
-
 export default {
   baseURL: VUE_APP_API_BASE_URL + "api/",
   timeout: 30000,

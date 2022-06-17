@@ -4,17 +4,18 @@ import {
   USER_LOGOUT_URL,
   USER_NOT_ACTIVATED_URL,
   USER_CHANGE_PASSWORD_URL,
-  USER_DELETE_ACCOUNT_URL,
+  USER_DELETE_ACCOUNT_URL
 } from "@/api/urls";
-import { mockUserSignup, mockUserLogin } from "@/mocks/server/api";
+import {
+  mockUserSignup,
+  mockUserLogin,
+  mockUserNotActivated
+} from "@/mocks/server/api";
 import { createServer, Model } from "miragejs";
 
 const customizeUrl = (url) => {
   return `${VUE_APP_API_BASE_URL}${url}`;
 };
-
-let otherDomains = [];
-let methods = ["get", "put", "patch", "post", "delete"];
 
 export function makeServer({ environment = "development" } = {}) {
   let server = createServer({
@@ -22,7 +23,7 @@ export function makeServer({ environment = "development" } = {}) {
 
     models: {
       user: Model,
-      survey: Model,
+      survey: Model
     },
 
     seeds(server) {
@@ -30,22 +31,11 @@ export function makeServer({ environment = "development" } = {}) {
         id: 0,
         email: "test@test.com",
         isActivated: false,
-        isBlocked: false,
+        isBlocked: false
       });
     },
-
+    namespace: "api",
     routes() {
-      for (const domain of ["/", ...otherDomains]) {
-        for (const method of methods) {
-          this[method](`${domain}*`, async (schema, request) => {
-            let [status, headers, body] = await window.handleFromCypress(
-              request
-            );
-            return new Response(status, headers, body);
-          });
-        }
-      }
-
       this.post(customizeUrl(USER_SIGNUP_URL), (schema, request) => {
         return mockUserSignup(request);
       });
@@ -56,28 +46,26 @@ export function makeServer({ environment = "development" } = {}) {
 
       this.post(customizeUrl(USER_LOGOUT_URL), () => {
         return {
-          message: "User is logged out",
+          message: "User is logged out"
         };
       });
 
       this.delete(customizeUrl(USER_DELETE_ACCOUNT_URL), () => {
         return {
-          message: "User is deleted",
+          message: "User is deleted"
         };
       });
 
-      this.get(customizeUrl(USER_NOT_ACTIVATED_URL), () => {
-        return {
-          message: "User is activated",
-        };
+      this.get(customizeUrl(USER_NOT_ACTIVATED_URL), (schema, request) => {
+        return mockUserNotActivated(request);
       });
 
       this.post(customizeUrl(USER_CHANGE_PASSWORD_URL), () => {
         return {
-          message: "Password is changed",
+          message: "Password is changed"
         };
       });
-    },
+    }
   });
 
   return server;

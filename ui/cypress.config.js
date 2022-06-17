@@ -17,10 +17,12 @@ module.exports = defineConfig({
   screenshotsFolder: "tests/e2e/screenshots",
   videosFolder: "tests/e2e/videos",
   env: {
-    VUE_APP_API_BASE_URL: "http://localhost:8000/api/"
+    VUE_APP_API_BASE_URL: "http://localhost:8080/api/",
+    IS_API_MOCKED: "true"
   },
   e2e: {
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
+      config.env = process.env;
       on("file:preprocessor", webpackPreprocessor(options));
     },
     baseUrl: "http://localhost:3000",

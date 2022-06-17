@@ -46,7 +46,7 @@ describe("The system must allow a user to create an account by entering an email
     );
     cy.get(".signup-form__password").type("asdfghjkl");
     cy.get(".signup-form__submit-button").click();
-    cy.wait(1000);
+    cy.wait(4000);
     cy.url().should("contain", "/user/signup/thankyou/");
   });
 });

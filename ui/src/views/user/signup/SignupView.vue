@@ -113,8 +113,8 @@ export default {
       isLoading: false,
       formData: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
@@ -134,8 +134,8 @@ export default {
         .catch(() => {
           this.isLoading = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -137,7 +137,7 @@ export default {
           userNotActivated()
             .then((userActivationStatus) => {
               if (
-                userActivationStatus["message"].includes(" is not activated")
+                userActivationStatus["message"].includes("is not activated")
               ) {
                 this.$store.dispatch("user/setHasBeenActivated", false);
                 this.$router.push({ name: "user-confirm" }).catch(() => {});

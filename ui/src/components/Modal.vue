@@ -6,7 +6,7 @@
     :max-width="maxWidth"
     persistent
   >
-    <v-card class="pa-0">
+    <v-card class="pa-0 modal__card">
       <v-card-actions v-if="isCloseButtonShown">
         <v-row
           row

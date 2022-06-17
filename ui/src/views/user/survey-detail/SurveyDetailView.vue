@@ -2,7 +2,7 @@
   <v-container
     class="text-center survey-detail-view"
     tag="section"
-    :class="{'pa-0': isMobile }"
+    :class="{'pa-0': isMobile, '--is-desktop': !isMobile }"
   >
     <v-row justify="center">
       <v-col
@@ -64,3 +64,10 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.survey-detail-view {
+  &.--is-desktop {
+    margin: 20px 0;
+  }
+}
+</style>
