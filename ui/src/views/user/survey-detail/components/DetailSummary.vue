@@ -52,16 +52,6 @@ export default {
     iframe {
       width: 100%;
       min-height: 500px;
-      -ms-transform: scale(1.75);
-      -moz-transform: scale(1.75);
-      -o-transform: scale(1.75);
-      -webkit-transform: scale(1.75);
-      transform: scale(1.75);
-      -ms-transform-origin: 0 0;
-      -moz-transform-origin: 0 0;
-      -o-transform-origin: 0 0;
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
     }
   }
 }
