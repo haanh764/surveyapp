@@ -317,8 +317,8 @@ export default {
       console.log(surveyId);
       userGetSurvey(surveyId)
         .then((response) => {
-          console.log(response);
-          // load the response into the formData!!!
+          console.log(JSON.stringify(response));
+          // how to load the response into the formData?
         })
         .catch((error) => {
           console.log(error);
