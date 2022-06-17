@@ -3340,6 +3340,87 @@
 					"body": "{\n    \"message\": \"You are not allowed to delete this survey\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Admin_ListAllSurveys",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2NTUxOSwianRpIjoiOGU5ZDdjNjUtOTI3Mi00ZGZlLWEwODUtNjYxMDhhZDE3ZjI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDY1NTE5LCJleHAiOjE2NTU1NTE5MTksImlzX2FkbWluIjp0cnVlfQ.pXcQkGIjiRDHYUx-0a-JXCyH8Nw8nRhf-DWwXV5Gfao",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/admin/listsurveys",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"listsurveys"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Admin_ListAllSurveys_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/admin/listsurveys",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"listsurveys"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:33:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "361"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Surveys list has been returned\",\n    \"surveys\": {\n        \"16\": {\n            \"creationDate\": null,\n            \"description\": null,\n            \"endDate\": null,\n            \"id\": 16,\n            \"modificationDate\": null,\n            \"startDate\": null,\n            \"surveyOwner\": 1,\n            \"title\": \"Mock Up Survey\"\n        },\n        \"17\": {\n            \"creationDate\": null,\n            \"description\": null,\n            \"endDate\": null,\n            \"id\": 17,\n            \"modificationDate\": null,\n            \"startDate\": null,\n            \"surveyOwner\": 1,\n            \"title\": \"Mock Up Survey 2\"\n        }\n    }\n}"
+				}
+			]
 		}
 	]
 }

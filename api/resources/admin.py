@@ -173,3 +173,18 @@ class AdminChangePassword(Resource):
             current_admin.add_admin()
             return {'message': 'Password has been changed'}, 200
         return {'message': 'Admin not found'}, 404
+
+class AdminListSurveys(Resource):
+    @jwt_required()
+    @admin_required()
+    def get(self):
+        surveys = Survey.get_all_surveys()
+        surveys_data = dict()
+        for survey in surveys:
+            surveys_data[survey.id] = survey.serialize()        
+        response = jsonify({
+            'message': 'Surveys list has been returned',
+            'surveys': surveys_data
+        })
+        response.status_code = 200
+        return response

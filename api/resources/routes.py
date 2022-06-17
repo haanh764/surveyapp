@@ -1,7 +1,7 @@
 from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated, ResendActivation
 from resources.view import Home
 from resources.user import ChangePassword, DeleteUser, isBlocked, UserDeleteSurvey
-from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers, AdminDeleteSurvey, AdminChangePassword
+from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers, AdminDeleteSurvey, AdminChangePassword, AdminListSurveys
 from resources.survey import AddSurvey, ListSurveysByUser, GetSurvey
 from resources.analysis_datatable import GenrateDataTable
 from resources.analysis_dashboard import GetDataSummary
@@ -33,6 +33,7 @@ def initialize_routes(api):
     api.add_resource(AdminListUsers, '/api/admin/listusers')
     api.add_resource(AdminDeleteSurvey, '/api/admin/deletesurvey')
     api.add_resource(AdminChangePassword, '/api/admin/changepassword')
+    api.add_resource(AdminListSurveys, '/api/admin/listsurveys')
 
     api.add_resource(AddSurvey, '/api/survey/add')
     api.add_resource(GetSurvey, '/api/survey/get/<string:survey_id>')
