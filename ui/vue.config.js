@@ -34,7 +34,8 @@ module.exports = defineConfig({
       new VuetifyLoaderPlugin(),
       new webpack.DefinePlugin({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        VUE_APP_API_BASE_URL: JSON.stringify(process.env.VUE_APP_API_BASE_URL)
+        VUE_APP_API_BASE_URL: JSON.stringify(process.env.VUE_APP_API_BASE_URL),
+        IS_API_MOCKED: JSON.stringify(process.env.IS_API_MOCKED)
       }),
       new webpack.ProvidePlugin({
         _: "lodash/lodash.min.js",

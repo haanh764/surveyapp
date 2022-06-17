@@ -163,14 +163,10 @@ export default {
         });
     },
     unsetClientData() {
-      this.isDeleteItemModalShown = false;
       this.$store.dispatch("user/setToken", "");
       this.$store.dispatch("user/setUserData", {});
       this.$store.dispatch("user/setItems", []);
       this.$cookies.remove("access_token_cookie");
-      this.$router
-        .push({ name: "general-user-delete-thankyou" })
-        .catch(() => {});
     },
     onDeleteAccount() {
       this.isDeleteItemModalShown = true;
@@ -180,10 +176,18 @@ export default {
         this.$notify.toast(response["message"]);
         userLogout()
           .then(() => {
+            this.isDeleteItemModalShown = false;
             this.unsetClientData();
+            this.$router
+              .push({ name: "general-user-delete-thankyou" })
+              .catch(() => {});
           })
           .catch(() => {
+            this.isDeleteItemModalShown = false;
             this.unsetClientData();
+            this.$router
+              .push({ name: "general-user-delete-thankyou" })
+              .catch(() => {});
           });
       });
     }

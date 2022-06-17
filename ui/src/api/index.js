@@ -3,13 +3,40 @@ import { EventBus } from "@util/event-bus";
 import Cookies from "js-cookie";
 import store from "@store/";
 
+import {
+  USER_SIGNUP_URL,
+  USER_LOGIN_URL,
+  USER_LOGOUT_URL,
+  USER_NOT_ACTIVATED_URL,
+  USER_RESEND_ACTIVATION_URL,
+  USER_CHANGE_PASSWORD_URL,
+  USER_DELETE_ACCOUNT_URL,
+  USER_LIST_SURVEYS_URL,
+  USER_DELETE_SURVEY_URL,
+  USER_ADD_SURVEY_URL,
+  USER_EDIT_SURVEY_URL,
+  USER_GET_SURVEY_URL,
+  USER_SURVEY_DATATABLE_URL,
+  USER_SURVEY_SUMMARY_URL,
+  ADMIN_LOGIN_URL,
+  ADMIN_LOGOUT_URL,
+  ADMIN_ACTIVATE_USER_URL,
+  ADMIN_BLOCK_USER_URL,
+  ADMIN_CHANGE_PASSWORD_URL,
+  ADMIN_DELETE_SURVEY_URL,
+  ADMIN_LIST_USERS_URL,
+  ADMIN_RESET_USER_PASSWORD_URL,
+  ADMIN_SEARCH_USER_URL,
+  ADMIN_UNBLOCK_USER_URL,
+  ADMIN_DELETE_USER_URL,
+} from "./urls";
+
 const axios = require("axios");
-const { timeout, baseURL } = config;
+const { timeout, baseURL, headers } = config;
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.timeout = timeout;
-axios.defaults.headers.common["Accept"] = "application/json";
-axios.defaults.headers.common["Content-Type"] = "application/json";
+axios.defaults.headers = { ...axios.defaults.headers, ...headers };
 
 // handle default
 axios.interceptors.request.use(
@@ -40,37 +67,6 @@ axios.interceptors.response.use(
   }
 );
 
-const USER_SIGNUP_URL = "authentication/signup";
-const USER_LOGIN_URL = "authentication/login";
-const USER_LOGOUT_URL = "authentication/logout";
-const USER_NOT_ACTIVATED_URL = "authentication/notactivated";
-const USER_RESEND_ACTIVATION_URL = "authentication/resend";
-const USER_CHANGE_PASSWORD_URL = "user/changepassword";
-const USER_DELETE_ACCOUNT_URL = "user/delete";
-
-const ADMIN_LOGIN_URL = "admin/login";
-const ADMIN_LOGOUT_URL = "admin/logout";
-const ADMIN_CHANGE_PASSWORD_URL = "admin/changepassword";
-//const ADMIN_LIST_SURVEYS_URL = "";
-const ADMIN_DELETE_SURVEY_URL = "admin/deletesurvey";
-const ADMIN_LIST_USERS_URL = "admin/listusers";
-const ADMIN_SEARCH_USER_URL = "admin/searchuser";
-const ADMIN_RESET_USER_PASSWORD_URL = "admin/resetuserpassword";
-const ADMIN_ACTIVATE_USER_URL = "admin/activateuser";
-const ADMIN_BLOCK_USER_URL = "admin/blockuser";
-const ADMIN_UNBLOCK_USER_URL = "admin/unblockeduser";
-const ADMIN_DELETE_USER_URL = "admin/deleteuser";
-
-const USER_LIST_SURVEYS_URL = "user/surveys";
-const USER_DELETE_SURVEY_URL = "user/survey/delete";
-const USER_ADD_SURVEY_URL = "survey/add";
-const USER_EDIT_SURVEY_URL = "";
-const USER_GET_SURVEY_URL = "survey/";
-const USER_SURVEY_DATATABLE_URL = "analysis/generatedatatable/";
-const USER_SURVEY_SUMMARY_URL = "analysis/getsummary/";
-
-
-
 export const userListSurveys = () => {
   return axios.get(USER_LIST_SURVEYS_URL);
 };
@@ -98,8 +94,6 @@ export const userGetSurveyDatatable = (survey_id) => {
 export const userGetSurveySummary = (survey_id) => {
   return axios.get(USER_SURVEY_SUMMARY_URL + survey_id);
 };
-
-
 
 export const userSignup = (data) => {
   return axios.post(USER_SIGNUP_URL, data);

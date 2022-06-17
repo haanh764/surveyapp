@@ -1,11 +1,11 @@
 import Cookies from "js-cookie";
 import loginInfo from "~e2e/support/data/login-info";
 import {
-  USER_LOGIN_URL,
-  USER_LOGOUT_URL,
-  ADMIN_LOGIN_URL,
-  ADMIN_LOGOUT_URL,
-  USER_ACTIVATION_STATUS_URL
+  CY_USER_LOGIN_URL,
+  CY_USER_LOGOUT_URL,
+  CY_ADMIN_LOGIN_URL,
+  CY_ADMIN_LOGOUT_URL,
+  CY_USER_ACTIVATION_STATUS_URL,
 } from "~e2e/support/api";
 
 // ***********************************************
@@ -31,20 +31,20 @@ Cypress.Commands.add("initPlugins", () => {
 Cypress.Commands.add("loginAsUser", (email, password, self) => {
   cy.request({
     method: "POST",
-    url: USER_LOGIN_URL,
+    url: CY_USER_LOGIN_URL,
     headers: {
-      "content-type": "application/json"
+      "content-type": "application/json",
     },
     body: {
       email,
-      password
-    }
+      password,
+    },
   }).then((response) => {
     const authKey = response.body.message.split("Access token is ")[1];
     Cookies.set("access_token_cookie", authKey, { expires: 7 });
     const userData = {
       accountType: 0,
-      email
+      email,
     };
     self.$cookies.set("access_token_cookie", authKey, { expires: 7 });
     self.$store.dispatch("user/setToken", authKey);
@@ -56,19 +56,19 @@ Cypress.Commands.add("loginAsUser", (email, password, self) => {
 Cypress.Commands.add("loginAsAdmin", (self) => {
   cy.request({
     method: "POST",
-    url: ADMIN_LOGIN_URL,
+    url: CY_ADMIN_LOGIN_URL,
     headers: {
-      "content-type": "application/json"
+      "content-type": "application/json",
     },
     body: {
-      ...loginInfo.admin
-    }
+      ...loginInfo.admin,
+    },
   }).then((response) => {
     const authKey = response.body.message.split("Access token is ")[1];
     Cookies.set("access_token_cookie", authKey, { expires: 7 });
     const userData = {
       accountType: 1,
-      email: loginInfo.admin.email
+      email: loginInfo.admin.email,
     };
     self.$cookies.set("access_token_cookie", authKey, { expires: 7 });
     self.$store.dispatch("user/setToken", authKey);
@@ -90,7 +90,7 @@ Cypress.Commands.add("initialization", (self, customloginInfo = {}) => {
 Cypress.Commands.add("checkUserActivationStatus", (self) => {
   cy.request({
     method: "GET",
-    url: USER_ACTIVATION_STATUS_URL
+    url: CY_USER_ACTIVATION_STATUS_URL,
   }).then((response) => {
     if (self) {
       const hasBeenActivated =
@@ -109,10 +109,10 @@ Cypress.Commands.add("checkUserActivationStatus", (self) => {
 Cypress.Commands.add("logoutAsUser", (self) => {
   cy.request({
     method: "POST",
-    url: USER_LOGOUT_URL,
+    url: CY_USER_LOGOUT_URL,
     headers: {
-      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`
-    }
+      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`,
+    },
   }).then((response) => {
     if (response.status == 200 && self) {
       self.$store.dispatch("user/setUserData", {});
@@ -127,10 +127,10 @@ Cypress.Commands.add("logoutAsUser", (self) => {
 Cypress.Commands.add("logoutAsAdmin", (self) => {
   cy.request({
     method: "POST",
-    url: ADMIN_LOGOUT_URL,
+    url: CY_ADMIN_LOGOUT_URL,
     headers: {
-      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`
-    }
+      Authentication: `Bearer ${Cookies.get("access_token_cookie")}`,
+    },
   }).then((response) => {
     if (response.status == 200 && self) {
       self.$store.dispatch("user/setUserData", {});
