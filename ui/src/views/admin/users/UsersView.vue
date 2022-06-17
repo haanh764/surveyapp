@@ -473,9 +473,10 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminDeleteUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
-        this.isDeleteItemModalShown = false;
-        window.location.reload();
+        this.getUsersApi();
+        this.processUserData();
       });
+      this.isDeleteItemModalShown = false;
     },
     onClickCloseEditModal() {
       this.isEditItemModalShown = false;
@@ -491,9 +492,11 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminActivateUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
-        this.isAccountActivationModalShown = false;
-        window.location.reload();
+        this.getUsersApi();
+        this.processUserData();
       });
+      this.isAccountActivationModalShown = false;
+      this.isEditItemModalShown = false;
     },
     toggleSelectedUserIsBlocked() {
       if (!this.selectedUser.isBlocked) {
@@ -506,8 +509,12 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminBlockUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
+        this.getUsersApi();
+        this.processUserData();
         this.isAccountBlockModalShown = false;
-        window.location.reload();
+        this.isEditItemModalShown = false;
+      }).catch(() => {
+        this.onAccountBlockCancelation();
       });
     },
     onAccountBlockCancelation() {
@@ -519,7 +526,12 @@ export default {
       adminUnblockUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
         this.isAccountUnblockModalShown = false;
-        window.location.reload();
+        this.getUsersApi();
+        this.processUserData();
+        this.isAccountBlockModalShown = false;
+        this.isEditItemModalShown = false;
+      }).catch(() => {
+        this.onAccountUnblockCancelation();
       });
     },
     onAccountUnblockCancelation() {
@@ -533,9 +545,11 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminResetUserPassword(apiData).then((response) => {
         this.$notify.toast(response["message"]);
-        this.isResetPasswordModalShown = false;
-        window.location.reload();
+        this.getUsersApi();
+        this.processUserData();
       });
+      this.isResetPasswordModalShown = false;
+      this.isEditItemModalShown = false;
     },
     processUserData() {
       this.users = this.users.map((user, index) => {
