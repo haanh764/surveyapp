@@ -9,6 +9,14 @@ export const convertToStandardDate = function (
   return moment(value, givenFormat).format("DD MMM YYYY");
 };
 
+export const isTodayAfterGivenDate = function (
+  givenDate,
+  givenDateFormat = pythonDefaultDateFormat
+) {
+  return moment().isAfter(moment(givenDate, givenDateFormat));
+};
+
+// from moment.js documentation: moment().isBefore() has undefined behavior and should not be used!
 export const isTodayBeforeGivenDate = function (
   givenDate,
   givenDateFormat = pythonDefaultDateFormat
