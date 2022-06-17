@@ -20,6 +20,8 @@ describe("A user should be able to login to their account with 4 clicks or fewer
     cy.get("@clickCounter").then((clickCounter) => {
       expect(clickCounter).to.be.lessThan(5);
     });
+
+    cy.logoutFromBrowser();
   });
 });
 
@@ -28,6 +30,14 @@ describe("The system must allow a user to login by entering an email and a passw
     cy.visit("/user/login/");
     cy.initPlugins();
     cy.acceptCookiePolicy();
+  });
+
+  it("cannot log the user in when user entered wrong email and/or password", () => {
+    cy.get(".login-form__email").type(mockEmails.error400);
+    cy.get(".login-form__password").type("1234567890");
+    cy.get(".login-form__submit-button").click();
+    cy.wait(1000);
+    cy.url().should("not.contain", "/user/surveys");
   });
 
   if (Cypress.env("IS_API_MOCKED") != "true") {
@@ -39,14 +49,6 @@ describe("The system must allow a user to login by entering an email and a passw
       cy.logoutFromBrowser();
     });
   }
-
-  it("cannot log the user in when user entered wrong email and/or password", () => {
-    cy.get(".login-form__email").type(mockEmails.error400);
-    cy.get(".login-form__password").type("1234567890");
-    cy.get(".login-form__submit-button").click();
-    cy.wait(1000);
-    cy.url().should("not.contain", "/user/surveys");
-  });
 
   it("can log the user in when user entered correct email and password", function () {
     cy.get(".login-form__email").type(user.email);
