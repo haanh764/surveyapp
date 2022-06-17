@@ -54,9 +54,6 @@ describe("The system must allow a user to login by entering an email and a passw
     cy.get(".login-form__submit-button").click();
     cy.wait(5000);
     cy.url().should("contain", "/user/surveys");
-  });
-
-  afterEach(() => {
     cy.logoutFromBrowser();
   });
 });
