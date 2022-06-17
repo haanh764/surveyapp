@@ -61,3 +61,6 @@ class Survey(Base):
     def delete_survey(self):
         session.delete(self)
         session.commit()
+
+    def get_all_surveys():
+        return session.query(Survey).all()
