@@ -525,10 +525,9 @@ export default {
       const apiData = { email: this.selectedUser.email };
       adminUnblockUser(apiData).then((response) => {
         this.$notify.toast(response["message"]);
-        this.isAccountUnblockModalShown = false;
         this.getUsersApi();
         this.processUserData();
-        this.isAccountBlockModalShown = false;
+        this.isAccountUnblockModalShown = false;
         this.isEditItemModalShown = false;
       }).catch(() => {
         this.onAccountUnblockCancelation();
