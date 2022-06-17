@@ -253,27 +253,27 @@ export default {
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
-      // CHECK START AND END DATE!!! must be filled
-      // call api
-      // save
-      // go to this survey's edit page
-      if (this.currentSurveyId == "new") {
-        userAddSurvey(finalOutput)
-        .then(() => {
-          this.$notify.toast("Your survey has been saved!");
-          this.$router.push("/user/surveys/");
-        }).catch((error) => {
-          this.$notify.toast(error["message"]);
-        });
+      if(finalOutput.config.startDate == "" || finalOutput.config.endDate == "") {
+        this.$notify.toast("Please give survey's start date and end date!");
       } else {
-        // may need to map ID here, this.currentSurveyId
-        userEditSurvey(finalOutput)
-        .then(() => {
-          this.$notify.toast("Your survey has been saved!");
-          window.location.reload();
-        }).catch((error) => {
-          this.$notify.toast(error["message"]);
-        });
+        if (this.currentSurveyId == "new") {
+          userAddSurvey(finalOutput)
+          .then(() => {
+            this.$notify.toast("Your survey has been saved!");
+            this.$router.push("/user/surveys/");
+          }).catch((error) => {
+            this.$notify.toast(error["message"]);
+          });
+        } else {
+          finalOutput.config.id = this.currentSurveyId;
+          userEditSurvey(finalOutput)
+          .then(() => {
+            this.$notify.toast("Your survey has been saved!");
+            window.location.reload();
+          }).catch((error) => {
+            this.$notify.toast(error["message"]);
+          });
+        }
       }
     },
     onSaveAndPublishOptionClick() {
@@ -281,26 +281,27 @@ export default {
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
-      // call api
-      // save
-      // go to survey detail page
-      if (this.currentSurveyId == "new") {
-        userAddSurvey(finalOutput)
-        .then(() => {
-          this.$notify.toast("Your survey has been published!");
-          this.$router.push("/user/surveys/");
-        }).catch((error) => {
-          this.$notify.toast(error["message"]);
-        });
+      if(finalOutput.config.startDate == "" || finalOutput.config.endDate == "") {
+        this.$notify.toast("Please give survey's start date and end date!");
       } else {
-        // may need to map ID here, this.currentSurveyId
-        userEditSurvey(finalOutput)
-        .then(() => {
-          this.$notify.toast("Your survey has been published!");
-          this.$router.push("/user/surveys/");
-        }).catch((error) => {
-          this.$notify.toast(error["message"]);
-        });
+        if (this.currentSurveyId == "new") {
+          userAddSurvey(finalOutput)
+          .then(() => {
+            this.$notify.toast("Your survey has been published!");
+            this.$router.push("/user/surveys/");
+          }).catch((error) => {
+            this.$notify.toast(error["message"]);
+          });
+        } else {
+          finalOutput.config.id = this.currentSurveyId;
+          userEditSurvey(finalOutput)
+          .then(() => {
+            this.$notify.toast("Your survey has been published!");
+            this.$router.push("/user/surveys/");
+          }).catch((error) => {
+            this.$notify.toast(error["message"]);
+          });
+        }
       }
     },
     onClickNewSurveyElementsButton() {
@@ -317,8 +318,7 @@ export default {
       userGetSurvey(surveyId)
         .then((response) => {
           console.log(response);
-          // do something with the response
-          // : load the response into the formData!!!
+          // load the response into the formData!!!
         })
         .catch((error) => {
           console.log(error);
