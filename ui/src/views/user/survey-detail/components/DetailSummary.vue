@@ -16,11 +16,13 @@
 </template>
 
 <script>
+import { userGetSurveySummary } from "@api";
+
 export default {
   name: "DetailSummary",
   data() {
     return {
-      summaryUrl: "http://localhost:8080/"
+      summaryUrl: ""
     };
   },
   computed: {
@@ -29,16 +31,17 @@ export default {
     }
   },
   created() {
-    this.getSurveySummary();
+    this.getSurveySummaryApi(this.surveyId);
   },
   methods: {
-    onLoadSummaryPage() {
-      // do something
+    getSurveySummaryApi(surveyId) {
+      this.$notify.toast("Preparing data...");
+      userGetSurveySummary(surveyId).then(() => {
+        this.summaryUrl = "http://localhost:8000/dashboard/";
+      });
     },
-    getSurveySummary() {
-      // get survey summary by id
-      // assign to summaryUrl
-      // load
+    onLoadSummaryPage() {
+      this.$notify.toast("Stats summary loaded successfully.");
     }
   }
 };
@@ -49,6 +52,16 @@ export default {
     iframe {
       width: 100%;
       min-height: 500px;
+      -ms-transform: scale(1.75);
+      -moz-transform: scale(1.75);
+      -o-transform: scale(1.75);
+      -webkit-transform: scale(1.75);
+      transform: scale(1.75);
+      -ms-transform-origin: 0 0;
+      -moz-transform-origin: 0 0;
+      -o-transform-origin: 0 0;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
     }
   }
 }

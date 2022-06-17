@@ -66,8 +66,8 @@ const USER_DELETE_SURVEY_URL = "user/survey/delete";
 const USER_ADD_SURVEY_URL = "survey/add";
 const USER_EDIT_SURVEY_URL = "";
 const USER_GET_SURVEY_URL = "survey/";
-//const USER_SURVEY_DATATABLE_URL = "analysis/generatedatatable/<string:survey_id>";
-//const USER_SURVEY_SUMMARY_URL = "analysis/getsummary/<string:survey_id>";
+const USER_SURVEY_DATATABLE_URL = "analysis/generatedatatable/";
+const USER_SURVEY_SUMMARY_URL = "analysis/getsummary/";
 
 
 
@@ -89,6 +89,14 @@ export const userEditSurvey = (data) => {
 
 export const userGetSurvey = (survey_id) => {
   return axios.get(USER_GET_SURVEY_URL + survey_id);
+};
+
+export const userGetSurveyDatatable = (survey_id) => {
+  return axios.get(USER_SURVEY_DATATABLE_URL + survey_id);
+};
+
+export const userGetSurveySummary = (survey_id) => {
+  return axios.get(USER_SURVEY_SUMMARY_URL + survey_id);
 };
 
 

@@ -10,7 +10,7 @@
         class="mt-2"
       >
         <v-col
-          cols="7"
+          cols="12"
           class="text-left detail-responses__info"
         >
           <h1 class="title">
@@ -19,23 +19,6 @@
           <p class="ma-0 description text-secondary">
             {{ survey.data.description }}
           </p>
-        </v-col>
-        <v-col
-          cols="5"
-          class="text-right"
-        >
-          <v-btn
-            :block="isMobile"
-            small
-            height="44"
-            class="v-btn--accent"
-            @click="onClickDownloadButton"
-          >
-            <v-icon class="pr-1">
-              mdi-download
-            </v-icon>
-            DOWNLOAD AS CSV
-          </v-btn>
         </v-col>
         <v-col
           cols="12"
@@ -52,14 +35,13 @@
 </template>
 
 <script>
-import surveyDataSample from "@/assets/json/survey-data-sample.json";
+import { userGetSurveyDatatable } from "@api";
 
 export default {
   name: "DetailResponses",
   data() {
     return {
-      keyword: "",
-      responsesUrl: "http://localhost:8000/",
+      responsesUrl: "",
       survey: {
         data: {
           title: "",
@@ -73,17 +55,23 @@ export default {
       }
     };
   },
+  computed: {
+    surveyId() {
+      return this.$route.params.id;
+    }
+  },
   created() {
-    this.survey = { ...this.survey, ...surveyDataSample };
+    this.getSurveyDatatableApi(this.surveyId);
   },
   methods: {
-    onClickDownloadButton() {
-      // do something
-      // fetch the api
-      this.$notify.toast("File has been downloaded");
+    getSurveyDatatableApi(surveyId) {
+      this.$notify.toast("Preparing data...");
+      userGetSurveyDatatable(surveyId).then(() => {
+        this.responsesUrl = "http://localhost:8000/dash_datatable/";
+      });
     },
     onLoadIframe() {
-      // do something
+      this.$notify.toast("Responses sucessfully loaded.");
     }
   }
 };
