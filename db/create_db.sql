@@ -41,6 +41,8 @@ CREATE TABLE surveys(
     surveyOwner int NOT NULL,
     title varchar(255),
     description varchar(255),
+	isPublic boolean,
+	surveyHash varchar(30),
     startDate DATETIME,
     endDate DATETIME,
     creationDate DATETIME,

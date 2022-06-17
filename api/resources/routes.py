@@ -35,7 +35,7 @@ def initialize_routes(api):
     api.add_resource(AdminChangePassword, '/api/admin/changepassword')
 
     api.add_resource(AddSurvey, '/api/survey/add')
-    api.add_resource(GetSurvey, '/api/survey/get/<string:survey_id>')
+    api.add_resource(GetSurvey, '/api/survey/<string:survey_id>')
     api.add_resource(GenrateDataTable, '/api/analysis/generatedatatable/<string:survey_id>')
     api.add_resource(GetDataSummary, '/api/analysis/getsummary/<string:survey_id>')
     

@@ -143,6 +143,7 @@
 
 <script>
 import { EventBus } from "@/util/event-bus";
+import { userGetSurvey, userAddSurvey, userEditSurvey } from "@api";
 
 export default {
   name: "SurveyEditView",
@@ -173,6 +174,7 @@ export default {
       isBottomSheetShown: false,
       bottomSheetContent: "surveyElements", // surveyElements, settings
       activeSurveyEditTab: 0,
+      currentSurveyId: "new",
       formData: {
         data: {
           formBuilder: {
@@ -204,6 +206,13 @@ export default {
   },
   mounted() {
     this.mountListeners();
+  },
+  created() {
+    const surveyId = this.$route.params.id;
+    if (surveyId != "new") {
+      this.currentSurveyId = surveyId;
+      this.getSurveyApi(surveyId);
+    }
   },
   beforeDestroy() {
     this.destroyListeners();
@@ -240,10 +249,32 @@ export default {
       return this.formData;
     },
     onSaveAsDraftOptionClick() {
+      console.log("save as draft");
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
-      this.$notify.toast("Survey has been successfully saved");
+      // CHECK START AND END DATE!!! must be filled
+      // call api
+      // save
+      // go to this survey's edit page
+      if (this.currentSurveyId == "new") {
+        userAddSurvey(finalOutput)
+        .then(() => {
+          this.$notify.toast("Your survey has been saved!");
+          this.$router.push("/user/surveys/");
+        }).catch((error) => {
+          this.$notify.toast(error["message"]);
+        });
+      } else {
+        // may need to map ID here, this.currentSurveyId
+        userEditSurvey(finalOutput)
+        .then(() => {
+          this.$notify.toast("Your survey has been saved!");
+          window.location.reload();
+        }).catch((error) => {
+          this.$notify.toast(error["message"]);
+        });
+      }
     },
     onSaveAndPublishOptionClick() {
       console.log("save and publish");
@@ -252,10 +283,25 @@ export default {
 
       // call api
       // save
-      // go to detail page
-
-      this.$notify.toast("Survey has been successfully published");
-      this.$router.push("/user/surveys/1");
+      // go to survey detail page
+      if (this.currentSurveyId == "new") {
+        userAddSurvey(finalOutput)
+        .then(() => {
+          this.$notify.toast("Your survey has been published!");
+          this.$router.push("/user/surveys/");
+        }).catch((error) => {
+          this.$notify.toast(error["message"]);
+        });
+      } else {
+        // may need to map ID here, this.currentSurveyId
+        userEditSurvey(finalOutput)
+        .then(() => {
+          this.$notify.toast("Your survey has been published!");
+          this.$router.push("/user/surveys/");
+        }).catch((error) => {
+          this.$notify.toast(error["message"]);
+        });
+      }
     },
     onClickNewSurveyElementsButton() {
       this.isBottomSheetShown = true;
@@ -264,6 +310,19 @@ export default {
     onClickSettingsButton() {
       this.isBottomSheetShown = true;
       this.bottomSheetContent = "settings";
+    },
+    getSurveyApi(surveyId) {
+      console.log("running getSurveyApi() with param:");
+      console.log(surveyId);
+      userGetSurvey(surveyId)
+        .then((response) => {
+          console.log(response);
+          // do something with the response
+          // : load the response into the formData!!!
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 };

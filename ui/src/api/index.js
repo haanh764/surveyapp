@@ -40,8 +40,6 @@ axios.interceptors.response.use(
   }
 );
 
-const GET_SURVEYS_URL = "user/surveys";
-const ADD_SURVEY_URL = "user/surveys";
 const USER_SIGNUP_URL = "authentication/signup";
 const USER_LOGIN_URL = "authentication/login";
 const USER_LOGOUT_URL = "authentication/logout";
@@ -53,6 +51,7 @@ const USER_DELETE_ACCOUNT_URL = "user/delete";
 const ADMIN_LOGIN_URL = "admin/login";
 const ADMIN_LOGOUT_URL = "admin/logout";
 const ADMIN_CHANGE_PASSWORD_URL = "admin/changepassword";
+//const ADMIN_LIST_SURVEYS_URL = "";
 const ADMIN_DELETE_SURVEY_URL = "admin/deletesurvey";
 const ADMIN_LIST_USERS_URL = "admin/listusers";
 const ADMIN_SEARCH_USER_URL = "admin/searchuser";
@@ -62,13 +61,37 @@ const ADMIN_BLOCK_USER_URL = "admin/blockuser";
 const ADMIN_UNBLOCK_USER_URL = "admin/unblockeduser";
 const ADMIN_DELETE_USER_URL = "admin/deleteuser";
 
-export const getSurveys = () => {
-  return axios.get(GET_SURVEYS_URL);
+const USER_LIST_SURVEYS_URL = "user/surveys";
+const USER_DELETE_SURVEY_URL = "user/survey/delete";
+const USER_ADD_SURVEY_URL = "survey/add";
+const USER_EDIT_SURVEY_URL = "";
+const USER_GET_SURVEY_URL = "survey/";
+//const USER_SURVEY_DATATABLE_URL = "analysis/generatedatatable/<string:survey_id>";
+//const USER_SURVEY_SUMMARY_URL = "analysis/getsummary/<string:survey_id>";
+
+
+
+export const userListSurveys = () => {
+  return axios.get(USER_LIST_SURVEYS_URL);
 };
 
-export const addSurvey = (data) => {
-  return axios.post(ADD_SURVEY_URL, data);
+export const userDeleteSurvey = (data) => {
+  return axios.post(USER_DELETE_SURVEY_URL, data);
 };
+
+export const userAddSurvey = (data) => {
+  return axios.post(USER_ADD_SURVEY_URL, data);
+};
+
+export const userEditSurvey = (data) => {
+  return axios.post(USER_EDIT_SURVEY_URL, data);
+};
+
+export const userGetSurvey = (survey_id) => {
+  return axios.get(USER_GET_SURVEY_URL + survey_id);
+};
+
+
 
 export const userSignup = (data) => {
   return axios.post(USER_SIGNUP_URL, data);
