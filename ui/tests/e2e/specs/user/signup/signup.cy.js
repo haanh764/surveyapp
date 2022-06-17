@@ -1,13 +1,17 @@
 import loginInfo from "~/tests/e2e/support/data/login-info";
 import { getRandomArbitrary } from "@/util/numbers";
+import { user } from "@/store/modules";
 
-const { mockEmails } = loginInfo;
+const { user, mockEmails } = loginInfo;
+const isApiMocked = Cypress.env("IS_API_MOCKED") == "true";
 
 describe("A user should be able to create an account with 4 clicks or fewer", () => {
   it("cannot create an account if account already exists", () => {
     cy.visit("/user/signup/");
     cy.acceptCookiePolicy();
-    cy.get(".signup-form__email").type(mockEmails.error400);
+    cy.get(".signup-form__email").type(
+      isApiMocked ? mockEmails.error400 : user.email
+    );
     cy.get(".signup-form__password").type("asdfghjkl");
     cy.get(".signup-form__submit-button").click();
     cy.wait(1000);
