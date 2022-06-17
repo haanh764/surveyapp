@@ -1,6 +1,7 @@
 import config from "./config.js";
 import { EventBus } from "@util/event-bus";
 import Cookies from "js-cookie";
+import store from "@store/";
 
 const axios = require("axios");
 const { timeout, baseURL } = config;
@@ -13,14 +14,15 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 // handle default
 axios.interceptors.request.use(
   (config) => {
-    const userToken = Cookies.get("access_token_cookie");
+    const userToken =
+      Cookies.get("access_token_cookie") || store.getters["user/token"];
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;
     }
     return config;
   },
   (error) => {
-    console.log("API Request Error:", error);
+    console.log("API Request Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log("API Response Error:", error);
+    console.log("API Response Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }
@@ -50,8 +52,15 @@ const USER_DELETE_ACCOUNT_URL = "user/delete";
 
 const ADMIN_LOGIN_URL = "admin/login";
 const ADMIN_LOGOUT_URL = "admin/logout";
-//const ADMIN_CHANGE_PASSWORD_URL = ;
-//const ADMIN_DELETE_SURVEY_URL = ;
+const ADMIN_CHANGE_PASSWORD_URL = "admin/changepassword";
+const ADMIN_DELETE_SURVEY_URL = "admin/deletesurvey";
+const ADMIN_LIST_USERS_URL = "admin/listusers";
+const ADMIN_SEARCH_USER_URL = "admin/searchuser";
+const ADMIN_RESET_USER_PASSWORD_URL = "admin/resetuserpassword";
+const ADMIN_ACTIVATE_USER_URL = "admin/activateuser";
+const ADMIN_BLOCK_USER_URL = "admin/blockuser";
+const ADMIN_UNBLOCK_USER_URL = "admin/unblockeduser";
+const ADMIN_DELETE_USER_URL = "admin/deleteuser";
 
 export const getSurveys = () => {
   return axios.get(GET_SURVEYS_URL);
@@ -95,4 +104,40 @@ export const adminLogin = (data) => {
 
 export const adminLogout = () => {
   return axios.post(ADMIN_LOGOUT_URL);
+};
+
+export const adminChangePassword = (data) => {
+  return axios.post(ADMIN_CHANGE_PASSWORD_URL, data);
+};
+
+export const adminDeleteSurvey = (data) => {
+  return axios.post(ADMIN_DELETE_SURVEY_URL, data);
+};
+
+export const adminListUsers = () => {
+  return axios.get(ADMIN_LIST_USERS_URL);
+};
+
+export const adminSearchUser = (data) => {
+  return axios.post(ADMIN_SEARCH_USER_URL, data);
+};
+
+export const adminResetUserPassword = (data) => {
+  return axios.post(ADMIN_RESET_USER_PASSWORD_URL, data);
+};
+
+export const adminActivateUser = (data) => {
+  return axios.post(ADMIN_ACTIVATE_USER_URL, data);
+};
+
+export const adminBlockUser = (data) => {
+  return axios.post(ADMIN_BLOCK_USER_URL, data);
+};
+
+export const adminUnblockUser = (data) => {
+  return axios.post(ADMIN_UNBLOCK_USER_URL, data);
+};
+
+export const adminDeleteUser = (data) => {
+  return axios.post(ADMIN_DELETE_USER_URL, data);
 };

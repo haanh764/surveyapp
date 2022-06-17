@@ -68,7 +68,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Tests:E2E
 
 The end to end testing is done by running:
-`yarn test-cypress`
-Running this command will open the cypress dialog (it's integrated with browser, you can choose either of Chrome, Firefox, or Edge).
+`yarn test-cypress` or `yarn cypress open`.
+Running this command will open the cypress dialog. It's integrated with browser, you can choose either of Chrome, Firefox, Electron, or Edge.
 
 The test files can be found in the `tests/e2e/specs` folder. All tests files are named by following `{name}.cy.js`.
+
+1. Open a new terminal and run `yarn serve --port 3000`. This will run the localhost in :3000 port.
+2. Open another new terminal and run `yarn cypress open`. This will open the Cypress window. Choose E2E, a browser of your choice, and run the tests. All tests are updated automatically on save and are reloaded on every save.

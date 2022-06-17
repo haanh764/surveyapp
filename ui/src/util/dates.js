@@ -30,3 +30,9 @@ export const getDurationFromTodayToGivenDate = function (
     months: duration.asMonths()
   };
 };
+
+export const getDateInDaysFromNow = function (days = 1) {
+  let date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  return date.toUTCString();
+};

@@ -83,8 +83,9 @@
                           block
                           height="53"
                           min-width="150"
-                          class="mt-2 mb-5 v-btn--primary"
-                          :disabled="!isPasswordLengthOkay"
+                          class="mt-2 mb-5 v-btn--primary user-settings-form__submit-button"
+                          :loading="isLoading"
+                          :disabled="!isPasswordLengthOkay || isLoading"
                           @click="handleSubmit(onFormSubmit)"
                         >
                           SAVE SETTINGS
@@ -131,9 +132,10 @@ export default {
     return {
       isFormValid: false,
       isPasswordShown: false,
+      isLoading: false,
       formData: {
         email: "",
-        new_password: "",
+        new_password: ""
       },
       isDeleteItemModalShown: false,
       isSucessSnackbarShown: false
@@ -146,13 +148,19 @@ export default {
     },
     isPasswordLengthOkay() {
       return this.formData.new_password.length >= 8;
-    },
+    }
   },
   methods: {
     onFormSubmit() {
-      userChangePassword(this.formData).then((response) => {
-        this.$notify.toast(response["message"]);
-      });
+      this.isLoading = true;
+      userChangePassword({ new_password: this.formData.new_password })
+        .then((response) => {
+          this.$notify.toast(response["message"]);
+          this.isLoading = false;
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
     },
     unsetClientData() {
       this.isDeleteItemModalShown = false;
@@ -178,8 +186,8 @@ export default {
             this.unsetClientData();
           });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
