@@ -52,8 +52,15 @@ const USER_DELETE_ACCOUNT_URL = "user/delete";
 
 const ADMIN_LOGIN_URL = "admin/login";
 const ADMIN_LOGOUT_URL = "admin/logout";
-//const ADMIN_CHANGE_PASSWORD_URL = ;
-//const ADMIN_DELETE_SURVEY_URL = ;
+const ADMIN_CHANGE_PASSWORD_URL = "admin/changepassword";
+const ADMIN_DELETE_SURVEY_URL = "admin/deletesurvey";
+const ADMIN_LIST_USERS_URL = "admin/listusers";
+const ADMIN_SEARCH_USER_URL = "admin/searchuser";
+const ADMIN_RESET_USER_PASSWORD_URL = "admin/resetuserpassword";
+const ADMIN_ACTIVATE_USER_URL = "admin/activateuser";
+const ADMIN_BLOCK_USER_URL = "admin/blockuser";
+const ADMIN_UNBLOCK_USER_URL = "admin/unblockeduser";
+const ADMIN_DELETE_USER_URL = "admin/deleteuser";
 
 export const getSurveys = () => {
   return axios.get(GET_SURVEYS_URL);
@@ -97,4 +104,40 @@ export const adminLogin = (data) => {
 
 export const adminLogout = () => {
   return axios.post(ADMIN_LOGOUT_URL);
+};
+
+export const adminChangePassword = (data) => {
+  return axios.post(ADMIN_CHANGE_PASSWORD_URL, data);
+};
+
+export const adminDeleteSurvey = (data) => {
+  return axios.post(ADMIN_DELETE_SURVEY_URL, data);
+};
+
+export const adminListUsers = () => {
+  return axios.get(ADMIN_LIST_USERS_URL);
+};
+
+export const adminSearchUser = (data) => {
+  return axios.post(ADMIN_SEARCH_USER_URL, data);
+};
+
+export const adminResetUserPassword = (data) => {
+  return axios.post(ADMIN_RESET_USER_PASSWORD_URL, data);
+};
+
+export const adminActivateUser = (data) => {
+  return axios.post(ADMIN_ACTIVATE_USER_URL, data);
+};
+
+export const adminBlockUser = (data) => {
+  return axios.post(ADMIN_BLOCK_USER_URL, data);
+};
+
+export const adminUnblockUser = (data) => {
+  return axios.post(ADMIN_UNBLOCK_USER_URL, data);
+};
+
+export const adminDeleteUser = (data) => {
+  return axios.post(ADMIN_DELETE_USER_URL, data);
 };

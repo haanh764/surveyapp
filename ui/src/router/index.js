@@ -5,7 +5,7 @@ import { layout } from "@/util/routes";
 import PageNotFoundView from "@views/PageNotFoundView.vue";
 import store from "@store/index.js";
 import Cookies from "js-cookie";
-import { userLogout } from "@api";
+import { userLogout, adminLogout } from "@api";
 
 Vue.use(Router);
 
@@ -209,15 +209,27 @@ router.beforeEach((to, from, next) => {
 
   if (hasLoggedIn) {
     if (to.name == "general-logout") {
-      userLogout()
-        .then(() => {
-          unsetClientData();
-          return next({ name: "general-landing" });
-        })
-        .catch(() => {
-          unsetClientData();
-          return next({ name: "general-landing" });
-        });
+      if (accountType == 0) {
+        userLogout()
+          .then(() => {
+            unsetClientData();
+            return next({ name: "general-landing" });
+          })
+          .catch(() => {
+            unsetClientData();
+            return next({ name: "general-landing" });
+          });
+      } else if (accountType == 1) {
+        adminLogout()
+          .then(() => {
+            unsetClientData();
+            return next({ name: "general-admin-login" });
+          })
+          .catch(() => {
+            unsetClientData();
+            return next({ name: "general-admin-login" });
+          });
+      }
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });
     } else if (shouldBePrevented(to.name)) {
