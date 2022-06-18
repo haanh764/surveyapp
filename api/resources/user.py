@@ -3,6 +3,8 @@ from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.user import User
 from models.survey import Survey
+from flask_mail import Message
+from app import jwt, app, mail
 
 class ChangePassword(Resource):
     @jwt_required()
@@ -13,6 +15,12 @@ class ChangePassword(Resource):
         current_user.password = data['new_password']
         current_user.generate_password()
         current_user.add_user()
+        msg = Message()
+        msg.subject = 'You have changed your password'
+        msg.body = 'Your has changed your password successfully!'
+        msg.sender = app.config['MAIL_USERNAME']
+        msg.recipients = [current_user.email]
+        mail.send(msg)
         return {'message': 'Password was changed'}, 200
 
 class DeleteUser(Resource):
