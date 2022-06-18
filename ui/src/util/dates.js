@@ -16,12 +16,11 @@ export const isTodayAfterGivenDate = function (
   return moment().isAfter(moment(givenDate, givenDateFormat));
 };
 
-// from moment.js documentation: moment().isBefore() has undefined behavior and should not be used!
 export const isTodayBeforeGivenDate = function (
   givenDate,
   givenDateFormat = pythonDefaultDateFormat
 ) {
-  return moment().isBefore(moment(givenDate, givenDateFormat));
+  return moment().isSameOrBefore(moment(givenDate, givenDateFormat));
 };
 
 export const getDurationFromTodayToGivenDate = function (

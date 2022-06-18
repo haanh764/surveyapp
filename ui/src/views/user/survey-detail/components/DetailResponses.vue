@@ -67,11 +67,11 @@ export default {
     getSurveyDatatableApi(surveyId) {
       this.$notify.toast("Preparing data...");
       userGetSurveyDatatable(surveyId).then(() => {
-        this.responsesUrl = "http://localhost:8000/dash_datatable/";
+        this.responsesUrl = process.env.VUE_APP_IFRAME_BASE_URL + "dash_datatable/";
       });
     },
     onLoadIframe() {
-      this.$notify.toast("Responses sucessfully loaded.");
+      this.$notify.toast("Responses successfully loaded.");
     }
   }
 };

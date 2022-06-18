@@ -37,7 +37,7 @@ export default {
     getSurveySummaryApi(surveyId) {
       this.$notify.toast("Preparing data...");
       userGetSurveySummary(surveyId).then(() => {
-        this.summaryUrl = "http://localhost:8000/dashboard/";
+        this.summaryUrl = process.env.VUE_APP_IFRAME_BASE_URL + "dashboard/";
       });
     },
     onLoadSummaryPage() {

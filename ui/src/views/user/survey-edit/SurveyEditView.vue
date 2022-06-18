@@ -253,50 +253,34 @@ export default {
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
-      if(finalOutput.config.startDate == "" || finalOutput.config.endDate == "") {
-        this.$notify.toast("Please give survey's start date and end date!");
-      } else {
-        if (this.currentSurveyId == "new") {
-          userAddSurvey(finalOutput)
-          .then(() => {
-            this.$notify.toast("Your survey has been saved!");
-            this.$router.push("/user/surveys/");
-          }).catch((error) => {
-            this.$notify.toast(error["message"]);
-          });
-        } else {
-          finalOutput.config.id = this.currentSurveyId;
-          userEditSurvey(finalOutput)
-          .then(() => {
-            this.$notify.toast("Your survey has been saved!");
-            window.location.reload();
-          }).catch((error) => {
-            this.$notify.toast(error["message"]);
-          });
-        }
-      }
+      this.saveUserSurveyApi(finalOutput);
     },
     onSaveAndPublishOptionClick() {
       console.log("save and publish");
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
-      if(finalOutput.config.startDate == "" || finalOutput.config.endDate == "") {
+      this.saveUserSurveyApi(finalOutput);
+      // call api for publishing (sending email invitations) here
+    },
+    saveUserSurveyApi(finalOutput) {
+      const areEmptyStartEndDates = (finalOutput["config"]["startDate"] == "" || finalOutput["config"]["endDate"] == "");
+      if(areEmptyStartEndDates) {
         this.$notify.toast("Please give survey's start date and end date!");
       } else {
         if (this.currentSurveyId == "new") {
           userAddSurvey(finalOutput)
           .then(() => {
-            this.$notify.toast("Your survey has been published!");
+            this.$notify.toast("Your survey has been saved!");
             this.$router.push("/user/surveys/");
           }).catch((error) => {
             this.$notify.toast(error["message"]);
           });
         } else {
-          finalOutput.config.id = this.currentSurveyId;
+          finalOutput["config"]["id"] = this.currentSurveyId;
           userEditSurvey(finalOutput)
           .then(() => {
-            this.$notify.toast("Your survey has been published!");
+            this.$notify.toast("Your survey has been saved!");
             this.$router.push("/user/surveys/");
           }).catch((error) => {
             this.$notify.toast(error["message"]);
