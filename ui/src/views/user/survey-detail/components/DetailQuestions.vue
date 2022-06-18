@@ -58,7 +58,7 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2"
+                  class="text-secondary text-none ml-2 detail-questions__copy-button"
                   @click="onClickCopyLinkButton"
                 >
                   <v-icon
@@ -77,7 +77,7 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2"
+                  class="text-secondary text-none ml-2 detail-questions__view-participants-button"
                   @click="onClickViewParticipantsButton"
                 >
                   <v-icon
@@ -100,7 +100,7 @@
                 small
                 outlined
                 rounded
-                class="mr-2 text-secondary text-none"
+                class="mr-2 text-secondary text-none detail-questions__set-privacy-button"
                 @click="onClickSetSurveyPrivacyButton"
               >
                 <v-icon
@@ -117,7 +117,7 @@
                 small
                 outlined
                 rounded
-                class="mr-2 text-secondary text-none"
+                class="mr-2 text-secondary text-none detail-questions__edit-button"
                 @click="onClickEditSurveyButton"
               >
                 <v-icon
@@ -131,7 +131,7 @@
               <v-btn
                 text
                 small
-                class="text-secondary text-none"
+                class="text-secondary text-none detail-questions__delete-button"
                 @click="onClickDeleteSurveyButton"
               >
                 <v-icon
@@ -173,7 +173,7 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2"
+                  class="text-secondary text-none ml-2 detail-questions__copy-button"
                   @click="onClickCopyLinkButton"
                 >
                   <v-icon
@@ -193,7 +193,7 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2"
+                  class="text-secondary text-none ml-2 detail-questions__view-participants-button"
                   @click="onClickViewParticipantsButton"
                 >
                   <v-icon
@@ -223,7 +223,7 @@
                 small
                 outlined
                 rounded
-                class="text-secondary text-none mr-2"
+                class="text-secondary text-none mr-2 detail-questions__set-privacy-button"
                 @click="onClickSetSurveyPrivacyButton"
               >
                 <v-icon small>
@@ -237,7 +237,7 @@
                 small
                 outlined
                 rounded
-                class="mr-2 text-secondary text-none"
+                class="mr-2 text-secondary text-none detail-questions__edit-button"
                 @click="onClickEditSurveyButton"
               >
                 <v-icon
@@ -251,7 +251,7 @@
               <v-btn
                 text
                 small
-                class="text-secondary text-none pa-0"
+                class="text-secondary text-none pa-0 detail-questions__delete-button"
                 @click="onClickDeleteSurveyButton"
               >
                 <v-icon

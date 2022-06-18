@@ -1,6 +1,7 @@
 <template>
   <v-container
-    id="user-settings-view"
+    class="user-settings-view"
+    :class="{'--is-desktop': !isMobile}"
     tag="section"
   >
     <v-row justify="center">
@@ -163,14 +164,10 @@ export default {
         });
     },
     unsetClientData() {
-      this.isDeleteItemModalShown = false;
       this.$store.dispatch("user/setToken", "");
       this.$store.dispatch("user/setUserData", {});
       this.$store.dispatch("user/setItems", []);
       this.$cookies.remove("access_token_cookie");
-      this.$router
-        .push({ name: "general-user-delete-thankyou" })
-        .catch(() => {});
     },
     onDeleteAccount() {
       this.isDeleteItemModalShown = true;
@@ -180,10 +177,18 @@ export default {
         this.$notify.toast(response["message"]);
         userLogout()
           .then(() => {
+            this.isDeleteItemModalShown = false;
             this.unsetClientData();
+            this.$router
+              .push({ name: "general-user-delete-thankyou" })
+              .catch(() => {});
           })
           .catch(() => {
+            this.isDeleteItemModalShown = false;
             this.unsetClientData();
+            this.$router
+              .push({ name: "general-user-delete-thankyou" })
+              .catch(() => {});
           });
       });
     }
@@ -192,6 +197,12 @@ export default {
 </script>
 
 <style lang="scss">
+.user-settings-view {
+  &.--is-desktop {
+    margin: 20px 0;
+  }
+}
+
 .user-settings-form {
   &__delete-button {
     letter-spacing: 0;

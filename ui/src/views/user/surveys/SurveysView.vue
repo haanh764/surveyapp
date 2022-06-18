@@ -50,7 +50,7 @@
                   <v-btn
                     v-show="!hasAcceptedTnC"
                     block
-                    class="text-capitalize v-btn--default mb-5"
+                    class="text-capitalize v-btn--default mb-5 surveys-view__tnc-button"
                     height="53"
                     @click="isTnCModalShown = true"
                   >
@@ -59,7 +59,7 @@
                   <v-btn
                     v-show="!hasAcceptedPrivacyPolicy"
                     block
-                    class="v-btn--default mb-5"
+                    class="v-btn--default mb-5 surveys-view__privacy-button"
                     height="53"
                     @click="isPrivacyPolicyModalShown = true"
                   >
@@ -82,7 +82,7 @@
                     block
                     height="53"
                     :disabled="surveys.length >= 20"
-                    class="v-btn--accent"
+                    class="v-btn--accent surveys-view__create-button"
                     @click="createSurvey"
                   >
                     <v-icon class="pr-1">
@@ -102,7 +102,7 @@
                           block
                           height="53"
                           :disabled="surveys.length >= 20"
-                          class="v-btn--accent"
+                          class="v-btn--accent surveys-view__create-button"
                           @click="createSurvey"
                         >
                           <v-icon class="pr-1">
@@ -144,12 +144,12 @@
                         </v-btn>
                       </v-col>
                     </v-row>
-                    <v-list>
+                    <v-list class="user-surveys-list">
                       <v-list-item
                         v-for="survey in filteredSurveys"
                         :key="survey.id"
                         cols="12"
-                        class="pa-0"
+                        class="pa-0 user-surveys-list__item"
                         @click="onClickSurveyListItem(survey)"
                       >
                         <v-list-item-content class="pa-2 pb-4">
@@ -197,7 +197,7 @@
                           block
                           height="53"
                           :disabled="surveys.length >= 20"
-                          class="v-btn--accent"
+                          class="v-btn--accent surveys-view__create-button"
                           @click="createSurvey"
                         >
                           <v-icon class="pr-1">
@@ -267,7 +267,7 @@
                               icon
                               elevation="1"
                               small
-                              class="v-btn--default mr-2"
+                              class="v-btn--default mr-2 surveys-view__edit-button"
                               @click="onClickItemEdit(item)"
                             >
                               <v-icon small>
@@ -280,7 +280,7 @@
                               icon
                               elevation="1"
                               small
-                              class="v-btn--default"
+                              class="v-btn--default surveys-view__delete-button"
                               @click="onClickItemDelete(item)"
                             >
                               <v-icon small>
@@ -300,6 +300,7 @@
 
         <template v-if="!isMobile">
           <modal
+            v-if="isPrivacyPolicyModalShown"
             v-model="isPrivacyPolicyModalShown"
             name="privacy-policy-modal"
             :is-close-button-shown="false"
@@ -313,7 +314,7 @@
             />
           </modal>
           <modal
-            v-if="!isMobile"
+            v-if="isTnCModalShown"
             v-model="isTnCModalShown"
             name="tnc-modal"
             :is-close-button-shown="false"
@@ -327,6 +328,7 @@
             />
           </modal>
           <modal
+            v-if="isDeleteItemModalShown"
             v-model="isDeleteItemModalShown"
             name="delete-modal"
             title="Delete"

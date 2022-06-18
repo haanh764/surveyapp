@@ -1,5 +1,3 @@
-// https://docs.cypress.io/api/table-of-contents
-
 describe("Cookie policy", () => {
   it("should show the cookie policy dialog on first visit", () => {
     cy.clearCookies();

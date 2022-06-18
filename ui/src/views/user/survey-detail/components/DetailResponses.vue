@@ -48,17 +48,17 @@ export default {
           description: "",
           formBuilder: {
             list: [],
-            models: {}
-          }
+            models: {},
+          },
         },
-        config: {}
-      }
+        config: {},
+      },
     };
   },
   computed: {
     surveyId() {
       return this.$route.params.id;
-    }
+    },
   },
   created() {
     this.getSurveyDatatableApi(this.surveyId);
@@ -67,13 +67,14 @@ export default {
     getSurveyDatatableApi(surveyId) {
       this.$notify.toast("Preparing data...");
       userGetSurveyDatatable(surveyId).then(() => {
-        this.responsesUrl = process.env.VUE_APP_API_BASE_URL + "dash_datatable/";
+        this.responsesUrl =
+          process.env.VUE_APP_API_BASE_URL + "dash_datatable/";
       });
     },
     onLoadIframe() {
       this.$notify.toast("Responses successfully loaded.");
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

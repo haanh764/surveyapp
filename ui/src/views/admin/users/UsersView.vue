@@ -596,7 +596,7 @@ export default {
               email: rawUsers[rawUserid]["user_email"],
               isActivated: rawUsers[rawUserid]["user_activated"],
               isBlocked: rawUsers[rawUserid]["user_blocked"]
-            }
+            };
             this.users.push(rawUser);
           });
         });
