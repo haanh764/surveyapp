@@ -2,8 +2,8 @@
 export default {
   user: {
     email: "sapi@yopmail.com",
-    emailNotActivated: "amatsangatlapar@yopmail.com",
     password: "asdfghjkl",
+    emailNotActivated: "amatsangatlapar@yopmail.com",
   },
   admin: {
     email: "surveyapp.manager@gmail.com",

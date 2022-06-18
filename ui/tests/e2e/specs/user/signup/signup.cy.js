@@ -1,6 +1,5 @@
 import loginInfo from "~/tests/e2e/support/data/login-info";
 import { getRandomArbitrary } from "@/util/numbers";
-import { user } from "@/store/modules";
 
 const { user, mockEmails } = loginInfo;
 const isApiMocked = Cypress.env("IS_API_MOCKED") == "true";
