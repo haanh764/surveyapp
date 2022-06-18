@@ -33,7 +33,7 @@ CREATE TABLE users (
 
 CREATE TABLE respondents(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	email varchar(255)
+	email varchar(255) UNIQUE
 );
 
 CREATE TABLE surveys(
@@ -43,6 +43,8 @@ CREATE TABLE surveys(
     description varchar(255),
 	isPublic boolean,
 	surveyHash varchar(30),
+	isSurveySentAutomatically boolean,
+	isPublished boolean,
     startDate DATETIME,
     endDate DATETIME,
     creationDate DATETIME,
@@ -77,6 +79,7 @@ CREATE TABLE questions(
     surveyId int NOT NULL,
     title varchar(255),
     description varchar(255),
+	defaultValue varchar(255),
     image MEDIUMBLOB,
     order_number int,
     tag varchar(8),
@@ -87,6 +90,8 @@ CREATE TABLE questions(
 
 CREATE TABLE open_answer_questions(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	defaultValue varchar(255),
+	placeholder varchar(255),
     questionId int NOT NULL,
     FOREIGN KEY (questionId) REFERENCES questions(id)
 );
@@ -103,6 +108,8 @@ CREATE TABLE open_answers(
 CREATE TABLE scale_questions(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     questionId int NOT NULL,
+	defaultValue float,
+	step float,
     min_value float,
     max_value float,
     FOREIGN KEY (questionId) REFERENCES questions(id)
@@ -162,6 +169,8 @@ CREATE TABLE answer_options(
     multiple_choice_questions_id int NOT NULL,
     image MEDIUMBLOB,
     text varchar(255),
+	value_ varchar(255),
+	defaultValue boolean,
     FOREIGN KEY (multiple_choice_questions_id) REFERENCES multiple_choice_questions(id)
 );
 

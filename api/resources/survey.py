@@ -6,6 +6,7 @@ from app import mail
 
 
 from models.survey import Survey
+from models.respondents import Respondents, AllowedRespondents
 from models.user import User
 from models.question import Question, ScaleQuestion, OpenAnswerQuestion, MultipleChoiceQuestion, AnswerOption
 from email_validator import validate_email, EmailNotValidError
@@ -62,7 +63,8 @@ class AddSurvey(Resource):
                 if isinstance(options, dict) and 'tag' in options:
                     base_question = Question(survey.id, question['title'],
                                              question['order'], tag=options['tag'],
-                                             model_key=model_key, model=model)
+                                             model_key=model_key, model=model,
+                                             defaultValue=options['defaultValue'])
                     base_question.add_question()
                 else:
                     type = question['type']
@@ -71,23 +73,39 @@ class AddSurvey(Resource):
                                              model_key=model_key, model=model)
                     base_question.add_question()
                     if type == 'slider':
-                        scale_question = ScaleQuestion(base_question.id, options['min'], options['max'])
+                        scale_question = ScaleQuestion(base_question.id, options['min'], options['max'], options['defaultValue'], options['step'])
                         scale_question.add_question()
                     elif type == 'checkbox' or type == 'radio':
                         allow_multiple_answers = True if type == 'checkbox' else False
                         multiple_choice_question = MultipleChoiceQuestion(base_question.id, allow_multiple_answers)
                         multiple_choice_question.add_question()
                         answers = options['options']
-                        for answer in answers:
-                            answer_option = AnswerOption(multiple_choice_question.id, answer['text'])
+                        for i, answer in enumerate(answers):
+                            default_value = False
+                            if type == 'radio':
+                                if i == options['defaultValue']:
+                                    default_value = True
+                            else:
+                                if i in options['defaultValue']:
+                                    default_value = True
+                            answer_option = AnswerOption(multiple_choice_question.id, answer['text'], answer['value'], default_value)
                             answer_option.add_answer()
+
                     elif type == 'input':
-                        open_answer_question = OpenAnswerQuestion(base_question.id)
+                        open_answer_question = OpenAnswerQuestion(base_question.id, options['defaultValue'], options['placeholder'])
                         open_answer_question.add_question()
         except KeyError:
             return {'message': 'Invalid data in post request.'}
-        if congig['isSurveySentAutomatically']:
-            emails = config['emails']
+        emails = config['emails']
+        emails = list(set(emails))
+        for email in emails:
+            respondent = Respondents.get_respondent(email)
+            if respondent is None or not respondent:
+                respondent = Respondents(email)
+                respondent.add_respondent()
+            allowed_respondent = AllowedRespondents(respondent.id, survey.id)
+            allowed_respondent.add_allowed_respondent()
+        if config['isSurveySentAutomatically']:
             user = User.find_by_id(current_user_id)
             sender = user.email
             link = url_for('getsurvey', survey_id=survey.id, hash=survey.surveyHash, _external=True)
