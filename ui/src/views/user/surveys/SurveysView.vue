@@ -162,7 +162,7 @@
                                 {{ survey.title }}
                               </h2>
                               <span class="text-secondary">
-                                {{ survey.responses }} responses received
+                                {{ survey.startDate }}
                               </span>
                             </v-col>
                             <v-col cols="auto">
@@ -343,7 +343,8 @@
 <script>
 import { get, sync } from "vuex-pathify";
 import { mapGetters } from "vuex";
-import { getSurveys } from "@api";
+import { userListSurveys, userDeleteSurvey } from "@api";
+import { convertToStandardDate, isTodayAfterGivenDate } from "@util/dates.js";
 import loremIpsum from "@assets/json/lorem-ipsum.json";
 
 export default {
@@ -365,22 +366,7 @@ export default {
       selectedSurvey: {},
       privacyPolicyContent: loremIpsum.long,
       tnCContent: loremIpsum.long,
-      surveys: [
-        {
-          id: 1,
-          title: "Earnings 2022",
-          responses: 10,
-          status: 1,
-          lastUpdatedDate: "01/02/2022 08:00:00"
-        },
-        {
-          id: 2,
-          title: "Chicken 2022",
-          responses: 11,
-          status: 2,
-          lastUpdatedDate: "09/08/2022 08:00:00"
-        }
-      ]
+      surveys: []
     };
   },
   computed: {
@@ -408,28 +394,29 @@ export default {
         { text: "Last updated at", value: "lastUpdatedDate" },
         { text: "Survey name", value: "title" },
         { text: "Status", value: "status" },
-        { text: "Responses", value: "responses" },
+        { text: "Start date", value: "startDate" },
         { text: "Actions", value: "id" }
       ];
     }
   },
   created() {
-    // get survey api
-    // add certain columns to survey data
+    this.getSurveysApi();
     this.processSurveyData();
   },
   mounted() {},
   methods: {
-    onDeleteConfirmation() {
-      // call delete api
-      // delete
-      // refresh table
-      // hide modal
-      this.isDeleteItemModalShown = false;
-    },
     onClickItemDelete(item) {
       this.selectedSurvey = { ...item };
       this.isDeleteItemModalShown = true;
+    },
+    onDeleteConfirmation() {
+      const apiData = { id: this.selectedSurvey.id };
+      userDeleteSurvey(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getSurveysApi();
+        this.processSurveyData();
+      });
+      this.isDeleteItemModalShown = false;
     },
     onClickItemEdit(item) {
       this.$router.push(`/user/surveys/${item.id}/edit`);
@@ -463,10 +450,7 @@ export default {
       return item;
     },
     createSurvey() {
-      // fetch api to create survey
-      // get new survey id
-      // go to the edit page
-      this.$router.push("/user/surveys/1/edit");
+      this.$router.push("/user/surveys/new/edit");
     },
     onClickSurveyListItem(survey) {
       this.$router.push(`/user/surveys/${survey.id}`);
@@ -481,48 +465,31 @@ export default {
       this.isPrivacyPolicyModalShown = false;
     },
     onConfirmTnC(isTncConfirmed) {
-      // call api to confirm privacy policy
+      // call api to confirm TnC
       // set vuex
       this.$store.dispatch("user/setHasAcceptedTnC", isTncConfirmed);
       this.isTnCModalShown = false;
     },
-    getSurveyApi() {
-      // example of fetching api directly with fetch
-      fetch("http://localhost:8000")
-        .then((response) => response.json())
-        .then((data) => {
-          this.message = data.message;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      // example 1 with axios
-      this.$axios
-        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+    getSurveysApi() {
+      userListSurveys()
         .then((response) => {
-          if (response.status == 200) {
-            // do something
-          } else {
-            // error
-            // do something
-          }
-        })
-        .catch((error) => {
-          // do something on error
-          console.error(error);
-        });
-
-      // example 2
-      // recommended because this way the api is centered in one place/file
-      // dont forget to handle errors
-      getSurveys()
-        .then((response) => {
-          console.log(response);
-          // do something with the response
-        })
-        .catch((error) => {
-          console.log(error);
+          this.surveys.length = 0;
+          response.forEach((item) => {
+            const respDateTimeFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+            let rawSurveyStatus = 1;
+            if( isTodayAfterGivenDate(item["startDate"], respDateTimeFormat) ) {
+              rawSurveyStatus = 2;
+            }
+            const rawSurveyStartDateMoment = convertToStandardDate(item["startDate"], respDateTimeFormat);
+            let rawSurvey = {
+              id: item["id"],
+              title: item["title"],
+              startDate: rawSurveyStartDateMoment,
+              status: rawSurveyStatus,
+              lastUpdatedDate: new Date(item["modificationDate"])
+            }
+            this.surveys.push(rawSurvey);
+          });
         });
     }
   }

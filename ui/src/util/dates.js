@@ -9,11 +9,18 @@ export const convertToStandardDate = function (
   return moment(value, givenFormat).format("DD MMM YYYY");
 };
 
+export const isTodayAfterGivenDate = function (
+  givenDate,
+  givenDateFormat = pythonDefaultDateFormat
+) {
+  return moment().isAfter(moment(givenDate, givenDateFormat));
+};
+
 export const isTodayBeforeGivenDate = function (
   givenDate,
   givenDateFormat = pythonDefaultDateFormat
 ) {
-  return moment().isBefore(moment(givenDate, givenDateFormat));
+  return moment().isSameOrBefore(moment(givenDate, givenDateFormat));
 };
 
 export const getDurationFromTodayToGivenDate = function (
