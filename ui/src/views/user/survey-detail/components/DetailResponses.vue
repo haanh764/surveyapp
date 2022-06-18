@@ -67,7 +67,7 @@ export default {
     getSurveyDatatableApi(surveyId) {
       this.$notify.toast("Preparing data...");
       userGetSurveyDatatable(surveyId).then(() => {
-        this.responsesUrl = process.env.VUE_APP_IFRAME_BASE_URL + "dash_datatable/";
+        this.responsesUrl = process.env.VUE_APP_API_BASE_URL + "dash_datatable/";
       });
     },
     onLoadIframe() {

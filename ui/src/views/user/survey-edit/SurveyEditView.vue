@@ -303,9 +303,6 @@ export default {
         .then((response) => {
           console.log(JSON.stringify(response));
           // how to load the response into the formData?
-        })
-        .catch((error) => {
-          console.log(error);
         });
     }
   }
