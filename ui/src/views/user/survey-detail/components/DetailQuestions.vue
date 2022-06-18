@@ -356,7 +356,7 @@
 
 
 <script>
-import surveyDataSample from "@/assets/json/survey-data-sample.json";
+// import surveyDataSample from "@/assets/json/survey-data-sample.json";
 import GenerateForm from "@/form-builder/components/GenerateForm";
 import SurveySettings from "@/views/user/survey-edit/components/SurveySettings";
 import {
@@ -365,6 +365,7 @@ import {
   getDurationFromTodayToGivenDate
 } from "@/util/dates";
 import copyText from "@util/copy";
+import { userGetSurvey, userDeleteSurvey, userEditSurvey } from "@api";
 
 export default {
   name: "DetailQuestions",
@@ -413,16 +414,52 @@ export default {
     }
   },
   created() {
-    this.survey = { ...this.survey, ...surveyDataSample };
+    // this.survey = { ...this.survey, ...surveyDataSample };
+    this.getSurveyApi();
   },
   methods: {
+    getSurveyApi() {
+      userGetSurvey()
+      .then((response) => {
+        console.log(response);
+        // map json to this.survey
+        this.survey = { ...this.survey, ...response };
+        /*
+        // DESIRED STRUCTURE:
+        survey: {
+          data: {
+            title: "",
+            description: "",
+            link: "",
+            isPublished: false,
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {
+            startDate: "",
+            endDate: "",
+            isPublic: false,
+            emails: []
+          }
+        }
+        */
+      });
+    },
     onSubmitSurveySettings() {
-      // get data from survey settings
-      // submit
-      // show notif
-      // reload
-      this.isSurveySettingsModalShown = false;
-      this.$notify.toast("Survey has been successfully saved");
+      const areEmptyStartEndDates = (this.survey.config.startDate == "" || this.survey.config.endDate == "");
+      if(areEmptyStartEndDates) {
+        this.$notify.toast("Please give survey's start date and end date!");
+      } else {
+        userEditSurvey(this.survey)
+        .then(() => {
+          this.isSurveySettingsModalShown = false;
+          this.$notify.toast("Survey has been successfully saved");
+        }).catch((error) => {
+          this.$notify.toast(error.message);
+        });
+      }
     },
     onClickSetSurveyPrivacyButton() {
       if (this.isMobile) {
@@ -435,11 +472,11 @@ export default {
       this.isViewParticipantsModalShown = true;
     },
     onDeleteConfirmation() {
-      // fetch delete api
-      // if ok, show notif, redirect to user/surveys page
-      // else stays
-      this.$notify.toast("Survey has been successfully deleted");
-      this.$router.push("/user/surveys");
+      const apiData = { id: this.survey.config.id };
+      userDeleteSurvey(apiData).then(() => {
+        this.$notify.toast("Survey has been successfully deleted");
+        this.$router.push("/user/surveys");
+      });
     },
     onClickCopyLinkButton() {
       const isSuccess = copyText(this.surveyLink);

@@ -38,12 +38,17 @@ export default {
     SurveyElements,
     SurveySettings
   },
+  props: {
+    formData: {
+      type: Object,
+      default() {
+        return { config: {} }
+      }
+    }
+  },
   data() {
     return {
       tab: "Elements",
-      formData: {
-        config: {}
-      },
       items: [
         {
           title: "Elements",

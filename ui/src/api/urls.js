@@ -13,11 +13,12 @@ export const USER_EDIT_SURVEY_URL = "";
 export const USER_GET_SURVEY_URL = "survey/";
 export const USER_SURVEY_DATATABLE_URL = "analysis/generatedatatable/";
 export const USER_SURVEY_SUMMARY_URL = "analysis/getsummary/";
+export const RESPONDER_SUBMIT_RESPONSE_URL = "";
 
 export const ADMIN_LOGIN_URL = "admin/login";
 export const ADMIN_LOGOUT_URL = "admin/logout";
 export const ADMIN_CHANGE_PASSWORD_URL = "admin/changepassword";
-//export const ADMIN_LIST_SURVEYS_URL = "";
+export const ADMIN_LIST_SURVEYS_URL = "admin/listsurveys";
 export const ADMIN_DELETE_SURVEY_URL = "admin/deletesurvey";
 export const ADMIN_LIST_USERS_URL = "admin/listusers";
 export const ADMIN_SEARCH_USER_URL = "admin/searchuser";

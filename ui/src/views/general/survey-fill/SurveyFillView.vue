@@ -101,10 +101,11 @@
 </template>
 
 <script>
-import surveyDataSample from "@/assets/json/survey-data-sample.json";
+// import surveyDataSample from "@/assets/json/survey-data-sample.json";
 import GenerateForm from "@/form-builder/components/GenerateForm.vue";
 import { isTodayBeforeGivenDate } from "@util/dates";
 import copyText from "@util/copy";
+import { userGetSurvey, responderSubmitResponse } from "@api";
 
 export default {
   name: "SurveyFillView",
@@ -171,28 +172,57 @@ export default {
     }
   },
   created() {
-    this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
+    // this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
     // get survey data
+    this.getSurveyApi();
     // check if the user has permission if the survey is private
   },
   methods: {
+    getSurveyApi() {
+      userGetSurvey()
+      .then((response) => {
+        console.log(response);
+        // map json to this.survey
+        this.survey = { ...this.survey, ...response };
+        /*
+        // DESIRED STRUCTURE:
+        survey: {
+          data: {
+            title: "",
+            description: "",
+            link: "",
+            isPublished: false,
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {
+            startDate: "",
+            endDate: "",
+            isPublic: false,
+            emails: []
+          }
+        }
+        */
+      });
+    },
     onClickSocialMediaIcon(socialMedia) {
       console.log(socialMedia);
       // do something
     },
     onClickSubmitButton({ models, list }) {
-      // submit survey
-      // send survey list and models
-      // combine with survey data
-      // set hasSubmitted as true
       console.log(models, list);
+      responderSubmitResponse({ models, list }).then(() => {
+        this.$notify.toast("Response has been submitted!");
+      });
+      this.hasSubmitted = true;
     },
     onPrimaryButtonClickCallback() {
       // download as pdf
     },
     onClickSurveyLink() {
       const isCopySuccess = copyText(this.surveyLink);
-
       isCopySuccess && this.$notify.toast("Link has been copied to clipboard");
     }
   }
