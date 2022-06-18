@@ -44,20 +44,23 @@
 import FormBuilder from "@/form-builder/components/FormBuilder.vue";
 export default {
   name: "SurveyBuild",
-  components: {
-    FormBuilder
-  },
-  data() {
-    return {
-      formData: {
-        title: "Survey title",
-        description: "",
-        formBuilder: {
-          list: [],
-          models: {}
+  props: {
+    formData: {
+      type: Object,
+      default() {
+        return {
+          title: "Survey title",
+          description: "",
+          formBuilder: {
+            list: [],
+            models: {}
+          }
         }
       }
-    };
+    }
+  },
+  components: {
+    FormBuilder
   },
   watch: {
     formData: {
