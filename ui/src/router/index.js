@@ -186,6 +186,9 @@ router.beforeEach((to, from, next) => {
   const hasLoggedIn = store.getters["user/hasLoggedIn"];
   const accountType = store.getters["user/accountType"];
   const hasBeenActivated = store.getters["user/hasBeenActivated"];
+  const hasAcceptedTnC = store.getters["user/hasAcceptedTnC"];
+  const hasAcceptedPrivacyPolicy = store.getters["user/hasAcceptedPrivacyPolicy"];
+  const hasAcceptedTncAndPp = (hasAcceptedTnC && hasAcceptedPrivacyPolicy);
 
   const userMainPage = { name: "user-surveys" };
   const adminMainPage = { name: "admin-users" };
@@ -232,6 +235,8 @@ router.beforeEach((to, from, next) => {
       }
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });
+    } else if (from.name == "user-surveys" && !hasAcceptedTncAndPp) {
+      return next(userMainPage);
     } else if (shouldBePrevented(to.name)) {
       if (accountType == 0) {
         return next(userMainPage);
