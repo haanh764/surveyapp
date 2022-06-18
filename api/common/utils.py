@@ -130,54 +130,55 @@ def create_dashboards(choices_answers, open_answers, scale_answers):
                 ))
 
     big_numbers = make_subplots(
-        rows=2,
-        cols=3,
+        rows=3,
+        cols=2,
         subplot_titles=('Respondents', 'Questions', 'Completion','Textual data', 'Numerical data', 'Categorical data'),
-        specs=[[{'type': 'indicator'}, {'type': 'indicator'}, {'type': 'indicator'}],
-    [{'type': 'indicator'}, {'type': 'indicator'}, {'type': 'indicator'}]]
+        specs=[[{'type': 'indicator'}, {'type': 'indicator'}], [{'type': 'indicator'},
+    {'type': 'indicator'}], [{'type': 'indicator'}, {'type': 'indicator'}]]
     )
 
     big_numbers.add_trace(
-        go.Indicator(mode="number", value=num_respondents, number={'font_color':'#303972', 'font_size':56}),
+        go.Indicator(mode="number", value=num_respondents, number={'font_color':'#303972', 'font_size':36}),
         row=1,
         col=1,
     )
 
     big_numbers.add_trace(
-        go.Indicator(mode="number", value=num_questions, number={'font_color':'#303972', 'font_size':56}),
+        go.Indicator(mode="number", value=num_questions, number={'font_color':'#303972', 'font_size':36}),
         row=1,
         col=2,
     )
 
     big_numbers.add_trace(
-        go.Indicator(mode="number", value=completion_rate, number = {'suffix': "%", 'font_color':'#303972', 'font_size':56},),
-        row=1,
-        col=3,
-    )
-
-    big_numbers.add_trace(
-        go.Indicator(mode="number", value=num_textual_data, number={'font_color':'#303972', 'font_size':56}),
+        go.Indicator(mode="number", value=completion_rate, number = {'suffix': "%", 'font_color':'#303972', 'font_size':36},),
         row=2,
         col=1,
     )
 
     big_numbers.add_trace(
-        go.Indicator(mode="number", value=num_numerical_data, number={'font_color':'#303972', 'font_size':56}),
+        go.Indicator(mode="number", value=num_textual_data, number={'font_color':'#303972', 'font_size':36}),
         row=2,
         col=2,
     )
 
     big_numbers.add_trace(
-        go.Indicator(mode="number", value=num_categorical_data, number={'font_color':'#303972', 'font_size':56}),
-        row=2,
-        col=3,
+        go.Indicator(mode="number", value=num_numerical_data, number={'font_color':'#303972', 'font_size':36}),
+        row=3,
+        col=1,
     )
 
-    big_numbers.layout.annotations[0].update(yanchor='bottom', y=0.6)
-    big_numbers.layout.annotations[1].update(yanchor='bottom', y=0.6)
-    big_numbers.layout.annotations[2].update(yanchor='bottom', y=0.6)
-    big_numbers.layout.annotations[3].update(yanchor='bottom', y=-0.03)
-    big_numbers.layout.annotations[4].update(yanchor='bottom', y=-0.03)
-    big_numbers.layout.annotations[5].update(yanchor='bottom', y=-0.03)
+    big_numbers.add_trace(
+        go.Indicator(mode="number", value=num_categorical_data, number={'font_color':'#303972', 'font_size':36}),
+        row=3,
+        col=2,
+    )
+
+    big_numbers.layout.annotations[0].update(yanchor='bottom', y=0.7)
+    big_numbers.layout.annotations[1].update(yanchor='bottom', y=0.7)
+    big_numbers.layout.annotations[2].update(yanchor='bottom', y=0.3)
+    big_numbers.layout.annotations[3].update(yanchor='bottom', y=0.3)
+    big_numbers.layout.annotations[4].update(yanchor='bottom', y=-0.1)
+    big_numbers.layout.annotations[5].update(yanchor='bottom', y=-0.1)
+
     return graphs, big_numbers, fig_completion_rate
     
