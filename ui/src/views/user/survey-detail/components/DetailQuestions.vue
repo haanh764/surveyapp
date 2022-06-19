@@ -421,7 +421,6 @@ export default {
     getSurveyApi(survey_id) {
       userGetSurvey(survey_id)
       .then((response) => {
-        console.log(response);
         const survey = _.cloneDeep(response);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);

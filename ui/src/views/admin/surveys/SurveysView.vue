@@ -74,7 +74,7 @@
                         </v-col>
                         <v-col cols="auto">
                           <span class="text-xs-right">
-                            {{ survey.lastUpdatedDate | standardDate }}
+                            {{ survey.lastUpdatedDate }}
                           </span>
                         </v-col>
                       </v-row>
@@ -124,7 +124,7 @@
                     </v-row>
                   </template>
                   <template #item.lastUpdatedDate="{ item }">
-                    {{ item.lastUpdatedDate | standardDate }}
+                    {{ item.lastUpdatedDate }}
                   </template>
                   <template #item.status="{ item }">
                     <v-chip
@@ -273,13 +273,14 @@ export default {
               rawSurveyStatus = 2;
             }
             const rawSurveyStartDateMoment = convertToStandardDate(rawSurveys[rawSurveyId]["startDate"], respDateTimeFormat);
+            const rawSurveyModificationDateMoment = convertToStandardDate(rawSurveys[rawSurveyId]["modificationDate"], respDateTimeFormat);
             let rawSurvey = {
               id: rawSurveyId,
               owner: rawSurveys[rawSurveyId]["surveyOwner"],
               title: rawSurveys[rawSurveyId]["title"],
               startDate: rawSurveyStartDateMoment,
               status: rawSurveyStatus,
-              lastUpdatedDate: rawSurveys[rawSurveyId]["modificationDate"]
+              lastUpdatedDate: rawSurveyModificationDateMoment
             };
             this.surveys.push(rawSurvey);
           });

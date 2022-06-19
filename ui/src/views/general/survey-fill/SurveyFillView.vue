@@ -5,7 +5,7 @@
   >
     <v-row justify="center">
       <v-col
-        v-if="!survey.data.isPublished"
+        v-if="survey.data.isPublished"
         cols="12"
       >
         <content-card
@@ -139,7 +139,7 @@ export default {
           title: "",
           description: "",
           link: "",
-          isPublished: false,
+          isPublished: true,
           formBuilder: {
             list: [],
             models: {}
@@ -177,10 +177,11 @@ export default {
     getSurveyApi(survey_id) {
       userGetSurvey(survey_id)
       .then((response) => {
-        console.log(response);
         const survey = _.cloneDeep(response);
+        console.log(survey);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
+        console.log(survey);
         survey.data.formBuilder.list = survey.data.formBuilder.list.map(
           (listItem) => {
             listItem.question = listItem.title;

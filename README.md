@@ -70,8 +70,60 @@ Below is the structure of our repository:
 
 ## Front-end
 
--- TODO --
+Below is the structure of `/ui`:
 
+```
+├── README.md
+├── Dockerfile
+├── package.json
+├── src/
+  ├── api
+  ├── store
+  ├── router
+  ├── views
+  ├── components
+  ├── layouts
+  ├── assets
+  ├── form-builder
+  ├── filters
+  ├── mixins
+  ├── plugins
+  ├── styles
+  ├── util
+  ├── mocks/server
+  ├── App.vue
+  ├── main.js
+  ├── registerServiceWorker.js
+├── tests/e2e/
+├── .gitignore
+├── .dockerignore
+├── .env.development
+├── .env.production
+├── .browserslistrc
+├── jsconfig.json
+├── vue.config.js
+├── .editorconfig
+├── .eslintrc.js
+├── babel.config.js
+├── cypress.config.js
+```
+
+- `README.md` - UI-development-specific readme file providing information how to run the UI using `yarn-serve` for hot reloads, and how to run tests using `cypress`.
+- `Dockerfile` - Contains the command for image api, which will be run when build the service.
+- `package.json` - Contains the required dependencies; they are automatically installed when building the image ui.
+- `src/` - Contains the source code 
+- `tests/e2e/` - 
+- `.gitignore` - 
+- `.dockerignore` - 
+- `.env.development` - 
+- `.env.production` - 
+- `.browserslistrc` - 
+- `jsconfig.json` - 
+- `vue.config.js` - 
+- `.editorconfig` - 
+- `.eslintrc.js` - 
+- `babel.config.js` - 
+- `cypress.config.js` - 
 
 ## Back-end
 

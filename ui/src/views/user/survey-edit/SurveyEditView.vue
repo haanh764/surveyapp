@@ -146,6 +146,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { EventBus } from "@/util/event-bus";
 import { userGetSurvey, userAddSurvey, userEditSurvey } from "@api";
 
@@ -265,8 +266,9 @@ export default {
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
+      finalOutput.config.startDate = moment().format("YYYY-MM-DD");
+      finalOutput.config.endDate = moment().add(7,"days").format("YYYY-MM-DD");
       this.saveUserSurveyApi(finalOutput);
-      // call api for publishing (sending email invitations) here
     },
     saveUserSurveyApi(finalOutput) {
       const areEmptyStartEndDates = (finalOutput["config"]["startDate"] == "" || finalOutput["config"]["endDate"] == "");
@@ -304,14 +306,34 @@ export default {
     getSurveyApi(surveyId) {
       userGetSurvey(surveyId)
         .then((response) => {
-          console.log(JSON.stringify(response));
-          const survey = _.cloneDeep(response.survey);
+          const survey = _.cloneDeep(response);
+
+          const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+          const pickerDateFormat = "YYYY-MM-DD";
+          if (survey.config.startDate == "") {
+            survey.config.startDate = this.todayDate;
+          } else {
+            survey.config.startDate = moment(
+              survey.config.startDate,
+              rawDateFormat
+            ).format(pickerDateFormat);
+          }
+          if (survey.config.endDate == "") {
+            survey.config.endDate = moment().add(7,"days").format("YYYY-MM-DD");
+          } else {
+            survey.config.endDate = moment(
+              survey.config.endDate,
+              rawDateFormat
+            ).format(pickerDateFormat);
+          }
+
           survey.data.formBuilder.list = survey.data.formBuilder.list.map(
             (listItem) => {
               listItem.question = listItem.title;
               return listItem;
             }
           );
+          
           this.formData = { ...this.formData, ...survey };
           this.surveyEditTabsKey += 1;
         });
