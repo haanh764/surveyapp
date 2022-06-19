@@ -80,8 +80,8 @@ export default {
   },
   methods: {
     setFormDataFromSurveyProp() {
-      this.formData = {
-        ...this.formData,
+      this.formData.config = {
+        ...this.formData.config,
         ...this.survey.config
       };
     },

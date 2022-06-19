@@ -174,6 +174,7 @@ export default {
   created() {
     this.getSurveyApi(this.surveyId);
     // check if the user has permission if the survey is private
+    // aka. set hasPermission value
   },
   methods: {
     getSurveyApi(survey_id) {
@@ -199,10 +200,30 @@ export default {
       console.log(socialMedia);
       // do something
     },
-    onClickSubmitButton() {
+    onClickSubmitButton({models, list}) {
+      // (models, list) contains modified data from GenerateForm component
+      console.log(JSON.stringify({models, list}));
+
+      let responderEmail = "";
+      if (!this.survey.config.isPublic) {
+        responderEmail = prompt("Please enter your email address where you received the invitation to this survey:");
+      }
+
+      let responseItems = [];
+      const modelsItems = Object.entries(models);
+      modelsItems.forEach((item) => {
+        const responseItem = {
+          questionModel: item[0],
+          answerValue: item[1]
+        }
+        responseItems.push(responseItem);
+      });
+
       const apiData = {
-        models: this.survey.data.formBuilder.models,
-        list: this.survey.data.formBuilder.list
+        surveyId: this.surveyId,
+        surveyToken: this.token,
+        email: responderEmail,
+        responseItems: responseItems
       };
       console.log(JSON.stringify(apiData));
       responderSubmitResponse(apiData).then(() => {
