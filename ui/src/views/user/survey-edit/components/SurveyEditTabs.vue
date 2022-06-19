@@ -23,7 +23,7 @@
         <component
           :is="item.component"
           :ref="item.ref"
-          :survey="formData"
+          :survey="survey"
           :value="formData"
           @input="setFormData"
         />

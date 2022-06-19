@@ -308,11 +308,15 @@ export default {
       type: Object,
       default() {
         return {
-          startDate: "",
-          endDate: "",
-          isPublic: true,
-          emails: [],
-          isSurveySentAutomatically: false
+          data: {
+            title: "",
+            description: "",
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
         };
       }
     },
@@ -368,7 +372,7 @@ export default {
   },
   methods: {
     setFormDataFromSurveyProp() {
-      this.formData = { ...this.formData, ...this.survey };
+      this.formData = { ...this.formData, ...this.survey.config };
       const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
       const pickerDateFormat = "YYYY-MM-DD";
       if (this.formData.startDate == "") {

@@ -34,7 +34,7 @@
         cols="12"
         class="pa-0"
       >
-        <form-builder :survey="formData" v-model="formData.formBuilder" />
+        <form-builder :survey="survey" v-model="formData.formBuilder" />
       </v-col>
     </v-row>
   </v-container>
@@ -53,12 +53,15 @@ export default {
       type: Object,
       default() {
         return {
-          title: "Survey title",
-          description: "",
-          formBuilder: {
-            list: [],
-            models: {}
-          }
+          data: {
+            title: "",
+            description: "",
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
         };
       }
     }
@@ -90,7 +93,7 @@ export default {
     setFormBuilderDataFromSurveyProp() {
       this.formData = {
         ...this.formData,
-        ...this.survey
+        ...this.survey.data
       };
     },
     getData() {

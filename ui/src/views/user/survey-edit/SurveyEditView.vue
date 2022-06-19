@@ -65,6 +65,7 @@
                 ref="surveyEditTabs"
                 :survey="formData"
                 v-model="activeSurveyEditTab"
+                :key="surveyEditTabsKey"
               />
             </v-col>
             <v-col
@@ -179,6 +180,7 @@ export default {
       bottomSheetContent: "surveyElements", // surveyElements, settings
       activeSurveyEditTab: 0,
       currentSurveyId: "new",
+      surveyEditTabsKey: 0,
       formData: {
         data: {
           formBuilder: {
@@ -313,9 +315,7 @@ export default {
             }
           );
           this.formData = { ...this.formData, ...survey };
-          this.$nextTick(() => {
-            EventBus.$emit("event:setFormBuilderDataFromProp");
-          });
+          this.surveyEditTabsKey += 1;
         });
     }
   }

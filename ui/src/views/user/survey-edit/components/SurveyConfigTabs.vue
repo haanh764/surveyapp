@@ -21,7 +21,7 @@
       >
         <component
           :is="item.component"
-          :survey="formData"
+          :survey="survey"
           v-model="formData.config"
         />
       </v-tab-item>
@@ -45,6 +45,8 @@ export default {
       default() {
         return {
           data: {
+            title: "",
+            description: "",
             formBuilder: {
               list: [],
               models: {}
