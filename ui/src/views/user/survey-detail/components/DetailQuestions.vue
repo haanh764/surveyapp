@@ -356,7 +356,7 @@
 
 
 <script>
-// import surveyDataSample from "@/assets/json/survey-data-sample.json";
+import surveyDataSample from "@/assets/json/survey-data-sample.json";
 import GenerateForm from "@/form-builder/components/GenerateForm";
 import SurveySettings from "@/views/user/survey-edit/components/SurveySettings";
 import {
@@ -415,15 +415,25 @@ export default {
   },
   created() {
     // this.survey = { ...this.survey, ...surveyDataSample };
-    this.getSurveyApi();
+    this.getSurveyApi(this.surveyId);
   },
   methods: {
-    getSurveyApi() {
-      userGetSurvey()
+    getSurveyApi(survey_id) {
+      userGetSurvey(survey_id)
       .then((response) => {
         console.log(response);
         // map json to this.survey
-        this.survey = { ...this.survey, ...response };
+        const survey = _.cloneDeep(surveyDataSample);
+        survey.config.startDate = new Date(survey.config.startDate);
+        survey.config.endDate = new Date(survey.config.endDate);
+        survey.data.formBuilder.list = survey.data.formBuilder.list.map(
+          (listItem) => {
+            listItem.question = listItem.title;
+            return listItem;
+          }
+        );
+        this.survey = { ...this.survey, ...survey };
+        this.formData = { ...this.formData, ...survey.config };
         /*
         // DESIRED STRUCTURE:
         survey: {

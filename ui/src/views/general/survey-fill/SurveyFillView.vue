@@ -101,7 +101,7 @@
 </template>
 
 <script>
-// import surveyDataSample from "@/assets/json/survey-data-sample.json";
+import surveyDataSample from "@/assets/json/survey-data-sample.json";
 import GenerateForm from "@/form-builder/components/GenerateForm.vue";
 import { isTodayBeforeGivenDate } from "@util/dates";
 import copyText from "@util/copy";
@@ -174,16 +174,25 @@ export default {
   created() {
     // this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
     // get survey data
-    this.getSurveyApi();
+    this.getSurveyApi(this.surveyId);
     // check if the user has permission if the survey is private
   },
   methods: {
-    getSurveyApi() {
-      userGetSurvey()
+    getSurveyApi(survey_id) {
+      userGetSurvey(survey_id)
       .then((response) => {
         console.log(response);
         // map json to this.survey
-        this.survey = { ...this.survey, ...response };
+        const survey = _.cloneDeep(surveyDataSample);
+        survey.config.startDate = new Date(survey.config.startDate);
+        survey.config.endDate = new Date(survey.config.endDate);
+        survey.data.formBuilder.list = survey.data.formBuilder.list.map(
+          (listItem) => {
+            listItem.question = listItem.title;
+            return listItem;
+          }
+        );
+        this.survey = { ...this.survey, ...survey };
         /*
         // DESIRED STRUCTURE:
         survey: {
@@ -211,9 +220,13 @@ export default {
       console.log(socialMedia);
       // do something
     },
-    onClickSubmitButton({ models, list }) {
-      console.log(models, list);
-      responderSubmitResponse({ models, list }).then(() => {
+    onClickSubmitButton() {
+      const apiData = {
+        models: this.survey.data.formBuilder.models,
+        list: this.survey.data.formBuilder.list
+      };
+      console.log(JSON.stringify(apiData));
+      responderSubmitResponse(apiData).then(() => {
         this.$notify.toast("Response has been submitted!");
       });
       this.hasSubmitted = true;

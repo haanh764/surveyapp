@@ -107,8 +107,8 @@
     }
   },
   "config": {
-    "startDate": "2022-06-11 00:00:00.123456+00:00",
-    "endDate": "2022-06-21 00:00:00.123456+00:00",
+    "startDate": "Sat, 11 Jun 2022 08:00:00 GMT",
+    "endDate": "Tue, 21 Jun 2022 20:00:00 GMT",
     "isPublic": true,
     "emails": ["test@user.com", "test@user2.com"],
     "isSurveySentAutomatically": false

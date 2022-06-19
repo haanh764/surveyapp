@@ -32,6 +32,7 @@
 <script>
 import SurveyElements from "@views/user/survey-edit/components/SurveyElements.vue";
 import SurveySettings from "@views/user/survey-edit/components/SurveySettings.vue";
+import { EventBus } from "@/util/event-bus";
 
 export default {
   name: "SurveyConfigTabs",
@@ -76,12 +77,28 @@ export default {
   created() {
     this.setFormDataFromSurveyProp();
   },
+  mounted() {
+    this.mountListeners();
+  },
+  beforeDestroy() {
+    this.destroyListeners();
+  },
   methods: {
     setFormDataFromSurveyProp() {
+      console.log("SurveyConfigTabs config");
+      console.log(this.survey.config);
       this.formData = {
         ...this.formData,
         ...this.survey.config
       };
+    },
+    destroyListeners() {
+      EventBus.$off("event:setFormBuilderDataFromProp");
+    },
+    mountListeners() {
+      EventBus.$on("event:setFormBuilderDataFromProp", () => {
+        this.setFormDataFromSurveyProp();
+      });
     },
     getData() {
       return this.formData;
