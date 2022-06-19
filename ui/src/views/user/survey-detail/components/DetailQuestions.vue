@@ -321,6 +321,7 @@
       <div class="pa-5">
         <survey-settings
           v-model="formData.config"
+          :survey="survey"
           :can-set-date="false"
         />
       </div>
@@ -337,6 +338,7 @@
         <div class="pa-5">
           <survey-settings
             v-model="formData.config"
+            :survey="survey"
             :can-set-date="false"
           />
         </div>
@@ -432,7 +434,6 @@ export default {
           }
         );
         this.survey = { ...this.survey, ...survey };
-        this.formData = { ...this.formData, ...survey };
       });
     },
     onSubmitSurveySettings() {
