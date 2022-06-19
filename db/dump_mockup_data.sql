@@ -8,9 +8,9 @@ INSERT INTO `users` (`id`, `email`, `password`, `isActivated`, `isBlocked`) VALU
 --
 -- Dumping data for table `surveys`
 --
-INSERT INTO `surveys` (`id`, `surveyOwner`, `title`, `description`, `startDate`, `endDate`, `creationDate`, `modificationDate`) VALUES
-(15, 1, 'Survey title', 'description', '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07'),
-(16, 1, 'Mock Up Survey', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `surveys` (`id`, `surveyOwner`, `title`, `description`, `isPublic`, `surveyHash`, `isSurveySentAutomatically`, `isPublished`, `startDate`, `endDate`, `creationDate`, `modificationDate`) VALUES
+(15, 1, 'Survey title', 'description', NULL, NULL, NULL, NULL, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07'),
+(16, 1, 'Mock Up Survey', NULL, NULL, NULL, NULL, NULL, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07');
 
 --
 -- Dumping data for table `respondents`
@@ -235,8 +235,8 @@ INSERT INTO `answer_options_choice_answer` (`id`, `choice_answerId`, `answer_opt
 --
 -- Dumping data for table `surveys`
 --
-INSERT INTO `surveys` (`id`, `surveyOwner`, `title`, `description`, `startDate`, `endDate`, `creationDate`, `modificationDate`) VALUES
-(17, 1, 'Mock Up Survey 2', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `surveys` (`id`, `surveyOwner`, `title`, `description`, `isPublic`, `surveyHash`, `isSurveySentAutomatically`, `isPublished`, `startDate`, `endDate`, `creationDate`, `modificationDate`) VALUES
+(17, 1, 'Mock Up Survey 2', NULL, NULL, NULL, NULL, NULL, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07');
 
 
 --
