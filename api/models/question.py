@@ -56,6 +56,10 @@ class Question(Base):
         session.delete(self)
         session.commit()
 
+    @staticmethod
+    def get_question(model):
+        return session.query(Question).filter_by(model=model).first()
+
 
 class ScaleQuestion(Base):
     __tablename__ = 'scale_questions'
@@ -164,6 +168,10 @@ class AnswerOption(Base):
             'value': self.value_,
             'image': self.image
         }
+
+    @staticmethod
+    def answer_options(multiple_choice_questions_id):
+        return session.query(AnswerOption).filter_by(multiple_choice_questions_id=multiple_choice_questions_id)
 
     def add_answer(self):
         session.add(self)

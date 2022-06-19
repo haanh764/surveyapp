@@ -214,7 +214,7 @@ class Respondents(Base):
 class Responses(Base):
     __tablename__ = 'responses'
     id = Column(Integer, primary_key=True, index=True)
-    respondentId = Column(Integer, ForeignKey(Respondents.id), nullable=False)
+    respondentId = Column(Integer, ForeignKey(Respondents.id), nullable=True)
     surveyId = Column(Integer, ForeignKey(Survey.id), nullable=False)
     survey = relationship("Survey", back_populates="responses")
     respondent = relationship("Respondents", back_populates="responses")
@@ -281,13 +281,13 @@ class ScaleAnswers(Base):
     id = Column(Integer, primary_key=True, index=True)
     answerId = Column(Integer, ForeignKey(Answers.id), nullable=False)
     answer = relationship("Answers", back_populates="scale_answers")
-    scale_answer_question_id = Column(Integer, ForeignKey(ScaleQuestion.id), nullable=False)
+    scale_question_id = Column(Integer, ForeignKey(ScaleQuestion.id), nullable=False)
     scale_question = relationship("ScaleQuestion", back_populates="scale_answers")
     value = Column(Integer, nullable=False)
 
-    def __init__(self, answerId, scale_answer_question_id, value):
+    def __init__(self, answerId, scale_question_id, value):
         self.answerId = answerId
-        self.scale_answer_question_id = scale_answer_question_id
+        self.scale_question_id = scale_question_id
         self.value = value
 
     def add_answer(self):
@@ -316,13 +316,13 @@ class ChoiceAnswers(Base):
 class AnswerOptionsChoiceAnswer(Base):
     __tablename__ = 'answer_options_choice_answer'
     id = Column(Integer, primary_key=True, index=True)
-    choiceAnswersId = Column(Integer, ForeignKey(ChoiceAnswers.id), nullable=False)
+    choice_answerId = Column(Integer, ForeignKey(ChoiceAnswers.id), nullable=False)
     choiceAnswer = relationship("ChoiceAnswers", back_populates="answer_options_choice")
     answer_optionId = Column(Integer, ForeignKey(AnswerOption.id), nullable=False)
     answer_option = relationship("AnswerOption", back_populates="answer_options_choice_answers")
 
-    def __init__(self, choiceAnswersId, answer_optionId):
-        self.choiceAnswersId = choiceAnswersId
+    def __init__(self, choice_answerId, answer_optionId):
+        self.choice_answerId = choice_answerId
         self.answer_optionId = answer_optionId
 
     def add_answer(self):

@@ -63,7 +63,7 @@ CREATE TABLE allowed_respondents(
 CREATE TABLE responses(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     surveyId int NOT NULL,
-    respondentId int NOT NULL,
+    respondentId int,
     FOREIGN KEY (respondentId) REFERENCES respondents(id),
     FOREIGN KEY (surveyId) REFERENCES surveys(id)
 );

@@ -5,8 +5,8 @@ from flask_mail import Message
 from app import mail
 
 
-from models.survey import Survey
-from models.respondents import Respondents, AllowedRespondents
+from models.survey import Survey, Respondents
+from models.respondents import AllowedRespondents
 from models.user import User
 from models.question import Question, ScaleQuestion, OpenAnswerQuestion, MultipleChoiceQuestion, AnswerOption
 from email_validator import validate_email, EmailNotValidError
