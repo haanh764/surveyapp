@@ -42,6 +42,8 @@
 
 <script>
 import FormBuilder from "@/form-builder/components/FormBuilder.vue";
+import { EventBus } from "@/util/event-bus";
+
 export default {
   name: "SurveyBuild",
   components: {
@@ -85,14 +87,26 @@ export default {
   created() {
     this.setFormBuilderDataFromSurveyProp();
   },
+  mounted() {
+    this.startListeningToEventBus();
+  },
+  beforeDestroy() {
+    this.stopListeningToEventBus();
+  },
   methods: {
     setFormBuilderDataFromSurveyProp() {
-      console.log("SurveyBuild this.survey");
-      console.log(JSON.stringify(this.survey));
       this.formData = {
         ...this.formData,
         ...this.survey
       };
+    },
+    startListeningToEventBus() {
+      EventBus.$on("event:setFormBuilderDataFromProp", () => {
+        this.setFormBuilderDataFromSurveyProp();
+      });
+    },
+    stopListeningToEventBus() {
+      EventBus.$off("event:setFormBuilderDataFromProp");
     },
     getData() {
       return this.formData;

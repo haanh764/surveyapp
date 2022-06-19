@@ -308,13 +308,11 @@ export default {
       type: Object,
       default() {
         return {
-          data: {
-            formBuilder: {
-              list: [],
-              models: {}
-            }
-          },
-          config: {}
+          startDate: "",
+          endDate: "",
+          isPublic: true,
+          emails: [],
+          isSurveySentAutomatically: false
         };
       }
     },
@@ -370,7 +368,9 @@ export default {
   },
   methods: {
     setFormDataFromSurveyProp() {
-      this.formData = { ...this.formData, ...this.survey.config };
+      console.log("SurveySettings config");
+      console.log(this.survey);
+      this.formData = { ...this.formData, ...this.survey };
       this.formData.startDate = moment(
         this.formData.startDate,
         "ddd, DD MMM YYYY hh:mm:ss zz"
@@ -379,6 +379,8 @@ export default {
         this.formData.endDate,
         "ddd, DD MMM YYYY hh:mm:ss zz"
       ).format("YYYY-MM-DD");
+      console.log("SurveySettings formData");
+      console.log(this.formData);
     },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");

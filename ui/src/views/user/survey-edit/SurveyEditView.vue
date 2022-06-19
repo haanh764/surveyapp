@@ -128,7 +128,7 @@
         <template v-if="bottomSheetContent == 'settings'">
           <survey-settings
             ref="surveySettings"
-            :survey="formData"
+            :survey="formData.config"
             v-model="formData.config"
           />
         </template>
@@ -138,7 +138,7 @@
     <survey-settings
       v-show="false"
       ref="surveySettings"
-      :survey="formData"
+      :survey="formData.config"
       v-model="formData.config"
     />
   </v-container>
@@ -308,8 +308,6 @@ export default {
           console.log(JSON.stringify(response));
           //const survey = _.cloneDeep(response.survey);
           const survey = _.cloneDeep(surveyDataSample);
-          console.log("SurveyEditView survey:");
-          console.log(JSON.stringify(survey));
           survey.data.formBuilder.list = survey.data.formBuilder.list.map(
             (listItem) => {
               listItem.question = listItem.title;

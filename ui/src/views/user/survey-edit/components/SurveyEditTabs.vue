@@ -102,8 +102,6 @@ export default {
   },
   methods: {
     setFormBuilderDataFromSurveyProp() {
-      console.log("SurveyEditTabs this.survey");
-      console.log(JSON.stringify(this.survey));
       this.formData = {
         ...this.formData,
         ...this.survey.data
@@ -111,6 +109,7 @@ export default {
     },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");
+      EventBus.$off("event:setFormBuilderDataFromProp");
     },
     mountListeners() {
       EventBus.$on("event:getFormBuilderData", () => {
@@ -118,6 +117,9 @@ export default {
           data: this.formData,
           key: "data"
         });
+      });
+      EventBus.$on("event:setFormBuilderDataFromProp", () => {
+        this.setFormBuilderDataFromSurveyProp();
       });
     },
     setFormData(formData) {
