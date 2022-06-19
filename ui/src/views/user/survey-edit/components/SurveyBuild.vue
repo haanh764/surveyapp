@@ -52,15 +52,12 @@ export default {
       type: Object,
       default() {
         return {
-          data: {
-            title: "Survey title",
-            description: "",
-            formBuilder: {
-              list: [],
-              models: {}
-            }
-          },
-          config: {}
+          title: "Survey title",
+          description: "",
+          formBuilder: {
+            list: [],
+            models: {}
+          }
         };
       }
     }
@@ -94,7 +91,7 @@ export default {
       console.log(JSON.stringify(this.survey));
       this.formData = {
         ...this.formData,
-        ...this.survey.data
+        ...this.survey
       };
     },
     getData() {
