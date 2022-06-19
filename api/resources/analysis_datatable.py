@@ -67,7 +67,7 @@ dash_datatable_app.layout = html.Div([
         style_cell={'textAlign': 'left'},
     ),
 ],
-style={'width': '80%', 'display': 'inline-block', 'align': 'center'})
+style={'width': '100%', 'display': 'inline-block', 'align': 'center'})
 @dash_datatable_app.callback(
     [Output('datatable-interactivity', 'data'), Output('datatable-interactivity', 'columns')],
     Input('datatable-interactivity', "page_current"),
