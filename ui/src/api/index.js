@@ -14,7 +14,6 @@ import {
   USER_LIST_SURVEYS_URL,
   USER_DELETE_SURVEY_URL,
   USER_ADD_SURVEY_URL,
-  USER_EDIT_SURVEY_URL,
   USER_GET_SURVEY_URL,
   USER_SURVEY_DATATABLE_URL,
   USER_SURVEY_SUMMARY_URL,
@@ -86,11 +85,11 @@ export const userAddSurvey = (data) => {
 };
 
 export const userEditSurvey = (data) => {
-  return axios.post(USER_EDIT_SURVEY_URL, data);
+  return axios.post(USER_ADD_SURVEY_URL, data);
 };
 
 export const userGetSurvey = (survey_id) => {
-  return axios.get(USER_GET_SURVEY_URL + survey_id);
+  return axios.get(USER_GET_SURVEY_URL + "get/" + survey_id);
 };
 
 export const userGetSurveyDatatable = (survey_id) => {

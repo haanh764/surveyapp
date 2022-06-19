@@ -21,6 +21,7 @@
       >
         <component
           :is="item.component"
+          :survey="formData"
           v-model="formData.config"
         />
       </v-tab-item>
@@ -39,16 +40,27 @@ export default {
     SurveySettings
   },
   props: {
-    formData: {
+    survey: {
       type: Object,
       default() {
-        return { config: {} }
+        return {
+          data: {
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
+        };
       }
     }
   },
   data() {
     return {
       tab: "Elements",
+      formData: {
+        config: {}
+      },
       items: [
         {
           title: "Elements",
@@ -61,7 +73,16 @@ export default {
       ]
     };
   },
+  created() {
+    this.setFormDataFromSurveyProp();
+  },
   methods: {
+    setFormDataFromSurveyProp() {
+      this.formData = {
+        ...this.formData,
+        ...this.survey.config
+      };
+    },
     getData() {
       return this.formData;
     }

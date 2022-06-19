@@ -308,7 +308,13 @@ export default {
       type: Object,
       default() {
         return {
-          data: {}
+          data: {
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
         };
       }
     },
@@ -353,8 +359,7 @@ export default {
     }
   },
   created() {
-    // load survey data from props
-    // map to form data
+    this.setFormDataFromSurveyProp();
   },
   mounted() {
     this.$emit("input", this.formData);
@@ -364,8 +369,20 @@ export default {
     this.destroyListeners();
   },
   methods: {
+    setFormDataFromSurveyProp() {
+      this.formData = { ...this.formData, ...this.survey.config };
+      this.formData.startDate = moment(
+        this.formData.startDate,
+        "ddd, DD MMM YYYY hh:mm:ss zz"
+      ).format("YYYY-MM-DD");
+      this.formData.endDate = moment(
+        this.formData.endDate,
+        "ddd, DD MMM YYYY hh:mm:ss zz"
+      ).format("YYYY-MM-DD");
+    },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");
+      EventBus.$off("event:setFormBuilderDataFromProp");
     },
     mountListeners() {
       EventBus.$on("event:getFormBuilderData", () => {
@@ -373,6 +390,9 @@ export default {
           data: this.formData,
           key: "config"
         });
+      });
+      EventBus.$on("event:setFormBuilderDataFromProp", () => {
+        this.setFormDataFromSurveyProp();
       });
     },
     onSendInvitationButtonClick() {
