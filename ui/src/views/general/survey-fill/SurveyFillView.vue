@@ -172,8 +172,6 @@ export default {
     }
   },
   created() {
-    // this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
-    // get survey data
     this.getSurveyApi(this.surveyId);
     // check if the user has permission if the survey is private
   },
@@ -182,7 +180,7 @@ export default {
       userGetSurvey(survey_id)
       .then((response) => {
         console.log(response);
-        // map json to this.survey
+        // const survey = _.cloneDeep(response);
         const survey = _.cloneDeep(surveyDataSample);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
@@ -193,27 +191,6 @@ export default {
           }
         );
         this.survey = { ...this.survey, ...survey };
-        /*
-        // DESIRED STRUCTURE:
-        survey: {
-          data: {
-            title: "",
-            description: "",
-            link: "",
-            isPublished: false,
-            formBuilder: {
-              list: [],
-              models: {}
-            }
-          },
-          config: {
-            startDate: "",
-            endDate: "",
-            isPublic: false,
-            emails: []
-          }
-        }
-        */
       });
     },
     onClickSocialMediaIcon(socialMedia) {

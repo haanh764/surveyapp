@@ -301,8 +301,6 @@ export default {
       this.bottomSheetContent = "settings";
     },
     getSurveyApi(surveyId) {
-      console.log("running getSurveyApi() with param:");
-      console.log(surveyId);
       userGetSurvey(surveyId)
         .then((response) => {
           console.log(JSON.stringify(response));
@@ -315,8 +313,6 @@ export default {
             }
           );
           this.formData = { ...this.formData, ...survey };
-          console.log("SurveyEditView formData after mapping:");
-          console.log(JSON.stringify(this.formData));
           this.$nextTick(() => {
             EventBus.$emit("event:setFormBuilderDataFromProp");
           });

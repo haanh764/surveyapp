@@ -85,8 +85,6 @@ export default {
   },
   methods: {
     setFormDataFromSurveyProp() {
-      console.log("SurveyConfigTabs config");
-      console.log(this.survey.config);
       this.formData = {
         ...this.formData,
         ...this.survey.config

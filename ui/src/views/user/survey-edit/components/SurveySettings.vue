@@ -368,19 +368,17 @@ export default {
   },
   methods: {
     setFormDataFromSurveyProp() {
-      console.log("SurveySettings config");
-      console.log(this.survey);
       this.formData = { ...this.formData, ...this.survey };
+      const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+      const pickerDateFormat = "YYYY-MM-DD";
       this.formData.startDate = moment(
         this.formData.startDate,
-        "ddd, DD MMM YYYY hh:mm:ss zz"
-      ).format("YYYY-MM-DD");
+        rawDateFormat
+      ).format(pickerDateFormat);
       this.formData.endDate = moment(
         this.formData.endDate,
-        "ddd, DD MMM YYYY hh:mm:ss zz"
-      ).format("YYYY-MM-DD");
-      console.log("SurveySettings formData");
-      console.log(this.formData);
+        rawDateFormat
+      ).format(pickerDateFormat);
     },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");
