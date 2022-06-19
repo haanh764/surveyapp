@@ -109,7 +109,6 @@ export default {
     },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");
-      EventBus.$off("event:setFormBuilderDataFromProp");
     },
     mountListeners() {
       EventBus.$on("event:getFormBuilderData", () => {
@@ -117,9 +116,6 @@ export default {
           data: this.formData,
           key: "data"
         });
-      });
-      EventBus.$on("event:setFormBuilderDataFromProp", () => {
-        this.setFormBuilderDataFromSurveyProp();
       });
     },
     setFormData(formData) {
