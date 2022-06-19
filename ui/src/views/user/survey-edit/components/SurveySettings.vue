@@ -373,24 +373,6 @@ export default {
   methods: {
     setFormDataFromSurveyProp() {
       this.formData = { ...this.formData, ...this.survey.config };
-      const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
-      const pickerDateFormat = "YYYY-MM-DD";
-      if (this.formData.startDate == "") {
-        this.formData.startDate = this.todayDate;
-      } else {
-        this.formData.startDate = moment(
-          this.formData.startDate,
-          rawDateFormat
-        ).format(pickerDateFormat);
-      }
-      if (this.formData.endDate == "") {
-        this.formData.endDate = moment().add(7,"days").format("YYYY-MM-DD");
-      } else {
-        this.formData.endDate = moment(
-          this.formData.endDate,
-          rawDateFormat
-        ).format(pickerDateFormat);
-      }
     },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");

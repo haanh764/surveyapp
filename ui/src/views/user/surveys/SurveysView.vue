@@ -346,7 +346,7 @@
 import { get, sync } from "vuex-pathify";
 import { mapGetters } from "vuex";
 import { userListSurveys, userDeleteSurvey } from "@api";
-import { convertToStandardDate, isTodayAfterGivenDate } from "@util/dates.js";
+import { convertToStandardDate } from "@util/dates.js";
 import loremIpsum from "@assets/json/lorem-ipsum.json";
 
 export default {
@@ -479,7 +479,7 @@ export default {
           response.forEach((item) => {
             const respDateTimeFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
             let rawSurveyStatus = 1;
-            if( isTodayAfterGivenDate(item["startDate"], respDateTimeFormat) ) {
+            if( item["isPublished"] == true ) {
               rawSurveyStatus = 2;
             }
             const rawSurveyStartDateMoment = convertToStandardDate(item["startDate"], respDateTimeFormat);
