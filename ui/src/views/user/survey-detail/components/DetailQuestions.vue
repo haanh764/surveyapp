@@ -358,7 +358,6 @@
 
 
 <script>
-import surveyDataSample from "@/assets/json/survey-data-sample.json";
 import GenerateForm from "@/form-builder/components/GenerateForm";
 import SurveySettings from "@/views/user/survey-edit/components/SurveySettings";
 import {
@@ -423,8 +422,7 @@ export default {
       userGetSurvey(survey_id)
       .then((response) => {
         console.log(response);
-        // const survey = _.cloneDeep(response);
-        const survey = _.cloneDeep(surveyDataSample);
+        const survey = _.cloneDeep(response);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
         survey.data.formBuilder.list = survey.data.formBuilder.list.map(

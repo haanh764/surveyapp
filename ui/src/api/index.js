@@ -68,8 +68,8 @@ axios.interceptors.response.use(
   }
 );
 
-export const responderSubmitResponse = (data) => {
-  return axios.post(RESPONDER_SUBMIT_RESPONSE_URL, data);
+export const responderSubmitResponse = (surveyId, data) => {
+  return axios.post(RESPONDER_SUBMIT_RESPONSE_URL + surveyId, data);
 };
 
 export const userListSurveys = () => {
@@ -89,7 +89,7 @@ export const userEditSurvey = (data) => {
 };
 
 export const userGetSurvey = (survey_id) => {
-  return axios.get(USER_GET_SURVEY_URL + "get/" + survey_id);
+  return axios.get(USER_GET_SURVEY_URL + survey_id);
 };
 
 export const userGetSurveyDatatable = (survey_id) => {

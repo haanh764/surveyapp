@@ -3,7 +3,7 @@
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `isActivated`, `isBlocked`) VALUES
-(1, 'haanh.ngo764@gmail.com', 'sha256$mfvTMaqsLPw5q14v$6038078d50af9af5f7d9b070aa7f1f10df7882ffcf2493c32098e52575b1ad6e', 0, 0);
+(1, 'haanh.ngo764@gmail.com', 'sha256$mfvTMaqsLPw5q14v$6038078d50af9af5f7d9b070aa7f1f10df7882ffcf2493c32098e52575b1ad6e', 1, 0);
 
 --
 -- Dumping data for table `surveys`
