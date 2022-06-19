@@ -5,7 +5,7 @@
   >
     <v-row justify="center">
       <v-col
-        v-if="survey.data.isPublished"
+        v-if="!survey.data.isPublished"
         cols="12"
       >
         <content-card
@@ -191,6 +191,8 @@ export default {
           }
         );
         this.survey = { ...this.survey, ...survey };
+        console.log("This survey isPublished");
+        console.log(this.survey.data.isPublished);
       });
     },
     onClickSocialMediaIcon(socialMedia) {
