@@ -9,6 +9,7 @@ class Respondents(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), nullable=False)
     surveys = relationship("AllowedRespondents", back_populates="respondent", cascade="all, delete-orphan")
+    responses = relationship("Responses", back_populates="respondent", cascade="all, delete-orphan")
 
     def __init__(self, email):
         self.email = email

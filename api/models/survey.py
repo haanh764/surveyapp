@@ -28,6 +28,8 @@ class Survey(Base):
     users = relationship("User", back_populates="surveys")
     questions = relationship("Question", back_populates="survey", cascade="all, delete-orphan")
     respondents = relationship("AllowedRespondents", back_populates="survey", cascade="all, delete-orphan")
+    responses = relationship("Responses", back_populates="survey", cascade="all, delete-orphan")
+
 
     def __init__(self, surveyOwner, title, description, startDate, endDate, isPublic=False, isSurveySentAutomatically=False):
         self.surveyOwner = surveyOwner

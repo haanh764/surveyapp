@@ -99,10 +99,10 @@ CREATE TABLE open_answer_questions(
 CREATE TABLE open_answers(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     answerId int NOT NULL,
-    open_answer_question_questionId int NOT NULL,
+    open_answer_question_id int NOT NULL,
     answer_text varchar(255),
     FOREIGN KEY (answerId) REFERENCES answers(id),
-    FOREIGN KEY (open_answer_question_questionId) REFERENCES open_answer_questions(questionId)
+    FOREIGN KEY (open_answer_question_id) REFERENCES open_answer_questions(id)
 );
 
 CREATE TABLE scale_questions(
@@ -118,10 +118,10 @@ CREATE TABLE scale_questions(
 CREATE TABLE scale_answers(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     answerId int NOT NULL,
-    scale_question_questionsId int NOT NULL,
+    scale_question_id int NOT NULL,
     value int,
     FOREIGN KEY (answerId) REFERENCES answers(id),
-    FOREIGN KEY (scale_question_questionsId) REFERENCES scale_questions(questionId)
+    FOREIGN KEY (scale_question_id) REFERENCES scale_questions(id)
 );
 
 CREATE TABLE multiple_choice_questions(
