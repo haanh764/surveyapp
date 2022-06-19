@@ -1,8 +1,10 @@
 from resources.authentication import Login, SignUp, Logout, ActivateAccount, NotActivated, ResendActivation
 from resources.view import Home
-from resources.user import ChangePassword, DeleteUser
-from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers
+from resources.user import ChangePassword, DeleteUser, isBlocked, UserDeleteSurvey
+from resources.admin import AdminLogin, AdminLogout, ResetUserPassword, SearchUser, ActivateUser, BlockUser, UnblockedUser, AdminDeleteUser, AdminListUsers, AdminDeleteSurvey, AdminChangePassword, AdminListSurveys
 from resources.survey import AddSurvey, ListSurveysByUser, GetSurvey
+from resources.analysis_datatable import GenrateDataTable
+from resources.analysis_dashboard import GetDataSummary
 
 def initialize_routes(api):
     api.add_resource(Home, '/api/home')
@@ -17,6 +19,8 @@ def initialize_routes(api):
     api.add_resource(ChangePassword, '/api/user/changepassword')
     api.add_resource(DeleteUser, '/api/user/delete')
     api.add_resource(ListSurveysByUser, '/api/user/surveys')
+    api.add_resource(isBlocked, '/api/user/isblocked')
+    api.add_resource(UserDeleteSurvey, '/api/user/survey/delete')
 
     api.add_resource(AdminLogin, '/api/admin/login')
     api.add_resource(AdminLogout, '/api/admin/logout')
@@ -27,8 +31,12 @@ def initialize_routes(api):
     api.add_resource(UnblockedUser, '/api/admin/unblockeduser')
     api.add_resource(AdminDeleteUser, '/api/admin/deleteuser')
     api.add_resource(AdminListUsers, '/api/admin/listusers')
+    api.add_resource(AdminDeleteSurvey, '/api/admin/deletesurvey')
+    api.add_resource(AdminChangePassword, '/api/admin/changepassword')
+    api.add_resource(AdminListSurveys, '/api/admin/listsurveys')
 
     api.add_resource(AddSurvey, '/api/survey/add')
-    api.add_resource(GetSurvey, '/api/survey/<string:survey_id>')
-
+    api.add_resource(GetSurvey, '/api/survey/get/<string:survey_id>')
+    api.add_resource(GenrateDataTable, '/api/analysis/generatedatatable/<string:survey_id>')
+    api.add_resource(GetDataSummary, '/api/analysis/getsummary/<string:survey_id>')
     

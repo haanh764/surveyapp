@@ -14,7 +14,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDU2MzA0MiwianRpIjoiMDkyODg2NGYtOGJjOC00YjEyLTljMDQtMWEzNDg3OGM4MTE5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjYsIm5iZiI6MTY1NDU2MzA0MiwiZXhwIjoxNjU0NjQ5NDQyfQ.oEN2s4eBV64HXrFhv1JZyuVZJOaV4lxG9ZzRPmmQVI8",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MjQ0NSwianRpIjoiNjljODM5MjQtY2UxMC00MzgxLTgwOTAtZmQwMjE0MTZkMzc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYyNDQ1LCJleHAiOjE2NTU1NDg4NDUsImlzX2FkbWluIjpmYWxzZX0.-PsOlBgCAYc1ZbRVp_VboMgkbYVfDBbK7XVT1EC0Kz5",
 							"type": "string"
 						}
 					]
@@ -23,7 +23,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "localhost:8000/api/authentication/logout",
@@ -38,7 +43,126 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "logout_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:40:08 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "45"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Access token has been revoked\"\n}"
+				},
+				{
+					"name": "logout_miss_header",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"logout"
+							]
+						}
+					},
+					"status": "UNAUTHORIZED",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:41:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+				}
+			]
 		},
 		{
 			"name": "login",
@@ -50,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"hayoung764@gmail.com\",\n    \"password\": \"TEJxaZ2q\"\n}",
+					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"haanh764\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +194,130 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "login_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:38:20 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "352"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "access_token_cookie=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MjMwMCwianRpIjoiNWRjNDkzZTEtMWM0ZC00MTI3LTllY2YtNmU5ZjViMDViNzU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYyMzAwLCJleHAiOjE2NTU1NDg3MDAsImlzX2FkbWluIjpmYWxzZX0.BoruisJhOawEN-X7-tCVxPM930FvHJChAAcD_w8LByU; HttpOnly; Path=/"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Logged in as haanh.ngo764@gmail.com. Access token is eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MjMwMCwianRpIjoiNWRjNDkzZTEtMWM0ZC00MTI3LTllY2YtNmU5ZjViMDViNzU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYyMzAwLCJleHAiOjE2NTU1NDg3MDAsImlzX2FkbWluIjpmYWxzZX0.BoruisJhOawEN-X7-tCVxPM930FvHJChAAcD_w8LByU\"\n}"
+				},
+				{
+					"name": "login_wrong_psw_mail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"login"
+							]
+						}
+					},
+					"status": "UNAUTHORIZED",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:38:39 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "44"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Invalid username or password\"\n}"
+				}
+			]
 		},
 		{
 			"name": "signup",
@@ -79,7 +326,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\",\n    \"password\": \"test12345\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -99,7 +346,185 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "signup_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:32:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "100"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User ngohaanh764@gmail.com was created. Please check your email for activation link!\"\n}"
+				},
+				{
+					"name": "signup_email_wrong",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@com\",\n    \"password\": \"test12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"signup"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:36:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "97"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Invalid email address. The domain name com is not valid. It should have a period.\"\n}"
+				},
+				{
+					"name": "signup_email_used",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\",\n    \"password\": \"test12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:37:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "101"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User ngohaanh764@gmail.com already exists. Please Login or Signup with another email!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "change_password",
@@ -109,7 +534,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MDUxNSwianRpIjoiMWVlZGExMGQtZTQyYi00MzI1LThlNWUtOTAyYmViZjI3Mjc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjMsIm5iZiI6MTY1NDQ0MDUxNSwiZXhwIjoxNjU0NTI2OTE1fQ.F0kwMS5jIdo_NIBGGndQaV5LY7jZ7SF9Jsm0xMl9XzE",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MjUyMCwianRpIjoiMDcxYzYzMDMtZTE2Zi00NWU3LWEzODUtYmJkYWRiZmQ1ZDM4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYyNTIwLCJleHAiOjE2NTU1NDg5MjAsImlzX2FkbWluIjpmYWxzZX0.fKK8LP_w_z6gNv0scpCJZmEKBdviegIu0AO-EeacGwI",
 							"type": "string"
 						}
 					]
@@ -138,23 +563,95 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "change_password_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"new_password\": \"haanh764\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/user/changepassword",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"changepassword"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:42:25 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "36"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password was changed\"\n}"
+				}
+			]
 		},
 		{
 			"name": "NotActivateView",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MTQzMywianRpIjoiM2MyZjYyZTUtY2U3OS00NGUwLTljZDAtY2M3YWRhMWQ4MGIwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjUsIm5iZiI6MTY1NDQ0MTQzMywiZXhwIjoxNjU0NTI3ODMzfQ.miOUp_BkmfhpjWoIpHVosA-vIWpNDR3viaIku58DJOM",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MjY4NiwianRpIjoiZjE3N2Q1ZjgtZDU2ZS00NWI2LWJmNDMtY2ViNTkzMmEzZjQyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYyNjg2LCJleHAiOjE2NTU1NDkwODYsImlzX2FkbWluIjpmYWxzZX0.mnz-fbrZ0D1VuN6XjdyJ1Ys8HrRNXZfbIay8ikIb3MY",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"haanh764\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "localhost:8000/api/authentication/notactivated",
 					"host": [
@@ -168,7 +665,191 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "NotActivateView",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\",\n    \"password\": \"haanh764\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/notactivated",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"notactivated"
+							]
+						}
+					},
+					"status": "CREATED",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:45:10 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User haanh.ngo764@gmail.com is not activated\"\n}"
+				}
+			]
+		},
+		{
+			"name": "ActivateAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/authentication/activate/ImhhYW5oLm5nbzc2NEBnbWFpbC5jb20i.YqxbbQ.W7fS2PNrXryvjK7bNuGW9jUv2ZU",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"activate",
+						"ImhhYW5oLm5nbzc2NEBnbWFpbC5jb20i.YqxbbQ.W7fS2PNrXryvjK7bNuGW9jUv2ZU"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ActivateAccount_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/authentication/activate/ImhhYW5oLm5nbzc2NEBnbWFpbC5jb20i.YqxbbQ.W7fS2PNrXryvjK7bNuGW9jUv2ZU",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"activate",
+								"ImhhYW5oLm5nbzc2NEBnbWFpbC5jb20i.YqxbbQ.W7fS2PNrXryvjK7bNuGW9jUv2ZU"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:49:05 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "65"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User haanh.ngo764@gmail.com is already confirmed.\"\n}"
+				},
+				{
+					"name": "ActivateAccount_fail_link_expired",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/authentication/activate/ImhhYW5oLm5nbzc2NEBnbWFpbC5jb20i.Yp9GqA.7zNJbquX9gOyDEaU83m6CZmmBMc",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"activate",
+								"ImhhYW5oLm5nbzc2NEBnbWFpbC5jb20i.Yp9GqA.7zNJbquX9gOyDEaU83m6CZmmBMc"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:50:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "64"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The confirmation link is invalid or has expired.\"\n}"
+				}
+			]
 		},
 		{
 			"name": "ResendActivateLink",
@@ -178,13 +859,17 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDQ0MTQzMywianRpIjoiM2MyZjYyZTUtY2U3OS00NGUwLTljZDAtY2M3YWRhMWQ4MGIwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjUsIm5iZiI6MTY1NDQ0MTQzMywiZXhwIjoxNjU0NTI3ODMzfQ.miOUp_BkmfhpjWoIpHVosA-vIWpNDR3viaIku58DJOM",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MjY4NiwianRpIjoiZjE3N2Q1ZjgtZDU2ZS00NWI2LWJmNDMtY2ViNTkzMmEzZjQyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYyNjg2LCJleHAiOjE2NTU1NDkwODYsImlzX2FkbWluIjpmYWxzZX0.mnz-fbrZ0D1VuN6XjdyJ1Ys8HrRNXZfbIay8ikIb3MY",
 							"type": "string"
 						}
 					]
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "localhost:8000/api/authentication/resend",
 					"host": [
@@ -198,7 +883,62 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "ResendActivateLink",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/api/authentication/resend",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"authentication",
+								"resend"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:46:08 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "66"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Activation link was sent to haanh.ngo764@gmail.com\"\n}"
+				}
+			]
 		},
 		{
 			"name": "DeleteAcc",
@@ -228,7 +968,67 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "DeleteAcc_success",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/user/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:52:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Your account has been successfully deleted\"\n}"
+				}
+			]
 		},
 		{
 			"name": "private_view_example",
@@ -287,7 +1087,58 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "admin_logout_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/admin/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:20:59 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "45"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Access token has been revoked\"\n}"
+				}
+			]
 		},
 		{
 			"name": "admin_login",
@@ -296,7 +1147,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin123\"\n}",
+					"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin1234567890\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -316,7 +1167,130 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "admin_login_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:53:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "373"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "access_token_cookie=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MzE4NywianRpIjoiZTE4MjU3NDgtZTBhYi00MTU4LTlmYzMtYjUzMGU4MmI4MTVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYzMTg3LCJleHAiOjE2NTU1NDk1ODcsImlzX2FkbWluIjp0cnVlfQ.ShhCDkyicVd--xTbH7idVwiEeqeHKVxo9eVlijmRd2E; HttpOnly; Path=/"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Logged in as admin with email surveyapp.manager@gmail.com. Access token is eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MzE4NywianRpIjoiZTE4MjU3NDgtZTBhYi00MTU4LTlmYzMtYjUzMGU4MmI4MTVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYzMTg3LCJleHAiOjE2NTU1NDk1ODcsImlzX2FkbWluIjp0cnVlfQ.ShhCDkyicVd--xTbH7idVwiEeqeHKVxo9eVlijmRd2E\"\n}"
+				},
+				{
+					"name": "admin_login_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"surveyapp.manager@gmail.com\",\n    \"password\": \"admin1234567\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"login"
+							]
+						}
+					},
+					"status": "UNAUTHORIZED",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:53:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "44"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Invalid username or password\"\n}"
+				}
+			]
 		},
 		{
 			"name": "admin_reset_user_password",
@@ -326,7 +1300,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDYwMjQyMSwianRpIjoiNjNlMjZkNjYtOTlhYS00MjZjLTk2MjktYTcxMTZjZmRjNzBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzEsIm5iZiI6MTY1NDYwMjQyMSwiZXhwIjoxNjU0Njg4ODIxLCJpc19hZG1pbiI6dHJ1ZX0.dvFFS5LH62cRe17jOMlBDV8-Nkta5ZU9R-voGXdgF6o",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MzIxNSwianRpIjoiYjA4NjJiZjMtMDgzMS00MDZlLTlkNWYtZjdjYmQzNWMzNGZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYzMjE1LCJleHAiOjE2NTU1NDk2MTUsImlzX2FkbWluIjp0cnVlfQ.aDzr1FJayNAHRJNwsuxHcf__01_JBDP_iGuOShahjkY",
 							"type": "string"
 						}
 					]
@@ -335,7 +1309,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"hayoung764@gmail.com\"\n}",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -355,7 +1329,126 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "admin_reset_user_password_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hayoung764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/resetuserpassword",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"resetuserpassword"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:53:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\"\n}"
+				},
+				{
+					"name": "admin_reset_user_password_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/resetuserpassword",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"resetuserpassword"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:59:09 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password has been reset. New password has been sent to your email!\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Admin_SearchUser",
@@ -365,7 +1458,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NDYwMjkyNSwianRpIjoiYmNiYTdiNjUtM2VmNi00ZjBkLTlkYmQtMTM3Mzg4MGM3OGY5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzEsIm5iZiI6MTY1NDYwMjkyNSwiZXhwIjoxNjU0Njg5MzI1LCJpc19hZG1pbiI6dHJ1ZX0.1nxr8zSvIj7fuy7ZOND_gUD5h8w49_b502DoyIQqemI",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MzE4NywianRpIjoiZTE4MjU3NDgtZTBhYi00MTU4LTlmYzMtYjUzMGU4MmI4MTVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYzMTg3LCJleHAiOjE2NTU1NDk1ODcsImlzX2FkbWluIjp0cnVlfQ.ShhCDkyicVd--xTbH7idVwiEeqeHKVxo9eVlijmRd2E",
 							"type": "string"
 						}
 					]
@@ -374,7 +1467,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"hayoung764@gmail.com\"\n}",
+					"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -394,11 +1487,140 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Admin_SearchUser_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hayoung764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/searchuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"searchuser"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:55:31 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\"\n}"
+				},
+				{
+					"name": "Admin_SearchUser_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/searchuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"searchuser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:55:47 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "113"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User found\",\n    \"user_email\": \"ngohaanh764@gmail.com\",\n    \"user_activated\": false,\n    \"user_blocked\": false\n}"
+				}
+			]
 		},
 		{
 			"name": "Admin_activate_user",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MzE4NywianRpIjoiZTE4MjU3NDgtZTBhYi00MTU4LTlmYzMtYjUzMGU4MmI4MTVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYzMTg3LCJleHAiOjE2NTU1NDk1ODcsImlzX2FkbWluIjp0cnVlfQ.ShhCDkyicVd--xTbH7idVwiEeqeHKVxo9eVlijmRd2E",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -423,7 +1645,126 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Admin_activate_user_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/activateuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"activateuser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:56:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User has been activated\"\n}"
+				},
+				{
+					"name": "Admin_activate_user_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/activateuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"activateuser"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:57:15 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Admin_block_user",
@@ -452,7 +1793,126 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Admin_block_user_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/blockuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"blockuser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:57:43 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User has been blocked\"\n}"
+				},
+				{
+					"name": "Admin_block_user_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/blockuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"blockuser"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:58:01 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Admin_unblocked_user",
@@ -481,7 +1941,126 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Admin_unblocked_user_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/unblockeduser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"unblockeduser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:58:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User has been unblocked\"\n}"
+				},
+				{
+					"name": "Admin_unblocked_user_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh.ngo764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/unblockeduser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"unblockeduser"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:58:35 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\"\n}"
+				}
+			]
 		},
 		{
 			"name": "Admin_delete_user",
@@ -510,11 +2089,140 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Admin_delete_user_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ngohaanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/deleteuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"deleteuser"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:59:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User has been deleted\"\n}"
+				},
+				{
+					"name": "Admin_delete_user_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"haanh764@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/deleteuser",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"deleteuser"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 10:59:48 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\"\n}"
+				}
+			]
 		},
 		{
 			"name": "admin_query_all_users",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2MzE4NywianRpIjoiZTE4MjU3NDgtZTBhYi00MTU4LTlmYzMtYjUzMGU4MmI4MTVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDYzMTg3LCJleHAiOjE2NTU1NDk1ODcsImlzX2FkbWluIjp0cnVlfQ.ShhCDkyicVd--xTbH7idVwiEeqeHKVxo9eVlijmRd2E",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -530,7 +2238,1189 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "admin_query_all_users_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/admin/listusers",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"listusers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:00:10 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "140"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Users list has been returned\",\n    \"users\": {\n        \"1\": {\n            \"user_activated\": true,\n            \"user_blocked\": false,\n            \"user_email\": \"haanh.ngo764@gmail.com\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "AddSurvey",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"title\":\"Survey title\",\"description\":\"description\",\"formBuilder\":{\"list\":[{\"title\":\"Short open answer\",\"type\":\"input\",\"options\":{\"defaultValue\":\"\",\"placeholder\":\"\",\"type\":\"text\"},\"label\":\"Short open answer\",\"question\":\"\",\"description\":\"\",\"key\":\"e77197d15\",\"model\":\"input_e77197d15\",\"order\":0},{\"title\":\"Long open answer\",\"type\":\"input\",\"options\":{\"defaultValue\":\"\",\"placeholder\":\"\",\"type\":\"textarea\"},\"label\":\"Long open answer\",\"question\":\"\",\"description\":\"\",\"key\":\"6743209e4\",\"model\":\"input_6743209e4\",\"order\":1},{\"title\":\"Single choice\",\"type\":\"radio\",\"label\":\"Single choice\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":\"\",\"options\":[{\"value\":\"Option_1\",\"text\":\"Option 1\"},{\"value\":\"Option_2\",\"text\":\"Option 2\"},{\"value\":\"Option_3\",\"text\":\"Option 3\"}]},\"key\":\"72b98a503\",\"model\":\"radio_72b98a503\",\"order\":2},{\"title\":\"Multiple choices\",\"type\":\"checkbox\",\"label\":\"Multiple choices\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":[],\"options\":[{\"value\":\"Option_1\",\"text\":\"Option 1\"},{\"value\":\"Option_2\",\"text\":\"Option 2\"},{\"value\":\"Option_3\",\"text\":\"Option 3\"}]},\"key\":\"5bc84abf1\",\"model\":\"checkbox_5bc84abf1\",\"order\":3},{\"title\":\"Slider\",\"type\":\"slider\",\"label\":\"Slider\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":0,\"min\":0,\"max\":100,\"step\":1},\"key\":\"6b457fb73\",\"model\":\"slider_6b457fb73\",\"order\":4},{\"title\":\"Headings\",\"type\":\"text\",\"options\":{\"tag\":\"h1\",\"defaultValue\":\"This is a heading\"},\"label\":\"Headings\",\"key\":\"f4f8d69e1\",\"model\":\"text_f4f8d69e1\",\"order\":5},{\"title\":\"Paragraph\",\"type\":\"text\",\"options\":{\"tag\":\"p\",\"defaultValue\":\"This is a text\"},\"label\":\"Paragraph\",\"key\":\"242ded82c\",\"model\":\"text_242ded82c\",\"order\":6}],\"models\":{\"input_e77197d15\":\"\",\"input_6743209e4\":\"\",\"radio_72b98a503\":\"\",\"checkbox_5bc84abf1\":[],\"slider_6b457fb73\":\"\",\"text_f4f8d69e1\":\"This is a heading\",\"text_242ded82c\":\"This is a text\"}}},\"config\":{\"startDate\":\"\",\"endDate\":\"\",\"isPublic\":true,\"emails\":[],\"isSurveySentAutomatically\":false}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/survey/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"survey",
+						"add"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "AddSurvey_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"data\":{\"title\":\"Survey title\",\"description\":\"description\",\"formBuilder\":{\"list\":[{\"title\":\"Short open answer\",\"type\":\"input\",\"options\":{\"defaultValue\":\"\",\"placeholder\":\"\",\"type\":\"text\"},\"label\":\"Short open answer\",\"question\":\"\",\"description\":\"\",\"key\":\"e77197d15\",\"model\":\"input_e77197d15\",\"order\":0},{\"title\":\"Long open answer\",\"type\":\"input\",\"options\":{\"defaultValue\":\"\",\"placeholder\":\"\",\"type\":\"textarea\"},\"label\":\"Long open answer\",\"question\":\"\",\"description\":\"\",\"key\":\"6743209e4\",\"model\":\"input_6743209e4\",\"order\":1},{\"title\":\"Single choice\",\"type\":\"radio\",\"label\":\"Single choice\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":\"\",\"options\":[{\"value\":\"Option_1\",\"text\":\"Option 1\"},{\"value\":\"Option_2\",\"text\":\"Option 2\"},{\"value\":\"Option_3\",\"text\":\"Option 3\"}]},\"key\":\"72b98a503\",\"model\":\"radio_72b98a503\",\"order\":2},{\"title\":\"Multiple choices\",\"type\":\"checkbox\",\"label\":\"Multiple choices\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":[],\"options\":[{\"value\":\"Option_1\",\"text\":\"Option 1\"},{\"value\":\"Option_2\",\"text\":\"Option 2\"},{\"value\":\"Option_3\",\"text\":\"Option 3\"}]},\"key\":\"5bc84abf1\",\"model\":\"checkbox_5bc84abf1\",\"order\":3},{\"title\":\"Slider\",\"type\":\"slider\",\"label\":\"Slider\",\"question\":\"\",\"description\":\"\",\"options\":{\"defaultValue\":0,\"min\":0,\"max\":100,\"step\":1},\"key\":\"6b457fb73\",\"model\":\"slider_6b457fb73\",\"order\":4},{\"title\":\"Headings\",\"type\":\"text\",\"options\":{\"tag\":\"h1\",\"defaultValue\":\"This is a heading\"},\"label\":\"Headings\",\"key\":\"f4f8d69e1\",\"model\":\"text_f4f8d69e1\",\"order\":5},{\"title\":\"Paragraph\",\"type\":\"text\",\"options\":{\"tag\":\"p\",\"defaultValue\":\"This is a text\"},\"label\":\"Paragraph\",\"key\":\"242ded82c\",\"model\":\"text_242ded82c\",\"order\":6}],\"models\":{\"input_e77197d15\":\"\",\"input_6743209e4\":\"\",\"radio_72b98a503\":\"\",\"checkbox_5bc84abf1\":[],\"slider_6b457fb73\":\"\",\"text_f4f8d69e1\":\"This is a heading\",\"text_242ded82c\":\"This is a text\"}}},\"config\":{\"startDate\":\"\",\"endDate\":\"\",\"isPublic\":true,\"emails\":[],\"isSurveySentAutomatically\":false}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/survey/add",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"survey",
+								"add"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:00:56 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The survey Survey title has been created.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "test_dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/analysis/getsummary/17",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"analysis",
+						"getsummary",
+						"17"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "test_dashboard_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/analysis/getsummary/17",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analysis",
+								"getsummary",
+								"17"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:07:39 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey answers retrieved successfully.\"\n}"
+				},
+				{
+					"name": "test_dashboard_fail_notsurveyowner",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/analysis/getsummary/17",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analysis",
+								"getsummary",
+								"17"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:11:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You are not allowed to access this survey.\"\n}"
+				},
+				{
+					"name": "test_dashboard_fail_nosurvey",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/analysis/getsummary/20",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analysis",
+								"getsummary",
+								"20"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:12:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "33"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey not found.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "test_datatable",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTI4NzI4NSwianRpIjoiNzNmOTBhNjktODQ1OC00ZDQ2LThhZjEtNjhkMGNhZTFkOWVkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mjg3Mjg1LCJleHAiOjE2NTUzNzM2ODUsImlzX2FkbWluIjpmYWxzZX0.IFXNnhPGEAvfnYKYIYN8snVqv05x7lNQ9EyewbAWCIo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/analysis/generatedatatable/17",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"analysis",
+						"generatedatatable",
+						"17"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "test_datatable_fail_notsurveyowner",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/analysis/generatedatatable/17",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analysis",
+								"generatedatatable",
+								"17"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:13:01 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You are not allowed to access this survey.\"\n}"
+				},
+				{
+					"name": "test_datatable_fail_surveynotfound",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/analysis/generatedatatable/11",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analysis",
+								"generatedatatable",
+								"11"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:13:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "33"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey not found.\"\n}"
+				},
+				{
+					"name": "test_datatable_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/analysis/generatedatatable/17",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analysis",
+								"generatedatatable",
+								"17"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:14:05 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey answers retrieved successfully.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "user_blocked",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTI4NzI4NSwianRpIjoiNzNmOTBhNjktODQ1OC00ZDQ2LThhZjEtNjhkMGNhZTFkOWVkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mjg3Mjg1LCJleHAiOjE2NTUzNzM2ODUsImlzX2FkbWluIjpmYWxzZX0.IFXNnhPGEAvfnYKYIYN8snVqv05x7lNQ9EyewbAWCIo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/user/isblocked",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"isblocked"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "user_blocked_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/user/isblocked",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"isblocked"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:14:34 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "58"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User haanh.ngo764@gmail.com is not blocked\"\n}"
+				}
+			]
+		},
+		{
+			"name": "admin_delSurvey",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTM4NDc2MCwianRpIjoiMzFiMTRkMzgtNzJmYi00MzMyLTkxOWEtOTM5Y2VjOTU4YzgzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mzg0NzYwLCJleHAiOjE2NTU0NzExNjAsImlzX2FkbWluIjp0cnVlfQ.quo7AlsxIdCDGrUzEzyOCLAWU0SgJoNO7kzouZL5yNE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000//api/admin/deletesurvey",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"",
+						"api",
+						"admin",
+						"deletesurvey"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "admin_delSurvey_fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 21\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000//api/admin/deletesurvey",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"",
+								"api",
+								"admin",
+								"deletesurvey"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:19:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "32"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey not found\"\n}"
+				},
+				{
+					"name": "admin_delSurvey_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000//api/admin/deletesurvey",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"",
+								"api",
+								"admin",
+								"deletesurvey"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:19:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey has been deleted\"\n}"
+				}
+			]
+		},
+		{
+			"name": "admin_change_psw",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTM4NTMyNiwianRpIjoiMjQxMTdkOTYtZTliNS00YWRiLWFmNzYtNWFlNDlmNzM2NDIzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mzg1MzI2LCJleHAiOjE2NTU0NzE3MjYsImlzX2FkbWluIjp0cnVlfQ.GyFlYhsEY2GU_eUjy1DO9fNczCUFH4k8taCUry4-I5Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"new_password\": \"admin1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/admin/changepassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"changepassword"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "admin_change_psw_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"new_password\": \"admin123456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/admin/changepassword",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"changepassword"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:20:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password has been changed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "User_Delete_Survey",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTM4NTc1OSwianRpIjoiNzQ2ZjljZTEtZGQ4OS00ZjVmLWFjNTctYzMwZGFhYmJmNDRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1Mzg1NzU5LCJleHAiOjE2NTU0NzIxNTksImlzX2FkbWluIjpmYWxzZX0.6HwWrUSTTx7Za5l60hZ2jEQmW1oh9ussFCFjqYY4DKY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 18\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/user/survey/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"survey",
+						"delete"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "User_Delete_Survey_success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 19\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/user/survey/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"survey",
+								"delete"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:16:06 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey Survey title has been deleted\"\n}"
+				},
+				{
+					"name": "User_Delete_Survey_survey_not_found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 18\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/user/survey/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"survey",
+								"delete"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:15:49 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "32"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Survey not found\"\n}"
+				},
+				{
+					"name": "User_Delete_Survey_fail_notowner",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/user/survey/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"survey",
+								"delete"
+							]
+						}
+					},
+					"status": "UNAUTHORIZED",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:17:24 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You are not allowed to delete this survey\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Admin_ListAllSurveys",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1NTQ2NTUxOSwianRpIjoiOGU5ZDdjNjUtOTI3Mi00ZGZlLWEwODUtNjYxMDhhZDE3ZjI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjU1NDY1NTE5LCJleHAiOjE2NTU1NTE5MTksImlzX2FkbWluIjp0cnVlfQ.pXcQkGIjiRDHYUx-0a-JXCyH8Nw8nRhf-DWwXV5Gfao",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/admin/listsurveys",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"listsurveys"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Admin_ListAllSurveys_success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/admin/listsurveys",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admin",
+								"listsurveys"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.21.6"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Jun 2022 11:33:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "361"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Surveys list has been returned\",\n    \"surveys\": {\n        \"16\": {\n            \"creationDate\": null,\n            \"description\": null,\n            \"endDate\": null,\n            \"id\": 16,\n            \"modificationDate\": null,\n            \"startDate\": null,\n            \"surveyOwner\": 1,\n            \"title\": \"Mock Up Survey\"\n        },\n        \"17\": {\n            \"creationDate\": null,\n            \"description\": null,\n            \"endDate\": null,\n            \"id\": 17,\n            \"modificationDate\": null,\n            \"startDate\": null,\n            \"surveyOwner\": 1,\n            \"title\": \"Mock Up Survey 2\"\n        }\n    }\n}"
+				}
+			]
 		}
 	]
 }

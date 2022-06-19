@@ -172,3 +172,13 @@ class Survey(Base):
         form_builder['models'] = models
         survey_json['data']['formBuilder'] = form_builder
         return survey_json
+    
+    def find_by_id(id):
+        return session.query(Survey).filter_by(id=id).first()
+
+    def delete_survey(self):
+        session.delete(self)
+        session.commit()
+
+    def get_all_surveys():
+        return session.query(Survey).all()

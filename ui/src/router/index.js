@@ -5,6 +5,7 @@ import { layout } from "@/util/routes";
 import PageNotFoundView from "@views/PageNotFoundView.vue";
 import store from "@store/index.js";
 import Cookies from "js-cookie";
+import { userLogout, adminLogout } from "@api";
 
 Vue.use(Router);
 
@@ -40,6 +41,14 @@ const userRoutes = [
       component: () =>
         import(
           /* webpackChunkName: "user-settings" */ "@views/user/settings/SettingsView.vue"
+        )
+    },
+    {
+      path: "/user/confirm",
+      name: "user-confirm",
+      component: () =>
+        import(
+          /* webpackChunkName: "user-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue"
         )
     }
   ])
@@ -110,15 +119,6 @@ const generalRoutes = [
         )
     },
     {
-      path: "/user/login/confirm",
-      meta: { isAccessableAfterLogin: false },
-      name: "general-user-login-confirm",
-      component: () =>
-        import(
-          /* webpackChunkName: "general-user-login-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue"
-        )
-    },
-    {
       path: "/user/signup",
       name: "general-user-signup",
       component: () =>
@@ -143,14 +143,6 @@ const generalRoutes = [
         )
     },
     {
-      path: "/survey/:id/submitted",
-      name: "general-survey-submitted",
-      component: () =>
-        import(
-          /* webpackChunkName: "general-survey-submitted" */ "@views/general/survey-submitted/SurveySubmittedView.vue"
-        )
-    },
-    {
       path: "/user/signup/thankyou",
       name: "general-user-signup-thankyou",
       component: () =>
@@ -171,7 +163,7 @@ const generalRoutes = [
 ];
 
 const router = new Router({
-  mode: "history",
+  mode: NODE_ENV == "development" ? "history" : "hash",
   base: process.env.BASE_URL,
   scrollBehavior: (to, from, savedPosition) => {
     if (to.hash) return { selector: to.hash };
@@ -193,6 +185,10 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const hasLoggedIn = store.getters["user/hasLoggedIn"];
   const accountType = store.getters["user/accountType"];
+  const hasBeenActivated = store.getters["user/hasBeenActivated"];
+  const hasAcceptedTnC = store.getters["user/hasAcceptedTnC"];
+  const hasAcceptedPrivacyPolicy = store.getters["user/hasAcceptedPrivacyPolicy"];
+  const hasAcceptedTncAndPp = (hasAcceptedTnC && hasAcceptedPrivacyPolicy);
 
   const userMainPage = { name: "user-surveys" };
   const adminMainPage = { name: "admin-users" };
@@ -207,14 +203,40 @@ router.beforeEach((to, from, next) => {
   const width = window.innerWidth;
   const isMobile = width <= 768;
 
+  const unsetClientData = () => {
+    store.dispatch("user/setUserData", {});
+    store.dispatch("user/setToken", "");
+    store.dispatch("user/setItems", []);
+    Cookies.remove("access_token_cookie");
+  };
+
   if (hasLoggedIn) {
     if (to.name == "general-logout") {
-      store.dispatch("user/setUserData", {});
-      store.dispatch("user/setToken", "");
-      store.dispatch("user/setItems", []);
-      Cookies.remove("user");
-
-      return next({ name: "general-landing" });
+      if (accountType == 0) {
+        userLogout()
+          .then(() => {
+            unsetClientData();
+            return next({ name: "general-landing" });
+          })
+          .catch(() => {
+            unsetClientData();
+            return next({ name: "general-landing" });
+          });
+      } else if (accountType == 1) {
+        adminLogout()
+          .then(() => {
+            unsetClientData();
+            return next({ name: "general-admin-login" });
+          })
+          .catch(() => {
+            unsetClientData();
+            return next({ name: "general-admin-login" });
+          });
+      }
+    } else if (from.name == "user-confirm" && !hasBeenActivated) {
+      return next({ name: "user-confirm" });
+    } else if (from.name == "user-surveys" && !hasAcceptedTncAndPp) {
+      return next(userMainPage);
     } else if (shouldBePrevented(to.name)) {
       if (accountType == 0) {
         return next(userMainPage);

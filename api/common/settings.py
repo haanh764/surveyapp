@@ -14,5 +14,7 @@ JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
 # If true this will only allow the cookies that contain your JWTs to be sent
 # over https. In production, this should always be set to True
 JWT_COOKIE_SECURE = False
-JWT_TOKEN_LOCATION = ['cookies']
+JWT_TOKEN_LOCATION = ['headers']
 JWT_COOKIE_CSRF_PROTECT = False
+JWT_HEADER_NAME = 'Authorization'
+JWT_HEADER_TYPE = ''

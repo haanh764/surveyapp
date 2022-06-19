@@ -82,15 +82,6 @@ table {
   }
 }
 
-// bottom-sheet
-.v-bottom-sheet {
-  &:not(.v-dialog--fullscreen) {
-    .v-sheet {
-      border-top-left-radius: 20px !important;
-      border-top-right-radius: 20px !important;
-    }
-  }
-}
 
 // display flex
 .justify-flex--end {

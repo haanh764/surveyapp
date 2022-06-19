@@ -81,8 +81,10 @@
 </template>
 
 <script>
+import { adminLogin } from "@api";
+
 export default {
-  name: "LoginView",
+  name: "AdminLoginView",
   data() {
     return {
       isFormValid: false,
@@ -95,19 +97,18 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // get submission with this.formData
-      // submit form
-      // get auth key
-      // save to vuex
-      const userData = {
-        accountType: 1,
-        email: "admin@email.com"
-      };
-      this.$store.dispatch("user/setToken", "test");
-      this.$store.dispatch("user/setUserData", userData);
-      this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
-
-      this.$router.push({ name: "admin-users" });
+      adminLogin(this.formData).then((response) => {
+        const authKey = response["message"].split("Access token is ")[1];
+        const userData = {
+          accountType: 1,
+          email: this.formData.email
+        };
+        this.$cookies.set("access_token_cookie", authKey);
+        this.$store.dispatch("user/setToken", authKey);
+        this.$store.dispatch("user/setUserData", userData);
+        this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
+        this.$router.push({ name: "admin-users" });
+      });
     }
   }
 };
