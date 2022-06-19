@@ -1,6 +1,7 @@
 <template>
   <v-container
-    id="user-settings-view"
+    class="user-settings-view"
+    :class="{'--is-desktop': !isMobile}"
     tag="section"
   >
     <v-row justify="center">
@@ -60,7 +61,7 @@
                         rules="required|min:8"
                       >
                         <v-text-field
-                          v-model.trim="formData.password"
+                          v-model.trim="formData.new_password"
                           outlined
                           required
                           hint="Minimum 8 characters"
@@ -83,8 +84,9 @@
                           block
                           height="53"
                           min-width="150"
-                          class="mt-2 mb-5 v-btn--primary"
-                          :disabled="!isPasswordLengthOkay"
+                          class="mt-2 mb-5 v-btn--primary user-settings-form__submit-button"
+                          :loading="isLoading"
+                          :disabled="!isPasswordLengthOkay || isLoading"
                           @click="handleSubmit(onFormSubmit)"
                         >
                           SAVE SETTINGS
@@ -123,6 +125,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { userChangePassword, userDeleteAccount, userLogout } from "@api";
 
 export default {
   name: "UserSettingsView",
@@ -130,9 +133,10 @@ export default {
     return {
       isFormValid: false,
       isPasswordShown: false,
+      isLoading: false,
       formData: {
         email: "",
-        password: ""
+        new_password: ""
       },
       isDeleteItemModalShown: false,
       isSucessSnackbarShown: false
@@ -144,34 +148,61 @@ export default {
       return this.userData.email;
     },
     isPasswordLengthOkay() {
-      return this.formData.password.length >= 8;
+      return this.formData.new_password.length >= 8;
     }
   },
   methods: {
     onFormSubmit() {
-      // to do: post form data to back-end's update user api
-      this.$notify.toast("New settings have been saved!");
+      this.isLoading = true;
+      userChangePassword({ new_password: this.formData.new_password })
+        .then((response) => {
+          this.$notify.toast(response["message"]);
+          this.isLoading = false;
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
+    },
+    unsetClientData() {
+      this.$store.dispatch("user/setToken", "");
+      this.$store.dispatch("user/setUserData", {});
+      this.$store.dispatch("user/setItems", []);
+      this.$cookies.remove("access_token_cookie");
     },
     onDeleteAccount() {
       this.isDeleteItemModalShown = true;
     },
     onDeleteConfirmation() {
-      // to do: call delete api
-      this.isDeleteItemModalShown = false;
-      this.$store.dispatch("user/setToken", "");
-      this.$store.dispatch("user/setUserData", {});
-      this.$store.dispatch("user/setItems", []);
-      this.$cookies.remove("user");
-
-      this.$router
-        .push({ name: "general-user-delete-thankyou" })
-        .catch(() => {});
+      userDeleteAccount().then((response) => {
+        this.$notify.toast(response["message"]);
+        userLogout()
+          .then(() => {
+            this.isDeleteItemModalShown = false;
+            this.unsetClientData();
+            this.$router
+              .push({ name: "general-user-delete-thankyou" })
+              .catch(() => {});
+          })
+          .catch(() => {
+            this.isDeleteItemModalShown = false;
+            this.unsetClientData();
+            this.$router
+              .push({ name: "general-user-delete-thankyou" })
+              .catch(() => {});
+          });
+      });
     }
   }
 };
 </script>
 
 <style lang="scss">
+.user-settings-view {
+  &.--is-desktop {
+    margin: 20px 0;
+  }
+}
+
 .user-settings-form {
   &__delete-button {
     letter-spacing: 0;

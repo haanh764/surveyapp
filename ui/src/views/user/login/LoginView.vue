@@ -39,6 +39,7 @@
                         placeholder="email@email.com"
                         outlined
                         required
+                        class="login-form__email"
                         :error-messages="errors[0]"
                         label="E-mail"
                       />
@@ -56,6 +57,7 @@
                         outlined
                         hint="Minimum 8 characters"
                         persistent-hint
+                        class="login-form__password"
                         label="Password"
                         :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="isPasswordShown ? 'text' : 'password'"
@@ -66,9 +68,11 @@
                   </v-col>
                   <v-col cols="12">
                     <v-btn
-                      class="v-btn--is-elevated v-btn--primary"
+                      class="v-btn--is-elevated v-btn--primary login-form__submit-button"
                       height="53"
                       block
+                      :disabled="isLoading"
+                      :loading="isLoading"
                       @click="handleSubmit(onFormSubmit)"
                     >
                       LOG IN
@@ -100,12 +104,15 @@
 </template>
 
 <script>
+import { userLogin, userNotActivated } from "@api";
+
 export default {
   name: "LoginView",
   data() {
     return {
       isFormValid: false,
       isPasswordShown: false,
+      isLoading: false,
       formData: {
         email: "",
         password: ""
@@ -114,21 +121,40 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      // get submission with this.formData
-      // submit form
-      // get auth key
-      // save to vuex
-      const userData = {
-        accountType: 0,
-        email: "user@email.com",
-        hasAcceptedPrivacyPolicy: false,
-        hasAcceptedTnC: false
-      };
-      this.$store.dispatch("user/setToken", "test");
-      this.$store.dispatch("user/setUserData", userData);
-      this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
+      this.isLoading = true;
+      userLogin(this.formData)
+        .then((response) => {
+          const authKey = response["message"].split("Access token is ")[1];
+          const userData = {
+            accountType: 0,
+            email: this.formData.email
+          };
+          this.$cookies.set("access_token_cookie", authKey, { expires: 7 });
+          this.$store.dispatch("user/setToken", authKey);
+          this.$store.dispatch("user/setUserData", userData);
+          this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
 
-      this.$router.push({ name: "user-surveys" });
+          userNotActivated()
+            .then((userActivationStatus) => {
+              if (
+                userActivationStatus["message"].includes("is not activated")
+              ) {
+                this.$store.dispatch("user/setHasBeenActivated", false);
+                this.$router.push({ name: "user-confirm" }).catch(() => {});
+              } else {
+                this.$store.dispatch("user/setHasBeenActivated", true);
+                this.$router.push({ name: "user-surveys" }).catch(() => {});
+              }
+            })
+            .catch(() => {
+              this.$router.push({ name: "user-surveys" }).catch(() => {});
+            });
+
+          this.isLoading = false;
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
     }
   }
 };

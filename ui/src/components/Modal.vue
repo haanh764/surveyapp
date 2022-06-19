@@ -6,7 +6,7 @@
     :max-width="maxWidth"
     persistent
   >
-    <v-card class="pa-0">
+    <v-card class="pa-0 modal__card">
       <v-card-actions v-if="isCloseButtonShown">
         <v-row
           row
@@ -56,7 +56,7 @@
           >
             <v-btn
               text
-              class="mr-2"
+              class="mr-2 close-button"
               @click.stop="show=false"
             >
               Close
@@ -66,7 +66,7 @@
               v-if="isActionButtonShown"
               color="primary"
               text
-              class="text-uppercase"
+              class="text-uppercase primary-action-button"
               @click="onPrimaryActionButtonClick"
             >
               {{ primaryActionButtonText || "OK" }}

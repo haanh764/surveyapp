@@ -38,7 +38,7 @@
         <v-btn
           block
           height="53"
-          class="v-btn--default"
+          class="v-btn--default conditions-interaction__decline-button"
           @click="confirmConditions(false)"
         >
           DECLINE
@@ -51,7 +51,7 @@
         <v-btn
           block
           height="53"
-          class="v-btn--primary"
+          class="v-btn--primary conditions-interaction__accept-button"
           @click="confirmConditions(true)"
         >
           ACCEPT

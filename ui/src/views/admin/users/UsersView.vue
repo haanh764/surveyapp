@@ -180,6 +180,7 @@
               <modal
                 v-model="isEditItemModalShown"
                 name="edit-modal"
+                :is-footer-shown="false"
               >
                 <template #default>
                   <v-card-title>
@@ -308,6 +309,8 @@
               <modal
                 v-model="isAccountBlockModalShown"
                 name="account-block-modal"
+                :is-close-button-shown="false"
+                :is-footer-shown="false"
               >
                 <template #default>
                   <v-card-title>
@@ -348,6 +351,8 @@
               <modal
                 v-model="isAccountUnblockModalShown"
                 name="account-unblock-modal"
+                :is-close-button-shown="false"
+                :is-footer-shown="false"
               >
                 <template #default>
                   <v-card-title>
@@ -403,7 +408,10 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
-import { getUsers } from "@api";
+import {
+  adminListUsers, adminResetUserPassword, adminActivateUser,
+  adminBlockUser, adminUnblockUser, adminDeleteUser
+} from "@api";
 
 export default {
   name: "AdminUsersView",
@@ -418,26 +426,7 @@ export default {
       isAccountUnblockModalShown: false,
       isResetPasswordModalShown: false,
       selectedUser: {},
-      users: [
-        {
-          id: 1,
-          email: "ayam@bebek.angsa",
-          isActivated: true,
-          isBlocked: false
-        },
-        {
-          id: 2,
-          email: "sadBoy123@pevuer.pl",
-          isActivated: false,
-          isBlocked: true
-        },
-        {
-          id: 3,
-          email: "lifeIsHard456@gmail.pl",
-          isActivated: true,
-          isBlocked: true
-        }
-      ]
+      users: []
     };
   },
   computed: {
@@ -471,31 +460,28 @@ export default {
     }
   },
   created() {
-    // get user api
-    // add certain columns to user data
+    this.getUsersApi();
     this.processUserData();
   },
   mounted() {},
   methods: {
-    onDeleteConfirmation() {
-      // call delete api
-      // delete
-      // refresh table
-      // hide modal
-      this.isDeleteItemModalShown = false;
-    },
     onClickItemDelete(item) {
       this.selectedUser = { ...item };
       this.isDeleteItemModalShown = true;
+    },
+    onDeleteConfirmation() {
+      const apiData = { email: this.selectedUser.email };
+      adminDeleteUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getUsersApi();
+        this.processUserData();
+      });
+      this.isDeleteItemModalShown = false;
     },
     onClickCloseEditModal() {
       this.isEditItemModalShown = false;
     },
     onClickItemEdit(item) {
-      //show modal with toggle for activation,
-      //toggle for blocking,
-      //button for sending reset password link
-      console.log(item);
       this.selectedUser = { ...item };
       this.isEditItemModalShown = true;
     },
@@ -503,8 +489,14 @@ export default {
       this.isAccountActivationModalShown = true;
     },
     onAccountActivationConfirmation() {
-      // to do: api call for update isActivated status
+      const apiData = { email: this.selectedUser.email };
+      adminActivateUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getUsersApi();
+        this.processUserData();
+      });
       this.isAccountActivationModalShown = false;
+      this.isEditItemModalShown = false;
     },
     toggleSelectedUserIsBlocked() {
       if (!this.selectedUser.isBlocked) {
@@ -514,16 +506,32 @@ export default {
       }
     },
     onAccountBlockConfirmation() {
-      // to do: api call for update isBlocked=1 status
-      this.isAccountBlockModalShown = false;
+      const apiData = { email: this.selectedUser.email };
+      adminBlockUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getUsersApi();
+        this.processUserData();
+        this.isAccountBlockModalShown = false;
+        this.isEditItemModalShown = false;
+      }).catch(() => {
+        this.onAccountBlockCancelation();
+      });
     },
     onAccountBlockCancelation() {
       this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
       this.isAccountBlockModalShown = false;
     },
     onAccountUnblockConfirmation() {
-      // to do: api call for update isBlocked=0 status
-      this.isAccountUnblockModalShown = false;
+      const apiData = { email: this.selectedUser.email };
+      adminUnblockUser(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getUsersApi();
+        this.processUserData();
+        this.isAccountUnblockModalShown = false;
+        this.isEditItemModalShown = false;
+      }).catch(() => {
+        this.onAccountUnblockCancelation();
+      });
     },
     onAccountUnblockCancelation() {
       this.selectedUser.isBlocked = (this.selectedUser.isBlocked)? false : true;
@@ -533,8 +541,14 @@ export default {
       this.isResetPasswordModalShown = true;
     },
     onResetPasswordConfirmation() {
-      // to do: api call for resetting user password
+      const apiData = { email: this.selectedUser.email };
+      adminResetUserPassword(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getUsersApi();
+        this.processUserData();
+      });
       this.isResetPasswordModalShown = false;
+      this.isEditItemModalShown = false;
     },
     processUserData() {
       this.users = this.users.map((user, index) => {
@@ -570,43 +584,21 @@ export default {
       }
       return item;
     },
-    getUserApi() {
-      // example of fetching api directly with fetch
-      fetch("http://localhost:8000")
-        .then((response) => response.json())
-        .then((data) => {
-          this.message = data.message;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      // example 1 with axios
-      this.$axios
-        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+    getUsersApi() {
+      adminListUsers()
         .then((response) => {
-          if (response.status == 200) {
-            // do something
-          } else {
-            // error
-            // do something
-          }
-        })
-        .catch((error) => {
-          // do something on error
-          console.error(error);
-        });
-
-      // example 2
-      // recommended because this way the api is centered in one place/file
-      // dont forget to handle errors
-      getUsers()
-        .then((response) => {
-          console.log(response);
-          // do something with the response
-        })
-        .catch((error) => {
-          console.log(error);
+          this.users.length = 0;
+          const rawUsers = response["users"];
+          const rawUserIds = Object.keys(rawUsers);
+          rawUserIds.forEach(rawUserid => {
+            let rawUser = {
+              id: rawUserid,
+              email: rawUsers[rawUserid]["user_email"],
+              isActivated: rawUsers[rawUserid]["user_activated"],
+              isBlocked: rawUsers[rawUserid]["user_blocked"]
+            };
+            this.users.push(rawUser);
+          });
         });
     }
   }

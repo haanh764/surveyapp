@@ -33,7 +33,7 @@
         </v-btn>
         <p class="tagline-login">
           Already signed up? <router-link
-            class="link"
+            class="login-link"
             to="/user/login"
           >
             Log in
@@ -113,7 +113,7 @@ export default {
     text-align: center;
     color: $grayish-white;
 
-    .link {
+    .login-link {
       color: $grayish-white;
     }
   }

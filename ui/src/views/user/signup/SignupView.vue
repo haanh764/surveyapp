@@ -36,6 +36,7 @@
                         v-model.trim="formData.email"
                         placeholder="email@email.com"
                         outlined
+                        class="signup-form__email"
                         required
                         :error-messages="errors[0]"
                         label="E-mail"
@@ -54,6 +55,7 @@
                         outlined
                         hint="Minimum 8 characters"
                         persistent-hint
+                        class="signup-form__password"
                         label="Password"
                         :append-icon="isPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="isPasswordShown ? 'text' : 'password'"
@@ -64,9 +66,11 @@
                   </v-col>
                   <v-col cols="12">
                     <v-btn
-                      class="v-btn--is-elevated v-btn--primary"
+                      class="v-btn--is-elevated v-btn--primary signup-form__submit-button"
                       height="53"
                       block
+                      :loading="isLoading"
+                      :disabled="isLoading"
                       @click="handleSubmit(onFormSubmit)"
                     >
                       SIGN UP
@@ -106,6 +110,7 @@ export default {
     return {
       isFormValid: false,
       isPasswordShown: false,
+      isLoading: false,
       formData: {
         email: "",
         password: ""
@@ -114,20 +119,20 @@ export default {
   },
   methods: {
     onFormSubmit() {
+      this.isLoading = true;
       userSignup(this.formData)
         .then((response) => {
           if (response["message"].includes(" already exists.")) {
             this.$notify.toast(response["message"]);
-          }
-          else {
+          } else {
             this.$router
               .push({ name: "general-user-signup-thankyou" })
               .catch(() => {});
           }
+          this.isLoading = false;
         })
-        .catch((error) => {
-          this.$notify.toast("Something went wrong. Please try again later.");
-          console.log(error);
+        .catch(() => {
+          this.isLoading = false;
         });
     }
   }

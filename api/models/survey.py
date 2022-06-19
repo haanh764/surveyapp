@@ -30,7 +30,6 @@ class Survey(Base):
     respondents = relationship("AllowedRespondents", back_populates="survey", cascade="all, delete-orphan")
     responses = relationship("Responses", back_populates="survey", cascade="all, delete-orphan")
 
-
     def __init__(self, surveyOwner, title, description, startDate, endDate, isPublic=False, isSurveySentAutomatically=False):
         self.surveyOwner = surveyOwner
         self.title = title
@@ -68,7 +67,6 @@ class Survey(Base):
             allowed_respondent.delete_respondent()
         for response in self.responses:
             response.delete_response()
-
 
     def generate_hash(self):
         str = string.ascii_lowercase + string.ascii_uppercase
@@ -179,6 +177,16 @@ class Survey(Base):
         form_builder['models'] = models
         survey_json['data']['formBuilder'] = form_builder
         return survey_json
+
+    def find_by_id(id):
+        return session.query(Survey).filter_by(id=id).first()
+
+    def delete_survey(self):
+        session.delete(self)
+        session.commit()
+
+    def get_all_surveys():
+        return session.query(Survey).all()
 
 
 class Respondents(Base):
@@ -328,3 +336,4 @@ class AnswerOptionsChoiceAnswer(Base):
     def add_answer(self):
         session.add(self)
         session.commit()
+

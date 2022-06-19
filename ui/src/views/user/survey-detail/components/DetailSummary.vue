@@ -16,11 +16,13 @@
 </template>
 
 <script>
+import { userGetSurveySummary } from "@api";
+
 export default {
   name: "DetailSummary",
   data() {
     return {
-      summaryUrl: "http://localhost:8080/"
+      summaryUrl: ""
     };
   },
   computed: {
@@ -29,16 +31,17 @@ export default {
     }
   },
   created() {
-    this.getSurveySummary();
+    this.getSurveySummaryApi(this.surveyId);
   },
   methods: {
-    onLoadSummaryPage() {
-      // do something
+    getSurveySummaryApi(surveyId) {
+      this.$notify.toast("Preparing data...");
+      userGetSurveySummary(surveyId).then(() => {
+        this.summaryUrl = process.env.VUE_APP_API_BASE_URL + "dashboard/";
+      });
     },
-    getSurveySummary() {
-      // get survey summary by id
-      // assign to summaryUrl
-      // load
+    onLoadSummaryPage() {
+      this.$notify.toast("Stats summary loaded successfully.");
     }
   }
 };

@@ -10,11 +10,16 @@ import "./plugins";
 import "./mixins";
 import "./filters";
 import "./registerServiceWorker";
+import { makeServer } from "./mocks/server";
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios.create(axiosConfig);
 
 sync(store, router);
+
+if (NODE_ENV == "development" && IS_API_MOCKED === "true") {
+  makeServer();
+}
 
 new Vue({
   router,
@@ -22,3 +27,9 @@ new Vue({
   store,
   render: (h) => h(App)
 }).$mount("#app");
+
+if (window.Cypress) {
+  window.store = store;
+  window.router = router;
+  window.cookies = Vue.prototype.$cookies;
+}
