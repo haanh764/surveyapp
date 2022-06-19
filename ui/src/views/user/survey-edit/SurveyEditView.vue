@@ -63,7 +63,9 @@
             >
               <survey-edit-tabs
                 ref="surveyEditTabs"
+                :survey="formData"
                 v-model="activeSurveyEditTab"
+                :key="surveyEditTabsKey"
               />
             </v-col>
             <v-col
@@ -71,7 +73,7 @@
               cols="4"
               class="pa-0 survey-config-tabs-wrapper"
             >
-              <survey-config-tabs ref="surveyConfigTabs" />
+              <survey-config-tabs ref="surveyConfigTabs" :survey="formData" />
             </v-col>
           </v-row>
         </v-card>
@@ -127,6 +129,7 @@
         <template v-if="bottomSheetContent == 'settings'">
           <survey-settings
             ref="surveySettings"
+            :survey="formData.config"
             v-model="formData.config"
           />
         </template>
@@ -136,12 +139,14 @@
     <survey-settings
       v-show="false"
       ref="surveySettings"
+      :survey="formData.config"
       v-model="formData.config"
     />
   </v-container>
 </template>
 
 <script>
+import moment from "moment";
 import { EventBus } from "@/util/event-bus";
 import { userGetSurvey, userAddSurvey, userEditSurvey } from "@api";
 
@@ -175,6 +180,7 @@ export default {
       bottomSheetContent: "surveyElements", // surveyElements, settings
       activeSurveyEditTab: 0,
       currentSurveyId: "new",
+      surveyEditTabsKey: 0,
       formData: {
         data: {
           formBuilder: {
@@ -260,8 +266,9 @@ export default {
       const finalOutput = this.getData();
       console.log(JSON.stringify(finalOutput));
 
+      finalOutput.config.startDate = moment().format("YYYY-MM-DD");
+      finalOutput.config.endDate = moment().add(7,"days").format("YYYY-MM-DD");
       this.saveUserSurveyApi(finalOutput);
-      // call api for publishing (sending email invitations) here
     },
     saveUserSurveyApi(finalOutput) {
       const areEmptyStartEndDates = (finalOutput["config"]["startDate"] == "" || finalOutput["config"]["endDate"] == "");
@@ -297,12 +304,38 @@ export default {
       this.bottomSheetContent = "settings";
     },
     getSurveyApi(surveyId) {
-      console.log("running getSurveyApi() with param:");
-      console.log(surveyId);
       userGetSurvey(surveyId)
         .then((response) => {
-          console.log(JSON.stringify(response));
-          // how to load the response into the formData?
+          const survey = _.cloneDeep(response);
+
+          const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+          const pickerDateFormat = "YYYY-MM-DD";
+          if (survey.config.startDate == "") {
+            survey.config.startDate = this.todayDate;
+          } else {
+            survey.config.startDate = moment(
+              survey.config.startDate,
+              rawDateFormat
+            ).format(pickerDateFormat);
+          }
+          if (survey.config.endDate == "") {
+            survey.config.endDate = moment().add(7,"days").format("YYYY-MM-DD");
+          } else {
+            survey.config.endDate = moment(
+              survey.config.endDate,
+              rawDateFormat
+            ).format(pickerDateFormat);
+          }
+
+          survey.data.formBuilder.list = survey.data.formBuilder.list.map(
+            (listItem) => {
+              listItem.question = listItem.title;
+              return listItem;
+            }
+          );
+          
+          this.formData = { ...this.formData, ...survey };
+          this.surveyEditTabsKey += 1;
         });
     }
   }

@@ -69,12 +69,12 @@
                             {{ survey.title }}
                           </h2>
                           <span class="text-secondary">
-                            {{ survey.responses }} responses received
+                            {{ survey.startDate }}
                           </span>
                         </v-col>
                         <v-col cols="auto">
                           <span class="text-xs-right">
-                            {{ survey.lastUpdatedDate | standardDate }}
+                            {{ survey.lastUpdatedDate }}
                           </span>
                         </v-col>
                       </v-row>
@@ -124,7 +124,7 @@
                     </v-row>
                   </template>
                   <template #item.lastUpdatedDate="{ item }">
-                    {{ item.lastUpdatedDate | standardDate }}
+                    {{ item.lastUpdatedDate }}
                   </template>
                   <template #item.status="{ item }">
                     <v-chip
@@ -175,7 +175,8 @@
 
 <script>
 import { get, sync } from "vuex-pathify";
-import { getSurveys } from "@api";
+import { adminListSurveys, adminDeleteSurvey } from "@api";
+import { convertToStandardDate, isTodayAfterGivenDate } from "@util/dates.js";
 
 export default {
   name: "AdminSurveysView",
@@ -185,24 +186,7 @@ export default {
       isSortedAscending: true,
       isDeleteItemModalShown: false,
       selectedSurvey: {},
-      surveys: [
-        {
-          id: 1,
-          owner: "sadBoy123@wroclaw.pl",
-          title: "Earnings 2022",
-          responses: 10,
-          status: 1,
-          lastUpdatedDate: "01/02/2022 08:00:00"
-        },
-        {
-          id: 2,
-          owner: "happyGirl456@wroclaw.pl",
-          title: "Chicken 2022",
-          responses: 11,
-          status: 2,
-          lastUpdatedDate: "09/08/2022 08:00:00"
-        }
-      ]
+      surveys: []
     };
   },
   computed: {
@@ -226,28 +210,30 @@ export default {
         { text: "Name", value: "title" },
         { text: "Status", value: "status" },
         { text: "Owner", value: "owner" },
-        { text: "Responses", value: "responses" },
+        { text: "Start date", value: "startDate" },
         { text: "Actions", value: "id" }
       ];
     }
   },
   created() {
-    // get survey api
-    // add certain columns to survey data
+    this.getSurveysApi();
     this.processSurveyData();
   },
   mounted() {},
   methods: {
-    onDeleteConfirmation() {
-      // call delete api
-      // delete
-      // refresh table
-      // hide modal
-      this.isDeleteItemModalShown = false;
-    },
     onClickItemDelete(item) {
       this.selectedSurvey = { ...item };
       this.isDeleteItemModalShown = true;
+    },
+    onDeleteConfirmation() {
+      const apiData = { id: this.selectedSurvey.id };
+      adminDeleteSurvey(apiData).then((response) => {
+        this.$notify.toast(response["message"]);
+        this.getSurveysApi();
+        this.processSurveyData();
+      });
+      this.isDeleteItemModalShown = false;
+      this.isDeleteItemModalShown = false;
     },
     processSurveyData() {
       this.surveys = this.surveys.map((survey, index) => {
@@ -274,43 +260,30 @@ export default {
       }
       return item;
     },
-    getSurveyApi() {
-      // example of fetching api directly with fetch
-      fetch("http://localhost:8000")
-        .then((response) => response.json())
-        .then((data) => {
-          this.message = data.message;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      // example 1 with axios
-      this.$axios
-        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+    getSurveysApi() {
+      adminListSurveys()
         .then((response) => {
-          if (response.status == 200) {
-            // do something
-          } else {
-            // error
-            // do something
-          }
-        })
-        .catch((error) => {
-          // do something on error
-          console.error(error);
-        });
-
-      // example 2
-      // recommended because this way the api is centered in one place/file
-      // dont forget to handle errors
-      getSurveys()
-        .then((response) => {
-          console.log(response);
-          // do something with the response
-        })
-        .catch((error) => {
-          console.log(error);
+          this.surveys.length = 0;
+          const rawSurveys = response["surveys"];
+          const rawSurveyIds = Object.keys(rawSurveys);
+          rawSurveyIds.forEach(rawSurveyId => {
+            const respDateTimeFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+            let rawSurveyStatus = 1;
+            if( isTodayAfterGivenDate(rawSurveys[rawSurveyId]["startDate"], respDateTimeFormat) ) {
+              rawSurveyStatus = 2;
+            }
+            const rawSurveyStartDateMoment = convertToStandardDate(rawSurveys[rawSurveyId]["startDate"], respDateTimeFormat);
+            const rawSurveyModificationDateMoment = convertToStandardDate(rawSurveys[rawSurveyId]["modificationDate"], respDateTimeFormat);
+            let rawSurvey = {
+              id: rawSurveyId,
+              owner: rawSurveys[rawSurveyId]["surveyOwner"],
+              title: rawSurveys[rawSurveyId]["title"],
+              startDate: rawSurveyStartDateMoment,
+              status: rawSurveyStatus,
+              lastUpdatedDate: rawSurveyModificationDateMoment
+            };
+            this.surveys.push(rawSurvey);
+          });
         });
     }
   }

@@ -125,7 +125,17 @@ export default {
     survey: {
       type: Object,
       default() {
-        return {};
+        return {
+          data: {
+            title: "",
+            description: "",
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
+        };
       }
     }
   },
@@ -166,6 +176,9 @@ export default {
       }
     }
   },
+  created() {
+    this.setFormBuilderDataFromSurveyProp();
+  },
   mounted() {
     this.startListeningToEventBus();
   },
@@ -180,11 +193,28 @@ export default {
       });
       this.widgetForm.models = { ...models };
     },
+    setFormBuilderDataFromSurveyProp() {
+      this.widgetForm = {
+        ...this.widgetForm,
+        ...this.survey.data.formBuilder
+      };
+      this.selectedWidget =
+        this.selectedWidget ||
+        (this.widgetForm.list.length
+          ? this.widgetForm.list[0]
+          : null);
+      this.widgetFormComponentKey += 1;
+      // should I increment widgetConfigKey as well?
+    },
     startListeningToEventBus() {
       EventBus.$on("update:addWidget", this.onAddNewWidget);
+      EventBus.$on("event:setFormBuilderDataFromProp", () => {
+        this.setFormBuilderDataFromSurveyProp();
+      });
     },
     stopListeningToEventBus() {
       EventBus.$off("update:addWidget");
+      EventBus.$off("event:setFormBuilderDataFromProp");
     },
     onWidgetItemMoveBottomClick(index) {
       const prevBottomWidget = this.widgetForm.list[index + 1];

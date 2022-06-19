@@ -34,7 +34,7 @@
         cols="12"
         class="pa-0"
       >
-        <form-builder v-model="formData.formBuilder" />
+        <form-builder :survey="survey" v-model="formData.formBuilder" />
       </v-col>
     </v-row>
   </v-container>
@@ -42,10 +42,29 @@
 
 <script>
 import FormBuilder from "@/form-builder/components/FormBuilder.vue";
+
 export default {
   name: "SurveyBuild",
   components: {
     FormBuilder
+  },
+  props: {
+    survey: {
+      type: Object,
+      default() {
+        return {
+          data: {
+            title: "",
+            description: "",
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
+        };
+      }
+    }
   },
   data() {
     return {
@@ -67,7 +86,16 @@ export default {
       }
     }
   },
+  created() {
+    this.setFormBuilderDataFromSurveyProp();
+  },
   methods: {
+    setFormBuilderDataFromSurveyProp() {
+      this.formData = {
+        ...this.formData,
+        ...this.survey.data
+      };
+    },
     getData() {
       return this.formData;
     }

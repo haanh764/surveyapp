@@ -23,6 +23,7 @@
         <component
           :is="item.component"
           :ref="item.ref"
+          :survey="survey"
           :value="formData"
           @input="setFormData"
         />
@@ -46,6 +47,22 @@ export default {
     value: {
       type: Number,
       default: 0
+    },
+    survey: {
+      type: Object,
+      default() {
+        return {
+          data: {
+            title: "",
+            description: "",
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
+        };
+      }
     }
   },
   data() {
@@ -74,6 +91,9 @@ export default {
       ]
     };
   },
+  created() {
+    this.setFormBuilderDataFromSurveyProp();
+  },
   mounted() {
     this.mountListeners();
   },
@@ -81,6 +101,12 @@ export default {
     this.destroyListeners();
   },
   methods: {
+    setFormBuilderDataFromSurveyProp() {
+      this.formData = {
+        ...this.formData,
+        ...this.survey.data
+      };
+    },
     destroyListeners() {
       EventBus.$off("event:getFormBuilderData");
     },

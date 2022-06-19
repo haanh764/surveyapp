@@ -101,10 +101,10 @@
 </template>
 
 <script>
-import surveyDataSample from "@/assets/json/survey-data-sample.json";
 import GenerateForm from "@/form-builder/components/GenerateForm.vue";
 import { isTodayBeforeGivenDate } from "@util/dates";
 import copyText from "@util/copy";
+import { userGetSurvey, responderSubmitResponse } from "@api";
 
 export default {
   name: "SurveyFillView",
@@ -113,7 +113,7 @@ export default {
     return {
       token: this.$route.query.token,
       todayDate: moment().format("DD MMM YYYY"),
-      hasPermission: false,
+      hasPermission: true,
       hasSubmitted: false,
       baseUrl: window.location.origin,
       socialMedias: [
@@ -139,7 +139,7 @@ export default {
           title: "",
           description: "",
           link: "",
-          isPublished: false,
+          isPublished: true,
           formBuilder: {
             list: [],
             models: {}
@@ -148,7 +148,7 @@ export default {
         config: {
           startDate: "",
           endDate: "",
-          isPublic: false,
+          isPublic: true,
           emails: []
         }
       }
@@ -171,28 +171,76 @@ export default {
     }
   },
   created() {
-    this.survey = { ...this.survey, ...surveyDataSample }; // delete this line later
-    // get survey data
-    // check if the user has permission if the survey is private
+    this.getSurveyApi(this.surveyId);
   },
   methods: {
+    getSurveyApi(survey_id) {
+      userGetSurvey(survey_id)
+      .then((response) => {
+        const survey = _.cloneDeep(response);
+        console.log(survey);
+        survey.config.startDate = new Date(survey.config.startDate);
+        survey.config.endDate = new Date(survey.config.endDate);
+        console.log(survey);
+        survey.data.formBuilder.list = survey.data.formBuilder.list.map(
+          (listItem) => {
+            listItem.question = listItem.title;
+            return listItem;
+          }
+        );
+        this.survey = { ...this.survey, ...survey };
+      });
+    },
     onClickSocialMediaIcon(socialMedia) {
       console.log(socialMedia);
       // do something
     },
-    onClickSubmitButton({ models, list }) {
-      // submit survey
-      // send survey list and models
-      // combine with survey data
-      // set hasSubmitted as true
-      console.log(models, list);
+    isEmailAllowed(responderEmail) {
+      return (this.survey.config.emails.indexOf(responderEmail) > -1);
+    },
+    onClickSubmitButton({models, list}) {
+      // (models, list) contains modified data from GenerateForm component
+      console.log(JSON.stringify({models, list}));
+
+      let responderEmail = "";
+      if (!this.survey.config.isPublic) {
+        responderEmail = prompt("Please enter your email address where you received the invitation to this survey:");
+        if ( this.isEmailAllowed(responderEmail) ) {
+          this.hasPermission = false;
+        }
+      }
+
+      if (this.hasPermission == false) {
+        alert("Sorry, you are not allowed to participate in this survey.");
+      } else {
+        let responseItems = [];
+        const modelsItems = Object.entries(models);
+        modelsItems.forEach((item) => {
+          const responseItem = {
+            questionModel: item[0],
+            answerValue: item[1]
+          }
+          responseItems.push(responseItem);
+        });
+
+        const apiData = {
+          surveyId: this.surveyId,
+          surveyToken: this.token,
+          email: responderEmail,
+          responseItems: responseItems
+        };
+        console.log(JSON.stringify(apiData));
+        responderSubmitResponse(this.surveyId, apiData).then(() => {
+          this.$notify.toast("Response has been submitted!");
+        });
+        this.hasSubmitted = true;
+      }
     },
     onPrimaryButtonClickCallback() {
       // download as pdf
     },
     onClickSurveyLink() {
       const isCopySuccess = copyText(this.surveyLink);
-
       isCopySuccess && this.$notify.toast("Link has been copied to clipboard");
     }
   }

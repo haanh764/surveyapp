@@ -14,15 +14,16 @@ import {
   USER_LIST_SURVEYS_URL,
   USER_DELETE_SURVEY_URL,
   USER_ADD_SURVEY_URL,
-  USER_EDIT_SURVEY_URL,
   USER_GET_SURVEY_URL,
   USER_SURVEY_DATATABLE_URL,
   USER_SURVEY_SUMMARY_URL,
+  RESPONDER_SUBMIT_RESPONSE_URL,
   ADMIN_LOGIN_URL,
   ADMIN_LOGOUT_URL,
   ADMIN_ACTIVATE_USER_URL,
   ADMIN_BLOCK_USER_URL,
   ADMIN_CHANGE_PASSWORD_URL,
+  ADMIN_LIST_SURVEYS_URL,
   ADMIN_DELETE_SURVEY_URL,
   ADMIN_LIST_USERS_URL,
   ADMIN_RESET_USER_PASSWORD_URL,
@@ -67,6 +68,10 @@ axios.interceptors.response.use(
   }
 );
 
+export const responderSubmitResponse = (surveyId, data) => {
+  return axios.post(RESPONDER_SUBMIT_RESPONSE_URL + surveyId, data);
+};
+
 export const userListSurveys = () => {
   return axios.get(USER_LIST_SURVEYS_URL);
 };
@@ -80,7 +85,7 @@ export const userAddSurvey = (data) => {
 };
 
 export const userEditSurvey = (data) => {
-  return axios.post(USER_EDIT_SURVEY_URL, data);
+  return axios.post(USER_ADD_SURVEY_URL, data);
 };
 
 export const userGetSurvey = (survey_id) => {
@@ -133,6 +138,10 @@ export const adminLogout = () => {
 
 export const adminChangePassword = (data) => {
   return axios.post(ADMIN_CHANGE_PASSWORD_URL, data);
+};
+
+export const adminListSurveys = () => {
+  return axios.get(ADMIN_LIST_SURVEYS_URL);
 };
 
 export const adminDeleteSurvey = (data) => {
