@@ -372,11 +372,11 @@ export default {
       const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
       const pickerDateFormat = "YYYY-MM-DD";
       this.formData.startDate = moment(
-        this.formData.startDate,
+        (this.formData.startDate)? this.formData.startDate : this.todayDate,
         rawDateFormat
       ).format(pickerDateFormat);
       this.formData.endDate = moment(
-        this.formData.endDate,
+        (this.formData.endDate)? this.formData.endDate : moment().add(7,"days").format("YYYY-MM-DD"),
         rawDateFormat
       ).format(pickerDateFormat);
     },
