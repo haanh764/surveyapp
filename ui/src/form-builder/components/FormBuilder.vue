@@ -126,12 +126,15 @@ export default {
       type: Object,
       default() {
         return {
-          title: "Survey title",
-          description: "",
-          formBuilder: {
-            list: [],
-            models: {}
-          }
+          data: {
+            title: "",
+            description: "",
+            formBuilder: {
+              list: [],
+              models: {}
+            }
+          },
+          config: {}
         };
       }
     }
@@ -193,7 +196,7 @@ export default {
     setFormBuilderDataFromSurveyProp() {
       this.widgetForm = {
         ...this.widgetForm,
-        ...this.survey.formBuilder
+        ...this.survey.data.formBuilder
       };
       this.selectedWidget =
         this.selectedWidget ||
