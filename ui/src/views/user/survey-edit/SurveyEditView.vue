@@ -148,7 +148,6 @@
 <script>
 import { EventBus } from "@/util/event-bus";
 import { userGetSurvey, userAddSurvey, userEditSurvey } from "@api";
-import surveyDataSample from "@/assets/json/survey-data-sample.json";
 
 export default {
   name: "SurveyEditView",
@@ -306,8 +305,7 @@ export default {
       userGetSurvey(surveyId)
         .then((response) => {
           console.log(JSON.stringify(response));
-          //const survey = _.cloneDeep(response.survey);
-          const survey = _.cloneDeep(surveyDataSample);
+          const survey = _.cloneDeep(response.survey);
           survey.data.formBuilder.list = survey.data.formBuilder.list.map(
             (listItem) => {
               listItem.question = listItem.title;
