@@ -7,6 +7,7 @@
     "formBuilder": {
       "list": [
         {
+          "title": "Short open answer",
           "type": "input",
           "options": {
             "defaultValue": "",
@@ -14,13 +15,14 @@
             "type": "text"
           },
           "label": "Short open answer",
-          "title": "Are you a cat lover?",
+          "question": "Are you a cat lover?",
           "description": "Describe your love of cat in great detail",
           "key": "e77197d15",
           "model": "input_e77197d15",
           "order": 0
         },
         {
+          "title": "Long open answer",
           "type": "input",
           "options": {
             "defaultValue": "",
@@ -28,16 +30,17 @@
             "type": "textarea"
           },
           "label": "Long open answer",
-          "title": "",
+          "question": "",
           "description": "",
           "key": "6743209e4",
           "model": "input_6743209e4",
           "order": 1
         },
         {
+          "title": "Single choice",
           "type": "radio",
           "label": "Single choice",
-          "title": "",
+          "question": "",
           "description": "",
           "options": {
             "defaultValue": "",
@@ -52,9 +55,10 @@
           "order": 2
         },
         {
+          "title": "Multiple choices",
           "type": "checkbox",
           "label": "Multiple choices",
-          "title": "",
+          "question": "",
           "description": "",
           "options": {
             "defaultValue": [],
@@ -69,9 +73,10 @@
           "order": 3
         },
         {
+          "title": "Slider",
           "type": "slider",
           "label": "Slider",
-          "title": "",
+          "question": "",
           "description": "",
           "options": { "defaultValue": 0, "min": 0, "max": 100, "step": 1 },
           "key": "6b457fb73",
@@ -79,6 +84,7 @@
           "order": 4
         },
         {
+          "title": "Headings",
           "type": "text",
           "options": { "tag": "h1", "defaultValue": "This is a heading" },
           "label": "Headings",
@@ -87,6 +93,7 @@
           "order": 5
         },
         {
+          "title": "Paragraph",
           "type": "text",
           "options": { "tag": "p", "defaultValue": "This is a text" },
           "label": "Paragraph",

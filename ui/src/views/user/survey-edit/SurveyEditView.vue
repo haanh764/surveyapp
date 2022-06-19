@@ -63,6 +63,7 @@
             >
               <survey-edit-tabs
                 ref="surveyEditTabs"
+                :survey="formData"
                 v-model="activeSurveyEditTab"
               />
             </v-col>
@@ -71,7 +72,7 @@
               cols="4"
               class="pa-0 survey-config-tabs-wrapper"
             >
-              <survey-config-tabs ref="surveyConfigTabs" />
+              <survey-config-tabs ref="surveyConfigTabs" :survey="formData" />
             </v-col>
           </v-row>
         </v-card>
@@ -127,6 +128,7 @@
         <template v-if="bottomSheetContent == 'settings'">
           <survey-settings
             ref="surveySettings"
+            :survey="formData"
             v-model="formData.config"
           />
         </template>
@@ -136,6 +138,7 @@
     <survey-settings
       v-show="false"
       ref="surveySettings"
+      :survey="formData"
       v-model="formData.config"
     />
   </v-container>
@@ -144,6 +147,7 @@
 <script>
 import { EventBus } from "@/util/event-bus";
 import { userGetSurvey, userAddSurvey, userEditSurvey } from "@api";
+import surveyDataSample from "@/assets/json/survey-data-sample.json";
 
 export default {
   name: "SurveyEditView",
@@ -302,7 +306,22 @@ export default {
       userGetSurvey(surveyId)
         .then((response) => {
           console.log(JSON.stringify(response));
-          // how to load the response into the formData?
+          //const survey = _.cloneDeep(response.survey);
+          const survey = _.cloneDeep(surveyDataSample);
+          console.log("SurveyEditView survey:");
+          console.log(JSON.stringify(survey));
+          survey.data.formBuilder.list = survey.data.formBuilder.list.map(
+            (listItem) => {
+              listItem.question = listItem.title;
+              return listItem;
+            }
+          );
+          this.formData = { ...this.formData, ...survey };
+          console.log("SurveyEditView formData after mapping:");
+          console.log(JSON.stringify(this.formData));
+          this.$nextTick(() => {
+            EventBus.$emit("event:setFormBuilderDataFromProp");
+          });
         });
     }
   }

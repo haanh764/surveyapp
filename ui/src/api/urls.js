@@ -9,7 +9,6 @@ export const USER_DELETE_ACCOUNT_URL = "user/delete";
 export const USER_LIST_SURVEYS_URL = "user/surveys";
 export const USER_DELETE_SURVEY_URL = "user/survey/delete";
 export const USER_ADD_SURVEY_URL = "survey/add";
-export const USER_EDIT_SURVEY_URL = "";
 export const USER_GET_SURVEY_URL = "survey/";
 export const USER_SURVEY_DATATABLE_URL = "analysis/generatedatatable/";
 export const USER_SURVEY_SUMMARY_URL = "analysis/getsummary/";
