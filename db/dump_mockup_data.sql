@@ -98,44 +98,44 @@ INSERT INTO `answers` (`id`, `responseId`) VALUES
 --
 -- Dumping data for table `scale_answers`
 --
-INSERT INTO `scale_answers` (`id`, `answerId`, `scale_question_questionsId`, `value`) VALUES
-(1, 1, 58, 4),
-(2, 2, 58, 7),
-(3, 3, 58, 9),
-(4, 4, 58, 3),
-(5, 5, 58, 8),
-(6, 6, 58, 6),
-(7, 7, 58, 9),
-(8, 8, 58, 5),
-(9, 9, 58, 7),
-(10, 10, 58, 2);
+INSERT INTO `scale_answers` (`id`, `answerId`, `scale_question_id`, `value`) VALUES
+(1, 1, 14, 4),
+(2, 2, 14, 7),
+(3, 3, 14, 9),
+(4, 4, 14, 3),
+(5, 5, 14, 8),
+(6, 6, 14, 6),
+(7, 7, 14, 9),
+(8, 8, 14, 5),
+(9, 9, 14, 7),
+(10, 10, 14, 2);
 
 
 --
 -- Dumping data for table `open_answers`
 --
 
-INSERT INTO `open_answers` (`id`, `answerId`, `open_answer_question_questionId`, `answer_text`) VALUES
-(1, 1, 60, '45'),
-(2, 1, 59, 'Your products are good'),
-(3, 2, 60, '23'),
-(4, 2, 59, 'Easy to be broken, cheap quality'),
-(5, 3, 60, '32'),
-(6, 3, 59, 'Products are too expensive'),
-(7, 4, 60, '25'),
-(8, 4, 59, 'Low quality, hard to use'),
-(9, 5, 60, '80'),
-(10, 5, 59, 'Good prices, good quality'),
-(11, 6, 60, '76'),
-(12, 6, 59, 'Not good prices, low quality'),
-(13, 7, 60, '48'),
-(14, 7, 59, 'Product are good prices'),
-(15, 8, 60, '37'),
-(16, 8, 59, 'It is broken after delivery'),
-(17, 9, 60, '28'),
-(18, 9, 59, 'Products are too expensive'),
-(19, 10, 60, '78'),
-(20, 10, 59, 'The colors are not pretty, easy to fade away');
+INSERT INTO `open_answers` (`id`, `answerId`, `open_answer_question_id`, `answer_text`) VALUES
+(1, 1, 4, '45'),
+(2, 1, 3, 'Your products are good'),
+(3, 2, 4, '23'),
+(4, 2, 3, 'Easy to be broken, cheap quality'),
+(5, 3, 4, '32'),
+(6, 3, 3, 'Products are too expensive'),
+(7, 4, 4, '25'),
+(8, 4, 3, 'Low quality, hard to use'),
+(9, 5, 4, '80'),
+(10, 5, 3, 'Good prices, good quality'),
+(11, 6, 4, '76'),
+(12, 6, 3, 'Not good prices, low quality'),
+(13, 7, 4, '48'),
+(14, 7, 3, 'Product are good prices'),
+(15, 8, 4, '37'),
+(16, 8, 3, 'It is broken after delivery'),
+(17, 9, 4, '28'),
+(18, 9, 3, 'Products are too expensive'),
+(19, 10, 4, '78'),
+(20, 10, 3, 'The colors are not pretty, easy to fade away');
 
 --
 -- Dumping data for table `answer_options`
@@ -309,44 +309,44 @@ INSERT INTO `answers` (`id`, `responseId`) VALUES
 --
 -- Dumping data for table `scale_answers`
 --
-INSERT INTO `scale_answers` (`id`, `answerId`, `scale_question_questionsId`, `value`) VALUES
-(11, 11, 63, 4),
-(12, 12, 63, 7),
-(13, 13, 63, 9),
-(14, 14, 63, 3),
-(15, 15, 63, 8),
-(16, 16, 63, 6),
-(17, 17, 63, 9),
-(18, 18, 63, 5),
-(19, 19, 63, 7),
-(20, 20, 63, 2);
+INSERT INTO `scale_answers` (`id`, `answerId`, `scale_question_id`, `value`) VALUES
+(11, 11, 15, 4),
+(12, 12, 15, 7),
+(13, 13, 15, 9),
+(14, 14, 15, 3),
+(15, 15, 15, 8),
+(16, 16, 15, 6),
+(17, 17, 15, 9),
+(18, 18, 15, 5),
+(19, 19, 15, 7),
+(20, 20, 15, 2);
 
 
 --
 -- Dumping data for table `open_answers`
 --
 
-INSERT INTO `open_answers` (`id`, `answerId`, `open_answer_question_questionId`, `answer_text`) VALUES
-(21, 11, 65, '45'),
-(22, 11, 64, 'Your products are good'),
-(23, 12, 65, '23'),
-(24, 12, 64, 'Easy to be broken, cheap quality'),
-(25, 13, 65, '32'),
-(26, 13, 64, 'Products are too expensive'),
-(27, 14, 65, '25'),
-(28, 14, 64, 'Low quality, hard to use'),
-(29, 15, 65, '80'),
-(30, 15, 64, 'Good prices, good quality'),
-(31, 16, 65, '76'),
-(32, 16, 64, 'Not good prices, low quality'),
-(33, 17, 65, '48'),
-(34, 17, 64, 'Product are good prices'),
-(35, 18, 65, '37'),
-(36, 18, 64, 'It is broken after delivery'),
-(37, 19, 65, '28'),
-(38, 19, 64, 'Products are too expensive'),
-(39, 20, 65, '78'),
-(40, 20, 64, 'The colors are not pretty, easy to fade away');
+INSERT INTO `open_answers` (`id`, `answerId`, `open_answer_question_id`, `answer_text`) VALUES
+(21, 11, 6, '45'),
+(22, 11, 5, 'Your products are good'),
+(23, 12, 6, '23'),
+(24, 12, 5, 'Easy to be broken, cheap quality'),
+(25, 13, 6, '32'),
+(26, 13, 5, 'Products are too expensive'),
+(27, 14, 6, '25'),
+(28, 14, 5, 'Low quality, hard to use'),
+(29, 15, 6, '80'),
+(30, 15, 5, 'Good prices, good quality'),
+(31, 16, 6, '76'),
+(32, 16, 5, 'Not good prices, low quality'),
+(33, 17, 6, '48'),
+(34, 17, 5, 'Product are good prices'),
+(35, 18, 6, '37'),
+(36, 18, 5, 'It is broken after delivery'),
+(37, 19, 6, '28'),
+(38, 19, 5, 'Products are too expensive'),
+(39, 20, 6, '78'),
+(40, 20, 5, 'The colors are not pretty, easy to fade away');
 
 --
 -- Dumping data for table `answer_options`

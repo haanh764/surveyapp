@@ -15,7 +15,7 @@ query_open_answers = "SELECT responses.id, respondents.email, questions.title, o
     JOIN questions ON questions.surveyId = surveys.id \
     JOIN open_answer_questions ON open_answer_questions.questionId = questions.id \
     JOIN answers ON answers.responseId = responses.id \
-    JOIN open_answers ON open_answers.open_answer_question_id = open_answer_questions.questionId and open_answers.answerId = answers.id \
+    JOIN open_answers ON open_answers.open_answer_question_id = open_answer_questions.id and open_answers.answerId = answers.id \
     WHERE surveys.id = %s"
 
 query_scale_answers = "SELECT responses.id, respondents.email, questions.title, scale_answers.value \
