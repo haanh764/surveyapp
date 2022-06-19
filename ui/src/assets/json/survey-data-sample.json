@@ -107,7 +107,7 @@
     }
   },
   "config": {
-    "startDate": "Sat, 11 Jun 2022 08:00:00 GMT",
+    "startDate": "Wed, 15 Jun 2022 08:00:00 GMT",
     "endDate": "Tue, 21 Jun 2022 20:00:00 GMT",
     "isPublic": true,
     "emails": ["test@user.com", "test@user2.com"],

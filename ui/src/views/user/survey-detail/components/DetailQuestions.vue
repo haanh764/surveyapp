@@ -414,7 +414,6 @@ export default {
     }
   },
   created() {
-    // this.survey = { ...this.survey, ...surveyDataSample };
     this.getSurveyApi(this.surveyId);
   },
   methods: {
@@ -422,7 +421,7 @@ export default {
       userGetSurvey(survey_id)
       .then((response) => {
         console.log(response);
-        // map json to this.survey
+        // const survey = _.cloneDeep(response);
         const survey = _.cloneDeep(surveyDataSample);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
@@ -434,27 +433,6 @@ export default {
         );
         this.survey = { ...this.survey, ...survey };
         this.formData = { ...this.formData, ...survey.config };
-        /*
-        // DESIRED STRUCTURE:
-        survey: {
-          data: {
-            title: "",
-            description: "",
-            link: "",
-            isPublished: false,
-            formBuilder: {
-              list: [],
-              models: {}
-            }
-          },
-          config: {
-            startDate: "",
-            endDate: "",
-            isPublic: false,
-            emails: []
-          }
-        }
-        */
       });
     },
     onSubmitSurveySettings() {
