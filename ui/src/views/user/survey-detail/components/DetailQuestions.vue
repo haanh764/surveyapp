@@ -432,14 +432,15 @@ export default {
           }
         );
         this.survey = { ...this.survey, ...survey };
-        this.formData = { ...this.formData, ...survey.config };
+        this.formData = { ...this.formData, ...survey };
       });
     },
     onSubmitSurveySettings() {
-      const areEmptyStartEndDates = (this.survey.config.startDate == "" || this.survey.config.endDate == "");
+      const areEmptyStartEndDates = (this.formData.config.startDate == "" || this.formData.config.endDate == "");
       if(areEmptyStartEndDates) {
         this.$notify.toast("Please give survey's start date and end date!");
       } else {
+        this.survey.config = { ...this.survey.config, ...this.formData.config };
         userEditSurvey(this.survey)
         .then(() => {
           this.isSurveySettingsModalShown = false;
