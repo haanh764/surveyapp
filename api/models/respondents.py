@@ -1,32 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from database.db_config import Base, session
 from sqlalchemy.orm import relationship
-from models.survey import Survey
-
-
-class Respondents(Base):
-    __tablename__ = 'respondents'
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String(255), nullable=False)
-    surveys = relationship("AllowedRespondents", back_populates="respondent", cascade="all, delete-orphan")
-
-    def __init__(self, email):
-        self.email = email
-
-    def serialize(self):
-        return {
-            'id': self.id,
-            'email': self.email
-        }
-
-    def add_respondent(self):
-        if not session.query(Respondents).filter_by(email=self.email).first():
-            session.add(self)
-            session.commit()
-
-    @staticmethod
-    def get_respondent(email):
-        return session.query(Respondents).filter_by(email=email).first()
+from models.survey import Survey, Responses, Respondents
 
 
 class AllowedRespondents(Base):
@@ -43,6 +18,10 @@ class AllowedRespondents(Base):
 
     def add_allowed_respondent(self):
         session.add(self)
+        session.commit()
+
+    def delete_respondent(self):
+        session.delete(self)
         session.commit()
 
     @staticmethod

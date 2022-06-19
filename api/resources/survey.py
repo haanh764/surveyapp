@@ -5,8 +5,8 @@ from flask_mail import Message
 from app import mail
 
 
-from models.survey import Survey
-from models.respondents import Respondents, AllowedRespondents
+from models.survey import Survey, Respondents
+from models.respondents import AllowedRespondents
 from models.user import User
 from models.question import Question, ScaleQuestion, OpenAnswerQuestion, MultipleChoiceQuestion, AnswerOption
 from email_validator import validate_email, EmailNotValidError
@@ -139,14 +139,17 @@ class GetSurvey(Resource):
                 if not is_allowed(User.find_by_id(current_user_id)):
                     return {'message': 'You are not allowed to access the website.'}, 403
                 if survey.surveyOwner == current_user_id:
-                    allow = True
+                    return jsonify(survey.get_json())
+        except Exception:
+            allow = False
+        if survey.is_published():
             if surveyHash is not None:
                 if surveyHash == survey.surveyHash:
                     allow = True
             if survey.isPublic:
                 allow = True
-        except Exception:
-            allow = False
         if not allow:
             return {'message': 'You are not allowed to access this survey.'}, 403
-        return jsonify(survey.get_json())
+        survey_json = survey.get_json()
+        survey_json['config'] = dict()
+        return jsonify(survey_json)

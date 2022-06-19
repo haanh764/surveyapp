@@ -56,6 +56,10 @@ class Question(Base):
         session.delete(self)
         session.commit()
 
+    @staticmethod
+    def get_question(model):
+        return session.query(Question).filter_by(model=model).first()
+
 
 class ScaleQuestion(Base):
     __tablename__ = 'scale_questions'
@@ -66,6 +70,7 @@ class ScaleQuestion(Base):
     min_value = Column(Float, nullable=False)
     max_value = Column(Float, nullable=False)
     question = relationship("Question", back_populates="scale_question")
+    scale_answers = relationship("ScaleAnswers", back_populates="scale_question", cascade="all, delete-orphan")
 
     def __init__(self, questionId, min_value, max_value, defaultValue=None, step=None):
         self.questionId = questionId
@@ -94,6 +99,7 @@ class OpenAnswerQuestion(Base):
     placeholder = Column(String(255), nullable=True)
     questionId = Column(Integer, ForeignKey(Question.id), nullable=False)
     question = relationship("Question", back_populates="open_answer_question")
+    open_answers = relationship("OpenAnswers", back_populates="open_question", cascade="all, delete-orphan")
 
     def __init__(self, questionId, defaultValue=None, placeholder=None):
         self.questionId = questionId
@@ -118,6 +124,7 @@ class MultipleChoiceQuestion(Base):
     allowMultipleAnswers = Column(Boolean, nullable=False)
     question = relationship("Question", back_populates="multiple_choice_question")
     answer_options = relationship("AnswerOption", back_populates="question", cascade="all, delete-orphan")
+    choice_answers = relationship("ChoiceAnswers", back_populates="choice_question", cascade="all, delete-orphan")
 
     def __init__(self, questionId, allowMultipleAnswers):
         self.questionId = questionId
@@ -144,6 +151,7 @@ class AnswerOption(Base):
     defaultValue = Column(Boolean, nullable=True)
     image = Column(MEDIUMBLOB, nullable=True)
     question = relationship("MultipleChoiceQuestion", back_populates="answer_options")
+    answer_options_choice_answers = relationship("AnswerOptionsChoiceAnswer", back_populates="answer_option", cascade="all, delete-orphan")
 
     def __init__(self, multiple_choice_questions_id, text=None, value=None, defaultValue=None,  image=None):
         self.multiple_choice_questions_id = multiple_choice_questions_id
@@ -160,6 +168,10 @@ class AnswerOption(Base):
             'value': self.value_,
             'image': self.image
         }
+
+    @staticmethod
+    def answer_options(multiple_choice_questions_id):
+        return session.query(AnswerOption).filter_by(multiple_choice_questions_id=multiple_choice_questions_id)
 
     def add_answer(self):
         session.add(self)
