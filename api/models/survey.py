@@ -142,7 +142,7 @@ class Survey(Base):
                 open_answer_question = open_answer_question[0]
                 options['defaultValue'] = open_answer_question.defaultValue
                 options['placeholder'] = open_answer_question.placeholder
-                question_data['type'] = 'text'
+                question_data['type'] = 'input'
                 pass
             elif multiple_choice_question:
                 multiple_choice_question = multiple_choice_question[0]
