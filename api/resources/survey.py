@@ -133,13 +133,12 @@ class GetSurvey(Resource):
         surveyHash = request.args.get('hash', None)
         if not survey:
             return {'message': 'Such survey does not exist.'}, 403
-        if survey.is_published():
-            if survey.isPublic:
-                allow = True
-            else:
-                if surveyHash is not None:
-                    if surveyHash == survey.surveyHash:
-                        allow = True
+        if survey.isPublic:
+            allow = True
+        else:
+            if surveyHash is not None:
+                if surveyHash == survey.surveyHash:
+                    allow = True
         if not allow:
             return {'message': 'You are not allowed to access this survey.'}, 403
         survey_json = survey.get_json()
