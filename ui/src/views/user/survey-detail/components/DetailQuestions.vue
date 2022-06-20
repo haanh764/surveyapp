@@ -364,6 +364,9 @@ export default {
         survey.data.formBuilder.list = survey.data.formBuilder.list.map(
           (listItem) => {
             listItem.question = listItem.title;
+            if (listItem.model.includes("radio_")) {
+              listItem.type = "radio";
+            }
             return listItem;
           }
         );

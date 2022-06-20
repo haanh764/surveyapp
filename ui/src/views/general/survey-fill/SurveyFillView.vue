@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height text-center survey-fill-view" tag="section">
     <v-row justify="center">
-      <v-col v-if="!survey.data.isPublished" cols="12">
+      <v-col v-if="!isPublished" cols="12">
         <content-card
           title="Sorry, this survey is not yet published"
           description="Check your invite link or make sure you are granted the right
@@ -103,6 +103,7 @@ export default {
     return {
       token: this.$route.query.token,
       todayDate: moment().format("DD MMM YYYY"),
+      isPublished: true,
       hasPermission: true,
       hasSubmitted: false,
       baseUrl: window.location.origin,
@@ -170,11 +171,21 @@ export default {
     getSurveyApi(survey_id) {
       userGetSurvey(survey_id).then((response) => {
         const survey = _.cloneDeep(response);
+        console.log(JSON.stringify(survey));
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
+        const todaysDate = new Date();
+        if (survey.config.startDate <= todaysDate && todaysDate <= survey.config.endDate) {
+          survey.data.isPublished = true;
+        } else {
+          survey.data.isPublished = false;
+        }
         survey.data.formBuilder.list = survey.data.formBuilder.list.map(
           (listItem) => {
             listItem.question = listItem.title;
+            if (listItem.model.includes("radio_")) {
+              listItem.type = "radio";
+            }
             return listItem;
           }
         );
