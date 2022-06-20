@@ -9,8 +9,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `isActivated`, `isBlocked`) VALU
 -- Dumping data for table `surveys`
 --
 INSERT INTO `surveys` (`id`, `surveyOwner`, `title`, `description`, `isPublic`, `surveyHash`, `isSurveySentAutomatically`, `isPublished`, `startDate`, `endDate`, `creationDate`, `modificationDate`) VALUES
-(15, 1, 'Survey title', 'description', NULL, NULL, NULL, NULL, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07'),
-(16, 1, 'Mock Up Survey', NULL, NULL, NULL, NULL, NULL, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07');
+(15, 1, 'Survey title', 'description', 1, NULL, NULL, 1, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07'),
+(16, 1, 'Mock Up Survey', NULL, 1, NULL, NULL, 1, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07');
 
 --
 -- Dumping data for table `respondents`
@@ -48,12 +48,12 @@ INSERT INTO `responses` (`id`, `surveyId`, `respondentId`) VALUES
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `surveyId`, `title`, `description`, `image`, `order_number`, `tag`, `model_key`, `model`) VALUES
-(56, 16, 'Have you ever bought our product?', NULL, NULL, NULL, NULL, NULL, NULL),
-(57, 16, 'How did you hear about our website?', NULL, NULL, NULL, NULL, NULL, NULL),
-(58, 16, 'How satisfied are you?', NULL, NULL, NULL, NULL, NULL, NULL),
-(59, 16, 'Do you have any comments on our products?', NULL, NULL, NULL, NULL, NULL, NULL),
-(60, 16, 'How old are you?', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `questions` (`id`, `surveyId`, `title`, `description`, `defaultValue`, `image`, `order_number`, `tag`, `model_key`, `model`) VALUES
+(56, 16, 'Have you ever bought our product?', NULL, NULL, NULL, 1, NULL, '72b98a503', 'radio_72b98a503'),
+(57, 16, 'How did you hear about our website?', NULL, NULL, NULL, 2, NULL, '5bc84abf1', 'checkbox_5bc84abf1'),
+(58, 16, 'How satisfied are you?', NULL, NULL, NULL, 3, NULL, '6b457fb73', 'slider_6b457fb73'),
+(59, 16, 'Do you have any comments on our products?', NULL, NULL, NULL, 4, NULL, 'e77197d15', 'input_e77197d15'),
+(60, 16, 'How old are you?', NULL, NULL, NULL, 5, NULL, 'e77197d15', 'input_e77197d15');
 
 --
 -- Dumping data for table `scale_questions`
@@ -236,7 +236,7 @@ INSERT INTO `answer_options_choice_answer` (`id`, `choice_answerId`, `answer_opt
 -- Dumping data for table `surveys`
 --
 INSERT INTO `surveys` (`id`, `surveyOwner`, `title`, `description`, `isPublic`, `surveyHash`, `isSurveySentAutomatically`, `isPublished`, `startDate`, `endDate`, `creationDate`, `modificationDate`) VALUES
-(17, 1, 'Mock Up Survey 2', NULL, NULL, NULL, NULL, NULL, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07');
+(17, 1, 'Mock Up Survey 2', NULL, 1, NULL, NULL, 1, '2022-06-12 21:27:07', '2022-06-19 21:27:07', '2022-06-12 21:27:07', '2022-06-12 21:27:07');
 
 
 --
@@ -259,12 +259,12 @@ INSERT INTO `responses` (`id`, `surveyId`, `respondentId`) VALUES
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `surveyId`, `title`, `description`, `image`, `order_number`, `tag`, `model_key`, `model`) VALUES
-(61, 17, 'Have you ever bought our product 2?', NULL, NULL, NULL, NULL, NULL, NULL),
-(62, 17, 'How did you hear about our website 2?', NULL, NULL, NULL, NULL, NULL, NULL),
-(63, 17, 'How satisfied are you? 2', NULL, NULL, NULL, NULL, NULL, NULL),
-(64, 17, 'Do you have any comments on our products? 2', NULL, NULL, NULL, NULL, NULL, NULL),
-(65, 17, 'How old are you? 2', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `questions` (`id`, `surveyId`, `title`, `description`, `defaultValue`, `image`, `order_number`, `tag`, `model_key`, `model`) VALUES
+(61, 17, 'Have you ever bought our product 2?', NULL, NULL, NULL, 1, NULL, '72b98a503', 'radio_72b98a503'),
+(62, 17, 'How did you hear about our website 2?', NULL, NULL, NULL, 2, NULL, '5bc84abf1', 'checkbox_5bc84abf1'),
+(63, 17, 'How satisfied are you? 2', NULL, NULL, NULL, 3, NULL, '6b457fb73', 'slider_6b457fb73'),
+(64, 17, 'Do you have any comments on our products? 2', NULL, NULL, NULL, 4, NULL, 'e77197d15', 'input_e77197d15'),
+(65, 17, 'How old are you? 2', NULL, NULL, NULL, 5, NULL, 'e77197d15', 'input_e77197d15');
 
 --
 -- Dumping data for table `scale_questions`
