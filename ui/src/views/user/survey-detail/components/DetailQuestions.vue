@@ -1,56 +1,25 @@
 <template>
-  <v-container
-    fluid
-    tag="section"
-    class="detail-questions fill-height"
-  >
-    <v-row
-      justify="start"
-      align="center"
-    >
-      <v-col
-        cols="12"
-        class="detail-questions__info"
-      >
-        <v-row
-          justify="start"
-          class="pa-5"
-        >
+  <v-container fluid tag="section" class="detail-questions fill-height">
+    <v-row justify="start" align="center">
+      <v-col cols="12" class="detail-questions__info">
+        <v-row justify="start" class="pa-5">
           <!--start of mobile template -->
           <template v-if="isMobile">
-            <v-col
-              cols="12"
-              class="text-right pb-5 pt-0"
-            >
+            <v-col cols="12" class="text-right pb-5 pt-0">
               <strong class="d-block primary--text">
-                <v-icon
-                  small
-                  class="mr-2 primary--text"
-                >mdi-clock</v-icon>
+                <v-icon small class="mr-2 primary--text">mdi-clock</v-icon>
                 {{ timeDifferenceBeforePublication }}
               </strong>
             </v-col>
-            <v-col
-              cols="12"
-              class="text-left py-0"
-            >
+            <v-col cols="12" class="text-left py-0">
               <p class="ma-0 text-left">
-                <v-icon
-                  small
-                  class="mr-1"
-                >
-                  mdi-calendar
-                </v-icon>
-                {{ survey.config.startDate | standardDate }} - {{ survey.config.endDate | standardDate }}
+                <v-icon small class="mr-1"> mdi-calendar </v-icon>
+                {{ survey.config.startDate | standardDate }} -
+                {{ survey.config.endDate | standardDate }}
               </p>
             </v-col>
-            <v-col
-              cols="12"
-              class="text-left"
-            >
-              <v-icon small>
-                mdi-account-outline
-              </v-icon>
+            <v-col cols="12" class="text-left">
+              <v-icon small> mdi-account-outline </v-icon>
               <template v-if="survey.config.isPublic">
                 Public
                 <v-btn
@@ -58,15 +27,14 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2 detail-questions__copy-button"
+                  class="
+                    text-secondary text-none
+                    ml-2
+                    detail-questions__copy-button
+                  "
                   @click="onClickCopyLinkButton"
                 >
-                  <v-icon
-                    class="pr-2"
-                    small
-                  >
-                    mdi-content-copy
-                  </v-icon>
+                  <v-icon class="pr-2" small> mdi-content-copy </v-icon>
                   Copy link
                 </v-btn>
               </template>
@@ -77,38 +45,33 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2 detail-questions__view-participants-button"
+                  class="
+                    text-secondary text-none
+                    ml-2
+                    detail-questions__view-participants-button
+                  "
                   @click="onClickViewParticipantsButton"
                 >
-                  <v-icon
-                    class="pr-2"
-                    small
-                  >
-                    mdi-account-outline
-                  </v-icon>
+                  <v-icon class="pr-2" small> mdi-account-outline </v-icon>
                   View participants
                 </v-btn>
               </template>
             </v-col>
-            <v-col
-              cols="12"
-              class="text-left "
-            >
+            <v-col cols="12" class="text-left">
               <v-btn
                 v-if="survey.data.isPublished"
                 text
                 small
                 outlined
                 rounded
-                class="mr-2 text-secondary text-none detail-questions__set-privacy-button"
+                class="
+                  mr-2
+                  text-secondary text-none
+                  detail-questions__set-privacy-button
+                "
                 @click="onClickSetSurveyPrivacyButton"
               >
-                <v-icon
-                  small
-                  class="mr-2"
-                >
-                  mdi-lock
-                </v-icon>
+                <v-icon small class="mr-2"> mdi-lock </v-icon>
                 Set survey privacy
               </v-btn>
               <v-btn
@@ -117,15 +80,14 @@
                 small
                 outlined
                 rounded
-                class="mr-2 text-secondary text-none detail-questions__edit-button"
+                class="
+                  mr-2
+                  text-secondary text-none
+                  detail-questions__edit-button
+                "
                 @click="onClickEditSurveyButton"
               >
-                <v-icon
-                  small
-                  class="pr-2"
-                >
-                  mdi-pencil
-                </v-icon>
+                <v-icon small class="pr-2"> mdi-pencil </v-icon>
                 Edit survey
               </v-btn>
               <v-btn
@@ -134,13 +96,7 @@
                 class="text-secondary text-none detail-questions__delete-button"
                 @click="onClickDeleteSurveyButton"
               >
-                <v-icon
-                  small
-                  class="pr-2"
-                  rounded
-                >
-                  mdi-delete
-                </v-icon>
+                <v-icon small class="pr-2" rounded> mdi-delete </v-icon>
                 <u>Delete survey</u>
               </v-btn>
             </v-col>
@@ -150,22 +106,13 @@
           <template v-else>
             <v-col cols="4">
               <p class="ma-0 text-left">
-                <v-icon
-                  small
-                  class="mr-1"
-                >
-                  mdi-calendar
-                </v-icon>
-                {{ survey.config.startDate | standardDate }} - {{ survey.config.endDate | standardDate }}
+                <v-icon small class="mr-1"> mdi-calendar </v-icon>
+                {{ survey.config.startDate | standardDate }} -
+                {{ survey.config.endDate | standardDate }}
               </p>
             </v-col>
-            <v-col
-              cols="4"
-              class="text-left"
-            >
-              <v-icon small>
-                mdi-account-outline
-              </v-icon>
+            <v-col cols="4" class="text-left">
+              <v-icon small> mdi-account-outline </v-icon>
               <template v-if="survey.config.isPublic">
                 Public
                 <v-btn
@@ -173,15 +120,14 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2 detail-questions__copy-button"
+                  class="
+                    text-secondary text-none
+                    ml-2
+                    detail-questions__copy-button
+                  "
                   @click="onClickCopyLinkButton"
                 >
-                  <v-icon
-                    class="pr-2"
-                    small
-                  >
-                    mdi-content-copy
-                  </v-icon>
+                  <v-icon class="pr-2" small> mdi-content-copy </v-icon>
                   Copy link
                 </v-btn>
               </template>
@@ -193,28 +139,21 @@
                   small
                   outlined
                   rounded
-                  class="text-secondary text-none ml-2 detail-questions__view-participants-button"
+                  class="
+                    text-secondary text-none
+                    ml-2
+                    detail-questions__view-participants-button
+                  "
                   @click="onClickViewParticipantsButton"
                 >
-                  <v-icon
-                    class="pr-2"
-                    small
-                  >
-                    mdi-account-outline
-                  </v-icon>
+                  <v-icon class="pr-2" small> mdi-account-outline </v-icon>
                   View participants
                 </v-btn>
               </template>
             </v-col>
-            <v-col
-              cols="4"
-              class="text-right"
-            >
+            <v-col cols="4" class="text-right">
               <strong class="d-block primary--text mb-10">
-                <v-icon
-                  small
-                  class="mr-2 primary--text"
-                >mdi-clock</v-icon>
+                <v-icon small class="mr-2 primary--text">mdi-clock</v-icon>
                 {{ timeDifferenceBeforePublication }}
               </strong>
               <v-btn
@@ -223,12 +162,14 @@
                 small
                 outlined
                 rounded
-                class="text-secondary text-none mr-2 detail-questions__set-privacy-button"
+                class="
+                  text-secondary text-none
+                  mr-2
+                  detail-questions__set-privacy-button
+                "
                 @click="onClickSetSurveyPrivacyButton"
               >
-                <v-icon small>
-                  mdi-share
-                </v-icon>
+                <v-icon small> mdi-share </v-icon>
                 Set survey privacy
               </v-btn>
               <v-btn
@@ -237,30 +178,27 @@
                 small
                 outlined
                 rounded
-                class="mr-2 text-secondary text-none detail-questions__edit-button"
+                class="
+                  mr-2
+                  text-secondary text-none
+                  detail-questions__edit-button
+                "
                 @click="onClickEditSurveyButton"
               >
-                <v-icon
-                  small
-                  class="pr-2"
-                >
-                  mdi-pencil
-                </v-icon>
+                <v-icon small class="pr-2"> mdi-pencil </v-icon>
                 Edit survey
               </v-btn>
               <v-btn
                 text
                 small
-                class="text-secondary text-none pa-0 detail-questions__delete-button"
+                class="
+                  text-secondary text-none
+                  pa-0
+                  detail-questions__delete-button
+                "
                 @click="onClickDeleteSurveyButton"
               >
-                <v-icon
-                  small
-                  class="pr-2"
-                  rounded
-                >
-                  mdi-delete
-                </v-icon>
+                <v-icon small class="pr-2" rounded> mdi-delete </v-icon>
                 <u>Delete survey</u>
               </v-btn>
             </v-col>
@@ -284,10 +222,7 @@
       name="view-participants-modal"
       :title="`Survey Participants (${survey.config.emails.length})`"
     >
-      <v-card
-        elevation="0"
-        class="pa-5"
-      >
+      <v-card elevation="0" class="pa-5">
         <v-list>
           <v-list-item-group multiple>
             <template v-for="(item, i) in survey.config.emails">
@@ -363,7 +298,7 @@ import SurveySettings from "@/views/user/survey-edit/components/SurveySettings";
 import {
   isTodayBeforeGivenDate,
   convertToStandardDate,
-  getDurationFromTodayToGivenDate
+  getDurationFromTodayToGivenDate,
 } from "@/util/dates";
 import copyText from "@util/copy";
 import { userGetSurvey, userDeleteSurvey, userEditSurvey } from "@api";
@@ -372,7 +307,7 @@ export default {
   name: "DetailQuestions",
   components: {
     GenerateForm,
-    SurveySettings
+    SurveySettings,
   },
   data() {
     return {
@@ -382,15 +317,15 @@ export default {
       isSurveySettingsBottomSheetShown: false,
       baseUrl: window.location.origin,
       formData: {
-        config: {}
+        config: {},
       },
       survey: {
         data: {
           link: "",
-          isPublished: false
+          isPublished: false,
         },
-        config: {}
-      }
+        config: {},
+      },
     };
   },
   computed: {
@@ -411,16 +346,18 @@ export default {
       return this.$route.params.id;
     },
     surveyLink() {
-      return `${this.baseUrl}/survey/${this.surveyId}`;
-    }
+      const isProduction = NODE_ENV === "production";
+      return `${this.baseUrl}/${isProduction ? "#/" : ""}survey/${
+        this.surveyId
+      }`;
+    },
   },
   created() {
     this.getSurveyApi(this.surveyId);
   },
   methods: {
     getSurveyApi(survey_id) {
-      userGetSurvey(survey_id)
-      .then((response) => {
+      userGetSurvey(survey_id).then((response) => {
         const survey = _.cloneDeep(response);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
@@ -434,18 +371,21 @@ export default {
       });
     },
     onSubmitSurveySettings() {
-      const areEmptyStartEndDates = (this.formData.config.startDate == "" || this.formData.config.endDate == "");
-      if(areEmptyStartEndDates) {
+      const areEmptyStartEndDates =
+        this.formData.config.startDate == "" ||
+        this.formData.config.endDate == "";
+      if (areEmptyStartEndDates) {
         this.$notify.toast("Please give survey's start date and end date!");
       } else {
         this.survey.config = { ...this.survey.config, ...this.formData.config };
         userEditSurvey(this.survey)
-        .then(() => {
-          this.isSurveySettingsModalShown = false;
-          this.$notify.toast("Survey has been successfully saved");
-        }).catch((error) => {
-          this.$notify.toast(error.message);
-        });
+          .then(() => {
+            this.isSurveySettingsModalShown = false;
+            this.$notify.toast("Survey has been successfully saved");
+          })
+          .catch((error) => {
+            this.$notify.toast(error.message);
+          });
       }
     },
     onClickSetSurveyPrivacyButton() {
@@ -476,8 +416,8 @@ export default {
     },
     onClickEditSurveyButton() {
       this.$router.push(`/user/surveys/${this.surveyId}/edit`);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
