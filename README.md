@@ -77,7 +77,27 @@ Below is the structure of `/db`:
 - `dump_mockup_data.sql` - Contains queries for inserting mockup data used for testing into database.
 
 `create_db.sql` initially drops all the tables if they exist, so when recreating db, to allow the application to run, it is necessary to run `dump_mockup_data.sql` to have some data in database.
+All actual database queries are executed in `back-end` using `sqlalchemy ORM` models.
 
+Below is an example of database query using `sqlalchemy ORM`.
+
+```
+session.query(Admin).filter_by(email=email).first()
+```
+	
+In this example `Admin` is an ORM class derived from `sqlalchemy.ext.declarative.declarative_base`. Below is a part of the `Admin` declaration:
+
+ ```
+class Admin(Base):
+	__tablename__ = 'administrators'
+	id = Column(Integer, primary_key=True, index=True)
+	email = Column(String(100), nullable=False)
+	password = Column(String(100), nullable=False)
+	.
+	.
+	.
+ ```
+	
 ## Front-end
 
 Below is the structure of `/ui`:
