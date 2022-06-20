@@ -2,6 +2,7 @@ export const USER_SIGNUP_URL = "authentication/signup";
 export const USER_LOGIN_URL = "authentication/login";
 export const USER_LOGOUT_URL = "authentication/logout";
 export const USER_NOT_ACTIVATED_URL = "authentication/notactivated";
+export const USER_IS_BLOCKED_URL = "user/isblocked";
 export const USER_RESEND_ACTIVATION_URL = "authentication/resend";
 export const USER_CHANGE_PASSWORD_URL = "user/changepassword";
 export const USER_DELETE_ACCOUNT_URL = "user/delete";

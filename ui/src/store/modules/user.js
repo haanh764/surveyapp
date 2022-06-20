@@ -47,6 +47,7 @@ const state = {
     email: null
   },
   token: null,
+  isBlocked: false,
   hasBeenActivated: false,
   hasAcceptedCookies: false,
   hasAcceptedPrivacyPolicy: false,
@@ -87,6 +88,9 @@ const actions = {
 const getters = {
   hasLoggedIn: (state) => {
     return !!state.token;
+  },
+  isBlocked: (state) => {
+    return !!state.isBlocked;
   },
   hasBeenActivated: (state) => {
     return !!state.hasBeenActivated;

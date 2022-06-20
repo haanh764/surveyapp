@@ -159,17 +159,6 @@ export default {
       text-align: center;
       margin: calculate-space(2) calculate-space(2);
     }
-
-    &__google-button {
-      text-transform: none;
-      background-color: $white;
-      border: 1px solid $light-gray;
-      font-weight: 400;
-
-      .logo {
-        margin-left: 10px;
-      }
-    }
   }
 }
 </style>

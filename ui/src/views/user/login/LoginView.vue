@@ -77,6 +77,8 @@
                     >
                       LOG IN
                     </v-btn>
+                    <!--
+                    LOGIN WITH GOOGLE BUTTON
                     <span class="login-form__or"> or </span>
                     <v-btn
                       text
@@ -92,6 +94,7 @@
                         max-width="28"
                       />
                     </v-btn>
+                    -->
                   </v-col>
                 </v-row>
               </v-container>
@@ -104,7 +107,7 @@
 </template>
 
 <script>
-import { userLogin, userNotActivated } from "@api";
+import { userLogin, userNotActivated, userisBlocked } from "@api";
 
 export default {
   name: "LoginView",
@@ -133,27 +136,42 @@ export default {
           this.$store.dispatch("user/setToken", authKey);
           this.$store.dispatch("user/setUserData", userData);
           this.$store.dispatch("user/checkAccountTypeAndSetMenuItems");
-
-          userNotActivated()
-            .then((userActivationStatus) => {
-              if (
-                userActivationStatus["message"].includes("is not activated")
-              ) {
-                this.$store.dispatch("user/setHasBeenActivated", false);
-                this.$router.push({ name: "user-confirm" }).catch(() => {});
-              } else {
-                this.$store.dispatch("user/setHasBeenActivated", true);
-                this.$router.push({ name: "user-surveys" }).catch(() => {});
-              }
-            })
-            .catch(() => {
-              this.$router.push({ name: "user-surveys" }).catch(() => {});
-            });
-
+          this.checkUserIsBlocked();
           this.isLoading = false;
         })
         .catch(() => {
           this.isLoading = false;
+        });
+    },
+    checkUserIsBlocked() {
+      userisBlocked()
+        .then((userBlockedStatus) => {
+          if (userBlockedStatus["message"].includes("is blocked")) {
+            this.$store.dispatch("user/setIsBlocked", true);
+            this.$router.push({ name: "user-blocked" }).catch(() => {});
+          } else {
+            this.checkUserIsActivated();
+          }
+        })
+        .catch(() => {
+          this.checkUserIsActivated();
+        });
+    },
+    checkUserIsActivated() {
+      userNotActivated()
+        .then((userActivationStatus) => {
+          if (
+            userActivationStatus["message"].includes("is not activated")
+          ) {
+            this.$store.dispatch("user/setHasBeenActivated", false);
+            this.$router.push({ name: "user-confirm" }).catch(() => {});
+          } else {
+            this.$store.dispatch("user/setHasBeenActivated", true);
+            this.$router.push({ name: "user-surveys" }).catch(() => {});
+          }
+        })
+        .catch(() => {
+          this.$router.push({ name: "user-surveys" }).catch(() => {});
         });
     }
   }

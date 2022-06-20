@@ -8,6 +8,7 @@ import {
   USER_LOGIN_URL,
   USER_LOGOUT_URL,
   USER_NOT_ACTIVATED_URL,
+  USER_IS_BLOCKED_URL,
   USER_RESEND_ACTIVATION_URL,
   USER_CHANGE_PASSWORD_URL,
   USER_DELETE_ACCOUNT_URL,
@@ -114,6 +115,10 @@ export const userLogout = () => {
 
 export const userNotActivated = () => {
   return axios.get(USER_NOT_ACTIVATED_URL);
+};
+
+export const userisBlocked = () => {
+  return axios.get(USER_IS_BLOCKED_URL);
 };
 
 export const userResendActivation = () => {

@@ -23,10 +23,11 @@
           <content-card
             title="Thank you!"
             description="Your submission has been received"
-            primary-button-text="Download as PDF"
-            :on-primary-button-click-callback="onPrimaryButtonClickCallback"
+            show-primary-button="false"
             :image="require('@assets/svg/man-woman-holding-mail.svg')"
           >
+            <!--
+            SHARE BUTTONS
             <template #actions>
               <div class="mt-5 text-center">
                 <p class="text-secondary">
@@ -60,6 +61,7 @@
                 </div>
               </div>
             </template>
+            -->
           </content-card>
         </template>
         <template v-else>
