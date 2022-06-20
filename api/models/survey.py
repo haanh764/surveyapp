@@ -146,7 +146,7 @@ class Survey(Base):
                 pass
             elif multiple_choice_question:
                 multiple_choice_question = multiple_choice_question[0]
-                if (multiple_choice_question.allowMultipleAnswers == true || multiple_choice_question.allowMultipleAnswers == 1):
+                if (multiple_choice_question.allowMultipleAnswers == true or multiple_choice_question.allowMultipleAnswers == 1):
                     question_data['type'] = 'checkbox'
                     models[question.model] = list()
                 else:
