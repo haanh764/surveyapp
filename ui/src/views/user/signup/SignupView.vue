@@ -75,6 +75,7 @@
                     >
                       SIGN UP
                     </v-btn>
+                    <!--
                     <span class="signup-form__or"> or </span>
                     <v-btn
                       text
@@ -90,6 +91,7 @@
                         max-width="28"
                       />
                     </v-btn>
+                    -->
                   </v-col>
                 </v-row>
               </v-container>

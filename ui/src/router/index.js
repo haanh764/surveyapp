@@ -243,7 +243,7 @@ router.beforeEach((to, from, next) => {
             return next({ name: "general-admin-login" });
           });
       }
-    } else if (from.name == "user-blocked" && !isBlocked) {
+    } else if (from.name == "user-blocked" && isBlocked) {
       return next({ name: "user-blocked" });
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });

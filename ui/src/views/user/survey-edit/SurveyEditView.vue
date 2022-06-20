@@ -253,6 +253,8 @@ export default {
     },
     onSaveAsDraftOptionClick() {
       const finalOutput = this.getData();
+      finalOutput.config.startDate = moment().add(112,"years").format("YYYY-MM-DD");
+      finalOutput.config.endDate = moment().add(113,"years").format("YYYY-MM-DD");
       this.saveUserSurveyApi(finalOutput);
     },
     onSaveAndPublishOptionClick() {
