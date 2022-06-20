@@ -271,6 +271,8 @@ export default {
         this.$notify.toast("Please give survey's start date and end date!");
       } else {
         if (this.currentSurveyId == "new") {
+          console.log("Sent data:");
+          console.log(JSON.stringify(finalOutput));
           userAddSurvey(finalOutput)
             .then(() => {
               this.$notify.toast("Your survey has been saved!");
@@ -280,6 +282,8 @@ export default {
               this.$notify.toast(error["message"]);
             });
         } else {
+          console.log("Sent data:");
+          console.log(JSON.stringify(finalOutput));
           finalOutput["config"]["id"] = this.currentSurveyId;
           userEditSurvey(finalOutput)
             .then(() => {
@@ -302,6 +306,8 @@ export default {
     },
     getSurveyApi(surveyId) {
       userGetSurvey(surveyId).then((response) => {
+        console.log("Get Survey from BE:");
+        console.log(JSON.stringify(response));
         const survey = _.cloneDeep(response);
 
         const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";

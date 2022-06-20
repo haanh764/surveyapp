@@ -142,15 +142,16 @@ class Survey(Base):
                 open_answer_question = open_answer_question[0]
                 options['defaultValue'] = open_answer_question.defaultValue
                 options['placeholder'] = open_answer_question.placeholder
-                question_data['type'] = 'text'
+                question_data['type'] = 'input'
                 pass
             elif multiple_choice_question:
                 multiple_choice_question = multiple_choice_question[0]
-                if multiple_choice_question.allowMultipleAnswers:
+                if (multiple_choice_question.allowMultipleAnswers == true || multiple_choice_question.allowMultipleAnswers == 1):
                     question_data['type'] = 'checkbox'
                     models[question.model] = list()
                 else:
                     question_data['type'] = 'radio'
+                    models[question.model] = list()
                 options = dict()
                 options_in_options = list()
                 default_values = list()
