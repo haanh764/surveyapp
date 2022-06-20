@@ -66,11 +66,22 @@ Below is the structure of our repository:
    
 ## Database
 
--- TODO --
+Below is the structure of `/db`:
+
+```
+├── create_db.sql
+├── dump_mockup_data.sql
+```
+
+- `create_db.sql` - File which contains queries for creation of all the database tables and relations between them.
+- `dump_mockup_data.sql` - Contains queries for inserting mockup data used for testing into database.
+
+`create_db.sql` initially drops all the tables if they exist, so when recreating db, to allow the application to run, it is necessary to run `dump_mockup_data.sql` to have some data in database.
 
 ## Front-end
 
 Below is the structure of `/ui`:
+
 
 ```
 ├── README.md
