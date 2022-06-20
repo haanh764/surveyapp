@@ -2,19 +2,26 @@
   <v-container
     id="user-surveys-view"
     class="user-surveys-view"
-    :class="{'--no-padding': isMobile && (isPrivacyPolicyModalShown || isTnCModalShown), }"
+    :class="{
+      '--no-padding':
+        isMobile && (isPrivacyPolicyModalShown || isTnCModalShown),
+    }"
     tag="section"
   >
     <v-row justify="center">
-      <v-col :cols="isMobile? 12: 10">
+      <v-col :cols="isMobile ? 12 : 10">
         <v-card
           class="user-surveys-card text-center"
           elevation="2"
-          :class="{'--is-mobile': isMobile, '--is-desktop': !isMobile}"
+          :class="{ '--is-mobile': isMobile, '--is-desktop': !isMobile }"
         >
           <v-row justify="center">
             <v-col cols="12">
-              <template v-if="isMobile && (isPrivacyPolicyModalShown || isTnCModalShown)">
+              <template
+                v-if="
+                  isMobile && (isPrivacyPolicyModalShown || isTnCModalShown)
+                "
+              >
                 <template v-if="isPrivacyPolicyModalShown">
                   <conditions-interaction
                     title="Privacy Policy"
@@ -37,20 +44,24 @@
                   <center>
                     <v-img
                       :src="require('@assets/svg/man-filling-form.svg')"
-                      :max-height="isMobile? 220: 420"
-                      :max-width="isMobile? 320: 600"
+                      :max-height="isMobile ? 220 : 420"
+                      :max-width="isMobile ? 320 : 600"
                     />
                   </center>
-                  <h1 class="mb-2">
-                    This feature is currently disabled
-                  </h1>
+                  <h1 class="mb-2">This feature is currently disabled</h1>
                   <p class="text-secondary">
-                    You cannot use our services until you have accepted our Terms and Conditions and Privacy Policy.
+                    You cannot use our services until you have accepted our
+                    Terms and Conditions and Privacy Policy.
                   </p>
                   <v-btn
                     v-show="!hasAcceptedTnC"
                     block
-                    class="text-capitalize v-btn--default mb-5 surveys-view__tnc-button"
+                    class="
+                      text-capitalize
+                      v-btn--default
+                      mb-5
+                      surveys-view__tnc-button
+                    "
                     height="53"
                     @click="isTnCModalShown = true"
                   >
@@ -67,37 +78,33 @@
                   </v-btn>
                 </template>
                 <template v-else-if="hasAcceptedConditions && !surveys.length">
-                  <v-img
-                    :src="require('@assets/svg/man-filling-form.svg')"
-                    :max-height="isMobile? 220: 420"
-                    :max-width="isMobile? 320: 600"
-                  />
-                  <h1 class="mb-2">
-                    Reach your respondents
-                  </h1>
+                  <center class="mb-2">
+                    <v-img
+                      :src="require('@assets/svg/man-filling-form.svg')"
+                      :max-height="isMobile ? 220 : 420"
+                      :max-width="isMobile ? 320 : 600"
+                    />
+                  </center>
+                  <h1 class="mb-2">Reach your respondents</h1>
                   <p class="text-secondary">
                     Save a draft survey and it will show up in here
                   </p>
                   <v-btn
-                    block
+                    :block="isMobile"
                     height="53"
+                    :width="isMobile ? undefined : 600"
                     :disabled="surveys.length >= 20"
                     class="v-btn--accent surveys-view__create-button"
                     @click="createSurvey"
                   >
-                    <v-icon class="pr-1">
-                      mdi-plus
-                    </v-icon>
+                    <v-icon class="pr-1"> mdi-plus </v-icon>
                     CREATE SURVEY
                   </v-btn>
                 </template>
                 <template v-else>
                   <template v-if="isMobile">
                     <v-row justify="center">
-                      <v-col
-                        cols="12"
-                        class="mb-2"
-                      >
+                      <v-col cols="12" class="mb-2">
                         <v-btn
                           block
                           height="53"
@@ -105,9 +112,7 @@
                           class="v-btn--accent surveys-view__create-button"
                           @click="createSurvey"
                         >
-                          <v-icon class="pr-1">
-                            mdi-plus
-                          </v-icon>
+                          <v-icon class="pr-1"> mdi-plus </v-icon>
                           CREATE SURVEY
                         </v-btn>
                       </v-col>
@@ -125,10 +130,7 @@
                           {{ surveys.length }} surveys
                         </p>
                       </v-col>
-                      <v-col
-                        cols="3"
-                        class="text-right"
-                      >
+                      <v-col cols="3" class="text-right">
                         <v-btn
                           text
                           icon
@@ -139,7 +141,11 @@
                           @click="isSortedAscending = !isSortedAscending"
                         >
                           <v-icon>
-                            {{ isSortedAscending ? 'mdi-sort-alphabetical-ascending' : 'mdi-sort-alphabetical-descending' }}
+                            {{
+                              isSortedAscending
+                                ? "mdi-sort-alphabetical-ascending"
+                                : "mdi-sort-alphabetical-descending"
+                            }}
                           </v-icon>
                         </v-btn>
                       </v-col>
@@ -154,10 +160,7 @@
                       >
                         <v-list-item-content class="pa-2 pb-4">
                           <v-row justify="space-between">
-                            <v-col
-                              cols="auto"
-                              align-self="start"
-                            >
+                            <v-col cols="auto" align-self="start">
                               <h2 class="mb-1">
                                 {{ survey.title }}
                               </h2>
@@ -177,19 +180,15 @@
                     </v-list>
                   </template>
                   <template v-else>
-                    <v-row
-                      justify="start"
-                      class="mb-2"
-                    >
-                      <v-col
-                        cols="7"
-                        class="text-left"
-                      >
-                        <h1>
-                          My Surveys
-                        </h1>
+                    <v-row justify="start" class="mb-2">
+                      <v-col cols="7" class="text-left">
+                        <h1>My Surveys</h1>
                         <p>
-                          {{ surveys.length == 20 ? `Maximum ${surveys.length} surveys reached` : `${surveys.length} surveys` }}
+                          {{
+                            surveys.length == 20
+                              ? `Maximum ${surveys.length} surveys reached`
+                              : `${surveys.length} surveys`
+                          }}
                         </p>
                       </v-col>
                       <v-col cols="5">
@@ -200,9 +199,7 @@
                           class="v-btn--accent surveys-view__create-button"
                           @click="createSurvey"
                         >
-                          <v-icon class="pr-1">
-                            mdi-plus
-                          </v-icon>
+                          <v-icon class="pr-1"> mdi-plus </v-icon>
                           CREATE SURVEY
                         </v-btn>
                       </v-col>
@@ -216,10 +213,7 @@
                       @dblclick:row="onClickTableRowItem"
                     >
                       <template #top>
-                        <v-row
-                          justify="start"
-                          class="user-surveys-table__top"
-                        >
+                        <v-row justify="start" class="user-surveys-table__top">
                           <!-- not defined in requirements but shown in design -->
                           <!-- <v-col cols="1">
                             <v-btn
@@ -244,7 +238,7 @@
                           </v-col>
                         </v-row>
                       </template>
-                      <template #item.index="{item, index}">
+                      <template #item.index="{ item, index }">
                         {{ index + 1 }}
                       </template>
                       <template #item.lastUpdatedDate="{ item }">
@@ -259,7 +253,7 @@
                           {{ getItemStatus(item.status).text }}
                         </v-chip>
                       </template>
-                      <template #item.id="{item}">
+                      <template #item.id="{ item }">
                         <v-row justify="space-between">
                           <v-col cols="12">
                             <v-btn
@@ -267,12 +261,14 @@
                               icon
                               elevation="1"
                               small
-                              class="v-btn--default mr-2 surveys-view__edit-button"
+                              class="
+                                v-btn--default
+                                mr-2
+                                surveys-view__edit-button
+                              "
                               @click="onClickItemEdit(item)"
                             >
-                              <v-icon small>
-                                mdi-pencil
-                              </v-icon>
+                              <v-icon small> mdi-pencil </v-icon>
                             </v-btn>
 
                             <v-btn
@@ -283,9 +279,7 @@
                               class="v-btn--default surveys-view__delete-button"
                               @click="onClickItemDelete(item)"
                             >
-                              <v-icon small>
-                                mdi-delete
-                              </v-icon>
+                              <v-icon small> mdi-delete </v-icon>
                             </v-btn>
                           </v-col>
                         </v-row>
@@ -356,7 +350,7 @@ export default {
       import(
         /* webpackChunkName: "conditions-interaction" */
         "./components/ConditionsInteraction"
-      )
+      ),
   },
   data() {
     return {
@@ -368,13 +362,13 @@ export default {
       selectedSurvey: {},
       privacyPolicyContent: loremIpsum.long,
       tnCContent: loremIpsum.long,
-      surveys: []
+      surveys: [],
     };
   },
   computed: {
-    ...get("user", [ "userData" ]),
-    ...sync("app", [ "mini" ]),
-    ...mapGetters("user", [ "hasAcceptedPrivacyPolicy", "hasAcceptedTnC" ]),
+    ...get("user", ["userData"]),
+    ...sync("app", ["mini"]),
+    ...mapGetters("user", ["hasAcceptedPrivacyPolicy", "hasAcceptedTnC"]),
     hasAcceptedConditions() {
       return this.hasAcceptedPrivacyPolicy && this.hasAcceptedTnC;
     },
@@ -397,9 +391,9 @@ export default {
         { text: "Survey name", value: "title" },
         { text: "Status", value: "status" },
         { text: "Start date", value: "startDate" },
-        { text: "Actions", value: "id" }
+        { text: "Actions", value: "id" },
       ];
-    }
+    },
   },
   created() {
     this.getSurveysApi();
@@ -428,8 +422,8 @@ export default {
         return {
           ...survey,
           ...{
-            index
-          }
+            index,
+          },
         };
       });
     },
@@ -473,28 +467,30 @@ export default {
       this.isTnCModalShown = false;
     },
     getSurveysApi() {
-      userListSurveys()
-        .then((response) => {
-          this.surveys.length = 0;
-          response.forEach((item) => {
-            const respDateTimeFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
-            let rawSurveyStatus = 1;
-            if( item["isPublished"] == true ) {
-              rawSurveyStatus = 2;
-            }
-            const rawSurveyStartDateMoment = convertToStandardDate(item["startDate"], respDateTimeFormat);
-            let rawSurvey = {
-              id: item["id"],
-              title: item["title"],
-              startDate: rawSurveyStartDateMoment,
-              status: rawSurveyStatus,
-              lastUpdatedDate: new Date(item["modificationDate"])
-            };
-            this.surveys.push(rawSurvey);
-          });
+      userListSurveys().then((response) => {
+        this.surveys.length = 0;
+        response.forEach((item) => {
+          const respDateTimeFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+          let rawSurveyStatus = 1;
+          if (item["isPublished"] == true) {
+            rawSurveyStatus = 2;
+          }
+          const rawSurveyStartDateMoment = convertToStandardDate(
+            item["startDate"],
+            respDateTimeFormat
+          );
+          let rawSurvey = {
+            id: item["id"],
+            title: item["title"],
+            startDate: rawSurveyStartDateMoment,
+            status: rawSurveyStatus,
+            lastUpdatedDate: new Date(item["modificationDate"]),
+          };
+          this.surveys.push(rawSurvey);
         });
-    }
-  }
+      });
+    },
+  },
 };
 </script>
 <style lang="scss">
