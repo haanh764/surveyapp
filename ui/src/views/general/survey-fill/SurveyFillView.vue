@@ -176,9 +176,9 @@ export default {
         survey.config.endDate = new Date(survey.config.endDate);
         const todaysDate = new Date();
         if (survey.config.startDate <= todaysDate && todaysDate <= survey.config.endDate) {
-          survey.data.isPublished = true;
+          this.isPublished = true;
         } else {
-          survey.data.isPublished = false;
+          this.isPublished = false;
         }
         survey.data.formBuilder.list = survey.data.formBuilder.list.map(
           (listItem) => {
