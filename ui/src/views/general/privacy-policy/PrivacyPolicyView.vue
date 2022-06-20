@@ -20,7 +20,7 @@
             </p>
             <v-divider class="mt-5" />
             <p class="text-secondary mt-5 mb-5">
-              {{ loremIpsum.long }}
+              {{ pp.long }}
             </p>
             <v-divider class="mb-5" />
             <p>
@@ -34,12 +34,13 @@
 </template>
 
 <script>
-import loremIpsum from "@/assets/json/lorem-ipsum.json";
+import pp from "@assets/json/pp.json";
+
 export default {
   name: "PrivacyPolicyView",
   data() {
     return {
-      loremIpsum
+      pp
     };
   }
 };

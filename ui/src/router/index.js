@@ -50,6 +50,15 @@ const userRoutes = [
         import(
           /* webpackChunkName: "user-confirm" */ "@views/user/login-confirm/LoginConfirmView.vue"
         )
+    },
+    //user-blocked
+    {
+      path: "/user/blocked",
+      name: "user-blocked",
+      component: () =>
+        import(
+          /* webpackChunkName: "user-blocked" */ "@views/user/login-blocked/LoginBlockedView.vue"
+        )
     }
   ])
 ];
@@ -183,6 +192,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  const isBlocked = store.getters["user/isBlocked"];
   const hasLoggedIn = store.getters["user/hasLoggedIn"];
   const accountType = store.getters["user/accountType"];
   const hasBeenActivated = store.getters["user/hasBeenActivated"];
@@ -233,6 +243,8 @@ router.beforeEach((to, from, next) => {
             return next({ name: "general-admin-login" });
           });
       }
+    } else if (from.name == "user-blocked" && !isBlocked) {
+      return next({ name: "user-blocked" });
     } else if (from.name == "user-confirm" && !hasBeenActivated) {
       return next({ name: "user-confirm" });
     } else if (from.name == "user-surveys" && !hasAcceptedTncAndPp) {

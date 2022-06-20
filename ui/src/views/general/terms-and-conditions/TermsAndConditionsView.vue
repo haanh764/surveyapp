@@ -21,7 +21,7 @@
             </p>
             <v-divider class="mt-5" />
             <p class="text-secondary mt-5 mb-5">
-              {{ loremIpsum.long }}
+              {{ tnc.long }}
             </p>
             <v-divider class="mb-5" />
             <p>
@@ -35,12 +35,13 @@
 </template>
 
 <script>
-import loremIpsum from "@/assets/json/lorem-ipsum.json";
+import tnc from "@assets/json/tnc.json";
+
 export default {
   name: "TermsAndConditionsView",
   data() {
     return {
-      loremIpsum
+      tnc
     };
   }
 };
