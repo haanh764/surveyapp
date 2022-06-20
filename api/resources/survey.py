@@ -108,7 +108,8 @@ class AddSurvey(Resource):
         if config['isSurveySentAutomatically']:
             user = User.find_by_id(current_user_id)
             sender = user.email
-            link = url_for('getsurvey', survey_id=survey.id, hash=survey.surveyHash, _external=True)
+            #link = url_for('getsurvey', survey_id=survey.id, hash=survey.surveyHash, _external=True)
+            link = 'localhost:8001/#/survey/' + str(survey.id) + '?hash=' + survey.surveyHash
             for email in emails:
                 if is_email_valid:
                     send_email(email, 'You have been assigned to a new survey.', sender, link)
