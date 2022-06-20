@@ -127,30 +127,19 @@ class ListSurveysByUser(Resource):
 
 
 class GetSurvey(Resource):
-    @jwt_required(optional=True)
     def get(self, survey_id):
         allow = False
         survey = Survey.get_survey(survey_id)
         surveyHash = request.args.get('hash', None)
         if not survey:
             return {'message': 'Such survey does not exist.'}, 403
-        try:
-            current_user_id = get_jwt_identity()
-            if current_user_id is not None:
-                if not is_allowed(User.find_by_id(current_user_id)):
-                    return {'message': 'You are not allowed to access the website.'}, 403
-                if survey.surveyOwner == current_user_id:
-                    return jsonify(survey.get_json())
-        except Exception:
-            allow = False
-        if survey.is_published():
+        if survey.isPublic:
+            allow = True
+        else:
             if surveyHash is not None:
                 if surveyHash == survey.surveyHash:
                     allow = True
-            if survey.isPublic:
-                allow = True
         if not allow:
             return {'message': 'You are not allowed to access this survey.'}, 403
         survey_json = survey.get_json()
-        survey_json['config'] = dict()
         return jsonify(survey_json)
