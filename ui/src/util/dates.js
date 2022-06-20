@@ -1,6 +1,7 @@
 import moment from "moment";
 
-const pythonDefaultDateFormat = "YYYY-MM-DD hh:mm:ss.SSSSSS+00:00";
+// const pythonDefaultDateFormat = "YYYY-MM-DD hh:mm:ss.SSSSSS+00:00";
+const pythonDefaultDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
 
 export const convertToStandardDate = function (
   value,
@@ -34,7 +35,7 @@ export const getDurationFromTodayToGivenDate = function (
     minutes: duration.asMinutes(),
     hours: duration.asHours(),
     days: duration.asDays(),
-    months: duration.asMonths()
+    months: duration.asMonths(),
   };
 };
 

@@ -1,13 +1,7 @@
 <template>
-  <v-container
-    class="fill-height text-center survey-fill-view"
-    tag="section"
-  >
+  <v-container class="fill-height text-center survey-fill-view" tag="section">
     <v-row justify="center">
-      <v-col
-        v-if="survey.data.isPublished"
-        cols="12"
-      >
+      <v-col v-if="!survey.data.isPublished" cols="12">
         <content-card
           title="Sorry, this survey is not yet published"
           description="Check your invite link or make sure you are granted the right
@@ -15,10 +9,7 @@
           :image="require('@assets/svg/man-woman-holding-mail.svg')"
         />
       </v-col>
-      <v-col
-        v-else
-        :cols="isMobile ? 12 : 10"
-      >
+      <v-col v-else :cols="isMobile ? 12 : 10">
         <template v-if="hasSubmitted">
           <content-card
             title="Thank you!"
@@ -66,10 +57,7 @@
         </template>
         <template v-else>
           <template v-if="canSubmit">
-            <v-card
-              :elevation="isMobile ? 0 : 2"
-              class="pa-5"
-            >
+            <v-card :elevation="isMobile ? 0 : 2" class="pa-5">
               <generate-form
                 ref="generateForm"
                 :form-data="survey.data"
@@ -121,20 +109,20 @@ export default {
       socialMedias: [
         {
           icon: "mdi-facebook",
-          text: "Facebook"
+          text: "Facebook",
         },
         {
           icon: "mdi-twitter",
-          text: "Twitter"
+          text: "Twitter",
         },
         {
           icon: "mdi-reddit",
-          text: "Reddit"
+          text: "Reddit",
         },
         {
           icon: "mdi-whatsapp",
-          text: "WhatsApp"
-        }
+          text: "WhatsApp",
+        },
       ],
       survey: {
         data: {
@@ -144,16 +132,16 @@ export default {
           isPublished: true,
           formBuilder: {
             list: [],
-            models: {}
-          }
+            models: {},
+          },
         },
         config: {
           startDate: "",
           endDate: "",
           isPublic: true,
-          emails: []
-        }
-      }
+          emails: [],
+        },
+      },
     };
   },
   computed: {
@@ -161,7 +149,10 @@ export default {
       return this.$route.params.id;
     },
     surveyLink() {
-      return `${this.baseUrl}/survey/${this.surveyId}`;
+      const isProduction = NODE_ENV === "production";
+      return `${this.baseUrl}/${isProduction ? "#/" : ""}survey/${
+        this.surveyId
+      }`;
     },
     isWithinDate() {
       return isTodayBeforeGivenDate(this.survey.config.endDate);
@@ -170,7 +161,7 @@ export default {
       return this.survey.config.isPublic
         ? this.isWithinDate
         : this.token && this.hasPermission && this.isWithinDate;
-    }
+    },
   },
   created() {
     this.getSurveyApi(this.surveyId);
@@ -216,7 +207,7 @@ export default {
         modelsItems.forEach((item) => {
           const responseItem = {
             questionModel: item[0],
-            answerValue: item[1]
+            answerValue: item[1],
           };
           responseItems.push(responseItem);
         });
@@ -225,7 +216,7 @@ export default {
           surveyId: this.surveyId,
           surveyToken: this.token,
           email: responderEmail,
-          responseItems: responseItems
+          responseItems: responseItems,
         };
         responderSubmitResponse(this.surveyId, apiData).then(() => {
           this.$notify.toast("Response has been submitted!");
@@ -239,8 +230,8 @@ export default {
     onClickSurveyLink() {
       const isCopySuccess = copyText(this.surveyLink);
       isCopySuccess && this.$notify.toast("Link has been copied to clipboard");
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,28 +1,13 @@
 <template>
-  <v-container
-    fluid
-    tag="section"
-    class="survey-settings"
-  >
-    <v-row
-      v-if="canSetDate"
-      justify="start"
-    >
-      <v-col
-        cols="12"
-        class="text-left"
-      >
-        <h3 class="mt-5">
-          Submission date
-        </h3>
+  <v-container fluid tag="section" class="survey-settings">
+    <v-row v-if="canSetDate" justify="start">
+      <v-col cols="12" class="text-left">
+        <h3 class="mt-5">Submission date</h3>
         <p class="text-secondary">
           You can set start and end date of submission
         </p>
       </v-col>
-      <v-col
-        cols="12"
-        class="pb-0"
-      >
+      <v-col cols="12" class="pb-0">
         <v-menu
           ref="startDateMenu"
           v-model="isStartDateMenuShown"
@@ -42,17 +27,9 @@
               v-on="on"
             />
           </template>
-          <v-date-picker
-            v-model="formData.startDate"
-            no-title
-            scrollable
-          >
+          <v-date-picker v-model="formData.startDate" no-title scrollable>
             <v-spacer />
-            <v-btn
-              text
-              color="primary"
-              @click="isStartDateMenuShown = false"
-            >
+            <v-btn text color="primary" @click="isStartDateMenuShown = false">
               Cancel
             </v-btn>
             <v-btn
@@ -65,10 +42,7 @@
           </v-date-picker>
         </v-menu>
       </v-col>
-      <v-col
-        cols="12"
-        class="pt-0"
-      >
+      <v-col cols="12" class="pt-0">
         <v-menu
           ref="endDateMenu"
           v-model="isEndDateMenuShown"
@@ -88,17 +62,9 @@
               v-on="on"
             />
           </template>
-          <v-date-picker
-            v-model="formData.endDate"
-            no-title
-            scrollable
-          >
+          <v-date-picker v-model="formData.endDate" no-title scrollable>
             <v-spacer />
-            <v-btn
-              text
-              color="primary"
-              @click="isEndDateMenuShown = false"
-            >
+            <v-btn text color="primary" @click="isEndDateMenuShown = false">
               Cancel
             </v-btn>
             <v-btn
@@ -112,38 +78,18 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-row
-      v-if="formData.isPublic"
-      justify="start"
-      align="center"
-    >
-      <v-col
-        cols="12"
-        class="text-left"
-      >
-        <v-row
-          justify="start"
-          align="center"
-        >
+    <v-row v-if="formData.isPublic" justify="start" align="center">
+      <v-col cols="12" class="text-left">
+        <v-row justify="start" align="center">
           <v-col cols="9">
-            <h3 class="d-block">
-              Public
-            </h3>
-            <p class="text-secondary ma-0">
-              Share your survey to public.
-            </p>
+            <h3 class="d-block">Public</h3>
+            <p class="text-secondary ma-0">Share your survey to public.</p>
           </v-col>
-          <v-col
-            cols="3"
-            class="justify-flex--end"
-          >
+          <v-col cols="3" class="justify-flex--end">
             <v-switch v-model="formData.isPublic" />
           </v-col>
         </v-row>
-        <div
-          class="survey-link mt-5"
-          @click="copyLinkToClipboard"
-        >
+        <div class="survey-link mt-5" @click="copyLinkToClipboard">
           <a :href="surveyLink">
             {{ surveyLink || "An error occured" }}
           </a>
@@ -152,62 +98,34 @@
       </v-col>
     </v-row>
     <v-row v-else>
-      <v-col
-        cols="12"
-        class="text-left"
-      >
+      <v-col cols="12" class="text-left">
         <h3>Invite-only</h3>
-        <v-row
-          justify="space-between"
-          align="center"
-        >
+        <v-row justify="space-between" align="center">
           <v-col cols="9">
             <p class="text-secondary">
               Share your survey only to selected participants by their email
               address.
             </p>
           </v-col>
-          <v-col
-            cols="3"
-            class="text-center justify-flex--end"
-          >
+          <v-col cols="3" class="text-center justify-flex--end">
             <v-switch v-model="formData.isPublic" />
           </v-col>
         </v-row>
       </v-col>
-      <v-col
-        cols="12"
-        class="text-left"
-      >
-        <v-row
-          justify="space-between"
-          align="center"
-        >
-          <v-col
-            cols="9"
-            class="align-flex--center"
-          >
+      <v-col cols="12" class="text-left">
+        <v-row justify="space-between" align="center">
+          <v-col cols="9" class="align-flex--center">
             <p class="text-secondary ma-0">
               Automatically send surveys to invited participants on start date
             </p>
           </v-col>
-          <v-col
-            cols="3"
-            class="justify-flex--end"
-          >
+          <v-col cols="3" class="justify-flex--end">
             <v-switch v-model="formData.isSurveySentAutomatically" />
           </v-col>
         </v-row>
       </v-col>
-      <v-col
-        cols="12"
-        class="text-left pb-0"
-      >
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="E-mail"
-          rules="email"
-        >
+      <v-col cols="12" class="text-left pb-0">
+        <ValidationProvider v-slot="{ errors }" name="E-mail" rules="email">
           <v-text-field
             v-model.trim="newEmail"
             outlined
@@ -221,16 +139,12 @@
           />
         </ValidationProvider>
       </v-col>
-      <v-col
-        cols="5"
-        class="text-left"
-      >
-        <small class="text-secondary">{{ formData.emails.length }} participants added.</small>
+      <v-col cols="5" class="text-left">
+        <small class="text-secondary"
+          >{{ formData.emails.length }} participants added.</small
+        >
       </v-col>
-      <v-col
-        cols="7"
-        class="text-right"
-      >
+      <v-col cols="7" class="text-right">
         <v-btn
           text
           outlined
@@ -240,20 +154,12 @@
           class="text-capitalize text-secondary"
           @click="onSendInvitationButtonClick"
         >
-          <v-icon
-            small
-            class="mr-1"
-          >
-            mdi-send
-          </v-icon>
+          <v-icon small class="mr-1"> mdi-send </v-icon>
           Send invitation
         </v-btn>
       </v-col>
 
-      <v-col
-        cols="12"
-        class="py-0"
-      >
+      <v-col cols="12" class="py-0">
         <v-list>
           <v-list-item-group multiple>
             <template v-for="(item, i) in formData.emails">
@@ -269,12 +175,7 @@
                 </v-list-item-content>
 
                 <v-list-item-action>
-                  <v-btn
-                    icon
-                    small
-                    text
-                    @click="removeEmail(i)"
-                  >
+                  <v-btn icon small text @click="removeEmail(i)">
                     <v-icon>mdi-minus</v-icon>
                   </v-btn>
                 </v-list-item-action>
@@ -301,7 +202,7 @@ export default {
   props: {
     canSetDate: {
       type: Boolean,
-      default: true
+      default: true,
     },
     survey: {
       type: Object,
@@ -312,19 +213,19 @@ export default {
             description: "",
             formBuilder: {
               list: [],
-              models: {}
-            }
+              models: {},
+            },
           },
-          config: {}
+          config: {},
         };
-      }
+      },
     },
     value: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -339,8 +240,8 @@ export default {
         endDate: "",
         isPublic: true,
         emails: [],
-        isSurveySentAutomatically: false
-      }
+        isSurveySentAutomatically: false,
+      },
     };
   },
   computed: {
@@ -348,16 +249,19 @@ export default {
       return this.$route.params.id;
     },
     surveyLink() {
-      return `${this.baseUrl}/survey/${this.surveyId}`;
-    }
+      const isProduction = NODE_ENV === "production";
+      return `${this.baseUrl}/${isProduction ? "#/" : ""}survey/${
+        this.surveyId
+      }`;
+    },
   },
   watch: {
     formData: {
       deep: true,
       handler() {
         this.$emit("input", this.formData);
-      }
-    }
+      },
+    },
   },
   created() {
     this.setFormDataFromSurveyProp();
@@ -381,7 +285,7 @@ export default {
       EventBus.$on("event:getFormBuilderData", () => {
         EventBus.$emit("event:setFormBuilderData", {
           data: this.formData,
-          key: "config"
+          key: "config",
         });
       });
       EventBus.$on("event:setFormBuilderDataFromProp", () => {
@@ -406,8 +310,8 @@ export default {
     },
     getData() {
       return this.formData;
-    }
-  }
+    },
+  },
 };
 </script>
 

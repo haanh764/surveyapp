@@ -1,9 +1,5 @@
 <template>
-  <span
-    class="error-message"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <span class="error-message" v-if="text" v-bind="$attrs" v-on="$listeners">
     {{ text }}
   </span>
 </template>
@@ -14,9 +10,9 @@ export default {
   props: {
     text: {
       type: String,
-      default: "This field has errors"
-    }
-  }
+      default: "This field has errors",
+    },
+  },
 };
 </script>
 <style lang="scss">
