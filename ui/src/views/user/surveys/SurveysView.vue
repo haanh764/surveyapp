@@ -489,7 +489,7 @@ export default {
               startDate: rawSurveyStartDateMoment,
               status: rawSurveyStatus,
               lastUpdatedDate: new Date(item["modificationDate"])
-            }
+            };
             this.surveys.push(rawSurvey);
           });
         });

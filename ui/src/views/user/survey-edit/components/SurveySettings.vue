@@ -15,7 +15,7 @@
         <h3 class="mt-5">
           Submission date
         </h3>
-        <p class="text-secondary ">
+        <p class="text-secondary">
           You can set start and end date of submission
         </p>
       </v-col>
@@ -119,7 +119,7 @@
     >
       <v-col
         cols="12"
-        class="text-left "
+        class="text-left"
       >
         <v-row
           justify="start"
@@ -145,7 +145,7 @@
           @click="copyLinkToClipboard"
         >
           <a :href="surveyLink">
-            {{ surveyLink || 'An error occured' }}
+            {{ surveyLink || "An error occured" }}
           </a>
           <v-icon>mdi-content-copy</v-icon>
         </div>
@@ -156,16 +156,15 @@
         cols="12"
         class="text-left"
       >
-        <h3>
-          Invite-only
-        </h3>
+        <h3>Invite-only</h3>
         <v-row
           justify="space-between"
           align="center"
         >
           <v-col cols="9">
             <p class="text-secondary">
-              Share your survey only to selected participants by their email address.
+              Share your survey only to selected participants by their email
+              address.
             </p>
           </v-col>
           <v-col
@@ -202,7 +201,7 @@
       </v-col>
       <v-col
         cols="12"
-        class="text-left pb-0 "
+        class="text-left pb-0"
       >
         <ValidationProvider
           v-slot="{ errors }"
@@ -390,7 +389,6 @@ export default {
       });
     },
     onSendInvitationButtonClick() {
-      console.log("send invitation");
       this.$notify.toast("Invitations have been sent");
     },
     copyLinkToClipboard() {

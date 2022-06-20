@@ -21,8 +21,8 @@
       >
         <component
           :is="item.component"
-          :survey="survey"
           v-model="formData.config"
+          :survey="survey"
         />
       </v-tab-item>
     </v-tabs-items>

@@ -34,7 +34,10 @@
         cols="12"
         class="pa-0"
       >
-        <form-builder :survey="survey" v-model="formData.formBuilder" />
+        <form-builder
+          v-model="formData.formBuilder"
+          :survey="survey"
+        />
       </v-col>
     </v-row>
   </v-container>

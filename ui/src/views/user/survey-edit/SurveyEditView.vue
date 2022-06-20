@@ -2,7 +2,7 @@
   <v-container
     id="survey-edit-view"
     class="fill-height text-center"
-    :class="{'--is-mobile': isMobile, '--is-desktop': !isMobile}"
+    :class="{ '--is-mobile': isMobile, '--is-desktop': !isMobile }"
     tag="section"
   >
     <v-row
@@ -13,9 +13,7 @@
         cols="6"
         class="text-left pl-0"
       >
-        <h1>
-          Edit survey
-        </h1>
+        <h1>Edit survey</h1>
       </v-col>
       <v-col
         cols="6"
@@ -63,9 +61,9 @@
             >
               <survey-edit-tabs
                 ref="surveyEditTabs"
-                :survey="formData"
-                v-model="activeSurveyEditTab"
                 :key="surveyEditTabsKey"
+                v-model="activeSurveyEditTab"
+                :survey="formData"
               />
             </v-col>
             <v-col
@@ -73,7 +71,10 @@
               cols="4"
               class="pa-0 survey-config-tabs-wrapper"
             >
-              <survey-config-tabs ref="surveyConfigTabs" :survey="formData" />
+              <survey-config-tabs
+                ref="surveyConfigTabs"
+                :survey="formData"
+              />
             </v-col>
           </v-row>
         </v-card>
@@ -94,9 +95,7 @@
               text
               @click="onClickNewSurveyElementsButton"
             >
-              <v-icon>
-                mdi-plus
-              </v-icon>
+              <v-icon> mdi-plus </v-icon>
               <span>New survey elements</span>
             </v-btn>
             <v-btn
@@ -104,9 +103,7 @@
               text
               @click="onClickSettingsButton"
             >
-              <v-icon>
-                mdi-cog
-              </v-icon>
+              <v-icon> mdi-cog </v-icon>
               <span>Settings</span>
             </v-btn>
           </v-card-actions>
@@ -129,8 +126,8 @@
         <template v-if="bottomSheetContent == 'settings'">
           <survey-settings
             ref="surveySettings"
-            :survey="formData.config"
             v-model="formData.config"
+            :survey="formData.config"
           />
         </template>
       </template>
@@ -139,8 +136,8 @@
     <survey-settings
       v-show="false"
       ref="surveySettings"
-      :survey="formData.config"
       v-model="formData.config"
+      :survey="formData.config"
     />
   </v-container>
 </template>
@@ -255,43 +252,41 @@ export default {
       return this.formData;
     },
     onSaveAsDraftOptionClick() {
-      console.log("save as draft");
       const finalOutput = this.getData();
-      console.log(JSON.stringify(finalOutput));
-
       this.saveUserSurveyApi(finalOutput);
     },
     onSaveAndPublishOptionClick() {
-      console.log("save and publish");
       const finalOutput = this.getData();
-      console.log(JSON.stringify(finalOutput));
-
       finalOutput.config.startDate = moment().format("YYYY-MM-DD");
-      finalOutput.config.endDate = moment().add(7,"days").format("YYYY-MM-DD");
+      finalOutput.config.endDate = moment().add(7, "days").format("YYYY-MM-DD");
       this.saveUserSurveyApi(finalOutput);
     },
     saveUserSurveyApi(finalOutput) {
-      const areEmptyStartEndDates = (finalOutput["config"]["startDate"] == "" || finalOutput["config"]["endDate"] == "");
-      if(areEmptyStartEndDates) {
+      const areEmptyStartEndDates =
+        finalOutput["config"]["startDate"] == "" ||
+        finalOutput["config"]["endDate"] == "";
+      if (areEmptyStartEndDates) {
         this.$notify.toast("Please give survey's start date and end date!");
       } else {
         if (this.currentSurveyId == "new") {
           userAddSurvey(finalOutput)
-          .then(() => {
-            this.$notify.toast("Your survey has been saved!");
-            this.$router.push("/user/surveys/");
-          }).catch((error) => {
-            this.$notify.toast(error["message"]);
-          });
+            .then(() => {
+              this.$notify.toast("Your survey has been saved!");
+              this.$router.push("/user/surveys/");
+            })
+            .catch((error) => {
+              this.$notify.toast(error["message"]);
+            });
         } else {
           finalOutput["config"]["id"] = this.currentSurveyId;
           userEditSurvey(finalOutput)
-          .then(() => {
-            this.$notify.toast("Your survey has been saved!");
-            this.$router.push("/user/surveys/");
-          }).catch((error) => {
-            this.$notify.toast(error["message"]);
-          });
+            .then(() => {
+              this.$notify.toast("Your survey has been saved!");
+              this.$router.push("/user/surveys/");
+            })
+            .catch((error) => {
+              this.$notify.toast(error["message"]);
+            });
         }
       }
     },
@@ -304,39 +299,38 @@ export default {
       this.bottomSheetContent = "settings";
     },
     getSurveyApi(surveyId) {
-      userGetSurvey(surveyId)
-        .then((response) => {
-          const survey = _.cloneDeep(response);
+      userGetSurvey(surveyId).then((response) => {
+        const survey = _.cloneDeep(response);
 
-          const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
-          const pickerDateFormat = "YYYY-MM-DD";
-          if (survey.config.startDate == "") {
-            survey.config.startDate = this.todayDate;
-          } else {
-            survey.config.startDate = moment(
-              survey.config.startDate,
-              rawDateFormat
-            ).format(pickerDateFormat);
-          }
-          if (survey.config.endDate == "") {
-            survey.config.endDate = moment().add(7,"days").format("YYYY-MM-DD");
-          } else {
-            survey.config.endDate = moment(
-              survey.config.endDate,
-              rawDateFormat
-            ).format(pickerDateFormat);
-          }
+        const rawDateFormat = "ddd, DD MMM YYYY hh:mm:ss zz";
+        const pickerDateFormat = "YYYY-MM-DD";
+        if (survey.config.startDate == "") {
+          survey.config.startDate = this.todayDate;
+        } else {
+          survey.config.startDate = moment(
+            survey.config.startDate,
+            rawDateFormat
+          ).format(pickerDateFormat);
+        }
+        if (survey.config.endDate == "") {
+          survey.config.endDate = moment().add(7, "days").format("YYYY-MM-DD");
+        } else {
+          survey.config.endDate = moment(
+            survey.config.endDate,
+            rawDateFormat
+          ).format(pickerDateFormat);
+        }
 
-          survey.data.formBuilder.list = survey.data.formBuilder.list.map(
-            (listItem) => {
-              listItem.question = listItem.title;
-              return listItem;
-            }
-          );
-          
-          this.formData = { ...this.formData, ...survey };
-          this.surveyEditTabsKey += 1;
-        });
+        survey.data.formBuilder.list = survey.data.formBuilder.list.map(
+          (listItem) => {
+            listItem.question = listItem.title;
+            return listItem;
+          }
+        );
+
+        this.formData = { ...this.formData, ...survey };
+        this.surveyEditTabsKey += 1;
+      });
     }
   }
 };

@@ -29,7 +29,7 @@ import {
   ADMIN_RESET_USER_PASSWORD_URL,
   ADMIN_SEARCH_USER_URL,
   ADMIN_UNBLOCK_USER_URL,
-  ADMIN_DELETE_USER_URL,
+  ADMIN_DELETE_USER_URL
 } from "./urls";
 
 const axios = require("axios");
@@ -50,7 +50,7 @@ axios.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log("API Request Error:", JSON.stringify(error));
+    console.error("API Request Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }
@@ -62,7 +62,7 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log("API Response Error:", JSON.stringify(error));
+    console.error("API Response Error:", JSON.stringify(error));
     EventBus.$emit("event:apiError", error);
     return Promise.reject(new Error(error).message);
   }
