@@ -341,8 +341,8 @@ import { get, sync } from "vuex-pathify";
 import { mapGetters } from "vuex";
 import { userListSurveys, userDeleteSurvey } from "@api";
 import { convertToStandardDate } from "@util/dates.js";
-import tnc from "@assets/json/tnc.json";
-import pp from "@assets/json/pp.json";
+import { tnc } from "@assets/json/tnc.json";
+import { pp } from "@assets/json/pp.json";
 
 export default {
   name: "UserSurveysView",
@@ -361,8 +361,8 @@ export default {
       isTnCModalShown: false,
       isDeleteItemModalShown: false,
       selectedSurvey: {},
-      privacyPolicyContent: tnc.long,
-      tnCContent: pp.long,
+      privacyPolicyContent: pp.long,
+      tnCContent: tnc.long,
       surveys: []
     };
   },
