@@ -17,7 +17,7 @@
       </v-col>
       <v-col
         v-else
-        :cols="isMobile ? 12: 10"
+        :cols="isMobile ? 12 : 10"
       >
         <template v-if="hasSubmitted">
           <content-card
@@ -36,7 +36,7 @@
                   <ul class="social-media-list">
                     <li
                       v-for="(socialMedia, index) in socialMedias"
-                      :key="'socialMedia_'+index"
+                      :key="'socialMedia_' + index"
                       class="social-media-list__item"
                     >
                       <v-icon
@@ -175,13 +175,10 @@ export default {
   },
   methods: {
     getSurveyApi(survey_id) {
-      userGetSurvey(survey_id)
-      .then((response) => {
+      userGetSurvey(survey_id).then((response) => {
         const survey = _.cloneDeep(response);
-        console.log(survey);
         survey.config.startDate = new Date(survey.config.startDate);
         survey.config.endDate = new Date(survey.config.endDate);
-        console.log(survey);
         survey.data.formBuilder.list = survey.data.formBuilder.list.map(
           (listItem) => {
             listItem.question = listItem.title;
@@ -196,16 +193,15 @@ export default {
       // do something
     },
     isEmailAllowed(responderEmail) {
-      return (this.survey.config.emails.indexOf(responderEmail) > -1);
+      return this.survey.config.emails.indexOf(responderEmail) > -1;
     },
-    onClickSubmitButton({models, list}) {
-      // (models, list) contains modified data from GenerateForm component
-      console.log(JSON.stringify({models, list}));
-
+    onClickSubmitButton({ models }) {
       let responderEmail = "";
       if (!this.survey.config.isPublic) {
-        responderEmail = prompt("Please enter your email address where you received the invitation to this survey:");
-        if ( this.isEmailAllowed(responderEmail) ) {
+        responderEmail = prompt(
+          "Please enter your email address where you received the invitation to this survey:"
+        );
+        if (this.isEmailAllowed(responderEmail)) {
           this.hasPermission = false;
         }
       }
@@ -219,7 +215,7 @@ export default {
           const responseItem = {
             questionModel: item[0],
             answerValue: item[1]
-          }
+          };
           responseItems.push(responseItem);
         });
 
@@ -229,7 +225,6 @@ export default {
           email: responderEmail,
           responseItems: responseItems
         };
-        console.log(JSON.stringify(apiData));
         responderSubmitResponse(this.surveyId, apiData).then(() => {
           this.$notify.toast("Response has been submitted!");
         });

@@ -48,17 +48,17 @@ export default {
           description: "",
           formBuilder: {
             list: [],
-            models: {},
-          },
+            models: {}
+          }
         },
-        config: {},
-      },
+        config: {}
+      }
     };
   },
   computed: {
     surveyId() {
       return this.$route.params.id;
-    },
+    }
   },
   created() {
     this.getSurveyDatatableApi(this.surveyId);
@@ -73,8 +73,8 @@ export default {
     },
     onLoadIframe() {
       this.$notify.toast("Responses successfully loaded.");
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

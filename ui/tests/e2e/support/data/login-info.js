@@ -3,11 +3,11 @@ export default {
   user: {
     email: "sapi@yopmail.com",
     password: "asdfghjkl",
-    emailNotActivated: "amatsangatlapar@yopmail.com",
+    emailNotActivated: "amatsangatlapar@yopmail.com"
   },
   admin: {
     email: "surveyapp.manager@gmail.com",
-    password: "admin123",
+    password: "admin123"
   },
   mockEmails: {
     success200: "200@mock.com",
@@ -16,6 +16,6 @@ export default {
     error400: "400@mock.com",
     error401: "401@mock.com",
     error404: "404@mock.com",
-    error500: "500@mock.com",
-  },
+    error500: "500@mock.com"
+  }
 };
